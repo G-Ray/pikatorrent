@@ -2,6 +2,7 @@
   "expo": {
     "name": "expo-tamagui-universal-starter",
     "slug": "expo-tamagui-universal-starter",
+    "scheme": "expo-tamagui-universal-starter",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -24,7 +25,8 @@
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
     }
   }
 }
