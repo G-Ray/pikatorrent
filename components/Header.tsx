@@ -1,0 +1,47 @@
+import { PlusCircle } from "@tamagui/lucide-icons";
+import { Button, H1, H2, H6, Theme, useMedia, XStack } from "tamagui";
+import { ConnectionStatus } from "./ConnectionStatus";
+
+export const Header = () => {
+  const media = useMedia();
+
+  return (
+    <Theme name="dark">
+      <XStack
+        py="$4"
+        px={media.gtMd ? "$8" : "$4"}
+        jc="space-between"
+        ai="center"
+        bc="$background"
+      >
+        <XStack ai="center" gap="$4">
+          <XStack>{media.gtMd ? <DesktopTitle /> : <MobileTitle />}</XStack>
+          <Button circular icon={PlusCircle} scaleIcon={3}></Button>
+        </XStack>
+        <ConnectionStatus />
+      </XStack>
+    </Theme>
+  );
+};
+
+const DesktopTitle = () => {
+  return (
+    <>
+      <H1 color="$yellow9" fontWeight="$6">
+        Pika
+      </H1>
+      <H1 fontWeight="$6">Torrent</H1>
+    </>
+  );
+};
+
+const MobileTitle = () => {
+  return (
+    <>
+      <H2 color="$yellow9" fontWeight="$6">
+        Pika
+      </H2>
+      <H2 fontWeight="$6">Torrent</H2>
+    </>
+  );
+};
