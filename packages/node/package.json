@@ -1,0 +1,20 @@
+{
+  "name": "@pikatorrent/node",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/G-Ray/pikatorrent.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/G-Ray/pikatorrent/issues"
+  },
+  "homepage": "https://github.com/G-Ray/pikatorrent#readme",
+  "private": true
+}
