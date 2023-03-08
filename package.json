@@ -4,10 +4,13 @@
   "scripts": {
     "android": "npm run android --workspace=@pikatorrent/app",
     "ios": "npm run ios --workspace=@pikatorrent/app",
-    "web": "npm run web --workspace=@pikatorrent/app"
+    "web": "npm run web --workspace=@pikatorrent/app",
+    "postinstall": "patch-package"
   },
   "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": {
+    "patch-package": "^6.5.1"
+  },
   "private": true,
   "workspaces": [
     "packages/node",
