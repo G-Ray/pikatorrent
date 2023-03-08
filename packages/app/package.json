@@ -2,8 +2,8 @@
   "name": "@pikatorrent/app",
   "version": "0.0.0",
   "scripts": {
-    "android": "TAMAGUI_TARGET=native expo start --android",
-    "ios": "TAMAGUI_TARGET=native expo start --ios",
+    "android": "TAMAGUI_TARGET=native expo start --android --dev-client",
+    "ios": "TAMAGUI_TARGET=native expo start --ios --dev-client",
     "web": "TAMAGUI_TARGET=web expo start --web"
   },
   "dependencies": {
@@ -13,9 +13,12 @@
     "@tamagui/lucide-icons": "~1.7.2",
     "expo": "~48.0.5",
     "expo-constants": "~14.2.1",
+    "expo-dev-client": "~2.1.5",
     "expo-font": "^11.1.1",
     "expo-linking": "~4.0.1",
+    "expo-modules-core": "^1.2.4",
     "expo-router": "^1.2.1",
+    "expo-splash-screen": "~0.18.1",
     "expo-status-bar": "~1.4.4",
     "react": "18.2.0",
     "react-dom": "^18.2.0",
@@ -25,7 +28,8 @@
     "react-native-screens": "~3.20.0",
     "react-native-svg": "13.4.0",
     "react-native-web": "^0.18.12",
-    "tamagui": "~1.7.2"
+    "tamagui": "~1.7.2",
+    "react-native-gesture-handler": "~2.9.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
