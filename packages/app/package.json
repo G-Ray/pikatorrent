@@ -2,11 +2,13 @@
   "name": "@pikatorrent/app",
   "version": "0.0.0",
   "scripts": {
+    "build:android": "eas build --profile development --platform android --local",
     "android": "TAMAGUI_TARGET=native expo start --android --dev-client",
     "ios": "TAMAGUI_TARGET=native expo start --ios --dev-client",
     "web": "TAMAGUI_TARGET=web expo start --web"
   },
   "dependencies": {
+    "@config-plugins/react-native-webrtc": "^6.0.0",
     "@tamagui/animations-react-native": "~1.7.2",
     "@tamagui/config": "~1.7.2",
     "@tamagui/font-inter": "~1.7.2",
@@ -19,17 +21,21 @@
     "expo-modules-core": "^1.2.4",
     "expo-router": "^1.2.1",
     "expo-splash-screen": "~0.18.1",
+    "expo-standard-web-crypto": "^1.4.3",
     "expo-status-bar": "~1.4.4",
     "react": "18.2.0",
     "react-dom": "^18.2.0",
     "react-native": "0.71.3",
+    "react-native-gesture-handler": "~2.9.0",
     "react-native-reanimated": "~2.14.4",
     "react-native-safe-area-context": "4.5.0",
     "react-native-screens": "~3.20.0",
     "react-native-svg": "13.4.0",
     "react-native-web": "^0.18.12",
+    "react-native-webrtc": "^106.0.6",
+    "simple-peer": "^9.11.1",
     "tamagui": "~1.7.2",
-    "react-native-gesture-handler": "~2.9.0"
+    "expo-random": "~13.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
