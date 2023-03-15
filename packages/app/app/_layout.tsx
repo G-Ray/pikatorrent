@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import {
   Separator,
   TamaguiProvider,
@@ -6,61 +6,64 @@ import {
   useMedia,
   XStack,
   YStack,
-} from "tamagui";
-import { useFonts } from "expo-font";
-import { Slot, SplashScreen } from "expo-router";
-import { StatusBar } from "expo-status-bar";
+} from 'tamagui'
+import { useFonts } from 'expo-font'
+import { Slot, SplashScreen } from 'expo-router'
+import { StatusBar } from 'expo-status-bar'
 
-import config from "../tamagui.config";
-import { Header, BottomTabs, Sidebar } from "../components";
+import config from '../tamagui.config'
+import { Header, BottomTabs, Sidebar } from '../components'
+import { NodeContext } from '../contexts/node'
+import { useNode } from '../hooks/useNode'
 
 export default function Layout() {
-  const media = useMedia();
+  const media = useMedia()
+  const node = useNode()
 
   const [loaded] = useFonts({
-    Inter: require("@tamagui/font-inter/otf/Inter-Medium.otf"),
-    InterBold: require("@tamagui/font-inter/otf/Inter-Bold.otf"),
-  });
+    Inter: require('@tamagui/font-inter/otf/Inter-Medium.otf'),
+    InterBold: require('@tamagui/font-inter/otf/Inter-Bold.otf'),
+  })
 
   if (!loaded) {
-    return <SplashScreen />;
+    return <SplashScreen />
   }
 
-  return media.gtMd ? <Desktop /> : <Mobile />;
+  return (
+    <TamaguiProvider config={config}>
+      <NodeContext.Provider value={node}>
+        <Theme name="light">{media.gtMd ? <Desktop /> : <Mobile />}</Theme>
+      </NodeContext.Provider>
+    </TamaguiProvider>
+  )
 }
 
 const Desktop = () => {
   return (
-    <TamaguiProvider config={config}>
-      <Theme name="light">
-        <YStack f={1}>
-          <Header />
-          <XStack f={1}>
-            <Sidebar />
-            <Separator vertical />
-            <YStack p="$8" ai="center" jc="center" flexGrow={1}>
-              <Slot />
-            </YStack>
-          </XStack>
+    <YStack f={1}>
+      <Header />
+      <XStack f={1}>
+        <Sidebar />
+        <Separator vertical />
+        <YStack p="$8" flexGrow={1}>
+          <Slot />
         </YStack>
-      </Theme>
-    </TamaguiProvider>
-  );
-};
+      </XStack>
+    </YStack>
+  )
+}
 
 const Mobile = () => {
   return (
-    <TamaguiProvider config={config}>
+    <>
       <StatusBar style="light" hidden />
-      <Theme name="light">
-        <YStack f={1}>
-          <Header />
-          <YStack p="$8" ai="center" jc="center" flexGrow={1}>
-            <Slot />
-          </YStack>
-          <BottomTabs />
+      <YStack f={1}>
+        <Header />
+        <YStack p="$8" flexGrow={1}>
+          <Slot />
         </YStack>
-      </Theme>
-    </TamaguiProvider>
-  );
-};
+        <BottomTabs />
+      </YStack>
+    </>
+  )
+}

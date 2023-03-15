@@ -1,28 +1,28 @@
-import { PlusCircle } from "@tamagui/lucide-icons";
-import { Button, H1, H2, H6, Theme, useMedia, XStack } from "tamagui";
-import { ConnectionStatus } from "./ConnectionStatus";
+import { H1, H2, H6, Theme, useMedia, XStack } from 'tamagui'
+import { AddTorrentDialog } from '../dialogs/AddTorrentDialog'
+import { ConnectionStatus } from './ConnectionStatus'
 
 export const Header = () => {
-  const media = useMedia();
+  const media = useMedia()
 
   return (
     <Theme name="dark">
       <XStack
         py="$4"
-        px={media.gtMd ? "$8" : "$4"}
+        px={media.gtMd ? '$8' : '$4'}
         jc="space-between"
         ai="center"
         bc="$background"
       >
-        <XStack ai="center" gap="$4">
+        <XStack ai="center" gap="$8">
           <XStack>{media.gtMd ? <DesktopTitle /> : <MobileTitle />}</XStack>
-          <Button circular icon={PlusCircle} scaleIcon={3}></Button>
+          <AddTorrentDialog />
         </XStack>
         <ConnectionStatus />
       </XStack>
     </Theme>
-  );
-};
+  )
+}
 
 const DesktopTitle = () => {
   return (
@@ -32,8 +32,8 @@ const DesktopTitle = () => {
       </H1>
       <H1 fontWeight="$6">Torrent</H1>
     </>
-  );
-};
+  )
+}
 
 const MobileTitle = () => {
   return (
@@ -43,5 +43,5 @@ const MobileTitle = () => {
       </H2>
       <H2 fontWeight="$6">Torrent</H2>
     </>
-  );
-};
+  )
+}

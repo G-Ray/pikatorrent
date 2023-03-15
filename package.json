@@ -5,6 +5,8 @@
     "android": "npm run android --workspace=@pikatorrent/app",
     "ios": "npm run ios --workspace=@pikatorrent/app",
     "web": "npm run web --workspace=@pikatorrent/app",
+    "signaling": "npm start --workspace=@pikatorrent/signaling-server",
+    "node": "npm start --workspace=@pikatorrent/node",
     "postinstall": "patch-package"
   },
   "dependencies": {},

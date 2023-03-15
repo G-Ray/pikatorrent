@@ -1,5 +1,5 @@
-import { Text } from "react-native";
+import Torrents from './torrents'
 
 export default function App() {
-  return <Text>Torrents</Text>;
+  return <Torrents />
 }

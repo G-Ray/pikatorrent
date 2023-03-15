@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native'
 
-export default function Details() {
+export default function Settings() {
   return (
     <View>
       <Text>Settings Screen</Text>

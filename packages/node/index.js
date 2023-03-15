@@ -2,7 +2,11 @@ const Peer = require('simple-peer')
 const wrtc = require('wrtc')
 const WebSocket = require('ws')
 
+const Transmission = require('transmission-native')
+
 const ws = new WebSocket('ws://localhost:9001')
+
+const tr = new Transmission('./transmission', 'transmission')
 
 // Listen for messages
 ws.addEventListener('message', (event) => {
@@ -10,29 +14,41 @@ ws.addEventListener('message', (event) => {
 
   if (json.type === 'offer') {
     // Create new peer
+    var test
     createPeer(json)
   }
 })
 
 const createPeer = (offer) => {
-  p = new Peer({ initiator: false, wrtc })
+  const peer = new Peer({ initiator: false, wrtc })
 
-  p.on('error', (err) => console.log('error', err))
+  peer.on('error', (err) => console.log('error', err))
 
-  p.on('signal', (data) => {
+  peer.on('signal', (data) => {
     if (data.type === 'answer') {
       ws.send(JSON.stringify(data))
     }
   })
 
-  p.on('connect', () => {
+  peer.on('connect', () => {
     console.log('CONNECT')
-    p.send('whatever' + Math.random())
   })
 
-  p.on('data', (data) => {
+  peer.on('data', async (data) => {
     console.log('DATA' + data)
+    const { id, payload } = JSON.parse(data)
+    // Trigger request
+    try {
+      response = await tr.request(payload)
+    } catch (e) {
+      response = { error: e.message }
+    }
+
+    console.log('response', response)
+
+    // Return response
+    peer.send(JSON.stringify({ id: JSON.parse(data).id, payload: response }))
   })
 
-  p.signal(offer)
+  peer.signal(offer)
 }

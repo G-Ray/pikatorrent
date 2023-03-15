@@ -11,7 +11,6 @@ require('uWebSockets.js')
       clients.splice(index, 1)
     },
     message: (ws, message, isBinary) => {
-      console.log('message', JSON.parse(Buffer.from(message)))
       clients.forEach((c) => c.send(message, isBinary, true))
     },
   })

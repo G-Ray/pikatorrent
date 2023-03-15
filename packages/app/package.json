@@ -19,10 +19,12 @@
     "expo-font": "^11.1.1",
     "expo-linking": "~4.0.1",
     "expo-modules-core": "^1.2.4",
+    "expo-random": "~13.1.1",
     "expo-router": "^1.2.1",
     "expo-splash-screen": "~0.18.1",
     "expo-standard-web-crypto": "^1.4.3",
     "expo-status-bar": "~1.4.4",
+    "pretty-bytes": "^6.1.0",
     "react": "18.2.0",
     "react-dom": "^18.2.0",
     "react-native": "0.71.3",
@@ -34,8 +36,7 @@
     "react-native-web": "^0.18.12",
     "react-native-webrtc": "^106.0.6",
     "simple-peer": "^9.11.1",
-    "tamagui": "~1.7.2",
-    "expo-random": "~13.1.1"
+    "tamagui": "~1.7.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
