@@ -19,14 +19,11 @@ export const AddTorrentDialog = () => {
   const { sendRPCMessage } = useContext(NodeContext)
 
   const handleAddTorrent = async () => {
-    console.log('magnet', magnet)
-
     try {
-      const response = await sendRPCMessage({
+      await sendRPCMessage({
         method: 'torrent-add',
         arguments: { filename: magnet },
       })
-      console.log('response', response)
     } catch (e) {
       console.error(e)
     }
@@ -35,7 +32,9 @@ export const AddTorrentDialog = () => {
   return (
     <Dialog modal>
       <Dialog.Trigger asChild>
-        <Button circular icon={PlusCircle} scaleIcon={3} color="white"></Button>
+        <Button icon={PlusCircle} theme="yellow">
+          Add
+        </Button>
       </Dialog.Trigger>
 
       <Adapt when="sm" platform="touch">
