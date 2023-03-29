@@ -1,66 +1,149 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Platform } from 'react-native'
+import { SimplePeer } from 'simple-peer'
+
+const { SIGNALING_URL } = process.env
+
+if (!SIGNALING_URL) throw new Error('Missing SIGNALING_URL env var')
 
 import Peer from 'simple-peer/simplepeer.min.js'
 
-const WEBSOCKET_URL = 'ws://localhost:9001'
 const RESPONSE_TIMEOUT = 10_000
+const RECONNECT_INTERVAL = 5_000
 
-let peer: any
 let msgId = 0
 const responsesPromises = new Map()
 
 // Hook to interact with a pikatorrent node
 export const useNode = () => {
   const [isConnected, setIsConnected] = useState(false)
+  const ws = useRef<WebSocket | null>(null)
+  const peer = useRef<InstanceType<SimplePeer> | null>(null)
 
   useEffect(() => {
-    const ws = new WebSocket(WEBSOCKET_URL)
+    let webSocketConnectionInverval: any = null
+    let peerConnectionInverval: any = null
 
-    peer =
-      Platform.OS === 'web'
-        ? new Peer({ initiator: true })
-        : new Peer({ initiator: true, wrtc: require('react-native-webrtc') })
+    // Init WebSocket
+    const initWebSocket = () => {
+      console.log('initWebSocket')
 
-    // Listen for messages
-    ws.addEventListener('message', (event) => {
-      const json = JSON.parse(event.data)
+      // Init websocket
+      ws.current = new WebSocket(SIGNALING_URL)
 
-      if (json.type === 'answer') {
-        peer.signal(json)
+      ws.current.addEventListener('open', () => {
+        clearInterval(webSocketConnectionInverval)
+        webSocketConnectionInverval = null
+      })
+
+      // Listen for answer
+      ws.current.addEventListener('message', (event) => {
+        const json = JSON.parse(event.data)
+
+        if (json.type === 'answer' && peer.current) {
+          peer.current.signal(json)
+        }
+      })
+
+      ws.current.addEventListener('close', () => {
+        if (!webSocketConnectionInverval) {
+          retryWebSocketConnection()
+        }
+      })
+    }
+
+    // Init Peer
+    const initPeer = () => {
+      console.log('initPeer')
+
+      if (peer.current) {
+        // Destroy any previous peer instance
+        peer.current.destroy()
       }
-    })
 
-    peer.on('error', (err) => console.log('error', err))
+      // Init Peer instance
+      peer.current =
+        Platform.OS === 'web'
+          ? <InstanceType<SimplePeer>>new Peer({ initiator: true })
+          : <InstanceType<SimplePeer>>new Peer({
+              initiator: true,
+              wrtc: require('react-native-webrtc'),
+            })
 
-    peer.on('signal', (data) => {
-      if (data.type === 'offer' || data.type === 'answer') {
-        ws.send(JSON.stringify(data))
-      }
-    })
+      peer.current.on('error', () => {
+        setIsConnected(false)
+      })
 
-    peer.on('connect', () => {
-      setIsConnected(true)
-    })
+      peer.current.on('signal', (data: any) => {
+        if (ws.current && (data.type === 'offer' || data.type === 'answer')) {
+          ws.current.send(JSON.stringify(data))
+        }
+      })
 
-    peer.on('data', (data) => {
-      console.log('data received', data.toString())
-      const message = JSON.parse(data.toString())
-      const responsePromise = responsesPromises.get(message.id)
-      if (responsePromise) {
-        responsePromise.resolve(message)
-        responsesPromises.delete(message.id)
-      }
-    })
+      peer.current.on('connect', () => {
+        setIsConnected(true)
+        if (peerConnectionInverval) {
+          clearInterval(peerConnectionInverval)
+          peerConnectionInverval = null
+        }
+      })
+
+      peer.current.on('close', () => {
+        setIsConnected(false)
+        // retry connection
+        if (!peerConnectionInverval) {
+          retryPeerConnection()
+        }
+      })
+
+      peer.current.on('error', (e) => {
+        console.error('peer error', e)
+      })
+
+      peer.current.on('data', (data: Buffer) => {
+        const message = JSON.parse(data.toString())
+        const responsePromise = responsesPromises.get(message.id)
+        if (responsePromise) {
+          responsePromise.resolve(message)
+          responsesPromises.delete(message.id)
+        }
+      })
+    }
+
+    const retryWebSocketConnection = () => {
+      webSocketConnectionInverval = setInterval(() => {
+        initWebSocket()
+      }, RECONNECT_INTERVAL)
+    }
+
+    const retryPeerConnection = () => {
+      peerConnectionInverval = setInterval(() => {
+        initPeer()
+      }, RECONNECT_INTERVAL)
+    }
+
+    initWebSocket()
+    retryWebSocketConnection()
+
+    initPeer()
+    retryPeerConnection()
 
     return () => {
-      peer.destroy()
-      ws.close()
+      clearInterval(webSocketConnectionInverval)
+      clearInterval(peerConnectionInverval)
+
+      if (ws.current) {
+        ws.current.close()
+      }
+
+      if (peer.current) {
+        peer.current.destroy()
+      }
     }
   }, [])
 
-  const sendRPCMessage = async (json: any) => {
-    if (!isConnected || !peer) {
+  const sendRPCMessage = (json: any) => {
+    if (!isConnected || !peer.current) {
       throw new Error('Node not connected')
     }
 
@@ -76,13 +159,18 @@ export const useNode = () => {
 
     // Reject the promise after a timeout
     setTimeout(() => {
-      reject(new Error('Timeout'))
-      responsesPromises.delete(message.id)
+      const responsePromise = responsesPromises.get(message.id)
+      if (responsePromise) {
+        try {
+          responsePromise.reject(new Error('Timeout'))
+        } catch (e) {}
+        responsesPromises.delete(message.id)
+      }
     }, RESPONSE_TIMEOUT)
 
-    peer.send(JSON.stringify(message))
+    peer.current.send(JSON.stringify(message))
 
-    return await promise
+    return promise
   }
 
   return {
