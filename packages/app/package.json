@@ -4,16 +4,16 @@
   "scripts": {
     "build:android": "eas build --profile development --platform android --local",
     "native": "TAMAGUI_TARGET=native expo start --dev-client",
-    "android": "TAMAGUI_TARGET=native expo start --android --dev-client",
+    "android": "TAMAGUI_TARGET=native expo start --android --dev-client --clear",
     "ios": "TAMAGUI_TARGET=native expo start --ios --dev-client",
     "web": "TAMAGUI_TARGET=web expo start --web"
   },
   "dependencies": {
     "@config-plugins/react-native-webrtc": "^6.0.0",
-    "@tamagui/animations-react-native": "~1.7.7",
-    "@tamagui/config": "~1.7.7",
-    "@tamagui/font-inter": "~1.7.7",
-    "@tamagui/lucide-icons": "~1.7.7",
+    "@tamagui/animations-react-native": "~1.9.10",
+    "@tamagui/config": "~1.9.10",
+    "@tamagui/font-inter": "~1.9.10",
+    "@tamagui/lucide-icons": "~1.9.10",
     "expo": "~48.0.5",
     "expo-constants": "~14.2.1",
     "expo-dev-client": "~2.1.5",
@@ -37,12 +37,13 @@
     "react-native-web": "^0.18.12",
     "react-native-webrtc": "106.0.6",
     "simple-peer": "^9.11.1",
-    "tamagui": "~1.7.7"
+    "tamagui": "~1.9.10"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
-    "@tamagui/babel-plugin": "~1.7.7",
+    "@tamagui/babel-plugin": "~1.9.10",
     "@types/react": "~18.0.14",
+    "@types/simple-peer": "^9.11.5",
     "babel-plugin-transform-inline-environment-variables": "^0.4.4",
     "typescript": "^4.9.4"
   },
