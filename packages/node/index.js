@@ -14,7 +14,6 @@ ws.addEventListener('message', (event) => {
 
   if (json.type === 'offer') {
     // Create new peer
-    var test
     createPeer(json)
   }
 })
@@ -35,8 +34,7 @@ const createPeer = (offer) => {
   })
 
   peer.on('data', async (data) => {
-    console.log('DATA' + data)
-    const { id, payload } = JSON.parse(data)
+    const { payload } = JSON.parse(data)
     // Trigger request
     try {
       response = await tr.request(payload)
@@ -44,11 +42,15 @@ const createPeer = (offer) => {
       response = { error: e.message }
     }
 
-    console.log('response', response)
-
     // Return response
     peer.send(JSON.stringify({ id: JSON.parse(data).id, payload: response }))
   })
 
   peer.signal(offer)
 }
+
+// Handle exit gracefully
+process.on('SIGINT', () => {
+  tr.close()
+  process.exit()
+})
