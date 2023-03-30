@@ -117,7 +117,7 @@ export default function Torrents() {
                 <Progress.Indicator animation="lazy" bc={'$yellow9'} w="100%" />
               </Progress>
               <XStack
-                flex={1}
+                // flex={1}
                 jc="space-between"
                 w="100%"
                 flexWrap="wrap"
