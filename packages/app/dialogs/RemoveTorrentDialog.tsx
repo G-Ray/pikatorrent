@@ -24,7 +24,7 @@ export const RemoveTorrentDialog = ({ id }) => {
       </Dialog.Trigger>
 
       <Adapt when="sm" platform="touch">
-        <Sheet zIndex={200000} modal dismissOnSnapToBottom>
+        <Sheet zIndex={200000} modal dismissOnSnapToBottom snapPoints={[20]}>
           <Sheet.Frame padding="$4" space>
             <Adapt.Contents />
           </Sheet.Frame>
