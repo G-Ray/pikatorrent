@@ -2,6 +2,7 @@
   "name": "pikatorrent",
   "version": "0.0.0",
   "scripts": {
+    "native": "npm run native --workspace=@pikatorrent/app",
     "android": "npm run android --workspace=@pikatorrent/app",
     "ios": "npm run ios --workspace=@pikatorrent/app",
     "web": "npm run web --workspace=@pikatorrent/app",
@@ -15,8 +16,8 @@
   },
   "private": true,
   "workspaces": [
-    "packages/node",
-    "packages/app",
-    "packages/signaling-server"
+    "apps/node",
+    "apps/app",
+    "apps/signaling-server"
   ]
 }
