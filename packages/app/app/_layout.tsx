@@ -59,7 +59,7 @@ const Mobile = () => {
       <StatusBar style="light" hidden />
       <YStack f={1}>
         <Header />
-        <YStack p="$8" flexGrow={1}>
+        <YStack p="$3" flexGrow={1}>
           <Slot />
         </YStack>
         <BottomTabs />
