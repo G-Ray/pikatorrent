@@ -2,9 +2,9 @@
   "name": "@pikatorrent/node",
   "version": "0.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "scripts": {
-    "start": "node --watch ."
+    "start": "tsc --watch & node --watch ./dist/index.js"
   },
   "repository": {
     "type": "git",
@@ -22,5 +22,8 @@
     "transmission-native": "^0.1.0",
     "wrtc": "^0.4.7",
     "ws": "^8.12.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.3"
   }
 }

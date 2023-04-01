@@ -1,10 +1,10 @@
 const Peer = require('simple-peer')
 const wrtc = require('wrtc')
-const WebSocket = require('ws')
+const WS = require('ws')
 
 const Transmission = require('transmission-native')
 
-const ws = new WebSocket('ws://localhost:9001')
+const ws = new WS('ws://localhost:9001')
 
 const tr = new Transmission('./transmission', 'transmission')
 
@@ -35,6 +35,8 @@ const createPeer = (offer) => {
 
   peer.on('data', async (data) => {
     const { payload } = JSON.parse(data)
+    let response
+
     // Trigger request
     try {
       response = await tr.request(payload)
