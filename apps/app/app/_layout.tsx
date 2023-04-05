@@ -15,6 +15,7 @@ import config from '../tamagui.config'
 import { Header, BottomTabs, Sidebar } from '../components'
 import { NodeContext } from '../contexts/node'
 import { useNode } from '../hooks/useNode'
+import { Footer } from '../components/Footer'
 
 export default function Layout() {
   const media = useMedia()
@@ -49,6 +50,7 @@ const Desktop = () => {
           <Slot />
         </YStack>
       </XStack>
+      <Footer />
     </YStack>
   )
 }

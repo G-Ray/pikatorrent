@@ -1,23 +1,11 @@
-import {
-  ChevronDown,
-  ChevronUp,
-  PauseCircle,
-  PlayCircle,
-} from '@tamagui/lucide-icons'
+import React from 'react'
+import { PauseCircle, PlayCircle } from '@tamagui/lucide-icons'
 import { useContext, useEffect, useState } from 'react'
-import {
-  Button,
-  Card,
-  H4,
-  H5,
-  Paragraph,
-  Progress,
-  XStack,
-  YStack,
-} from 'tamagui'
+import { Button, Card, H4, Paragraph, Progress, XStack, YStack } from 'tamagui'
 import { NodeContext } from '../contexts/node'
 import prettyBytes from 'pretty-bytes'
 import { RemoveTorrentDialog } from '../dialogs/RemoveTorrentDialog'
+import { Speed } from '../components/Speed'
 
 const REFRESH_INTERVAL = 5_000
 
@@ -137,20 +125,11 @@ export default function Torrents() {
                 </YStack>
                 <YStack>
                   <Paragraph>Speed</Paragraph>
-                  <XStack space="$4">
-                    <XStack theme="light">
-                      <ChevronDown color="$purple9" />
-                      <Paragraph theme="light" fontWeight="bold">
-                        {prettyBytes(torrent.rateDownload)}/s
-                      </Paragraph>
-                    </XStack>
-                    <XStack theme="light">
-                      <ChevronUp color="$blue9" />
-                      <Paragraph theme="light" fontWeight="bold">
-                        {prettyBytes(torrent.rateUpload)}/s
-                      </Paragraph>
-                    </XStack>
-                  </XStack>
+                  <Speed
+                    downloadSpeed={torrent.rateDownload}
+                    uploadSpeed={torrent.rateUpload}
+                    theme="light"
+                  />
                 </YStack>
                 <YStack>
                   <Paragraph>Peers</Paragraph>

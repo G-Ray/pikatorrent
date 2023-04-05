@@ -1,31 +1,19 @@
+import React from 'react'
 import { useContext, useEffect, useState } from 'react'
 import { Button, Form, Input, Label, Paragraph, XStack } from 'tamagui'
 import { NodeContext } from '../contexts/node'
-import { SessionsInfoDialog } from '../dialogs/SessionInfoDialog'
+import { useSession } from '../hooks/useSession'
 
 export default function Settings() {
   const { sendRPCMessage } = useContext(NodeContext)
-  const [initialSession, setInitialSession] = useState({})
+  const initialSession = useSession()
   const [session, setSession] = useState({})
 
-  const hasChanged = JSON.stringify(session) !== JSON.stringify(initialSession)
-
   useEffect(() => {
-    const fetchSession = async () => {
-      try {
-        const response = await sendRPCMessage({
-          method: 'session-get',
-        })
+    setSession(initialSession)
+  }, [initialSession])
 
-        setInitialSession(response.payload.arguments)
-        setSession(response.payload.arguments)
-      } catch (e) {
-        console.log('error fetching session info', e)
-      }
-    }
-
-    fetchSession()
-  }, [sendRPCMessage])
+  const hasChanged = JSON.stringify(session) !== JSON.stringify(initialSession)
 
   const handleSubmit = async () => {
     try {
@@ -41,6 +29,8 @@ export default function Settings() {
       console.log('error updating session info', e)
     }
   }
+
+  if (!session) return null // TODO: Loading
 
   return (
     <Form height="100%" space ai="flex-start" onSubmit={() => handleSubmit()}>
@@ -63,14 +53,6 @@ export default function Settings() {
           Save
         </Button>
       </Form.Trigger>
-
-      <XStack space w="100%" ai="center">
-        <Label htmlFor="transmissionVersion">Transmission version</Label>
-        <Paragraph id="transmissionVersion">{session['version']}</Paragraph>
-        <SessionsInfoDialog session={session} />
-      </XStack>
     </Form>
   )
-
-  // return <TextArea minHeight="100%" value={JSON.stringify(session, null, 2)} />
 }
