@@ -6,7 +6,7 @@ require('uWebSockets.js')
     message: (ws, message, isBinary) => {
       // Send message to a recipient
       try {
-        const json = JSON.parse(Buffer.from(message))
+        const json = JSON.parse(Buffer.from(message).toString())
 
         // Subscribe to a specific id
         if (json.type === 'subscribe' && json.id) {

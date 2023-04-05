@@ -1,10 +1,10 @@
 {
   "name": "@pikatorrent/signaling-server",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "scripts": {
-    "start": "node --watch ."
+    "start": "tsc --watch & node --watch ./dist/index.js"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,8 @@
   "private": true,
   "dependencies": {
     "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.19.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.3"
   }
 }
