@@ -1,6 +1,6 @@
-const util = require('util')
+import * as uWebSockets from 'uWebSockets.js'
 
-require('uWebSockets.js')
+uWebSockets
   .App()
   .ws('/*', {
     message: (ws, message, isBinary) => {

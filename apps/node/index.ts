@@ -2,11 +2,12 @@ import * as Peer from 'simple-peer'
 import * as wrtc from 'wrtc'
 import * as WS from 'ws'
 
-const Transmission = require('transmission-native')
+import * as Transmission from 'transmission-native'
+
 const tr = new Transmission('./transmission', 'transmission')
 
 let ws
-let peers = new Map<string, InstanceType<Peer.SimplePeer>>() // clientId -> SimplePeer
+const peers = new Map<string, InstanceType<Peer.SimplePeer>>() // clientId -> SimplePeer
 
 // TODO: generate randomly and save on disk
 // const channelId = 'channel-id'
