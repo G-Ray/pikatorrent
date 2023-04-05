@@ -1,17 +1,31 @@
-const clients = []
+const util = require('util')
 
 require('uWebSockets.js')
   .App()
   .ws('/*', {
-    open: (ws) => {
-      clients.push(ws)
-    },
-    close: (ws) => {
-      const index = clients.findIndex((c) => c === ws)
-      clients.splice(index, 1)
-    },
     message: (ws, message, isBinary) => {
-      clients.forEach((c) => c.send(message, isBinary, true))
+      // Send message to a recipient
+      try {
+        const json = JSON.parse(Buffer.from(message))
+
+        // Subscribe to a specific id
+        if (json.type === 'subscribe' && json.id) {
+          if (!ws.isSubscribed(json.id)) {
+            console.log('subscribe', json.id)
+            ws.subscribe(json.id)
+          }
+
+          return
+        }
+
+        if (json.type === 'signal' && json.toId) {
+          if (ws) {
+            ws.publish(json.toId, message, isBinary)
+          }
+        }
+      } catch (e) {
+        console.error(e)
+      }
     },
   })
   .listen(9001, (listenSocket) => {
