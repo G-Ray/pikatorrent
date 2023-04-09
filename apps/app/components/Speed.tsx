@@ -9,9 +9,13 @@ interface SpeedOptions {
   uploadSpeed: number
 }
 
-export const Speed = ({ downloadSpeed = 0, uploadSpeed = 0 }: SpeedOptions) => {
+export const Speed = ({
+  downloadSpeed = 0,
+  uploadSpeed = 0,
+  ...rest
+}: SpeedOptions) => {
   return (
-    <XStack space="$4">
+    <XStack space="$4" {...rest}>
       <XStack>
         <ChevronDown color="$purple9" />
         <Paragraph fontWeight="bold">{prettyBytes(downloadSpeed)}/s</Paragraph>
