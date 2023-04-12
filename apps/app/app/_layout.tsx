@@ -44,9 +44,10 @@ export default function Layout() {
     InterBold: require('@tamagui/font-inter/otf/Inter-Bold.otf'),
   })
 
-  if (!loaded) {
-    return <SplashScreen />
-  }
+  // TODO: Restore this once https://github.com/expo/expo/issues/21802 is resolved
+  // if (!loaded) {
+  //   return <SplashScreen />
+  // }
 
   return (
     <TamaguiProvider config={config}>
