@@ -8,7 +8,8 @@
     "web": "npm run web --workspace=@pikatorrent/app",
     "signaling": "npm start --workspace=@pikatorrent/signaling-server",
     "node": "npm start --workspace=@pikatorrent/node",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package",
+    "build:web": "npm run build:web --workspace=@pikatorrent/app"
   },
   "devDependencies": {
     "patch-package": "^6.5.1"
