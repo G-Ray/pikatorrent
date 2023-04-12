@@ -1,5 +1,3 @@
-import { ChevronDown, ChevronUp } from '@tamagui/lucide-icons'
-import prettyBytes from 'pretty-bytes'
 import React, { useContext, useEffect, useState } from 'react'
 import { Paragraph, XStack } from 'tamagui'
 import { NodeContext } from '../contexts/node'
@@ -15,7 +13,6 @@ export const Footer = () => {
         const response = await sendRPCMessage({
           method: 'session-stats',
         })
-        console.log('response', response.payload)
 
         setStats(response.payload.arguments)
       } catch (e) {

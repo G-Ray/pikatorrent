@@ -1,3 +1,4 @@
+import React from 'react'
 import { PlusCircle, X } from '@tamagui/lucide-icons'
 import { useContext, useState } from 'react'
 import {
@@ -12,7 +13,6 @@ import {
   YStack,
 } from 'tamagui'
 import { NodeContext } from '../contexts/node'
-import { useNode } from '../hooks/useNode'
 
 export const AddTorrentDialog = () => {
   const [magnet, setMagnet] = useState('')
@@ -91,7 +91,12 @@ export const AddTorrentDialog = () => {
 
           <YStack ai="flex-end" mt="$2">
             <Dialog.Close displayWhenAdapted asChild>
-              <Button aria-label="Close" onClick={handleAddTorrent}>
+              <Button
+                theme="yellow"
+                aria-label="Close"
+                disabled={magnet.length === 0}
+                onClick={handleAddTorrent}
+              >
                 Add
               </Button>
             </Dialog.Close>

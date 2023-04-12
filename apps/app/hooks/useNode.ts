@@ -8,12 +8,11 @@ if (!SIGNALING_URL) throw new Error('Missing SIGNALING_URL env var')
 const RESPONSE_TIMEOUT = 10_000
 
 let msgId = 0
-const clientId = 'client-id' // TODO: Generate randomly
-const nodeId = 'node-id'
 const responsesPromises = new Map()
+const clientId = crypto.randomUUID() // Note: Should we save the clientId ?
 
 // Hook to interact with a pikatorrent node
-export const useNode = () => {
+export const useNode = ({ nodeId }) => {
   const { peerRef, isConnected } = usePeer({ clientId, nodeId })
 
   useEffect(() => {

@@ -10,7 +10,6 @@
     "node": "npm start --workspace=@pikatorrent/node",
     "postinstall": "patch-package"
   },
-  "dependencies": {},
   "devDependencies": {
     "patch-package": "^6.5.1"
   },

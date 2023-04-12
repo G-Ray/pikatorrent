@@ -1,4 +1,5 @@
-import { H1, H2, H6, Theme, useMedia, XStack } from 'tamagui'
+import React from 'react'
+import { H1, H2, Theme, useMedia, XStack } from 'tamagui'
 import { AddTorrentDialog } from '../dialogs/AddTorrentDialog'
 import { ConnectionStatus } from './ConnectionStatus'
 
