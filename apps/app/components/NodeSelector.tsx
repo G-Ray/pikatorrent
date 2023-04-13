@@ -16,7 +16,7 @@ export const NodeSelector = () => {
   return (
     <Select
       id="node"
-      value={selectedNode?.id}
+      value={selectedNode?.id || null}
       onValueChange={updateSelectedNodeId}
     >
       <Select.Trigger iconAfter={ChevronDown} f={1}>
@@ -57,7 +57,7 @@ export const NodeSelector = () => {
                   value={node.id}
                   outlineStyle="none"
                 >
-                  <Select.ItemText color="white">{node.id}</Select.ItemText>
+                  <Select.ItemText color="white">{node.name}</Select.ItemText>
                   <Select.ItemIndicator ml="auto">
                     <Check size={16} />
                   </Select.ItemIndicator>

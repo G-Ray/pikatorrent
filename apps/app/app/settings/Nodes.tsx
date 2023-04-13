@@ -15,6 +15,8 @@ export const Nodes = () => {
   const handleDeleteNode = async (id: string) => {
     updateSettings({
       ...settings,
+      selectedNodeId:
+        settings.selectedNodeId === id ? null : settings.selectedNodeId,
       nodes: nodes.filter((n) => n.id !== id),
     })
   }
@@ -30,7 +32,7 @@ export const Nodes = () => {
             <YGroup.Item key={node.id}>
               <ListItem
                 hoverTheme
-                title={node.id}
+                title={`${node.name}`}
                 iconAfter={
                   <Button
                     icon={Delete}

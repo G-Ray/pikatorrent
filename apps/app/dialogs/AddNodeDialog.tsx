@@ -8,13 +8,14 @@ import { SettingsContext } from '../contexts/settings'
 
 export const AddNodeDialog = () => {
   const [id, setId] = useState('')
+  const [name, setName] = useState('')
   const { settings, updateSettings } = useContext(SettingsContext)
 
   const nodes = settings.nodes || []
 
   const handleSave = async () => {
     if (id.length > 0 && nodes.filter((n) => n.id === id).length === 0) {
-      updateSettings({ ...settings, nodes: [...nodes, { id }] })
+      updateSettings({ ...settings, nodes: [...nodes, { id, name }] })
     }
   }
 
@@ -65,14 +66,26 @@ export const AddNodeDialog = () => {
             Add a new node to control it from anywhere.
           </Dialog.Description>
 
-          <Form onSubmit={handleSave}>
+          <Form onSubmit={handleSave} gap="$4">
             <Fieldset horizontal gap="$4">
               <Label w={160} justifyContent="flex-end" htmlFor="name">
-                Node ID
+                Name
               </Label>
               <Input
                 f={1}
                 id="name"
+                placeholder="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </Fieldset>
+            <Fieldset horizontal gap="$4">
+              <Label w={160} justifyContent="flex-end" htmlFor="name">
+                ID
+              </Label>
+              <Input
+                f={1}
+                id="id"
                 placeholder="id"
                 value={id}
                 onChange={(e) => setId(e.target.value)}
