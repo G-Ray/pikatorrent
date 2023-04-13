@@ -4,18 +4,20 @@
   "description": "",
   "main": "./dist/index.js",
   "scripts": {
-    "start": "tsc --watch & node --watch ./dist/index.js"
+    "build": "tsc",
+    "start": "tsc --watch & node --watch ./dist/index.js",
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/G-Ray/pikatorrent.git"
   },
-  "author": "",
+  "author": "@PikaTorrent",
   "bugs": {
     "url": "https://github.com/G-Ray/pikatorrent/issues"
   },
   "homepage": "https://github.com/G-Ray/pikatorrent#readme",
-  "private": true,
+  "license": "GPL-3.0",
   "dependencies": {
     "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.19.0"
   },
@@ -24,5 +26,8 @@
     "@typescript-eslint/parser": "^5.57.1",
     "eslint": "^8.37.0",
     "typescript": "^5.0.3"
-  }
+  },
+  "files": [
+    "dist/"
+  ]
 }
