@@ -16,13 +16,14 @@ export const usePeer = ({ nodeId, clientId }: UsePeerOptions) => {
   const { isConnected: isWSConnected, wsRef } = useWebSocket({ clientId })
 
   useEffect(() => {
+    setIsConnected(false)
     const ws = wsRef.current
+    let handlecloseTimeout: ReturnType<typeof setTimeout>
+    let handleSignalTimeout: ReturnType<typeof setTimeout>
 
     if (!isWSConnected || !ws) {
-      return // wait for ws
+      return // wait for ws connection
     }
-
-    setIsConnected(false)
 
     const handleWSMessage = (event) => {
       const json = JSON.parse(event.data)
@@ -39,7 +40,7 @@ export const usePeer = ({ nodeId, clientId }: UsePeerOptions) => {
     const handleClose = () => {
       setIsConnected(false)
       // Retry
-      setTimeout(connect, 1000)
+      handlecloseTimeout = setTimeout(connect, 1000)
     }
 
     const handleError = (e: Event) => {
@@ -56,7 +57,7 @@ export const usePeer = ({ nodeId, clientId }: UsePeerOptions) => {
         })
       )
 
-      setTimeout(() => {
+      handleSignalTimeout = setTimeout(() => {
         // Node not online ? Keep trying
         if (!peerRef.current?.connected) {
           peerRef.current?.destroy()
@@ -90,6 +91,9 @@ export const usePeer = ({ nodeId, clientId }: UsePeerOptions) => {
     }
 
     const close = () => {
+      clearTimeout(handlecloseTimeout)
+      clearTimeout(handleSignalTimeout)
+
       if (ws) {
         ws.removeEventListener('message', handleWSMessage)
       }
