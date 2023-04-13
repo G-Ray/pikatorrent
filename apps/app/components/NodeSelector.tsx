@@ -19,7 +19,7 @@ export const NodeSelector = () => {
       value={selectedNode?.id}
       onValueChange={updateSelectedNodeId}
     >
-      <Select.Trigger w={160} iconAfter={ChevronDown}>
+      <Select.Trigger iconAfter={ChevronDown} f={1}>
         <Select.Value placeholder="Select a node" />
       </Select.Trigger>
 
