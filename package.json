@@ -6,7 +6,7 @@
     "android": "npm run android --workspace=@pikatorrent/app",
     "ios": "npm run ios --workspace=@pikatorrent/app",
     "web": "npm run web --workspace=@pikatorrent/app",
-    "signaling": "npm start --workspace=@pikatorrent/signaling-server",
+    "hub": "npm start --workspace=@pikatorrent/hub",
     "node": "npm start --workspace=@pikatorrent/node",
     "postinstall": "patch-package",
     "build:web": "npm run build:web --workspace=@pikatorrent/app"
@@ -18,6 +18,6 @@
   "workspaces": [
     "apps/node",
     "apps/app",
-    "apps/signaling-server"
+    "apps/hub"
   ]
 }
