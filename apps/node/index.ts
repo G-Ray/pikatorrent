@@ -44,7 +44,11 @@ const initWebSocket = () => {
   ws.on('message', (message) => {
     const json = JSON.parse(message)
 
-    if (json.type === 'signal' && json.signal.type === 'offer') {
+    if (
+      json.type === 'signal' &&
+      json.signal.type === 'offer' &&
+      peers.has(json.fromId) === false
+    ) {
       // Create new peer
       initPeer(json.fromId, json.signal)
     } else {
