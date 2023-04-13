@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v3
       # Run your project's build step
       - name: Build
-        run: npm ci && npm run build:web
+        run: npm ci && SIGNALING_URL=${{ vars.SIGNALING_URL }} npm run build:web
       - name: Publish
         uses: cloudflare/pages-action@1
         with:
