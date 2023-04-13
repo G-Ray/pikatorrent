@@ -5,6 +5,10 @@ import * as Transmission from 'transmission-native'
 import * as crypto from 'node:crypto'
 import * as fs from 'node:fs'
 
+const { SIGNALING_URL } = process.env
+
+if (!SIGNALING_URL) throw new Error('Missing SIGNALING_URL env var')
+
 const tr = new Transmission('./transmission', 'transmission')
 
 let ws
@@ -34,7 +38,7 @@ if (!settings) {
 }
 
 const initWebSocket = () => {
-  ws = new WS('ws://localhost:9001')
+  ws = new WS(SIGNALING_URL)
 
   // Listen for messages
   ws.on('message', (message) => {
