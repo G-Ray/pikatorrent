@@ -15,6 +15,8 @@ export const useWebSocket = ({ clientId }: UseWebSocketOptions) => {
   useEffect(() => {
     setIsConnected(false)
 
+    let handleCloseTimeout: ReturnType<typeof setTimeout>
+
     const handleError = (e: Event) => {
       console.error(e)
     }
@@ -22,7 +24,7 @@ export const useWebSocket = ({ clientId }: UseWebSocketOptions) => {
     const handleClose = () => {
       setIsConnected(false)
       // Retry
-      setTimeout(connect, 1000)
+      handleCloseTimeout = setTimeout(connect, 1000)
     }
 
     const handleOpen = () => {
@@ -42,6 +44,8 @@ export const useWebSocket = ({ clientId }: UseWebSocketOptions) => {
     }
 
     const close = () => {
+      clearTimeout(handleCloseTimeout)
+
       if (wsRef.current) {
         // remove handlers and close ws
         wsRef.current.removeEventListener('error', handleError)
