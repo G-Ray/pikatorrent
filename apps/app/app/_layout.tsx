@@ -19,6 +19,8 @@ import { Footer } from '../components/Footer'
 import { SettingsContext } from '../contexts/settings'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
+const screenOptions = { title: 'PikaTorrent' }
+
 export default function Layout() {
   const media = useMedia()
   const [settings, setSettings] = useState({})
@@ -68,7 +70,7 @@ const Desktop = () => {
         <Sidebar />
         <Separator vertical />
         <YStack p="$8" flexGrow={1}>
-          <Slot />
+          <Slot screenOptions={screenOptions} />
         </YStack>
       </XStack>
       <Footer />
@@ -83,7 +85,7 @@ const Mobile = () => {
       <YStack f={1}>
         <Header />
         <YStack p="$3" flexGrow={1}>
-          <Slot />
+          <Slot screenOptions={screenOptions} />
         </YStack>
         <BottomTabs />
       </YStack>
