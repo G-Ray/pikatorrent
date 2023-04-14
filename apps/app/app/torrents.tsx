@@ -66,13 +66,12 @@ export default function Torrents() {
   return (
     <YStack gap="$6">
       {torrents.map((torrent) => (
-        <Card key={torrent.id} bordered size="$2">
-          <Card.Header theme="light">
+        <Card key={torrent.id} bordered size="$2" theme="gray">
+          <Card.Header>
             <XStack jc="space-between">
               <XStack ai="center" space="$2">
                 {STATUSES[torrent.status] === STATUSES[0] ? (
                   <Button
-                    color="$gray12"
                     circular
                     scaleIcon={3}
                     icon={PlayCircle}
@@ -80,7 +79,6 @@ export default function Torrents() {
                   ></Button>
                 ) : (
                   <Button
-                    color="$gray12"
                     circular
                     scaleIcon={3}
                     icon={PauseCircle}
@@ -113,13 +111,13 @@ export default function Torrents() {
               >
                 <YStack>
                   <Paragraph>Progress</Paragraph>
-                  <Paragraph theme="light" fontWeight="bold">
+                  <Paragraph fontWeight="bold">
                     {Math.round(torrent.percentComplete * 100)}%
                   </Paragraph>
                 </YStack>
                 <YStack>
                   <Paragraph>Status</Paragraph>
-                  <Paragraph theme="light" fontWeight="bold">
+                  <Paragraph fontWeight="bold">
                     {STATUSES[torrent.status]}
                   </Paragraph>
                 </YStack>
@@ -128,28 +126,24 @@ export default function Torrents() {
                   <Speed
                     downloadSpeed={torrent.rateDownload}
                     uploadSpeed={torrent.rateUpload}
-                    theme="light"
                   />
                 </YStack>
                 <YStack>
                   <Paragraph>Peers</Paragraph>
-                  <Paragraph theme="light" fontWeight="bold">
+                  <Paragraph fontWeight="bold">
                     {torrent.peers.length}
                   </Paragraph>
                 </YStack>
                 <YStack>
                   <Paragraph alignSelf="flex-end">Size</Paragraph>
-                  <Paragraph
-                    theme="light"
-                    fontWeight="bold"
-                    alignSelf="flex-end"
-                  >
+                  <Paragraph fontWeight="bold" alignSelf="flex-end">
                     {prettyBytes(torrent.totalSize)}
                   </Paragraph>
                 </YStack>
               </XStack>
             </YStack>
           </Card.Footer>
+          {/* <Card.Background bc="$background" /> */}
         </Card>
       ))}
     </YStack>

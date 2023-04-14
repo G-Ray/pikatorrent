@@ -16,8 +16,10 @@ export const Header = () => {
         bc="$background"
       >
         <XStack ai="center" gap="$8">
-          <XStack>{media.gtMd ? <DesktopTitle /> : <MobileTitle />}</XStack>
-          <AddTorrentDialog />
+          <XStack ai="center" gap="$8">
+            <XStack>{media.gtMd ? <DesktopTitle /> : <MobileTitle />}</XStack>
+            <AddTorrentDialog />
+          </XStack>
         </XStack>
         <ConnectionStatus />
       </XStack>

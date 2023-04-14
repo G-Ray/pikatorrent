@@ -1,5 +1,6 @@
+import React from 'react'
 import { Trash2, X } from '@tamagui/lucide-icons'
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { Adapt, Button, Dialog, Sheet, Unspaced, XStack } from 'tamagui'
 import { NodeContext } from '../contexts/node'
 
@@ -32,7 +33,7 @@ export const RemoveTorrentDialog = ({ id }) => {
         </Sheet>
       </Adapt>
 
-      <Dialog.Portal theme="dark">
+      <Dialog.Portal>
         <Dialog.Overlay
           key="overlay"
           animation="quick"

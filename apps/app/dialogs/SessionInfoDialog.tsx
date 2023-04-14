@@ -1,3 +1,4 @@
+import React from 'react'
 import { X } from '@tamagui/lucide-icons'
 import { Adapt, Button, Dialog, Sheet, TextArea, Unspaced } from 'tamagui'
 

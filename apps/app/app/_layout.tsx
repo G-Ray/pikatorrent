@@ -50,7 +50,7 @@ export default function Layout() {
     return <SplashScreen />
   }
 
-  const theme = settings.isDarkModeEnabled ? 'dark' : 'light'
+  const theme = settings.theme || 'light'
 
   return (
     <TamaguiProvider config={config}>

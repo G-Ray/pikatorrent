@@ -36,7 +36,7 @@ export const AddNodeDialog = () => {
         </Sheet>
       </Adapt>
 
-      <Dialog.Portal theme="dark">
+      <Dialog.Portal>
         <Dialog.Overlay
           key="overlay"
           animation="quick"

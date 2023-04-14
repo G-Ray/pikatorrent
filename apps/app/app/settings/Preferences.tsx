@@ -5,12 +5,10 @@ import { SettingsContext } from '../../contexts/settings'
 export const Preferences = () => {
   const { settings, updateSettings } = useContext(SettingsContext)
 
-  const isDarkModeEnabled = settings.isDarkModeEnabled || false
-
   const handleCheckedChange = (isChecked) => {
     updateSettings({
       ...settings,
-      isDarkModeEnabled: isChecked,
+      theme: isChecked ? 'dark' : 'light',
     })
   }
 
@@ -29,7 +27,7 @@ export const Preferences = () => {
         <Separator minHeight={20} vertical />
         <Switch
           id="dark-mode-switch"
-          checked={isDarkModeEnabled}
+          checked={settings.theme === 'dark'}
           onCheckedChange={handleCheckedChange}
         >
           <Switch.Thumb animation="quick" />

@@ -7,7 +7,7 @@ import { Preferences } from './settings/Preferences'
 
 export default function Settings() {
   return (
-    <ScrollView maxHeight="100%" backgroundColor="$background" space>
+    <ScrollView maxHeight="100%" space>
       <Preferences />
       <Nodes />
       <Torrents />

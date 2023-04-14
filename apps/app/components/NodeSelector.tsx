@@ -57,7 +57,7 @@ export const NodeSelector = () => {
                   value={node.id}
                   outlineStyle="none"
                 >
-                  <Select.ItemText color="white">{node.name}</Select.ItemText>
+                  <Select.ItemText>{node.name}</Select.ItemText>
                   <Select.ItemIndicator ml="auto">
                     <Check size={16} />
                   </Select.ItemIndicator>
