@@ -32,7 +32,7 @@ export const AddTorrentDialog = () => {
   return (
     <Dialog modal>
       <Dialog.Trigger asChild>
-        <Button icon={PlusCircle} theme="yellow">
+        <Button icon={PlusCircle} theme="blue">
           Add
         </Button>
       </Dialog.Trigger>
@@ -92,7 +92,7 @@ export const AddTorrentDialog = () => {
           <YStack ai="flex-end" mt="$2">
             <Dialog.Close displayWhenAdapted asChild>
               <Button
-                theme="yellow"
+                theme="blue"
                 aria-label="Close"
                 disabled={magnet.length === 0}
                 onClick={handleAddTorrent}

@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { XStack } from 'tamagui'
+import { Separator, XStack } from 'tamagui'
 import { NodeContext } from '../contexts/node'
 import { Speed } from './Speed'
-import { Theme } from 'tamagui'
 
 export const Footer = () => {
   const [stats, setStats] = useState({})
@@ -29,7 +28,8 @@ export const Footer = () => {
   }, [sendRPCMessage])
 
   return (
-    <Theme name="dark">
+    <>
+      <Separator />
       <XStack
         height={32}
         bc="$background"
@@ -43,6 +43,6 @@ export const Footer = () => {
           uploadSpeed={stats.uploadSpeed}
         />
       </XStack>
-    </Theme>
+    </>
   )
 }

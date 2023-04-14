@@ -5,7 +5,7 @@ import { SettingsContext } from '../../contexts/settings'
 export const Preferences = () => {
   const { settings, updateSettings } = useContext(SettingsContext)
 
-  const handleCheckedChange = (isChecked) => {
+  const handleCheckedChange = (isChecked: boolean) => {
     updateSettings({
       ...settings,
       theme: isChecked ? 'dark' : 'light',

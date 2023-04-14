@@ -7,7 +7,7 @@ export const Header = () => {
   const media = useMedia()
 
   return (
-    <Theme name="dark">
+    <Theme>
       <XStack
         py="$4"
         px={media.gtMd ? '$8' : '$4'}

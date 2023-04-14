@@ -1,5 +1,5 @@
 import React from 'react'
-import { PauseCircle, PlayCircle } from '@tamagui/lucide-icons'
+import { Pause, PauseCircle, Play, PlayCircle } from '@tamagui/lucide-icons'
 import { useContext, useEffect, useState } from 'react'
 import { Button, Card, H4, Paragraph, Progress, XStack, YStack } from 'tamagui'
 import { NodeContext } from '../contexts/node'
@@ -9,9 +9,21 @@ import { Speed } from '../components/Speed'
 
 const REFRESH_INTERVAL = 5_000
 
+// 0 - Torrent is stopped
+// 1 - Torrent is queued to verify local data
+// 2 - Torrent is verifying local data
+// 3 - Torrent is queued to download
+// 4 - Torrent is downloading
+// 5 - Torrent is queued to seed
+// 6 - Torrent is seeding
+
 const STATUSES = {
   0: 'Stopped',
+  1: 'Queued',
+  2: 'Verifying', // Torrent is verifying local data
+  3: 'Queued',
   4: 'Downloading',
+  5: 'Queued',
   6: 'Seeding',
 }
 
@@ -72,18 +84,20 @@ export default function Torrents() {
               <XStack ai="center" space="$2">
                 {STATUSES[torrent.status] === STATUSES[0] ? (
                   <Button
-                    circular
-                    scaleIcon={3}
-                    icon={PlayCircle}
                     onClick={() => handleResume(torrent.id)}
-                  ></Button>
+                    theme="blue"
+                    icon={PlayCircle}
+                  >
+                    Start
+                  </Button>
                 ) : (
                   <Button
-                    circular
-                    scaleIcon={3}
-                    icon={PauseCircle}
                     onClick={() => handlePause(torrent.id)}
-                  ></Button>
+                    theme="gray"
+                    icon={PauseCircle}
+                  >
+                    Pause
+                  </Button>
                 )}
                 <H4 numberOfLines={1} fontWeight="bold">
                   {torrent.name}

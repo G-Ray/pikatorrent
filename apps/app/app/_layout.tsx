@@ -56,7 +56,9 @@ export default function Layout() {
     <TamaguiProvider config={config}>
       <SettingsContext.Provider value={{ settings, updateSettings }}>
         <NodeContext.Provider value={node}>
-          {media.gtMd ? <Desktop theme={theme} /> : <Mobile theme={theme} />}
+          <Theme name={theme}>
+            {media.gtMd ? <Desktop theme={theme} /> : <Mobile theme={theme} />}
+          </Theme>
         </NodeContext.Provider>
       </SettingsContext.Provider>
     </TamaguiProvider>
@@ -71,15 +73,13 @@ const Desktop = ({ theme }: AppProps) => {
   return (
     <YStack f={1}>
       <Header />
-      <Theme name={theme}>
-        <XStack f={1} bc="$background">
-          <Sidebar />
-          <Separator vertical />
-          <YStack p="$8" flexGrow={1}>
-            <Slot screenOptions={screenOptions} />
-          </YStack>
-        </XStack>
-      </Theme>
+      <XStack f={1} bc="$background">
+        <Sidebar />
+        <Separator vertical />
+        <YStack p="$8" flexGrow={1}>
+          <Slot screenOptions={screenOptions} />
+        </YStack>
+      </XStack>
       <Footer />
     </YStack>
   )
@@ -91,12 +91,10 @@ const Mobile = ({ theme }: AppProps) => {
       <StatusBar hidden />
       <YStack f={1}>
         <Header />
-        <Theme name={theme}>
-          <YStack p="$3" flexGrow={1} bc="$background">
-            <Slot screenOptions={screenOptions} />
-          </YStack>
-          <BottomTabs />
-        </Theme>
+        <YStack p="$3" flexGrow={1} bc="$background">
+          <Slot screenOptions={screenOptions} />
+        </YStack>
+        <BottomTabs />
       </YStack>
     </>
   )

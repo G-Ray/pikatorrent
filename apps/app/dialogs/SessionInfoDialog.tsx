@@ -18,7 +18,7 @@ export const SessionsInfoDialog = ({ session }) => {
         </Sheet>
       </Adapt>
 
-      <Dialog.Portal theme="dark">
+      <Dialog.Portal>
         <Dialog.Overlay
           key="overlay"
           animation="quick"
