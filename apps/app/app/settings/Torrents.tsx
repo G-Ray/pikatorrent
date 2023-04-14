@@ -34,7 +34,7 @@ export const Torrents = () => {
   if (!session) return null // TODO: Loading
 
   return (
-    <Form height="100%" space ai="flex-start" onSubmit={() => handleSubmit()}>
+    <Form space ai="flex-start" onSubmit={() => handleSubmit()}>
       <H2>Torrents settings</H2>
       <XStack space w="100%">
         <Label htmlFor="downloadDir">Download directory</Label>

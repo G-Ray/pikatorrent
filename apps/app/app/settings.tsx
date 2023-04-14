@@ -1,14 +1,16 @@
 import React from 'react'
-import { YStack } from 'tamagui'
+import { ScrollView } from 'tamagui'
 
 import { Nodes } from './settings/Nodes'
 import { Torrents } from './settings/Torrents'
+import { Preferences } from './settings/Preferences'
 
 export default function Settings() {
   return (
-    <YStack>
+    <ScrollView maxHeight="100%" backgroundColor="$background" space>
+      <Preferences />
       <Nodes />
       <Torrents />
-    </YStack>
+    </ScrollView>
   )
 }

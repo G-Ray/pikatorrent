@@ -9,6 +9,7 @@ import {
   Input,
   Label,
   Sheet,
+  Theme,
   Unspaced,
   YStack,
 } from 'tamagui'
@@ -32,9 +33,9 @@ export const AddTorrentDialog = () => {
   return (
     <Dialog modal>
       <Dialog.Trigger asChild>
-        <Button icon={PlusCircle} theme="yellow">
-          Add
-        </Button>
+        <Theme name="yellow">
+          <Button icon={PlusCircle}>Add</Button>
+        </Theme>
       </Dialog.Trigger>
 
       <Adapt when="sm" platform="touch">

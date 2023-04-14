@@ -24,7 +24,7 @@ export const Nodes = () => {
   console.log('nodes', nodes)
 
   return (
-    <YStack height="100%" space ai="flex-start">
+    <YStack space ai="flex-start">
       <H2>Nodes</H2>
       <XStack space w="100%">
         <YGroup alignSelf="center" bordered size="$4">

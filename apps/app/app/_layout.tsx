@@ -50,43 +50,53 @@ export default function Layout() {
     return <SplashScreen />
   }
 
+  const theme = settings.isDarkModeEnabled ? 'dark' : 'light'
+
   return (
     <TamaguiProvider config={config}>
       <SettingsContext.Provider value={{ settings, updateSettings }}>
         <NodeContext.Provider value={node}>
-          <Theme name="light">{media.gtMd ? <Desktop /> : <Mobile />}</Theme>
+          {media.gtMd ? <Desktop theme={theme} /> : <Mobile theme={theme} />}
         </NodeContext.Provider>
       </SettingsContext.Provider>
     </TamaguiProvider>
   )
 }
 
-const Desktop = () => {
+interface AppProps {
+  theme: 'dark' | 'light'
+}
+
+const Desktop = ({ theme }: AppProps) => {
   return (
     <YStack f={1}>
       <Header />
-      <XStack f={1}>
-        <Sidebar />
-        <Separator vertical />
-        <YStack p="$8" flexGrow={1}>
-          <Slot screenOptions={screenOptions} />
-        </YStack>
-      </XStack>
+      <Theme name={theme}>
+        <XStack f={1} bc="$background">
+          <Sidebar />
+          <Separator vertical />
+          <YStack p="$8" flexGrow={1}>
+            <Slot screenOptions={screenOptions} />
+          </YStack>
+        </XStack>
+      </Theme>
       <Footer />
     </YStack>
   )
 }
 
-const Mobile = () => {
+const Mobile = ({ theme }: AppProps) => {
   return (
     <>
-      <StatusBar style="light" hidden />
+      <StatusBar hidden />
       <YStack f={1}>
         <Header />
-        <YStack p="$3" flexGrow={1}>
-          <Slot screenOptions={screenOptions} />
-        </YStack>
-        <BottomTabs />
+        <Theme name={theme}>
+          <YStack p="$3" flexGrow={1} bc="$background">
+            <Slot screenOptions={screenOptions} />
+          </YStack>
+          <BottomTabs />
+        </Theme>
       </YStack>
     </>
   )
