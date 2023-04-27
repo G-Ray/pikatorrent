@@ -30,6 +30,8 @@ if (fs.existsSync('./settings.json')) {
 const nodeId =
   settings && settings.nodeId ? settings.nodeId : crypto.randomUUID()
 
+console.log('Node ID:', nodeId)
+
 if (!settings) {
   // Save nodeId to settings.json
   fs.writeFileSync(

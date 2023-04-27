@@ -3,19 +3,21 @@
   "version": "0.0.0",
   "description": "",
   "main": "./dist/index.js",
+  "bin": "./dist/index.js",
   "scripts": {
-    "start": "tsc --watch & node --watch ./dist/index.js"
+    "build": "tsc",
+    "start": "tsc --watch & node --watch ./dist/index.js",
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/G-Ray/pikatorrent.git"
   },
-  "author": "",
+  "author": "@PikaTorrent",
   "bugs": {
     "url": "https://github.com/G-Ray/pikatorrent/issues"
   },
   "homepage": "https://github.com/G-Ray/pikatorrent#readme",
-  "private": true,
   "dependencies": {
     "dotenv": "^16.0.3",
     "node-pre-gyp": "^0.17.0",
@@ -29,5 +31,8 @@
     "@typescript-eslint/parser": "^5.57.1",
     "eslint": "^8.37.0",
     "typescript": "^5.0.3"
-  }
+  },
+  "files": [
+    "dist/"
+  ]
 }
