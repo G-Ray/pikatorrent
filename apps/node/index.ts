@@ -4,6 +4,9 @@ import * as WS from 'ws'
 import * as Transmission from 'transmission-native'
 import * as crypto from 'node:crypto'
 import * as fs from 'node:fs'
+import * as dotenv from 'dotenv'
+
+dotenv.config()
 
 const { SIGNALING_URL } = process.env
 
@@ -99,7 +102,6 @@ const initPeer = (id, offer) => {
   })
 
   peer.on('signal', (signal) => {
-    console.log('signal')
     ws.send(
       JSON.stringify({
         type: 'signal',

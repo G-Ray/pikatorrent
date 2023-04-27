@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
+console.log('process.env', process.env)
 const { SIGNALING_URL } = process.env
 
 if (!SIGNALING_URL) throw new Error('Missing SIGNALING_URL env var')

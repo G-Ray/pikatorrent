@@ -1,10 +1,6 @@
 import { useEffect } from 'react'
 import { usePeer } from './usePeer'
 
-const { SIGNALING_URL } = process.env
-
-if (!SIGNALING_URL) throw new Error('Missing SIGNALING_URL env var')
-
 const RESPONSE_TIMEOUT = 10_000
 
 let msgId = 0
