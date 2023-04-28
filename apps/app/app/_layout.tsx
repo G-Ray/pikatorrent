@@ -56,20 +56,14 @@ export default function Layout() {
     <TamaguiProvider config={config}>
       <SettingsContext.Provider value={{ settings, updateSettings }}>
         <NodeContext.Provider value={node}>
-          <Theme name={theme}>
-            {media.gtMd ? <Desktop theme={theme} /> : <Mobile theme={theme} />}
-          </Theme>
+          <Theme name={theme}>{media.gtMd ? <Desktop /> : <Mobile />}</Theme>
         </NodeContext.Provider>
       </SettingsContext.Provider>
     </TamaguiProvider>
   )
 }
 
-interface AppProps {
-  theme: 'dark' | 'light'
-}
-
-const Desktop = ({ theme }: AppProps) => {
+const Desktop = () => {
   return (
     <YStack f={1}>
       <Header />
@@ -85,7 +79,7 @@ const Desktop = ({ theme }: AppProps) => {
   )
 }
 
-const Mobile = ({ theme }: AppProps) => {
+const Mobile = () => {
   return (
     <>
       <StatusBar hidden />

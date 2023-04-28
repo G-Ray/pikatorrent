@@ -1,12 +1,12 @@
-import React from "react";
-import { Separator, XStack, YStack } from "tamagui";
-import { ButtonLink } from "./ButtonLink";
+import React from 'react'
+import { Separator, XStack, YStack } from 'tamagui'
+import { ButtonLink } from './ButtonLink'
 
-import { buttons } from "./buttons";
+import { buttons } from './buttons'
 
 export const BottomTabs = () => {
   return (
-    <YStack w="100%">
+    <YStack w="100%" bc="$background">
       <Separator />
       <XStack jc="space-around" p="$4" gap="$4">
         {buttons.map((button, index) => (
@@ -14,5 +14,5 @@ export const BottomTabs = () => {
         ))}
       </XStack>
     </YStack>
-  );
-};
+  )
+}

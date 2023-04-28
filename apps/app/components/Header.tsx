@@ -7,23 +7,21 @@ export const Header = () => {
   const media = useMedia()
 
   return (
-    <Theme>
-      <XStack
-        py="$4"
-        px={media.gtMd ? '$8' : '$4'}
-        jc="space-between"
-        ai="center"
-        bc="$background"
-      >
+    <XStack
+      py="$4"
+      px={media.gtMd ? '$8' : '$4'}
+      jc="space-between"
+      ai="center"
+      bc="$background"
+    >
+      <XStack ai="center" gap="$8">
         <XStack ai="center" gap="$8">
-          <XStack ai="center" gap="$8">
-            <XStack>{media.gtMd ? <DesktopTitle /> : <MobileTitle />}</XStack>
-            <AddTorrentDialog />
-          </XStack>
+          <XStack>{media.gtMd ? <DesktopTitle /> : <MobileTitle />}</XStack>
+          <AddTorrentDialog />
         </XStack>
-        <ConnectionStatus />
       </XStack>
-    </Theme>
+      <ConnectionStatus />
+    </XStack>
   )
 }
 
