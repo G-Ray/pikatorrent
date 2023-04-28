@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { PlusCircle, X } from '@tamagui/lucide-icons'
 import { useContext, useState } from 'react'
 import {
@@ -13,10 +13,26 @@ import {
   YStack,
 } from 'tamagui'
 import { NodeContext } from '../contexts/node'
+import { Platform } from 'react-native'
 
 export const AddTorrentDialog = () => {
   const [magnet, setMagnet] = useState('')
   const { sendRPCMessage } = useContext(NodeContext)
+
+  const defaultOpen = Boolean(
+    Platform.OS === 'web' &&
+      new URLSearchParams(document.location.search).get('magnet')
+  )
+
+  useEffect(() => {
+    // Open modal with magnet from url searchParams
+    if (Platform.OS !== 'web') return
+
+    const searchParams = new URLSearchParams(document.location.search)
+    if (searchParams.get('magnet')) {
+      setMagnet(searchParams.get('magnet'))
+    }
+  }, [])
 
   const handleAddTorrent = async () => {
     try {
@@ -30,7 +46,7 @@ export const AddTorrentDialog = () => {
   }
 
   return (
-    <Dialog modal>
+    <Dialog modal defaultOpen={defaultOpen}>
       <Dialog.Trigger asChild>
         <Button icon={PlusCircle} theme="blue">
           Add

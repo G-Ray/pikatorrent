@@ -16,7 +16,7 @@ module.exports = function (api) {
       [
         'transform-inline-environment-variables',
         {
-          include: ['TAMAGUI_TARGET', 'SIGNALING_URL'],
+          include: ['TAMAGUI_TARGET', 'SIGNALING_URL', 'APP_URL'],
         },
       ],
       '@babel/plugin-proposal-export-namespace-from',

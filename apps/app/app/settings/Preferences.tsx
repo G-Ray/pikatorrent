@@ -1,6 +1,29 @@
 import React, { useContext } from 'react'
-import { H2, Label, Separator, Switch, XStack, YStack } from 'tamagui'
+import { H2, Label, Separator, Switch, XStack, YStack, Button } from 'tamagui'
 import { SettingsContext } from '../../contexts/settings'
+import { Platform } from 'react-native'
+
+const { APP_URL } = process.env
+
+if (!APP_URL) {
+  throw new Error('Missing APP_URL env var')
+}
+
+const registerMagnetHandler = () => {
+  if (Platform.OS === 'web') {
+    // https://developer.mozilla.org/en-US/docs/Web/API/Navigator/registerProtocolHandler
+
+    try {
+      window.navigator.registerProtocolHandler(
+        'magnet',
+        `${APP_URL}/?magnet=%s`,
+        'PikaTorrent'
+      )
+    } catch (e) {
+      console.error(e)
+    }
+  }
+}
 
 export const Preferences = () => {
   const { settings, updateSettings } = useContext(SettingsContext)
@@ -33,6 +56,11 @@ export const Preferences = () => {
           <Switch.Thumb animation="quick" />
         </Switch>
       </XStack>
+      {Platform.OS === 'web' && (
+        <Button theme="blue" onPress={() => registerMagnetHandler()}>
+          Register magnet protocol
+        </Button>
+      )}
     </YStack>
   )
 }
