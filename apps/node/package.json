@@ -2,8 +2,7 @@
   "name": "@pikatorrent/node",
   "version": "0.0.0",
   "description": "",
-  "main": "./dist/index.js",
-  "bin": "./dist/index.js",
+  "main": "./dist/bin.js",
   "scripts": {
     "build": "tsc",
     "start": "tsc --watch & node --watch ./dist/index.js",
