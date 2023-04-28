@@ -1,25 +1,25 @@
-import { useContext, useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import { NodeContext } from '../contexts/node'
 
 export const useSession = () => {
   const { sendRPCMessage } = useContext(NodeContext)
   const [session, setSession] = useState({})
 
-  useEffect(() => {
-    const fetchSession = async () => {
-      try {
-        const response = await sendRPCMessage({
-          method: 'session-get',
-        })
+  const fetchSession = useCallback(async () => {
+    try {
+      const response = await sendRPCMessage({
+        method: 'session-get',
+      })
 
-        setSession(response.payload.arguments)
-      } catch (e) {
-        console.log('error fetching session info', e)
-      }
+      setSession(response.payload.arguments)
+    } catch (e) {
+      console.log('error fetching session info', e)
     }
-
-    fetchSession()
   }, [sendRPCMessage])
 
-  return session
+  useEffect(() => {
+    fetchSession()
+  }, [sendRPCMessage, fetchSession])
+
+  return { session, fetchSession }
 }

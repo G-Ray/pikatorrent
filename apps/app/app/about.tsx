@@ -6,7 +6,7 @@ import { useSession } from '../hooks/useSession'
 import { version } from '../package.json'
 
 export default function About() {
-  const session = useSession()
+  const { session } = useSession()
 
   return (
     <YStack>
