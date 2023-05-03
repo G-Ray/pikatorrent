@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { PlusCircle, X } from '@tamagui/lucide-icons'
 import { useContext, useState } from 'react'
 import {
@@ -8,15 +8,31 @@ import {
   Fieldset,
   Input,
   Label,
+  Paragraph,
   Sheet,
   Unspaced,
   YStack,
 } from 'tamagui'
 import { NodeContext } from '../contexts/node'
 import { Platform } from 'react-native'
+import * as DocumentPicker from 'expo-document-picker'
+
+function readFileToBase64(file: File) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = () =>
+      resolve(
+        reader.result?.slice('data:application/x-bittorrent;base64,'.length)
+      )
+    reader.onerror = reject
+  })
+}
 
 export const AddTorrentDialog = () => {
   const [magnet, setMagnet] = useState('')
+  const [documentResult, setDocumentResult] =
+    useState<DocumentPicker.DocumentResult | null>(null)
   const { sendRPCMessage } = useContext(NodeContext)
 
   const defaultOpen = Boolean(
@@ -36,13 +52,34 @@ export const AddTorrentDialog = () => {
 
   const handleAddTorrent = async () => {
     try {
-      await sendRPCMessage({
+      const torrentAddArgs = documentResult
+        ? {
+            metainfo: await readFileToBase64(documentResult.file),
+          }
+        : { filename: magnet }
+
+      const response = await sendRPCMessage({
         method: 'torrent-add',
-        arguments: { filename: magnet },
+        arguments: torrentAddArgs,
       })
+
+      console.log('response', response)
     } catch (e) {
       console.error(e)
     }
+  }
+
+  const handleSelectTorrentFile = async () => {
+    if (Platform.OS !== 'web') return
+    // TODO: Mobile
+
+    const documentResult = await DocumentPicker.getDocumentAsync({
+      type: '.torrent',
+    })
+
+    if (documentResult.type === 'cancel') return
+
+    setDocumentResult(documentResult)
   }
 
   return (
@@ -104,13 +141,21 @@ export const AddTorrentDialog = () => {
               onChange={(e) => setMagnet(e.target.value)}
             />
           </Fieldset>
+          <Paragraph>Or</Paragraph>
+
+          <Fieldset horizontal gap="$4">
+            <Button theme="blue" onPress={handleSelectTorrentFile}>
+              Select a .torrent file
+            </Button>
+            {documentResult && <Paragraph>{documentResult.name}</Paragraph>}
+          </Fieldset>
 
           <YStack ai="flex-end" mt="$2">
             <Dialog.Close displayWhenAdapted asChild>
               <Button
                 theme="blue"
                 aria-label="Close"
-                disabled={magnet.length === 0}
+                disabled={magnet.length === 0 && documentResult === null}
                 onClick={handleAddTorrent}
               >
                 Add
