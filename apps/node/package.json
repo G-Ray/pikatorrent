@@ -18,8 +18,8 @@
   },
   "homepage": "https://github.com/G-Ray/pikatorrent#readme",
   "dependencies": {
-    "dotenv": "^16.0.3",
     "node-pre-gyp": "^0.17.0",
+    "qrcode": "^1.5.3",
     "simple-peer": "^9.11.1",
     "transmission-native": "^0.1.1",
     "wrtc": "^0.4.7",

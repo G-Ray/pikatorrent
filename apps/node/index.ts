@@ -4,13 +4,13 @@ import * as WS from 'ws'
 import * as Transmission from 'transmission-native'
 import * as crypto from 'node:crypto'
 import * as fs from 'node:fs'
-import * as dotenv from 'dotenv'
+import * as QRCode from 'qrcode'
+import { default as config } from './config'
 
-dotenv.config()
-
-const { SIGNALING_URL } = process.env
+const { SIGNALING_URL, APP_URL } = config
 
 if (!SIGNALING_URL) throw new Error('Missing SIGNALING_URL env var')
+if (!APP_URL) throw new Error('Missing APP_URL env var')
 
 const tr = new Transmission('./transmission', 'transmission')
 
@@ -30,7 +30,17 @@ if (fs.existsSync('./settings.json')) {
 const nodeId =
   settings && settings.nodeId ? settings.nodeId : crypto.randomUUID()
 
-console.log('Node ID:', nodeId)
+const printNodeInfo = async () => {
+  const qrcode = await QRCode.toString(`${APP_URL}/settings?nodeId=` + nodeId)
+
+  console.log('> Node ID (keep it secret):', nodeId, '\n')
+  console.log(
+    `> Add this node ID to a pikatorrent manually, click on the url, or scan the qrcode:`
+  )
+  console.log(`- ${APP_URL}/settings?nodeId=` + nodeId)
+
+  console.log(qrcode)
+}
 
 if (!settings) {
   // Save nodeId to settings.json
@@ -214,6 +224,7 @@ const initPeer = (id, offer) => {
   peer.signal(offer)
 }
 
+printNodeInfo()
 initWebSocket()
 
 // Handle exit gracefully

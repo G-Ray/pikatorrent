@@ -1,10 +1,11 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { PlusCircle, X } from '@tamagui/lucide-icons'
 import { Adapt, Button, Dialog, Input, Sheet, Unspaced, YStack } from 'tamagui'
 import { Fieldset } from 'tamagui'
 import { Label } from 'tamagui'
 import { Form } from 'tamagui'
 import { SettingsContext } from '../contexts/settings'
+import { Platform } from 'react-native'
 
 export const AddNodeDialog = () => {
   const [id, setId] = useState('')
@@ -13,14 +14,29 @@ export const AddNodeDialog = () => {
 
   const nodes = settings.nodes || []
 
+  useEffect(() => {
+    // Open modal with node ID from url searchParams
+    if (Platform.OS !== 'web') return
+
+    const searchParams = new URLSearchParams(document.location.search)
+    if (searchParams.get('nodeId')) {
+      setId(searchParams.get('nodeId'))
+    }
+  }, [])
+
   const handleSave = async () => {
     if (id.length > 0 && nodes.filter((n) => n.id === id).length === 0) {
       updateSettings({ ...settings, nodes: [...nodes, { id, name }] })
     }
   }
 
+  const defaultOpen = Boolean(
+    Platform.OS === 'web' &&
+      new URLSearchParams(document.location.search).get('nodeId')
+  )
+
   return (
-    <Dialog modal>
+    <Dialog modal defaultOpen={defaultOpen}>
       <Dialog.Trigger asChild>
         <Button icon={PlusCircle} theme="blue">
           Add
