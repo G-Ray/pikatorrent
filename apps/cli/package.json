@@ -8,7 +8,6 @@
   "dependencies": {
     "@pikatorrent/hub": "*",
     "@pikatorrent/node": "*",
-    "commander": "^10.0.1",
-    "patch-package": "^6.5.1"
+    "commander": "^10.0.1"
   }
 }
