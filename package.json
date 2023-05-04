@@ -9,7 +9,9 @@
     "hub": "npm start --workspace=@pikatorrent/hub",
     "node": "npm start --workspace=@pikatorrent/node",
     "postinstall": "patch-package",
-    "build:web": "npm run build:web --workspace=@pikatorrent/app"
+    "build:web": "npm run build:web --workspace=@pikatorrent/app",
+    "version": "npm version --workspaces",
+    "publish": "npm publish --workspaces"
   },
   "devDependencies": {
     "patch-package": "^6.5.1"
