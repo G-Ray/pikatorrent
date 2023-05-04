@@ -18,6 +18,7 @@
   "workspaces": [
     "apps/node",
     "apps/app",
-    "apps/hub"
+    "apps/hub",
+    "apps/cli"
   ]
 }
