@@ -5,7 +5,8 @@
   "main": "./dist/index.js",
   "scripts": {
     "build": "tsc",
-    "start": "tsc --watch & node --watch ./dist/index.js"
+    "start": "tsc --watch & node --watch ./dist/index.js",
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
