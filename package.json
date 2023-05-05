@@ -1,5 +1,5 @@
 {
-  "name": "pikatorrent",
+  "name": "pikatorrent-monorepo",
   "version": "0.0.0",
   "scripts": {
     "native": "npm run native --workspace=@pikatorrent/app",
