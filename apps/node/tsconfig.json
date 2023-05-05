@@ -2,7 +2,8 @@
   "compilerOptions": {
     "outDir": "./dist",
     "allowJs": true,
-    "target": "es5"
+    "target": "ES6",
+    "moduleResolution": "nodenext"
   },
   "include": ["./**/*"]
 }

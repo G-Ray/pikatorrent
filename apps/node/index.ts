@@ -1,18 +1,27 @@
-import * as Peer from 'simple-peer'
+import Peer from 'simple-peer'
 import * as wrtc from 'wrtc'
-import * as WS from 'ws'
-import * as Transmission from 'transmission-native'
+import WS from 'ws'
+import Transmission from 'transmission-native'
 import * as crypto from 'node:crypto'
+import * as path from 'node:path'
 import * as fs from 'node:fs'
 import * as QRCode from 'qrcode'
-import { default as config } from './config'
+import { default as config } from './config.js'
+import envPaths from 'env-paths'
 
 const { SIGNALING_URL, APP_URL } = config
 
 if (!SIGNALING_URL) throw new Error('Missing SIGNALING_URL env var')
 if (!APP_URL) throw new Error('Missing APP_URL env var')
 
-const tr = new Transmission('./transmission', 'transmission')
+const configPath = envPaths('pikatorrent', { suffix: null }).config
+if (!fs.existsSync(configPath)) {
+  fs.mkdirSync(configPath)
+}
+
+const transmissionConfigPath = path.join(configPath, 'transmission')
+const settingsFilePath = path.join(configPath, 'settings.json')
+const tr = new Transmission(transmissionConfigPath, 'transmission')
 
 let ws
 const peers = new Map<string, InstanceType<Peer.SimplePeer>>() // clientId -> SimplePeer
@@ -20,8 +29,8 @@ const peers = new Map<string, InstanceType<Peer.SimplePeer>>() // clientId -> Si
 let settings = null
 
 // load settings.json
-if (fs.existsSync('./settings.json')) {
-  const settingsFileData = fs.readFileSync('./settings.json')
+if (fs.existsSync(settingsFilePath)) {
+  const settingsFileData = fs.readFileSync(settingsFilePath)
   if (settingsFileData) {
     settings = JSON.parse(settingsFileData.toString())
   }
@@ -45,7 +54,7 @@ const printNodeInfo = async () => {
 if (!settings) {
   // Save nodeId to settings.json
   fs.writeFileSync(
-    './settings.json',
+    settingsFilePath,
     JSON.stringify({
       nodeId,
     })
