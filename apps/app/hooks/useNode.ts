@@ -10,7 +10,10 @@ const clientId = crypto.randomUUID() // Note: Should we save the clientId ?
 
 // Hook to interact with a pikatorrent node
 export const useNode = ({ nodeId }) => {
-  const { peerRef, isConnected } = usePeer({ clientId, nodeId })
+  const { peerRef, isConnected, isUnsupportedBrowser } = usePeer({
+    clientId,
+    nodeId,
+  })
 
   useEffect(() => {
     const peer = peerRef.current
@@ -93,5 +96,6 @@ export const useNode = ({ nodeId }) => {
   return {
     isConnected,
     sendRPCMessage,
+    isUnsupportedBrowser,
   }
 }

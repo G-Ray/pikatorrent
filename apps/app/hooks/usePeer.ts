@@ -14,6 +14,7 @@ export const usePeer = ({ nodeId, clientId }: UsePeerOptions) => {
   const peerRef = useRef<InstanceType<SimplePeer> | null>(null)
   const [isConnected, setIsConnected] = useState(false)
   const { isConnected: isWSConnected, wsRef } = useWebSocket({ clientId })
+  const [isUnsupportedBrowser, setIsUnsupportedBrowser] = useState(false)
 
   useEffect(() => {
     setIsConnected(false)
@@ -76,18 +77,26 @@ export const usePeer = ({ nodeId, clientId }: UsePeerOptions) => {
       ws.addEventListener('message', handleWSMessage)
 
       // Init Peer instance
-      peerRef.current =
-        Platform.OS === 'web'
-          ? <InstanceType<SimplePeer>>new Peer({ initiator: true })
-          : <InstanceType<SimplePeer>>new Peer({
-              initiator: true,
-              wrtc: require('react-native-webrtc'),
-            })
+      try {
+        peerRef.current =
+          Platform.OS === 'web'
+            ? <InstanceType<SimplePeer>>new Peer({ initiator: true })
+            : <InstanceType<SimplePeer>>new Peer({
+                initiator: true,
+                wrtc: require('react-native-webrtc'),
+              })
 
-      peerRef.current.addListener('close', handleClose)
-      peerRef.current.addListener('error', handleError)
-      peerRef.current.addListener('signal', handleSignal)
-      peerRef.current.addListener('connect', handleConnect)
+        peerRef.current.addListener('close', handleClose)
+        peerRef.current.addListener('error', handleError)
+        peerRef.current.addListener('signal', handleSignal)
+        peerRef.current.addListener('connect', handleConnect)
+      } catch (e) {
+        if (e.code === 'ERR_WEBRTC_SUPPORT') {
+          setIsUnsupportedBrowser(true)
+        } else {
+          throw e
+        }
+      }
     }
 
     const close = () => {
@@ -114,5 +123,5 @@ export const usePeer = ({ nodeId, clientId }: UsePeerOptions) => {
     }
   }, [clientId, nodeId, wsRef, isWSConnected])
 
-  return { peerRef: peerRef, isConnected }
+  return { peerRef: peerRef, isConnected, isUnsupportedBrowser }
 }
