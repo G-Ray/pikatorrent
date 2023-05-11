@@ -23,7 +23,7 @@
     "expo-dev-client": "~2.2.1",
     "expo-font": "^11.1.1",
     "expo-linking": "~4.0.1",
-    "expo-modules-core": "~1.2.6",
+    "expo-modules-core": "~1.2.7",
     "expo-random": "~13.1.1",
     "expo-router": "^1.5.3",
     "expo-splash-screen": "~0.18.2",
