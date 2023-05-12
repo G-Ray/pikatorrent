@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
 import { Button, H2, ListItem, XStack, YGroup, YStack } from 'tamagui'
 
-import { Delete } from '@tamagui/lucide-icons'
 import { AddNodeDialog } from '../../dialogs/AddNodeDialog'
 import { SettingsContext } from '../../contexts/settings'
+import { ConfirmNodeDeleteAlertDialog } from '../../dialogs/ConfirmNodeDeleteAlertDialog'
 
 export const Nodes = () => {
   const { settings, updateSettings } = useContext(SettingsContext)
@@ -34,11 +34,8 @@ export const Nodes = () => {
                 hoverTheme
                 title={`${node.name}`}
                 iconAfter={
-                  <Button
-                    icon={Delete}
-                    theme="red"
-                    size="$2"
-                    onClick={() => handleDeleteNode(node.id)}
+                  <ConfirmNodeDeleteAlertDialog
+                    onConfirm={() => handleDeleteNode(node.id)}
                   />
                 }
               />
