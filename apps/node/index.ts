@@ -1,5 +1,5 @@
 import Peer from 'simple-peer'
-import * as wrtc from 'wrtc'
+import wrtc from 'wrtc'
 import WS from 'ws'
 import Transmission from 'transmission-native'
 import * as crypto from 'node:crypto'
