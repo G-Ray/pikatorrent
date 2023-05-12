@@ -1,5 +1,14 @@
 import React, { useContext } from 'react'
-import { H2, Label, Separator, Switch, XStack, YStack, Button } from 'tamagui'
+import {
+  H2,
+  Label,
+  Separator,
+  Switch,
+  XStack,
+  YStack,
+  Button,
+  Paragraph,
+} from 'tamagui'
 import { SettingsContext } from '../../contexts/settings'
 import { Platform } from 'react-native'
 
@@ -14,6 +23,14 @@ const registerMagnetHandler = () => {
     // https://developer.mozilla.org/en-US/docs/Web/API/Navigator/registerProtocolHandler
 
     try {
+      if (window.navigator.unregisterProtocolHandler) {
+        // chromium browsers allow unregistering
+        window.navigator.unregisterProtocolHandler(
+          'magnet',
+          `${APP_URL}/?magnet=%s`
+        )
+      }
+
       window.navigator.registerProtocolHandler(
         'magnet',
         `${APP_URL}/?magnet=%s`,
@@ -24,6 +41,18 @@ const registerMagnetHandler = () => {
     }
   }
 }
+
+setTimeout(() => {
+  try {
+    window.navigator.registerProtocolHandler(
+      'magnet',
+      `${APP_URL}/?magnet=%s`,
+      'PikaTorrent'
+    )
+  } catch (e) {
+    console.error(e)
+  }
+}, 1000)
 
 export const Preferences = () => {
   const { settings, updateSettings } = useContext(SettingsContext)
@@ -57,9 +86,18 @@ export const Preferences = () => {
         </Switch>
       </XStack>
       {Platform.OS === 'web' && (
-        <Button theme="blue" onPress={() => registerMagnetHandler()}>
-          Register magnet protocol
-        </Button>
+        <XStack ai="center" space="$4">
+          <Label htmlFor="register-magnet-button">
+            Allow pikatorrent to open magnet links:
+          </Label>
+          <Button
+            id="register-magnet-button"
+            themeInverse
+            onPress={() => registerMagnetHandler()}
+          >
+            Register
+          </Button>
+        </XStack>
       )}
     </YStack>
   )
