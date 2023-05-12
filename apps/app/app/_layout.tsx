@@ -19,6 +19,7 @@ import { Footer } from '../components/Footer'
 import { SettingsContext } from '../contexts/settings'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { UnsupportedBrowserDialog } from '../dialogs/UnsupportedBrowserDialog'
+import { WelcomeDialog } from '../dialogs/WelcomeDialog'
 
 const screenOptions = { title: 'PikaTorrent' }
 
@@ -56,6 +57,7 @@ export default function Layout() {
   return (
     <TamaguiProvider config={config}>
       {node.isUnsupportedBrowser && <UnsupportedBrowserDialog />}
+      {(!settings.nodes || settings.nodes.length === 0) && <WelcomeDialog />}
       <SettingsContext.Provider value={{ settings, updateSettings }}>
         <NodeContext.Provider value={node}>
           <Theme name={theme}>{media.gtMd ? <Desktop /> : <Mobile />}</Theme>
