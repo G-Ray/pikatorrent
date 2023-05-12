@@ -5,10 +5,6 @@ import { Adapt, Button, Dialog, Sheet, Unspaced } from 'tamagui'
 export const WelcomeDialog = () => {
   return (
     <Dialog modal defaultOpen>
-      <Dialog.Trigger asChild>
-        <Button>Session info</Button>
-      </Dialog.Trigger>
-
       <Adapt when="sm" platform="touch">
         <Sheet zIndex={200000} modal dismissOnSnapToBottom>
           <Sheet.Frame padding="$4" space>
