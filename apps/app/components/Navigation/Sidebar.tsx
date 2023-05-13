@@ -1,4 +1,4 @@
-import { Button, YStack } from 'tamagui'
+import { YStack } from 'tamagui'
 import React from 'react'
 import { ButtonLink } from './ButtonLink'
 

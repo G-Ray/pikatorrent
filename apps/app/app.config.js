@@ -37,7 +37,7 @@ module.exports = () => {
           projectId: 'e2afa425-163f-4c4c-95e7-1217ac950dc5',
         },
       },
-      plugins: ['@config-plugins/react-native-webrtc'],
+      plugins: ['@config-plugins/react-native-webrtc', 'expo-localization'],
     },
   }
 }
