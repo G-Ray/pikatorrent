@@ -1,6 +1,24 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-}
 
-module.exports = nextConfig
+process.env.TAMAGUI_TARGET = 'web'
+
+const { withTamagui } = require('@tamagui/next-plugin')
+
+module.exports = function (name, { defaultConfig }) {
+  let config = {
+    ...defaultConfig,
+    output: 'export',
+    // ...your configuration
+  }
+
+  const tamaguiPlugin = withTamagui({
+    config: './tamagui.config.ts',
+    components: ['tamagui'],
+    disableExtraction: true, // FIXME: Global CSS cannot be imported from files other than your Custom <App>
+  })
+
+  return {
+    ...config,
+    ...tamaguiPlugin(config),
+  }
+}
