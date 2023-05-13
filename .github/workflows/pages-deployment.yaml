@@ -10,14 +10,25 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      # Run your project's build step
-      - name: Build
-        run: npm ci && SIGNALING_URL=${{ vars.SIGNALING_URL }} npm run build:web
-      - name: Publish
+      # PikaTorrent site
+      - name: Build site
+        run: npm ci && npm run build:site
+      - name: Publish site
         uses: cloudflare/pages-action@1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: pikatorrent
+          projectName: pikatorrent-site
+          directory: apps/site/out
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+      # PikaTorrent app
+      - name: Build app
+        run: npm ci && SIGNALING_URL=${{ vars.SIGNALING_URL }} npm run build:web
+      - name: Publish app
+        uses: cloudflare/pages-action@1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: pikatorrent-app
           directory: apps/app/dist
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
