@@ -58,12 +58,11 @@ export default function Layout() {
   return (
     <TamaguiProvider config={config}>
       {node.isUnsupportedBrowser && <UnsupportedBrowserDialog />}
-      {(!settings.nodes ||
-        (settings.nodes.length === 0 &&
-          Boolean(
-            Platform.OS === 'web' &&
-              new URLSearchParams(document.location.search).get('nodeId')
-          ) === false)) && <WelcomeDialog />}
+      {(!settings.nodes || settings.nodes.length === 0) &&
+        Boolean(
+          Platform.OS === 'web' &&
+            new URLSearchParams(document.location.search).get('nodeId')
+        ) === false && <WelcomeDialog />}
       <SettingsContext.Provider value={{ settings, updateSettings }}>
         <NodeContext.Provider value={node}>
           <Theme name={theme}>{media.gtMd ? <Desktop /> : <Mobile />}</Theme>
