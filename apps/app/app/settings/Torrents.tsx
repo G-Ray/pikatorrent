@@ -138,7 +138,7 @@ export const Torrents = () => {
       </XStack>
 
       <Form.Trigger asChild disabled={!hasChanged}>
-        <Button theme="blue" o={!hasChanged ? 0.5 : 1}>
+        <Button theme="yellow" o={!hasChanged ? 0.5 : 1}>
           Save
         </Button>
       </Form.Trigger>

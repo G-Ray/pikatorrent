@@ -85,7 +85,7 @@ export const AddTorrentDialog = () => {
   return (
     <Dialog modal defaultOpen={defaultOpen}>
       <Dialog.Trigger asChild>
-        <Button icon={PlusCircle} theme="blue">
+        <Button icon={PlusCircle} themeInverse>
           Add
         </Button>
       </Dialog.Trigger>
@@ -144,7 +144,7 @@ export const AddTorrentDialog = () => {
           <Paragraph>Or</Paragraph>
 
           <Fieldset horizontal gap="$4">
-            <Button theme="blue" onPress={handleSelectTorrentFile}>
+            <Button theme="yellow" onPress={handleSelectTorrentFile}>
               Select a .torrent file
             </Button>
             {documentResult && <Paragraph>{documentResult.name}</Paragraph>}
@@ -153,7 +153,7 @@ export const AddTorrentDialog = () => {
           <YStack ai="flex-end" mt="$2">
             <Dialog.Close displayWhenAdapted asChild>
               <Button
-                theme="blue"
+                theme="yellow"
                 aria-label="Close"
                 disabled={magnet.length === 0 && documentResult === null}
                 onClick={handleAddTorrent}

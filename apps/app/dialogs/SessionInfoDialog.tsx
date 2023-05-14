@@ -6,7 +6,7 @@ export const SessionsInfoDialog = ({ session }) => {
   return (
     <Dialog modal>
       <Dialog.Trigger asChild>
-        <Button>Session info</Button>
+        <Button themeInverse>Session info</Button>
       </Dialog.Trigger>
 
       <Adapt when="sm" platform="touch">

@@ -38,7 +38,7 @@ export const AddNodeDialog = () => {
   return (
     <Dialog modal defaultOpen={defaultOpen}>
       <Dialog.Trigger asChild>
-        <Button icon={PlusCircle} theme="blue">
+        <Button icon={PlusCircle} themeInverse>
           Add
         </Button>
       </Dialog.Trigger>
@@ -111,7 +111,7 @@ export const AddNodeDialog = () => {
             <YStack ai="flex-end" mt="$2">
               <Dialog.Close displayWhenAdapted asChild>
                 <Form.Trigger asChild>
-                  <Button theme="blue" aria-label="Submit">
+                  <Button theme="yellow" aria-label="Submit">
                     Add
                   </Button>
                 </Form.Trigger>

@@ -92,7 +92,7 @@ export const Preferences = () => {
           </Label>
           <Button
             id="register-magnet-button"
-            themeInverse
+            theme="yellow"
             onPress={() => registerMagnetHandler()}
           >
             Register

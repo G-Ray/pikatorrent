@@ -64,12 +64,12 @@ export const RemoveTorrentDialog = ({ id }) => {
 
           <XStack space="$4">
             <Dialog.Close displayWhenAdapted asChild>
-              <Button onClick={() => handleRemoveTorrent(false)} theme="blue">
+              <Button onClick={() => handleRemoveTorrent(false)} theme="yellow">
                 Remove torrent only
               </Button>
             </Dialog.Close>
             <Dialog.Close displayWhenAdapted asChild>
-              <Button onClick={() => handleRemoveTorrent(true)} theme="purple">
+              <Button onClick={() => handleRemoveTorrent(true)} theme="red">
                 Remove torrent and data
               </Button>
             </Dialog.Close>

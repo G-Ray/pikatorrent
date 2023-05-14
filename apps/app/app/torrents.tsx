@@ -85,7 +85,7 @@ export default function Torrents() {
                 {STATUSES[torrent.status] === STATUSES[0] ? (
                   <Button
                     onClick={() => handleResume(torrent.id)}
-                    theme="blue"
+                    theme="green"
                     icon={PlayCircle}
                   >
                     Start
