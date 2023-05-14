@@ -7,6 +7,7 @@ const { withTamagui } = require('@tamagui/next-plugin')
 module.exports = function (name, { defaultConfig }) {
   let config = {
     ...defaultConfig,
+    reactStrictMode: true,
     output: 'export',
     // ...your configuration
   }
