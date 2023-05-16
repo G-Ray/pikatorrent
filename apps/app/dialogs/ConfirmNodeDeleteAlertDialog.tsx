@@ -46,10 +46,8 @@ export function ConfirmNodeDeleteAlertDialog({ onConfirm }) {
               <AlertDialog.Cancel theme="yellow" asChild>
                 <Button>Cancel</Button>
               </AlertDialog.Cancel>
-              <AlertDialog.Action asChild>
-                <Button onPress={onConfirm} theme="red">
-                  Delete
-                </Button>
+              <AlertDialog.Action asChild onPress={onConfirm}>
+                <Button theme="red">Delete</Button>
               </AlertDialog.Action>
             </XStack>
           </YStack>

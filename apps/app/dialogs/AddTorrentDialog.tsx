@@ -138,7 +138,7 @@ export const AddTorrentDialog = () => {
               id="name"
               placeholder="magnet://"
               value={magnet}
-              onChange={(e) => setMagnet(e.target.value)}
+              onChangeText={setMagnet}
             />
           </Fieldset>
           <Paragraph>Or</Paragraph>

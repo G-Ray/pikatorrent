@@ -1,9 +1,10 @@
 import React from 'react'
 import { Link, usePathname } from 'expo-router'
-import { Button } from 'tamagui'
+import { Button, useMedia } from 'tamagui'
 
-export const ButtonLink = ({ title, href, icon }) => {
+export const ButtonLink = ({ title, href, icon, withLabel = true }) => {
   const pathname = usePathname()
+  const media = useMedia()
 
   const isActive = pathname === href
 
@@ -13,10 +14,16 @@ export const ButtonLink = ({ title, href, icon }) => {
         size="$6"
         br={50}
         icon={icon}
-        theme={isActive ? 'yellow' : null}
         active={isActive}
+        scaleIcon={1.4}
+        {...(isActive
+          ? {
+              color: '$yellow8',
+              backgroundColor: '$backgroundTransparent',
+            }
+          : { backgroundColor: '$backgroundTransparent' })}
       >
-        {title}
+        {media.gtXs && title}
       </Button>
     </Link>
   )

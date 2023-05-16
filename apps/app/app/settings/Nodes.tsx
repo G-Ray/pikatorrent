@@ -1,5 +1,14 @@
 import React, { useContext } from 'react'
-import { Button, H2, ListItem, XStack, YGroup, YStack } from 'tamagui'
+import {
+  Button,
+  H2,
+  ListItem,
+  Paragraph,
+  RadioGroup,
+  XStack,
+  YGroup,
+  YStack,
+} from 'tamagui'
 
 import { AddNodeDialog } from '../../dialogs/AddNodeDialog'
 import { SettingsContext } from '../../contexts/settings'
@@ -21,24 +30,39 @@ export const Nodes = () => {
     })
   }
 
-  console.log('nodes', nodes)
+  const updateSelectedNodeId = (id: string) => {
+    updateSettings({ ...settings, selectedNodeId: id })
+  }
 
   return (
     <YStack space ai="flex-start">
       <H2>Nodes</H2>
+      <Paragraph>Add a node, and select the node to connect</Paragraph>
       <XStack space w="100%">
         <YGroup alignSelf="center" bordered size="$4">
           {nodes.map((node) => (
             <YGroup.Item key={node.id}>
               <ListItem
-                hoverTheme
-                title={`${node.name}`}
+                gap="$4"
                 iconAfter={
                   <ConfirmNodeDeleteAlertDialog
-                    onConfirm={() => handleDeleteNode(node.id)}
+                    onConfirm={() => {
+                      console.log('onConfirm')
+                      handleDeleteNode(node.id)
+                    }}
                   />
                 }
-              />
+              >
+                <RadioGroup
+                  value={settings.selectedNodeId}
+                  onValueChange={updateSelectedNodeId}
+                >
+                  <RadioGroup.Item id={node.id} value={node.id}>
+                    <RadioGroup.Indicator />
+                  </RadioGroup.Item>
+                </RadioGroup>
+                {node.name}
+              </ListItem>
             </YGroup.Item>
           ))}
         </YGroup>

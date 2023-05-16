@@ -49,7 +49,7 @@ export const Torrents = () => {
 
   return (
     <Form space ai="flex-start" onSubmit={() => handleSubmit()}>
-      <H2>Torrents settings</H2>
+      <H2>Node settings</H2>
       <XStack space w="100%">
         <Label htmlFor="downloadDir">Download directory</Label>
         <Input
@@ -58,8 +58,8 @@ export const Torrents = () => {
           size="$4"
           borderWidth={2}
           value={session['download-dir']}
-          onChange={(e) => {
-            setSession((s) => ({ ...s, ['download-dir']: e.target.value }))
+          onChangeText={(text) => {
+            setSession((s) => ({ ...s, ['download-dir']: text }))
           }}
         />
       </XStack>
@@ -75,7 +75,7 @@ export const Torrents = () => {
           }}
         >
           <Select.Trigger iconAfter={ChevronDown} f={1}>
-            <Select.Value placeholder="Select a node" />
+            <Select.Value placeholder="Select an option" />
           </Select.Trigger>
 
           <Adapt when="sm" platform="touch">

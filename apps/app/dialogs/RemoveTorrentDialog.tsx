@@ -1,7 +1,15 @@
 import React from 'react'
 import { Trash, X } from '@tamagui/lucide-icons'
 import { useContext } from 'react'
-import { Adapt, Button, Dialog, Sheet, Unspaced, XStack } from 'tamagui'
+import {
+  Adapt,
+  Button,
+  Dialog,
+  Paragraph,
+  Sheet,
+  Unspaced,
+  XStack,
+} from 'tamagui'
 import { NodeContext } from '../contexts/node'
 
 export const RemoveTorrentDialog = ({ id }) => {
@@ -21,7 +29,7 @@ export const RemoveTorrentDialog = ({ id }) => {
   return (
     <Dialog modal>
       <Dialog.Trigger asChild>
-        <Button icon={Trash} theme="red">
+        <Button icon={Trash} theme="red" br={50}>
           Remove
         </Button>
       </Dialog.Trigger>
@@ -62,12 +70,13 @@ export const RemoveTorrentDialog = ({ id }) => {
         >
           <Dialog.Title>Remove a torrent</Dialog.Title>
 
-          <XStack space="$4">
+          <XStack space="$4" ai="center">
             <Dialog.Close displayWhenAdapted asChild>
               <Button onClick={() => handleRemoveTorrent(false)} theme="yellow">
                 Remove torrent only
               </Button>
             </Dialog.Close>
+            <Paragraph>or</Paragraph>
             <Dialog.Close displayWhenAdapted asChild>
               <Button onClick={() => handleRemoveTorrent(true)} theme="red">
                 Remove torrent and data

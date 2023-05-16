@@ -1,16 +1,17 @@
 import React, { useContext } from 'react'
-import { Circle, Paragraph, XStack } from 'tamagui'
+import { Circle, Paragraph, XStack, useMedia } from 'tamagui'
 import { NodeContext } from '../contexts/node'
-import { NodeSelector } from './NodeSelector'
 
 export const ConnectionStatus = () => {
   const node = useContext(NodeContext)
+  const media = useMedia()
 
   return (
     <XStack ai="center" gap="$2">
       <Circle bc={node.isConnected ? '$green9' : '$red9'} size={12} />
-      <Paragraph>{node.isConnected ? 'Connected' : 'Disconnected'}</Paragraph>
-      <NodeSelector />
+      {media.gtXs && (
+        <Paragraph>{node.isConnected ? 'Connected' : 'Disconnected'}</Paragraph>
+      )}
     </XStack>
   )
 }

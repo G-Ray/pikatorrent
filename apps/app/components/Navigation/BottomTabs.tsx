@@ -1,15 +1,16 @@
 import React from 'react'
 import { Separator, XStack, YStack } from 'tamagui'
 import { ButtonLink } from './ButtonLink'
+import { Tabs } from 'expo-router'
 
-import { buttons } from './buttons'
+import { buttons, footerButtons } from './buttons'
 
 export const BottomTabs = () => {
   return (
     <YStack w="100%" bc="$background">
       <Separator />
-      <XStack jc="space-around" p="$4" gap="$4">
-        {buttons.map((button, index) => (
+      <XStack jc="space-around" p="$2" gap="$4">
+        {[...buttons, ...footerButtons].map((button, index) => (
           <ButtonLink key={index} {...button} />
         ))}
       </XStack>

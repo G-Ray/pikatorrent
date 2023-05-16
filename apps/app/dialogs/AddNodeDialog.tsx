@@ -92,7 +92,7 @@ export const AddNodeDialog = () => {
                 id="name"
                 placeholder="name"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChangeText={setName}
               />
             </Fieldset>
             <Fieldset horizontal gap="$4">
@@ -104,7 +104,7 @@ export const AddNodeDialog = () => {
                 id="id"
                 placeholder="id"
                 value={id}
-                onChange={(e) => setId(e.target.value)}
+                onChangeText={setId}
               />
             </Fieldset>
 

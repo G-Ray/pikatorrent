@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import {
   Separator,
+  Stack,
   TamaguiProvider,
   Theme,
   useMedia,
@@ -15,12 +16,12 @@ import config from '../tamagui.config'
 import { Header, BottomTabs, Sidebar } from '../components'
 import { NodeContext } from '../contexts/node'
 import { useNode } from '../hooks/useNode'
-import { Footer } from '../components/Footer'
 import { SettingsContext } from '../contexts/settings'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { UnsupportedBrowserDialog } from '../dialogs/UnsupportedBrowserDialog'
 import { WelcomeDialog } from '../dialogs/WelcomeDialog'
 import { Platform } from 'react-native'
+import { ScrollView } from 'react-native'
 
 const screenOptions = { title: 'PikaTorrent' }
 
@@ -55,17 +56,28 @@ export default function Layout() {
 
   const theme = settings.theme || 'light'
 
+  const isWebAndNodeDialogOpen =
+    Boolean(Platform.OS === 'web') &&
+    new URLSearchParams(document.location.search).get('nodeId')
+
   return (
     <TamaguiProvider config={config}>
       {node.isUnsupportedBrowser && <UnsupportedBrowserDialog />}
       {(!settings.nodes || settings.nodes.length === 0) &&
-        Boolean(
-          Platform.OS === 'web' &&
-            new URLSearchParams(document.location.search).get('nodeId')
-        ) === false && <WelcomeDialog />}
+        !isWebAndNodeDialogOpen && <WelcomeDialog />}
       <SettingsContext.Provider value={{ settings, updateSettings }}>
         <NodeContext.Provider value={node}>
-          <Theme name={theme}>{media.gtMd ? <Desktop /> : <Mobile />}</Theme>
+          <Theme name={theme}>
+            <Stack
+              f={1}
+              {...(Platform.OS === 'web' ? { h: '100vh' } : {})}
+              bc="$background"
+            >
+              <StatusBar hidden />
+              <Header />
+              {media.gtMd ? <Desktop /> : <Mobile />}
+            </Stack>
+          </Theme>
         </NodeContext.Provider>
       </SettingsContext.Provider>
     </TamaguiProvider>
@@ -74,29 +86,27 @@ export default function Layout() {
 
 const Desktop = () => {
   return (
-    <YStack f={1}>
-      <Header />
-      <XStack f={1} bc="$background">
-        <Sidebar />
-        <Separator vertical />
-        <YStack p="$8" flexGrow={1}>
+    <XStack f={1}>
+      <Sidebar />
+      <Separator vertical />
+      <ScrollView>
+        <YStack p="$8">
           <Slot screenOptions={screenOptions} />
         </YStack>
-      </XStack>
-      <Footer />
-    </YStack>
+      </ScrollView>
+    </XStack>
   )
 }
 
 const Mobile = () => {
   return (
     <>
-      <StatusBar hidden />
-      <YStack f={1}>
-        <Header />
-        <YStack p="$3" flexGrow={1} bc="$background">
+      <ScrollView>
+        <YStack p="$3">
           <Slot screenOptions={screenOptions} />
         </YStack>
+      </ScrollView>
+      <YStack>
         <BottomTabs />
       </YStack>
     </>

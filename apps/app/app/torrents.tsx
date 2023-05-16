@@ -76,37 +76,13 @@ export default function Torrents() {
   }
 
   return (
-    <YStack gap="$6">
+    <YStack gap="$4">
       {torrents.map((torrent) => (
-        <Card key={torrent.id} bordered size="$2" theme="gray">
+        <Card key={torrent.id} size="$4" bordered br="$6">
           <Card.Header>
-            <XStack jc="space-between">
-              <XStack ai="center" space="$2">
-                {STATUSES[torrent.status] === STATUSES[0] ? (
-                  <Button
-                    onClick={() => handleResume(torrent.id)}
-                    theme="green"
-                    icon={PlayCircle}
-                  >
-                    Start
-                  </Button>
-                ) : (
-                  <Button
-                    onClick={() => handlePause(torrent.id)}
-                    theme="gray"
-                    icon={PauseCircle}
-                  >
-                    Pause
-                  </Button>
-                )}
-                <H4 numberOfLines={1} fontWeight="bold">
-                  {torrent.name}
-                </H4>
-              </XStack>
-              <RemoveTorrentDialog id={torrent.id} />
-            </XStack>
-          </Card.Header>
-          <Card.Footer w="100%">
+            <H4 f={1} numberOfLines={1} fontWeight="bold" pb="$4">
+              {torrent.name}
+            </H4>
             <YStack space="$1" w="100%">
               <Progress
                 value={Math.round(torrent.percentComplete * 100)}
@@ -156,6 +132,30 @@ export default function Torrents() {
                 </YStack>
               </XStack>
             </YStack>
+          </Card.Header>
+          <Card.Footer w="100%">
+            <XStack f={1} ai="center" jc="space-between" space="$2">
+              {STATUSES[torrent.status] === STATUSES[0] ? (
+                <Button
+                  onClick={() => handleResume(torrent.id)}
+                  theme="green"
+                  icon={PlayCircle}
+                  br={50}
+                >
+                  Start
+                </Button>
+              ) : (
+                <Button
+                  onClick={() => handlePause(torrent.id)}
+                  theme="gray"
+                  icon={PauseCircle}
+                  br={50}
+                >
+                  Pause
+                </Button>
+              )}
+              <RemoveTorrentDialog id={torrent.id} />
+            </XStack>
           </Card.Footer>
           {/* <Card.Background bc="$background" /> */}
         </Card>
