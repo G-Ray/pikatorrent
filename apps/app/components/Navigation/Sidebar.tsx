@@ -15,12 +15,12 @@ export const Sidebar = () => {
           justifyContent: 'space-between',
         }}
       >
-        <YStack gap="$4" pb="$4">
+        <YStack gap="$4" pb="$4" m="$2">
           {buttons.map((button, index) => (
             <ButtonLink key={index} {...button} />
           ))}
         </YStack>
-        <YStack gap="$4">
+        <YStack gap="$4" m="$2">
           {footerButtons.map((button, index) => (
             <ButtonLink key={index} {...button} />
           ))}
