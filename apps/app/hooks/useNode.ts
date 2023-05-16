@@ -1,12 +1,13 @@
 import { useEffect } from 'react'
 import { usePeer } from './usePeer'
 import { Buffer } from 'buffer'
+import * as Crypto from 'expo-crypto'
 
 const RESPONSE_TIMEOUT = 10_000
 
 let msgId = 0
 const responsesPromises = new Map()
-const clientId = crypto.randomUUID() // Note: Should we save the clientId ?
+const clientId = Crypto.randomUUID() // Note: Should we save the clientId ?
 
 // Hook to interact with a pikatorrent node
 export const useNode = ({ nodeId }) => {

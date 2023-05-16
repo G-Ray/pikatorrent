@@ -26,10 +26,9 @@
     "expo-linking": "~4.0.1",
     "expo-localization": "~14.1.1",
     "expo-modules-core": "~1.2.7",
-    "expo-random": "~13.1.1",
     "expo-router": "^1.5.3",
     "expo-splash-screen": "~0.18.2",
-    "expo-standard-web-crypto": "^1.4.3",
+    "expo-standard-web-crypto": "^1.5.0",
     "expo-status-bar": "~1.4.4",
     "i18n-js": "^4.2.3",
     "pretty-bytes": "^6.1.0",
@@ -44,7 +43,8 @@
     "react-native-web": "^0.18.12",
     "react-native-webrtc": "106.0.6",
     "simple-peer": "^9.11.1",
-    "tamagui": "~1.27.3"
+    "tamagui": "~1.27.3",
+    "expo-crypto": "~12.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
