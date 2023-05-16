@@ -42,18 +42,6 @@ const registerMagnetHandler = () => {
   }
 }
 
-setTimeout(() => {
-  try {
-    window.navigator.registerProtocolHandler(
-      'magnet',
-      `${APP_URL}/?magnet=%s`,
-      'PikaTorrent'
-    )
-  } catch (e) {
-    console.error(e)
-  }
-}, 1000)
-
 export const Preferences = () => {
   const { settings, updateSettings } = useContext(SettingsContext)
 
