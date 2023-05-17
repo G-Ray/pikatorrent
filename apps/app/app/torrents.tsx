@@ -1,7 +1,21 @@
 import React from 'react'
-import { Pause, PauseCircle, Play, PlayCircle } from '@tamagui/lucide-icons'
+import {
+  ChevronDown,
+  ChevronUp,
+  PauseCircle,
+  PlayCircle,
+} from '@tamagui/lucide-icons'
 import { useContext, useEffect, useState } from 'react'
-import { Button, Card, H4, Paragraph, Progress, XStack, YStack } from 'tamagui'
+import {
+  Button,
+  Card,
+  H4,
+  Paragraph,
+  Progress,
+  XStack,
+  YStack,
+  useMedia,
+} from 'tamagui'
 import { NodeContext } from '../contexts/node'
 import prettyBytes from 'pretty-bytes'
 import { RemoveTorrentDialog } from '../dialogs/RemoveTorrentDialog'
@@ -33,7 +47,6 @@ export default function Torrents() {
 
   useEffect(() => {
     const fetchTorrents = async () => {
-      console.log('fetchTorrents')
       try {
         const response = await sendRPCMessage({
           method: 'torrent-get',
@@ -78,88 +91,138 @@ export default function Torrents() {
   return (
     <YStack gap="$4">
       {torrents.map((torrent) => (
-        <Card key={torrent.id} size="$4" bordered br="$6">
-          <Card.Header>
-            <H4 f={1} numberOfLines={1} fontWeight="bold" pb="$4">
-              {torrent.name}
-            </H4>
-            <YStack space="$1" w="100%">
-              <Progress
-                value={Math.round(torrent.percentComplete * 100)}
-                theme="yellow"
-                bordered
-                w="100%"
-              >
-                <Progress.Indicator animation="lazy" bc={'$yellow9'} w="100%" />
-              </Progress>
-              <XStack
-                // flex={1}
-                jc="space-between"
-                w="100%"
-                flexWrap="wrap"
-                gap="$4"
-              >
-                <YStack>
-                  <Paragraph>Progress</Paragraph>
-                  <Paragraph fontWeight="bold">
-                    {Math.round(torrent.percentComplete * 100)}%
-                  </Paragraph>
-                </YStack>
-                <YStack>
-                  <Paragraph>Status</Paragraph>
-                  <Paragraph fontWeight="bold">
-                    {STATUSES[torrent.status]}
-                  </Paragraph>
-                </YStack>
-                <YStack>
-                  <Paragraph>Speed</Paragraph>
-                  <Speed
-                    downloadSpeed={torrent.rateDownload}
-                    uploadSpeed={torrent.rateUpload}
-                  />
-                </YStack>
-                <YStack>
-                  <Paragraph>Peers</Paragraph>
-                  <Paragraph fontWeight="bold">
-                    {torrent.peers.length}
-                  </Paragraph>
-                </YStack>
-                <YStack>
-                  <Paragraph alignSelf="flex-end">Size</Paragraph>
-                  <Paragraph fontWeight="bold" alignSelf="flex-end">
-                    {prettyBytes(torrent.totalSize)}
-                  </Paragraph>
-                </YStack>
-              </XStack>
-            </YStack>
-          </Card.Header>
-          <Card.Footer w="100%">
-            <XStack f={1} ai="center" jc="space-between" space="$2">
-              {STATUSES[torrent.status] === STATUSES[0] ? (
-                <Button
-                  onClick={() => handleResume(torrent.id)}
-                  theme="green"
-                  icon={PlayCircle}
-                  br={50}
-                >
-                  Start
-                </Button>
-              ) : (
-                <Button
-                  onClick={() => handlePause(torrent.id)}
-                  theme="gray"
-                  icon={PauseCircle}
-                  br={50}
-                >
-                  Pause
-                </Button>
-              )}
-              <RemoveTorrentDialog id={torrent.id} />
-            </XStack>
-          </Card.Footer>
-          {/* <Card.Background bc="$background" /> */}
-        </Card>
+        <TorrentCard
+          key={torrent.id}
+          torrent={torrent}
+          handleResume={handleResume}
+          handlePause={handlePause}
+        />
       ))}
     </YStack>
   )
+}
+
+const TorrentCard = ({ torrent, handleResume, handlePause }) => {
+  const [isCollapsed, setIsCollapsed] = useState(true)
+  const media = useMedia()
+  const isCollapsible = !media.gtXs
+
+  return (
+    <Card key={torrent.id} size="$4" bordered br="$6">
+      <Card.Header>
+        <H4 f={1} numberOfLines={1} fontWeight="bold">
+          {torrent.name}
+        </H4>
+        <YStack>
+          <Progress
+            mt="$2"
+            mb="$4"
+            value={Math.round(torrent.percentComplete * 100)}
+            theme="yellow"
+            bordered
+          >
+            <Progress.Indicator animation="lazy" bc={'$yellow9'} />
+          </Progress>
+          <TorrentInfo torrent={torrent} isCollapsed={isCollapsed} />
+        </YStack>
+
+        <XStack f={1} ai="center" jc="space-between" pt="$4">
+          {STATUSES[torrent.status] === STATUSES[0] ? (
+            <Button
+              onPress={() => handleResume(torrent.id)}
+              theme="green"
+              icon={PlayCircle}
+              br={50}
+            >
+              Start
+            </Button>
+          ) : (
+            <Button
+              onPress={() => handlePause(torrent.id)}
+              theme="gray"
+              icon={PauseCircle}
+              br={50}
+            >
+              Pause
+            </Button>
+          )}
+          {isCollapsible && (
+            <Button
+              circular
+              icon={isCollapsed ? ChevronDown : ChevronUp}
+              onPress={() => setIsCollapsed(!isCollapsed)}
+            />
+          )}
+          <RemoveTorrentDialog id={torrent.id} />
+        </XStack>
+      </Card.Header>
+    </Card>
+  )
+}
+
+const TorrentInfo = ({ torrent, isCollapsed = true }) => {
+  const items = [
+    {
+      title: <Paragraph>Progress</Paragraph>,
+      content: (
+        <Paragraph fontWeight="bold">
+          {Math.round(torrent.percentComplete * 100)}%
+        </Paragraph>
+      ),
+    },
+    {
+      title: <Paragraph>Speed</Paragraph>,
+      content: (
+        <Speed
+          downloadSpeed={torrent.rateDownload}
+          uploadSpeed={torrent.rateUpload}
+        />
+      ),
+    },
+    {
+      title: <Paragraph>Status</Paragraph>,
+      content: (
+        <Paragraph fontWeight="bold">{STATUSES[torrent.status]}</Paragraph>
+      ),
+    },
+    {
+      title: <Paragraph>Peers</Paragraph>,
+      content: <Paragraph fontWeight="bold">{torrent.peers.length}</Paragraph>,
+    },
+    {
+      title: <Paragraph>Size</Paragraph>,
+      content: (
+        <Paragraph fontWeight="bold">
+          {prettyBytes(torrent.totalSize)}
+        </Paragraph>
+      ),
+    },
+  ]
+
+  return (
+    <XStack
+      jc="space-between"
+      w="100%"
+      flexWrap="wrap"
+      columnGap="$4"
+      rowGap="$2"
+    >
+      <CollapsedItems
+        isCollapsed={isCollapsed}
+        items={items.map((i, index) => (
+          <YStack key={index}>
+            {i.title}
+            {i.content}
+          </YStack>
+        ))}
+      />
+    </XStack>
+  )
+}
+
+const CollapsedItems = ({ isCollapsed, items }) => {
+  const media = useMedia()
+  const displayedItems = media.gtXs ? 5 : 3
+
+  return isCollapsed ? items.slice(0, displayedItems) : items
 }
