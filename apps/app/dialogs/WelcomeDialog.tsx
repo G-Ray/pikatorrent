@@ -1,12 +1,22 @@
-import React from 'react'
-import { X } from '@tamagui/lucide-icons'
-import { Adapt, Button, Dialog, Sheet, Unspaced } from 'tamagui'
+import React, { useContext } from 'react'
+import { Adapt, Card, Dialog, Sheet, Text, XStack, YStack } from 'tamagui'
+import { AddNodeDialog } from './AddNodeDialog'
+import { Rocket } from '@tamagui/lucide-icons'
+import { SettingsContext } from '../contexts/settings'
 
 export const WelcomeDialog = () => {
+  const settingsContext = useContext(SettingsContext)
+
   return (
-    <Dialog modal defaultOpen>
+    <Dialog modal open>
       <Adapt when="sm" platform="touch">
-        <Sheet zIndex={200000} modal dismissOnSnapToBottom>
+        <Sheet
+          zIndex={200000}
+          modal
+          snapPoints={[90, 80]}
+          defaultPosition={1}
+          dismissOnOverlayPress={false}
+        >
           <Sheet.Frame padding="$4" space>
             <Adapt.Contents />
           </Sheet.Frame>
@@ -38,33 +48,38 @@ export const WelcomeDialog = () => {
           enterStyle={{ x: 0, y: -20, opacity: 0, scale: 0.9 }}
           exitStyle={{ x: 0, y: 10, opacity: 0, scale: 0.95 }}
           space
-          w="50%"
+          w={500}
         >
-          <Dialog.Title>Welcome to PikaTorrent</Dialog.Title>
-          <Dialog.Description>
-            PikaTorrent apps (web, and mobile soon) allow you to control one or
-            multiple pikatorrent node(s).
-          </Dialog.Description>
-          <Dialog.Description>
-            Please add a node by clicking on the secure link provided by your
-            pikatorrent node, or flashing its qrcode.
-          </Dialog.Description>
-          <Dialog.Description>
-            You can also add a node manually in settings.
-          </Dialog.Description>
-
-          <Unspaced>
-            <Dialog.Close asChild>
-              <Button
-                pos="absolute"
-                t="$3"
-                r="$3"
-                size="$2"
-                circular
-                icon={X}
-              />
-            </Dialog.Close>
-          </Unspaced>
+          <YStack>
+            <Dialog.Title pb="$4">
+              Welcome <Rocket />
+            </Dialog.Title>
+            <Dialog.Description mb="$4">
+              PikaTorrent allows you to control one or multiple pikatorrent
+              node(s).
+            </Dialog.Description>
+            <Dialog.Description mb="$4">
+              During the alpha, you can install a pikatorrent node on a computer
+              where nodejs is installed, with:
+            </Dialog.Description>
+            <XStack jc="center">
+              <Card bc="black" p="$4" br="$4" mb="$4">
+                <Text color="white" fontFamily="monospace">
+                  npm install -g pikatorrent
+                </Text>
+                <Text color="white" fontFamily="monospace">
+                  pikatorrent node
+                </Text>
+              </Card>
+            </XStack>
+            <Dialog.Description mb="$4">{`Then click on the displayed link to quickly add a node, or click on the following button to enter your secret node id manually:`}</Dialog.Description>
+            <XStack jc="center" ai="center" mb="$4">
+              <AddNodeDialog settingsContext={settingsContext} />
+            </XStack>
+            <Dialog.Description>
+              {`You will be able to manage your nodes later in settings > nodes.`}
+            </Dialog.Description>
+          </YStack>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog>

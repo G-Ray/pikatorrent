@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import {
-  Button,
   H2,
   ListItem,
   Paragraph,
@@ -15,9 +14,8 @@ import { SettingsContext } from '../../contexts/settings'
 import { ConfirmNodeDeleteAlertDialog } from '../../dialogs/ConfirmNodeDeleteAlertDialog'
 
 export const Nodes = () => {
-  const { settings, updateSettings } = useContext(SettingsContext)
-
-  console.log('settings', settings)
+  const settingsContext = useContext(SettingsContext)
+  const { settings, updateSettings } = settingsContext
 
   const nodes = settings.nodes || []
 
@@ -37,7 +35,7 @@ export const Nodes = () => {
   return (
     <YStack space ai="flex-start">
       <H2>Nodes</H2>
-      <Paragraph>Add a node, and select the node to connect</Paragraph>
+      <Paragraph>Add a node, and select the node to connect to</Paragraph>
       <XStack space w="100%">
         <YGroup alignSelf="center" bordered size="$4">
           {nodes.map((node) => (
@@ -67,7 +65,7 @@ export const Nodes = () => {
           ))}
         </YGroup>
       </XStack>
-      <AddNodeDialog />
+      <AddNodeDialog settingsContext={settingsContext} />
     </YStack>
   )
 }

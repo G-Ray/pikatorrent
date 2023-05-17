@@ -21,7 +21,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { UnsupportedBrowserDialog } from '../dialogs/UnsupportedBrowserDialog'
 import { WelcomeDialog } from '../dialogs/WelcomeDialog'
 import { Platform } from 'react-native'
-import { ScrollView } from 'react-native'
 
 const screenOptions = { title: 'PikaTorrent' }
 
@@ -63,8 +62,6 @@ export default function Layout() {
   return (
     <TamaguiProvider config={config}>
       {node.isUnsupportedBrowser && <UnsupportedBrowserDialog />}
-      {(!settings.nodes || settings.nodes.length === 0) &&
-        !isWebAndNodeDialogOpen && <WelcomeDialog />}
       <SettingsContext.Provider value={{ settings, updateSettings }}>
         <NodeContext.Provider value={node}>
           <Theme name={theme}>
@@ -74,6 +71,8 @@ export default function Layout() {
               bc="$background"
             >
               <StatusBar hidden />
+              {(!settings.nodes || (settings.nodes || []).length === 0) &&
+                !isWebAndNodeDialogOpen && <WelcomeDialog />}
               <Header />
               {media.gtMd ? <Desktop /> : <Mobile />}
             </Stack>

@@ -1,18 +1,17 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { PlusCircle, X } from '@tamagui/lucide-icons'
 import { Adapt, Button, Dialog, Input, Sheet, Unspaced, YStack } from 'tamagui'
 import { Fieldset } from 'tamagui'
 import { Label } from 'tamagui'
 import { Form } from 'tamagui'
-import { SettingsContext } from '../contexts/settings'
 import { Platform } from 'react-native'
 
-export const AddNodeDialog = () => {
+export const AddNodeDialog = ({ settingsContext }) => {
   const [id, setId] = useState('')
   const [name, setName] = useState('')
-  const { settings, updateSettings } = useContext(SettingsContext)
+  const { settings, updateSettings } = settingsContext
 
-  const nodes = settings.nodes || []
+  const nodes = settings?.nodes || []
 
   useEffect(() => {
     // Open modal with node ID from url searchParams
@@ -26,7 +25,11 @@ export const AddNodeDialog = () => {
 
   const handleSave = async () => {
     if (id.length > 0 && nodes.filter((n) => n.id === id).length === 0) {
-      updateSettings({ ...settings, nodes: [...nodes, { id, name }] })
+      updateSettings({
+        ...settings,
+        nodes: [...nodes, { id, name }],
+        selectedNodeId: id,
+      })
     }
   }
 
@@ -39,12 +42,18 @@ export const AddNodeDialog = () => {
     <Dialog modal defaultOpen={defaultOpen}>
       <Dialog.Trigger asChild>
         <Button icon={PlusCircle} themeInverse>
-          Add
+          Add node
         </Button>
       </Dialog.Trigger>
 
       <Adapt when="sm" platform="touch">
-        <Sheet zIndex={200000} modal dismissOnSnapToBottom>
+        <Sheet
+          zIndex={200000}
+          modal
+          dismissOnSnapToBottom
+          snapPoints={[80, 50]}
+          // defaultPosition={50}
+        >
           <Sheet.Frame padding="$4" space>
             <Adapt.Contents />
           </Sheet.Frame>
