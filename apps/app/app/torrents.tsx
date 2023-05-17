@@ -20,6 +20,7 @@ import { NodeContext } from '../contexts/node'
 import prettyBytes from 'pretty-bytes'
 import { RemoveTorrentDialog } from '../dialogs/RemoveTorrentDialog'
 import { Speed } from '../components/Speed'
+import { FlatList } from 'react-native'
 
 const REFRESH_INTERVAL = 5_000
 
@@ -89,16 +90,21 @@ export default function Torrents() {
   }
 
   return (
-    <YStack gap="$4">
-      {torrents.map((torrent) => (
+    <FlatList
+      data={torrents.map((torrent) => ({
+        torrent,
+        handleResume,
+        handlePause,
+      }))}
+      renderItem={({ item }) => (
         <TorrentCard
-          key={torrent.id}
-          torrent={torrent}
-          handleResume={handleResume}
-          handlePause={handlePause}
+          key={item.torrent.id}
+          torrent={item.torrent}
+          handleResume={item.handleResume}
+          handlePause={item.handlePause}
         />
-      ))}
-    </YStack>
+      )}
+    />
   )
 }
 
@@ -108,7 +114,7 @@ const TorrentCard = ({ torrent, handleResume, handlePause }) => {
   const isCollapsible = !media.gtXs
 
   return (
-    <Card key={torrent.id} size="$4" bordered br="$6">
+    <Card key={torrent.id} size="$4" bordered br="$6" mb="$4">
       <Card.Header>
         <H4 f={1} numberOfLines={1} fontWeight="bold">
           {torrent.name}

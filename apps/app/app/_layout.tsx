@@ -89,11 +89,9 @@ const Desktop = () => {
     <XStack f={1}>
       <Sidebar />
       <Separator vertical />
-      <ScrollView>
-        <YStack p="$8">
-          <Slot screenOptions={screenOptions} />
-        </YStack>
-      </ScrollView>
+      <YStack p="$8" f={1}>
+        <Slot screenOptions={screenOptions} />
+      </YStack>
     </XStack>
   )
 }
@@ -101,11 +99,9 @@ const Desktop = () => {
 const Mobile = () => {
   return (
     <>
-      <ScrollView>
-        <YStack p="$3">
-          <Slot screenOptions={screenOptions} />
-        </YStack>
-      </ScrollView>
+      <YStack p="$3" f={1}>
+        <Slot screenOptions={screenOptions} />
+      </YStack>
       <YStack>
         <BottomTabs />
       </YStack>
