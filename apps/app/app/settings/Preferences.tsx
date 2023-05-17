@@ -1,22 +1,9 @@
 import React, { useContext } from 'react'
-import {
-  H2,
-  Label,
-  Separator,
-  Switch,
-  XStack,
-  YStack,
-  Button,
-  Paragraph,
-} from 'tamagui'
+import { H2, Label, Separator, Switch, XStack, YStack, Button } from 'tamagui'
 import { SettingsContext } from '../../contexts/settings'
 import { Platform } from 'react-native'
 
-const { APP_URL } = process.env
-
-if (!APP_URL) {
-  throw new Error('Missing APP_URL env var')
-}
+import { APP_URL } from '../../config'
 
 const registerMagnetHandler = () => {
   if (Platform.OS === 'web') {
