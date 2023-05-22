@@ -4,12 +4,8 @@ const { program } = require('commander')
 
 const runCommand = async (command, args = []) => {
   return new Promise((resolve, reject) => {
-    const child = spawn(command, args)
+    const child = spawn(command, args, { stdio: 'inherit' })
 
-    child.stdout.setEncoding('utf-8')
-    child.stderr.setEncoding('utf-8')
-    child.stdout.on('data', console.log)
-    child.stderr.on('data', console.error)
     child.on('close', resolve)
     child.on('error', reject)
   })
