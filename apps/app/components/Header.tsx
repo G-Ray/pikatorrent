@@ -1,37 +1,38 @@
 import React from 'react'
-import {
-  H1,
-  H2,
-  H3,
-  H4,
-  useMedia,
-  useTheme,
-  useThemeName,
-  XStack,
-} from 'tamagui'
+import { H1, H3, useMedia, useThemeName, XStack, YStack } from 'tamagui'
 import { AddTorrentDialog } from '../dialogs/AddTorrentDialog'
 import { ConnectionStatus } from './ConnectionStatus'
 import { Logo } from './Logo'
+import { SearchBar } from './SearchBar'
 
 export const Header = () => {
   const media = useMedia()
 
   return (
-    <XStack
-      py="$4"
-      px={media.gtXs ? '$8' : '$4'}
-      jc="space-between"
-      ai="center"
-      bc="$background"
-    >
-      <XStack ai="center" gap="$8">
-        <XStack ai="center" gap={media.gtXs ? '$8' : '$2'}>
-          <XStack>{media.gtXs ? <DesktopTitle /> : <MobileTitle />}</XStack>
-          <AddTorrentDialog />
+    <YStack>
+      <XStack
+        pt="$4"
+        pb="$2"
+        px={media.gtXs ? '$8' : '$4'}
+        jc="space-between"
+        ai="center"
+        bc="$background"
+        gap="$8"
+      >
+        <XStack ai="center" gap="$8">
+          <XStack ai="center" gap={media.gtXs ? '$8' : '$2'}>
+            <XStack>{media.gtXs ? <DesktopTitle /> : <MobileTitle />}</XStack>
+            <AddTorrentDialog />
+          </XStack>
+        </XStack>
+        <XStack gap="$8" f={1} jc="flex-end">
+          <ConnectionStatus />
         </XStack>
       </XStack>
-      <ConnectionStatus />
-    </XStack>
+      <XStack px="$4" pt="$2" pb="$4" jc="center">
+        <SearchBar />
+      </XStack>
+    </YStack>
   )
 }
 
