@@ -1,20 +1,21 @@
-import '@/styles/globals.css'
 import { NextThemeProvider, useRootTheme } from '@tamagui/next-theme'
 import { AppProps } from 'next/app'
-import Head from 'next/head'
+// import Head from 'next/head'
 import Script from 'next/script'
-import React, { useMemo, useState } from 'react'
-import { TamaguiProvider, Theme, XStack } from 'tamagui'
+import React, { useMemo } from 'react'
+import { Stack, TamaguiProvider, Theme } from 'tamagui'
+import '@tamagui/font-inter/css/400.css'
+import '@tamagui/font-inter/css/700.css'
 
 import config from '../tamagui.config'
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [theme, setTheme] = useRootTheme()
+  const [theme, setTheme] = useRootTheme({ fallback: 'light' })
 
   // memo to avoid re-render on dark/light change
   const contents = useMemo(() => {
     return <Component {...pageProps} />
-  }, [pageProps])
+  }, [pageProps, Component])
 
   // because we do our custom getCSS() above, we disableInjectCSS here
   return (
@@ -34,7 +35,11 @@ export default function App({ Component, pageProps }: AppProps) {
           disableRootThemeClass
           defaultTheme={theme}
         >
-          <Theme name={theme}>{contents}</Theme>
+          <Theme name={theme}>
+            <Stack bc="$background" minHeight="100vh" minWidth="100vw">
+              {contents}
+            </Stack>
+          </Theme>
         </TamaguiProvider>
       </NextThemeProvider>
     </>

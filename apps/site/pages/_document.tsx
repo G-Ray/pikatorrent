@@ -13,7 +13,13 @@ export default class Document extends NextDocument {
     const { getStyleElement } = AppRegistry.getApplication('Main')
     const styles = [
       getStyleElement(),
-      <style key={1} dangerouslySetInnerHTML={{ __html: Tamagui.getCSS() }} />,
+
+      <style
+        key={0}
+        dangerouslySetInnerHTML={{
+          __html: Tamagui.getCSS(),
+        }}
+      />,
     ]
     return { ...page, styles: Children.toArray(styles) }
   }
@@ -21,7 +27,7 @@ export default class Document extends NextDocument {
   render() {
     return (
       <Html>
-        <Head></Head>
+        <Head />
         <body>
           <Main />
           <NextScript />

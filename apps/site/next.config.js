@@ -9,6 +9,7 @@ module.exports = function (name, { defaultConfig }) {
     ...defaultConfig,
     reactStrictMode: true,
     output: 'export',
+    images: { unoptimized: true },
     // ...your configuration
   }
 

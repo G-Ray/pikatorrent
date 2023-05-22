@@ -8,6 +8,7 @@
     "web": "npm run web --workspace=@pikatorrent/app",
     "hub": "npm start --workspace=@pikatorrent/hub",
     "node": "npm start --workspace=@pikatorrent/node",
+    "site": "npm --workspace=@pikatorrent/site run dev",
     "postinstall": "patch-package",
     "build:web": "npm run build:web --workspace=@pikatorrent/app",
     "build:site": "npm run build --workspace=@pikatorrent/site"
