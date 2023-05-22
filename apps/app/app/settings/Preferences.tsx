@@ -63,7 +63,7 @@ export const Preferences = () => {
       {Platform.OS === 'web' && (
         <XStack ai="center" space="$4">
           <Label htmlFor="register-magnet-button">
-            Allow pikatorrent to open magnet links:
+            Allow pikatorrent to open magnet links in your browser:
           </Label>
           <Button
             id="register-magnet-button"

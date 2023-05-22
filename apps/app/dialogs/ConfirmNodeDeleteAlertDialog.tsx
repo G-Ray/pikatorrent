@@ -6,7 +6,9 @@ export function ConfirmNodeDeleteAlertDialog({ onConfirm }) {
   return (
     <AlertDialog native>
       <AlertDialog.Trigger asChild>
-        <Button icon={Delete} theme="red" size="$2" />
+        <Button icon={Delete} theme="red" size="$2">
+          Delete
+        </Button>
       </AlertDialog.Trigger>
 
       <AlertDialog.Portal>

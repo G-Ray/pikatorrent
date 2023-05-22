@@ -62,8 +62,6 @@ export const AddTorrentDialog = () => {
         method: 'torrent-add',
         arguments: torrentAddArgs,
       })
-
-      console.log('response', response)
     } catch (e) {
       console.error(e)
     }

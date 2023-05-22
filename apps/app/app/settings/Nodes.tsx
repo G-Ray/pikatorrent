@@ -45,7 +45,6 @@ export const Nodes = () => {
                 iconAfter={
                   <ConfirmNodeDeleteAlertDialog
                     onConfirm={() => {
-                      console.log('onConfirm')
                       handleDeleteNode(node.id)
                     }}
                   />
