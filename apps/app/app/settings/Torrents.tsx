@@ -18,7 +18,7 @@ import { useSession } from '../../hooks/useSession'
 import { Check, ChevronDown, ChevronUp } from '@tamagui/lucide-icons'
 
 export const Torrents = () => {
-  const { sendRPCMessage } = useContext(NodeContext)
+  const { sendRPCMessage, isConnected } = useContext(NodeContext)
   const { session: initialSession, fetchSession } = useSession()
   const [session, setSession] = useState({})
 
@@ -26,7 +26,6 @@ export const Torrents = () => {
     setSession(initialSession)
   }, [initialSession])
 
-  console.log('initialSession', initialSession, session)
   const hasChanged = JSON.stringify(session) !== JSON.stringify(initialSession)
 
   const handleSubmit = async () => {
@@ -45,7 +44,7 @@ export const Torrents = () => {
     }
   }
 
-  if (!session) return null // TODO: Loading
+  if (!session || !isConnected) return null
 
   return (
     <Form space ai="flex-start" onSubmit={() => handleSubmit()}>
