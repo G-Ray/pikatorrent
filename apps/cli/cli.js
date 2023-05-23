@@ -11,14 +11,14 @@ program
   .command('node')
   .description('Start a pikatorrent node')
   .action(() => {
-    require('@pikatorrent/node')
+    import('@pikatorrent/node')
   })
 
 program
   .command('hub')
   .description('Start a pikatorrent hub')
   .action(() => {
-    require('@pikatorrent/hub')
+    import('@pikatorrent/hub')
   })
 
 program.parse()
