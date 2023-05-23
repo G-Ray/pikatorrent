@@ -2,7 +2,7 @@ import React from 'react'
 import { useContext, useEffect, useState } from 'react'
 import { NodeContext } from '../contexts/node'
 import { FlatList } from 'react-native'
-import { TorrentCard } from '../components/TorrentCard'
+import { TorrentCard, TorrentCardPlaceHolder } from '../components/TorrentCard'
 
 const REFRESH_INTERVAL = 5_000
 
@@ -51,6 +51,10 @@ export default function Torrents() {
 
   const handlePause = (id: string) => {
     sendRPCMessage({ method: 'torrent-stop', arguments: { ids: [id] } })
+  }
+
+  if (torrents.length === 0) {
+    return <TorrentCardPlaceHolder />
   }
 
   return (

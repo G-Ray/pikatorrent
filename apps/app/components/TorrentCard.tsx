@@ -1,5 +1,6 @@
 import React from 'react'
 import {
+  ArrowBigUp,
   ChevronDown,
   ChevronUp,
   PauseCircle,
@@ -160,4 +161,26 @@ const CollapsedItems = ({ isCollapsed, items }) => {
   const displayedItems = media.gtXs ? 5 : 3
 
   return isCollapsed ? items.slice(0, displayedItems) : items
+}
+
+export const TorrentCardPlaceHolder = () => {
+  return (
+    <Card
+      size="$4"
+      bordered
+      br="$6"
+      mb="$4"
+      height={160}
+      borderStyle="dashed"
+      borderWidth="$1"
+    >
+      <Card.Header f={1} ai="center" jc="center">
+        <ArrowBigUp size={'$4'} />
+        <H4 numberOfLines={1} fontWeight="bold">
+          Add your first torrent
+        </H4>
+        <Paragraph>Your torrents will be displayed here</Paragraph>
+      </Card.Header>
+    </Card>
+  )
 }
