@@ -16,7 +16,7 @@ if (!APP_URL) throw new Error('Missing APP_URL env var')
 
 const configPath = envPaths('pikatorrent', { suffix: null }).config
 if (!fs.existsSync(configPath)) {
-  fs.mkdirSync(configPath)
+  fs.mkdirSync(configPath,  { recursive: true })
 }
 
 const transmissionConfigPath = path.join(configPath, 'transmission')
