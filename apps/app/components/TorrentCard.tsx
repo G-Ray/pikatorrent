@@ -3,6 +3,7 @@ import {
   ArrowBigUp,
   ChevronDown,
   ChevronUp,
+  List,
   PauseCircle,
   PlayCircle,
 } from '@tamagui/lucide-icons'
@@ -20,6 +21,7 @@ import {
 import prettyBytes from 'pretty-bytes'
 import { RemoveTorrentDialog } from '../dialogs/RemoveTorrentDialog'
 import { Speed } from '../components/Speed'
+import { FilesListDialog } from '../dialogs/FilesListDialog'
 
 // 0 - Torrent is stopped
 // 1 - Torrent is queued to verify local data
@@ -46,9 +48,12 @@ export const TorrentCard = ({ torrent, handleResume, handlePause }) => {
   return (
     <Card key={torrent.id} size="$4" bordered br="$6" mb="$4">
       <Card.Header>
-        <H4 f={1} numberOfLines={1} fontWeight="bold">
-          {torrent.name}
-        </H4>
+        <XStack mb="$2">
+          <H4 f={1} numberOfLines={1} fontWeight="bold">
+            {torrent.name}
+          </H4>
+          <FilesListDialog torrentId={torrent.id} />
+        </XStack>
         <YStack>
           <Progress
             mt="$2"
