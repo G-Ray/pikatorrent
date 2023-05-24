@@ -22,7 +22,6 @@ export const Header = () => {
         <XStack ai="center" gap="$8">
           <XStack ai="center" gap={media.gtXs ? '$8' : '$2'}>
             <XStack>{media.gtXs ? <DesktopTitle /> : <MobileTitle />}</XStack>
-            <AddTorrentDialog />
           </XStack>
         </XStack>
         <XStack gap="$8" f={1} jc="flex-end">
@@ -30,6 +29,7 @@ export const Header = () => {
         </XStack>
       </XStack>
       <XStack px="$4" pt="$2" pb="$4" jc="center">
+        <AddTorrentDialog />
         <SearchBar />
       </XStack>
     </YStack>

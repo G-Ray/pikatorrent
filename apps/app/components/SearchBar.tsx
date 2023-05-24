@@ -17,11 +17,14 @@ export const SearchBar = () => {
         <Input
           f={1}
           id="query"
-          borderTopLeftRadius={50}
-          borderBottomLeftRadius={50}
+          borderTopLeftRadius={0}
+          borderBottomLeftRadius={0}
           borderTopRightRadius={0}
           borderBottomRightRadius={0}
-          placeholder="Pick a torrent..."
+          borderLeftWidth={0}
+          borderRightWidth={0}
+          borderColor={'$yellow9'}
+          placeholder="Pick a torrent online..."
           value={query}
           onChangeText={setQuery}
           fontSize={'$6'}
@@ -33,6 +36,8 @@ export const SearchBar = () => {
             borderTopRightRadius={50}
             borderBottomRightRadius={50}
             icon={Search}
+            borderLeftWidth={0}
+            borderColor={'$yellow9'}
           />
         </Form.Trigger>
       </XStack>
