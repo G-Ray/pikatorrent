@@ -1,9 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
   ArrowBigUp,
   ChevronDown,
   ChevronUp,
-  List,
   PauseCircle,
   PlayCircle,
 } from '@tamagui/lucide-icons'
@@ -18,10 +17,13 @@ import {
   YStack,
   useMedia,
 } from 'tamagui'
-import prettyBytes from 'pretty-bytes'
 import { RemoveTorrentDialog } from '../dialogs/RemoveTorrentDialog'
-import { Speed } from '../components/Speed'
 import { FilesListDialog } from '../dialogs/FilesListDialog'
+import { TorrentFieldFormatter } from './TorrentFieldFormatter'
+import { SettingsContext } from '../contexts/settings'
+import i18n from '../i18n'
+
+const COLLAPSE_ITEMS_DESKTOP = 7
 
 // 0 - Torrent is stopped
 // 1 - Torrent is queued to verify local data
@@ -30,7 +32,7 @@ import { FilesListDialog } from '../dialogs/FilesListDialog'
 // 4 - Torrent is downloading
 // 5 - Torrent is queued to seed
 // 6 - Torrent is seeding
-const STATUSES = {
+export const STATUSES = {
   0: 'Stopped',
   1: 'Queued',
   2: 'Verifying', // Torrent is verifying local data
@@ -43,7 +45,9 @@ const STATUSES = {
 export const TorrentCard = ({ torrent, handleResume, handlePause }) => {
   const [isCollapsed, setIsCollapsed] = useState(true)
   const media = useMedia()
-  const isCollapsible = !media.gtXs
+  const { settings } = useContext(SettingsContext)
+  const isCollapsible =
+    !media.gtXs || settings.torrentCardFields.length > COLLAPSE_ITEMS_DESKTOP
 
   return (
     <Card key={torrent.id} size="$4" bordered br="$6" mb="$4">
@@ -58,7 +62,7 @@ export const TorrentCard = ({ torrent, handleResume, handlePause }) => {
           <Progress
             mt="$2"
             mb="$4"
-            value={Math.round(torrent.percentComplete * 100)}
+            value={Math.round(torrent.percentDone * 100)}
             theme="yellow"
             bordered
           >
@@ -102,51 +106,19 @@ export const TorrentCard = ({ torrent, handleResume, handlePause }) => {
 }
 
 const TorrentInfo = ({ torrent, isCollapsed = true }) => {
-  const items = [
-    {
-      title: <Paragraph>Progress</Paragraph>,
-      content: (
-        <Paragraph fontWeight="bold">
-          {Math.round(torrent.percentComplete * 100)}%
-        </Paragraph>
-      ),
-    },
-    {
-      title: <Paragraph>Speed</Paragraph>,
-      content: (
-        <Speed
-          downloadSpeed={torrent.rateDownload}
-          uploadSpeed={torrent.rateUpload}
-        />
-      ),
-    },
-    {
-      title: <Paragraph>Status</Paragraph>,
-      content: (
-        <Paragraph fontWeight="bold">{STATUSES[torrent.status]}</Paragraph>
-      ),
-    },
-    {
-      title: <Paragraph>Peers</Paragraph>,
-      content: <Paragraph fontWeight="bold">{torrent.peers.length}</Paragraph>,
-    },
-    {
-      title: <Paragraph>Size</Paragraph>,
-      content: (
-        <Paragraph fontWeight="bold">
-          {prettyBytes(torrent.totalSize)}
-        </Paragraph>
-      ),
-    },
-  ]
+  const { settings } = useContext(SettingsContext)
+  const items = settings.torrentCardFields.map((field) => ({
+    title: <Paragraph>{i18n.t(field)}</Paragraph>,
+    content: <TorrentFieldFormatter name={field} value={torrent[field]} />,
+  }))
 
   return (
     <XStack
       jc="space-between"
       w="100%"
       flexWrap="wrap"
-      columnGap="$4"
-      rowGap="$2"
+      columnGap="$8"
+      rowGap="$4"
     >
       <CollapsedItems
         isCollapsed={isCollapsed}
@@ -163,7 +135,7 @@ const TorrentInfo = ({ torrent, isCollapsed = true }) => {
 
 const CollapsedItems = ({ isCollapsed, items }) => {
   const media = useMedia()
-  const displayedItems = media.gtXs ? 5 : 3
+  const displayedItems = media.gtXs ? COLLAPSE_ITEMS_DESKTOP : 3
 
   return isCollapsed ? items.slice(0, displayedItems) : items
 }

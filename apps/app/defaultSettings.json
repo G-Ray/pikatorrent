@@ -4,5 +4,13 @@
     "https://duckduckgo.com/?q=torrent+",
     "https://www.bing.com/search?q=torrent+",
     "https://www.qwant.com/?q=torrent+"
+  ],
+  "torrentCardFields": [
+    "percentDone",
+    "status",
+    "eta",
+    "rateDownload",
+    "rateUpload",
+    "totalSize"
   ]
 }

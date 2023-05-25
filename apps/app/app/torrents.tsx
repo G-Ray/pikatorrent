@@ -3,12 +3,14 @@ import { useContext, useEffect, useState } from 'react'
 import { NodeContext } from '../contexts/node'
 import { FlatList } from 'react-native'
 import { TorrentCard, TorrentCardPlaceHolder } from '../components/TorrentCard'
+import { SettingsContext } from '../contexts/settings'
 
 const REFRESH_INTERVAL = 5_000
 
 export default function Torrents() {
   const [torrents, setTorrents] = useState([])
   const { sendRPCMessage } = useContext(NodeContext)
+  const { settings } = useContext(SettingsContext)
 
   useEffect(() => {
     const fetchTorrents = async () => {
@@ -19,13 +21,8 @@ export default function Torrents() {
             fields: [
               'id',
               'name',
-              'totalSize',
-              'status',
               'percentDone',
-              'percentComplete',
-              'rateDownload',
-              'rateUpload',
-              'peers',
+              ...settings.torrentCardFields,
             ],
           },
         })

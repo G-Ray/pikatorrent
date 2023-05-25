@@ -1,4 +1,17 @@
 {
   "settings": "Settings",
-  "about": "About"
+  "about": "About",
+  "percentDone": "Progress",
+  "status": "Status",
+  "eta": "Eta",
+  "rateDownload": "Download rate",
+  "rateUpload": "Upload rate",
+  "totalSize": "Total size",
+  "addedDate": "Added Date",
+  "comment": "Comment",
+  "creator": "Creator",
+  "doneDate": "Done date",
+  "peersConnected": "Peers connected",
+  "startDate": "Start date",
+  "uploadRatio": "Upload ratio"
 }

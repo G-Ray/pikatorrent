@@ -22,6 +22,8 @@ import { UnsupportedBrowserDialog } from '../dialogs/UnsupportedBrowserDialog'
 import { WelcomeDialog } from '../dialogs/WelcomeDialog'
 import { Platform } from 'react-native'
 
+import defaultSettings from '../defaultSettings.json'
+
 const screenOptions = { title: 'PikaTorrent' }
 
 export default function Layout() {
@@ -31,7 +33,13 @@ export default function Layout() {
 
   const fetchSettings = async () => {
     const settingsString = await AsyncStorage.getItem('settings')
-    const settings = settingsString != null ? JSON.parse(settingsString) : {}
+    // Merge default settings
+    const settings = Object.assign(
+      {},
+      defaultSettings,
+      JSON.parse(settingsString || '{}')
+    )
+
     setSettings(settings)
   }
 
