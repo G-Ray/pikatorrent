@@ -6,6 +6,7 @@
     "android": "npm run android --workspace=@pikatorrent/app",
     "ios": "npm run ios --workspace=@pikatorrent/app",
     "web": "npm run web --workspace=@pikatorrent/app",
+    "desktop": "npm -w @pikatorrent/desktop start",
     "hub": "npm start --workspace=@pikatorrent/hub",
     "node": "npm start --workspace=@pikatorrent/node",
     "site": "npm --workspace=@pikatorrent/site run dev",
