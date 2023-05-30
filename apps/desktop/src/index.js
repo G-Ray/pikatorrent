@@ -1,12 +1,17 @@
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
+const serve = require('electron-serve')
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   app.quit()
 }
 
-const createWindow = () => {
+let wrtc
+let loadURL =
+  process.env.NODE_ENV === 'development' ? null : serve({ directory: 'dist' })
+
+const createWindow = async () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 1600,
@@ -15,18 +20,27 @@ const createWindow = () => {
       preload: path.join(__dirname, 'preload.js'),
     },
   })
+
+  mainWindow.on('closed', handleClose)
+
+  mainWindow.webContents.setWindowOpenHandler((details) => {
+    require('electron').shell.openExternal(details.url)
+    return { action: 'deny' }
+  })
+
   // and load the index.html of the app.
   if (process.env.NODE_ENV === 'production') {
-    mainWindow.loadFile('../app/out/index.html')
+    await loadURL(mainWindow)
+    await mainWindow.loadURL('app://-')
   } else {
     mainWindow.loadURL('http://localhost:19000')
+    // Open the DevTools.
+    mainWindow.webContents.openDevTools()
   }
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools()
 }
 
 const createWebrtcRelay = () => {
-  const wrtc = require('@ca9io/electron-webrtc-relay')()
+  wrtc = require('@ca9io/electron-webrtc-relay')()
   wrtc.init()
 
   // handle errors that may occur when trying to communicate with Electron
@@ -48,11 +62,12 @@ app.on('ready', () => {
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
-app.on('window-all-closed', () => {
+const handleClose = () => {
   if (process.platform !== 'darwin') {
+    wrtc.close()
     app.quit()
   }
-})
+}
 
 app.on('activate', () => {
   // On OS X it's common to re-create a window in the app when the

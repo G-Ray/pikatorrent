@@ -20,4 +20,7 @@ config.resolver.nodeModulesPaths = [
 // 3. Force Metro to resolve (sub)dependencies only from the `nodeModulesPaths`
 // config.resolver.disableHierarchicalLookup = true
 
+// Ignore electron out folder
+config.resolver.blockList = [/desktop/]
+
 module.exports = config
