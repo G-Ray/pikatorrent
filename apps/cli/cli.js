@@ -11,7 +11,9 @@ program
   .command('node')
   .description('Start a pikatorrent node')
   .action(() => {
-    import('@pikatorrent/node')
+    import('@pikatorrent/node').then((node) => {
+      node.default()
+    })
   })
 
 program

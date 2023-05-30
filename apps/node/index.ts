@@ -1,5 +1,4 @@
 import Peer from 'simple-peer'
-import wrtc from 'wrtc'
 import WS from 'ws'
 import Transmission from 'transmission-native'
 import * as crypto from 'node:crypto'
@@ -16,7 +15,7 @@ if (!APP_URL) throw new Error('Missing APP_URL env var')
 
 const configPath = envPaths('pikatorrent', { suffix: null }).config
 if (!fs.existsSync(configPath)) {
-  fs.mkdirSync(configPath,  { recursive: true })
+  fs.mkdirSync(configPath, { recursive: true })
 }
 
 const transmissionConfigPath = path.join(configPath, 'transmission')
@@ -24,6 +23,7 @@ const settingsFilePath = path.join(configPath, 'settings.json')
 const tr = new Transmission(transmissionConfigPath, 'transmission')
 
 let ws
+let wrtcInstance
 const peers = new Map<string, InstanceType<Peer.SimplePeer>>() // clientId -> SimplePeer
 
 let settings = null
@@ -105,7 +105,7 @@ const initWebSocket = () => {
 const initPeer = (id, offer) => {
   const reconstructingMessages = new Map()
 
-  const peer = new Peer({ initiator: false, wrtc })
+  const peer = new Peer({ initiator: false, wrtc: wrtcInstance })
   peers.set(id, peer)
 
   /**
@@ -233,11 +233,23 @@ const initPeer = (id, offer) => {
   peer.signal(offer)
 }
 
-printNodeInfo()
-initWebSocket()
-
 // Handle exit gracefully
 process.on('SIGINT', () => {
   tr.close()
   process.exit()
 })
+
+type Options = {
+  wrtc?: any
+}
+
+const startNode = (options: Options = {}) => {
+  if (options.wrtc) {
+    wrtcInstance = options.wrtc
+  }
+
+  printNodeInfo()
+  initWebSocket()
+}
+
+export default startNode
