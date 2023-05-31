@@ -22,6 +22,7 @@ const createWindow = async () => {
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
+    ...(process.platform === 'linux' && { icon: 'assets/icon.png' }),
   })
 
   mainWindow.on('closed', handleClose)

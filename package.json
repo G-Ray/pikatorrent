@@ -12,7 +12,8 @@
     "site": "npm --workspace=@pikatorrent/site run dev",
     "postinstall": "patch-package",
     "build:web": "npm run build:web --workspace=@pikatorrent/app",
-    "build:site": "npm run build --workspace=@pikatorrent/site"
+    "build:site": "npm run build --workspace=@pikatorrent/site",
+    "build:desktop": "npm -w @pikatorrent/desktop run make"
   },
   "devDependencies": {
     "patch-package": "^6.5.1"

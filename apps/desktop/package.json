@@ -1,6 +1,6 @@
 {
   "name": "@pikatorrent/desktop",
-  "productName": "desktop",
+  "productName": "pikatorrent",
   "version": "0.0.0",
   "description": "My Electron application description",
   "main": "src/index.js",
@@ -19,16 +19,15 @@
   "license": "GPL-3.0",
   "devDependencies": {
     "@electron-forge/cli": "^6.1.1",
-    "@electron-forge/maker-deb": "^6.1.1",
-    "@electron-forge/maker-rpm": "^6.1.1",
     "@electron-forge/maker-squirrel": "^6.1.1",
     "@electron-forge/maker-zip": "^6.1.1",
-    "electron": "24.4.0",
     "@manypkg/find-root": "^2.1.0",
-    "@npmcli/arborist": "^6.2.9"
+    "@npmcli/arborist": "^6.2.9",
+    "electron": "24.4.0"
   },
   "dependencies": {
     "@ca9io/electron-webrtc-relay": "^0.2.0",
+    "@reforged/maker-appimage": "^3.2.0",
     "electron-serve": "^1.1.0",
     "electron-squirrel-startup": "^1.0.0"
   }
