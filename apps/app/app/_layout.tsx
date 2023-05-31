@@ -11,6 +11,12 @@ import {
 import { useFonts } from 'expo-font'
 import { Slot, SplashScreen } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
+import {
+  Toast,
+  ToastProvider,
+  ToastViewport,
+  useToastState,
+} from '@tamagui/toast'
 
 import config from '../tamagui.config'
 import { Header, BottomTabs, Sidebar } from '../components'
@@ -24,6 +30,8 @@ import { Platform } from 'react-native'
 
 import defaultSettings from '../defaultSettings.json'
 import { useLocalNode } from '../hooks/useLocalNode'
+import { X } from '@tamagui/lucide-icons'
+import { ToastController } from '../components/ToastController'
 
 const screenOptions = { title: 'PikaTorrent' }
 
@@ -31,6 +39,8 @@ export default function Layout() {
   const media = useMedia()
   const [settings, setSettings] = useState({})
   const node = useNode({ nodeId: settings.selectedNodeId })
+
+  const toast = useToastState()
 
   const fetchSettings = async () => {
     const settingsString = await AsyncStorage.getItem('settings')
@@ -75,17 +85,27 @@ export default function Layout() {
         <NodeContext.Provider value={node}>
           <LocalNodeSetup />
           <Theme name={theme}>
-            <Stack
-              f={1}
-              {...(Platform.OS === 'web' ? { h: '100vh' } : {})}
-              bc="$background"
-            >
-              <StatusBar hidden />
-              {(!settings.nodes || (settings.nodes || []).length === 0) &&
-                !isWebAndNodeDialogOpen && <WelcomeDialog />}
-              <Header />
-              {media.gtMd ? <Desktop /> : <Mobile />}
-            </Stack>
+            <ToastProvider>
+              <ToastViewport
+                flexDirection="column"
+                top={'$4'}
+                left={0}
+                right={0}
+              />
+              <ToastController />
+
+              <Stack
+                f={1}
+                {...(Platform.OS === 'web' ? { h: '100vh' } : {})}
+                bc="$background"
+              >
+                <StatusBar hidden />
+                {(!settings.nodes || (settings.nodes || []).length === 0) &&
+                  !isWebAndNodeDialogOpen && <WelcomeDialog />}
+                <Header />
+                {media.gtMd ? <Desktop /> : <Mobile />}
+              </Stack>
+            </ToastProvider>
           </Theme>
         </NodeContext.Provider>
       </SettingsContext.Provider>

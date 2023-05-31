@@ -7,6 +7,7 @@ import {
 } from 'react'
 import { SettingsContext } from './settings'
 import { NodeContext } from './node'
+import { useToastController } from '@tamagui/toast'
 
 export const TorrentsContext = createContext(null)
 
@@ -16,6 +17,7 @@ export const TorrentsProvider = ({ children }) => {
   const [torrents, setTorrents] = useState([])
   const { settings } = useContext(SettingsContext)
   const { sendRPCMessage } = useContext(NodeContext)
+  const toast = useToastController()
 
   const fetchTorrents = useCallback(async () => {
     try {
@@ -32,12 +34,21 @@ export const TorrentsProvider = ({ children }) => {
         },
       })
 
-      setTorrents(response.payload.arguments.torrents)
-      // setTorrents(response.payload.arguments.torrents)
+      setTorrents((prevTorrents) => {
+        const torrentsDone = response.payload.arguments.torrents.filter((t) =>
+          prevTorrents.find(
+            (pt) => pt.id === t.id && pt.percentDone < 1 && t.percentDone === 1
+          )
+        )
+        torrentsDone.forEach((torrent) =>
+          toast.show('Torrent downloaded', { native: true })
+        )
+        return response.payload.arguments.torrents
+      })
     } catch (e) {
       console.log('Error fetching torrent', e)
     }
-  }, [sendRPCMessage, settings.torrentCardFields])
+  }, [sendRPCMessage, settings.torrentCardFields, toast])
 
   useEffect(() => {
     const interval = setInterval(async () => {
