@@ -38,7 +38,7 @@ module.exports = {
 
       // Build app for web
       execSync(
-        `npx expo export --platform web --output-dir ${buildPath}/dist ../app`
+        `TAMAGUI_TARGET=web npx expo export --clear --platform web --output-dir ${buildPath}/dist ../app`
       )
     },
   },
