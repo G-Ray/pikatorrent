@@ -250,6 +250,8 @@ const startNode = (options: Options = {}) => {
 
   printNodeInfo()
   initWebSocket()
+
+  return nodeId
 }
 
 export default startNode

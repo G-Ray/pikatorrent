@@ -23,6 +23,7 @@ import { WelcomeDialog } from '../dialogs/WelcomeDialog'
 import { Platform } from 'react-native'
 
 import defaultSettings from '../defaultSettings.json'
+import { useLocalNode } from '../hooks/useLocalNode'
 
 const screenOptions = { title: 'PikaTorrent' }
 
@@ -72,6 +73,7 @@ export default function Layout() {
       {node.isUnsupportedBrowser && <UnsupportedBrowserDialog />}
       <SettingsContext.Provider value={{ settings, updateSettings }}>
         <NodeContext.Provider value={node}>
+          <LocalNodeSetup />
           <Theme name={theme}>
             <Stack
               f={1}
@@ -89,6 +91,12 @@ export default function Layout() {
       </SettingsContext.Provider>
     </TamaguiProvider>
   )
+}
+
+const LocalNodeSetup = () => {
+  useLocalNode()
+
+  return null
 }
 
 const Desktop = () => {

@@ -37,6 +37,7 @@
     "expo-standard-web-crypto": "^1.5.0",
     "expo-status-bar": "~1.4.4",
     "i18n-js": "^4.2.3",
+    "is-electron": "^2.2.2",
     "pretty-bytes": "^6.1.0",
     "pretty-ms": "^8.0.0",
     "react": "18.2.0",

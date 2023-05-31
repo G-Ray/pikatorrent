@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const serve = require('electron-serve')
 
@@ -11,10 +11,13 @@ let wrtc
 let loadURL =
   process.env.NODE_ENV === 'development' ? null : serve({ directory: 'dist' })
 
+let mainWindow
+let nodeId
+
 const createWindow = async () => {
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
-    width: 1600,
+  mainWindow = new BrowserWindow({
+    width: 1700,
     height: 900,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
@@ -47,8 +50,13 @@ const createWebrtcRelay = () => {
   wrtc.on('error', console.error)
 
   import('@pikatorrent/node').then((node) => {
-    node.default({ wrtc })
+    nodeId = node.default({ wrtc })
   })
+}
+
+const handleGetLocalNodeId = () => {
+  // Send nodeId from main to renderer to automatically connect to the local node
+  return nodeId
 }
 
 // This method will be called when Electron has finished
@@ -57,6 +65,7 @@ const createWebrtcRelay = () => {
 app.on('ready', () => {
   createWindow()
   createWebrtcRelay()
+  ipcMain.handle('getLocalNodeId', handleGetLocalNodeId)
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common
