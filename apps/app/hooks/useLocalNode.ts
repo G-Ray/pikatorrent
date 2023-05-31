@@ -11,7 +11,10 @@ export const useLocalNode = () => {
     const fetchLocalNodeId = async () => {
       const nodeId = await window.electronAPI.getLocalNodeId()
 
-      if (nodeId && settings.nodes.find((n) => n.id === nodeId) === undefined) {
+      if (
+        nodeId &&
+        (settings.nodes || []).find((n) => n.id === nodeId) === undefined
+      ) {
         updateSettings({
           ...settings,
           nodes: [{ id: nodeId, name: 'Local' }],
