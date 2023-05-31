@@ -1,3 +1,5 @@
+process.env.NODE_ENV = process.env.NODE_ENV || 'production'
+
 const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const serve = require('electron-serve')
@@ -9,7 +11,7 @@ if (require('electron-squirrel-startup')) {
 
 let wrtc
 let loadURL =
-  process.env.NODE_ENV === 'development' ? null : serve({ directory: 'dist' })
+  process.env.NODE_ENV === 'production' ? serve({ directory: 'dist' }) : null
 
 let mainWindow
 let nodeId
@@ -33,13 +35,14 @@ const createWindow = async () => {
   })
 
   // and load the index.html of the app.
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === 'production') {
+    mainWindow.removeMenu()
+    await loadURL(mainWindow)
+    await mainWindow.loadURL('app://-')
+  } else {
     mainWindow.loadURL('http://localhost:19000')
     // Open the DevTools.
     mainWindow.webContents.openDevTools()
-  } else {
-    await loadURL(mainWindow)
-    await mainWindow.loadURL('app://-')
   }
 }
 
