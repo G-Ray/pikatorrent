@@ -22,6 +22,7 @@ import { FilesListDialog } from '../dialogs/FilesListDialog'
 import { TorrentFieldFormatter } from './TorrentFieldFormatter'
 import { SettingsContext } from '../contexts/settings'
 import i18n from '../i18n'
+import { useTorrents } from '../hooks/useTorrents'
 
 const COLLAPSE_ITEMS_DESKTOP = 7
 
@@ -42,12 +43,14 @@ export const STATUSES = {
   6: 'Seeding',
 }
 
-export const TorrentCard = ({ torrent, handleResume, handlePause }) => {
+export const TorrentCard = ({ torrent }) => {
   const [isCollapsed, setIsCollapsed] = useState(true)
   const media = useMedia()
   const { settings } = useContext(SettingsContext)
   const isCollapsible =
     !media.gtXs || settings.torrentCardFields.length > COLLAPSE_ITEMS_DESKTOP
+
+  const { start, pause } = useTorrents()
 
   return (
     <Card key={torrent.id} size="$4" bordered br="$6" mb="$4">
@@ -56,7 +59,7 @@ export const TorrentCard = ({ torrent, handleResume, handlePause }) => {
           <H4 f={1} numberOfLines={1} fontWeight="bold">
             {torrent.name}
           </H4>
-          <FilesListDialog torrentId={torrent.id} />
+          <FilesListDialog torrent={torrent} />
         </XStack>
         <YStack>
           <Progress
@@ -74,7 +77,7 @@ export const TorrentCard = ({ torrent, handleResume, handlePause }) => {
         <XStack f={1} ai="center" jc="space-between" pt="$4">
           {STATUSES[torrent.status] === STATUSES[0] ? (
             <Button
-              onPress={() => handleResume(torrent.id)}
+              onPress={() => start(torrent.id)}
               theme="green"
               icon={PlayCircle}
               br={50}
@@ -83,7 +86,7 @@ export const TorrentCard = ({ torrent, handleResume, handlePause }) => {
             </Button>
           ) : (
             <Button
-              onPress={() => handlePause(torrent.id)}
+              onPress={() => pause(torrent.id)}
               theme="gray"
               icon={PauseCircle}
               br={50}

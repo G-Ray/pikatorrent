@@ -1,23 +1,11 @@
 import React from 'react'
 import { Trash } from '@tamagui/lucide-icons'
-import { useContext } from 'react'
 import { Button, Paragraph, XStack } from 'tamagui'
-import { NodeContext } from '../contexts/node'
 import { Dialog } from './Dialog'
+import { useTorrents } from '../hooks/useTorrents'
 
 export const RemoveTorrentDialog = ({ id }) => {
-  const { sendRPCMessage } = useContext(NodeContext)
-
-  const handleRemoveTorrent = async (deleteLocalData: boolean = false) => {
-    try {
-      await sendRPCMessage({
-        method: 'torrent-remove',
-        arguments: { ids: [id], 'delete-local-data': deleteLocalData },
-      })
-    } catch (e) {
-      console.error(e)
-    }
-  }
+  const { remove } = useTorrents()
 
   return (
     <Dialog
@@ -30,13 +18,13 @@ export const RemoveTorrentDialog = ({ id }) => {
     >
       <XStack space="$4" ai="center">
         <Dialog.Close displayWhenAdapted asChild>
-          <Button onPress={() => handleRemoveTorrent(false)} theme="yellow">
+          <Button onPress={() => remove(id, false)} theme="yellow">
             Remove torrent only
           </Button>
         </Dialog.Close>
         <Paragraph>or</Paragraph>
         <Dialog.Close displayWhenAdapted asChild>
-          <Button onPress={() => handleRemoveTorrent(true)} theme="red">
+          <Button onPress={() => remove(id, true)} theme="red">
             Remove torrent and data
           </Button>
         </Dialog.Close>
