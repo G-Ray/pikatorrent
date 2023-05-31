@@ -64,7 +64,9 @@ const bundle = async (source, destination) => {
   const prodDeps = collectProdDeps(sourceNode)
 
   for (const dep of prodDeps) {
-    const dest = path.join(destination, dep.location)
+    const dest = dep.isWorkspace
+      ? path.join(destination, `node_modules/${dep.packageName}`)
+      : path.join(destination, dep.location)
 
     await fs.cp(dep.realpath, dest, {
       recursive: true,

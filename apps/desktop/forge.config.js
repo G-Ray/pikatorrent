@@ -29,6 +29,10 @@ module.exports = {
     },
   ],
   hooks: {
+    prePackage: async () => {
+      // Build @pikatorrent/node as we will copy it
+      execSync(`npm run build --prefix ../node`)
+    },
     packageAfterCopy: async (
       /** @type {any} */ forgeConfig,
       /** @type {string} */ buildPath,

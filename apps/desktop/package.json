@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@ca9io/electron-webrtc-relay": "^0.2.0",
+    "@pikatorrent/node": "^0.1.3",
     "@reforged/maker-appimage": "^3.2.0",
     "electron-serve": "^1.1.0",
     "electron-squirrel-startup": "^1.0.0"
