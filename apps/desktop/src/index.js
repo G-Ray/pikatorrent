@@ -32,13 +32,13 @@ const createWindow = async () => {
   })
 
   // and load the index.html of the app.
-  if (process.env.NODE_ENV === 'production') {
-    await loadURL(mainWindow)
-    await mainWindow.loadURL('app://-')
-  } else {
+  if (process.env.NODE_ENV === 'development') {
     mainWindow.loadURL('http://localhost:19000')
     // Open the DevTools.
     mainWindow.webContents.openDevTools()
+  } else {
+    await loadURL(mainWindow)
+    await mainWindow.loadURL('app://-')
   }
 }
 
