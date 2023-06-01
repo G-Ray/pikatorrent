@@ -10,8 +10,7 @@ import {
   XStack,
   YStack,
 } from 'tamagui'
-import Link from 'next/link'
-import { ExternalLink, Zap } from '@tamagui/lucide-icons'
+import { Download, Moon, Sun } from '@tamagui/lucide-icons'
 import { useThemeSetting } from '@tamagui/next-theme'
 import { useEffect, useState } from 'react'
 
@@ -36,51 +35,57 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <YStack ai="center" space p="$8" pb="$16">
+        <XStack>
+          <XStack ai="center" space="$4" marginLeft="auto" pt={'$4'} pr={'$4'}>
+            {isDarkThemeSwitchChecked ? <Moon /> : <Sun />}
+            <Separator minHeight={20} vertical />
+            <Switch
+              id="dark-theme-switch"
+              checked={isDarkThemeSwitchChecked}
+              onCheckedChange={() =>
+                setTheme(currentTheme === 'light' ? 'dark' : 'light')
+              }
+            >
+              <Switch.Thumb animation="quick" />
+            </Switch>
+          </XStack>
+        </XStack>
+
+        <YStack ai="center" space px="$8" pb="$16">
           <YStack gap="$8" ai="center">
             <Header theme={currentTheme} />
 
-            <Link
-              href="https://app.pikatorrent.com"
-              target="_blank"
-              style={{ textDecoration: 'none' }}
-            >
-              <Button
-                theme="yellow"
-                icon={Zap}
-                size="$5"
-                br={50}
-                iconAfter={ExternalLink}
-              >
-                Open app
-              </Button>
-            </Link>
-
-            <XStack ai="center" space="$4">
-              <Label justifyContent="flex-end" htmlFor="dark-theme-switch">
-                Dark mode
-              </Label>
-              <Separator minHeight={20} vertical />
-              <Switch
-                id="dark-theme-switch"
-                checked={isDarkThemeSwitchChecked}
-                onCheckedChange={() =>
-                  setTheme(currentTheme === 'light' ? 'dark' : 'light')
-                }
-              >
-                <Switch.Thumb animation="quick" />
-              </Switch>
-            </XStack>
+            <YStack ai="center" gap="$4">
+              <Paragraph fontWeight={'bold'}>
+                Try the alpha version now :
+              </Paragraph>
+              <XStack space>
+                <Button
+                  theme="yellow"
+                  borderColor={'$yellow9'}
+                  icon={Download}
+                  size="$5"
+                  br={50}
+                >
+                  Windows (.zip)
+                </Button>
+                <Button
+                  theme="yellow"
+                  borderColor={'$yellow9'}
+                  icon={Download}
+                  size="$5"
+                  br={50}
+                >
+                  Linux (.zip)
+                </Button>
+              </XStack>
+            </YStack>
           </YStack>
 
           <Screenshots theme={currentTheme} />
 
           <YStack ai="center" space>
-            <Paragraph>
-              Do you use Linux or Windows ? <br />
-              Do you feel at ease with the terminal and nodejs ? <br /> Try the
-              alpha version now with:
-            </Paragraph>
+            <Paragraph>Prefer to manage your torrents on a server ?</Paragraph>
             <Theme inverse>
               <Card bordered px="$4" py="$2" elevate size="$4">
                 <pre>

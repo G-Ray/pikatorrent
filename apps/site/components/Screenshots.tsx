@@ -17,7 +17,7 @@ export const Screenshots = ({ theme }: ScreenShotsProps) => {
   const mobileWidth = media.gtMd ? 280 : 140
   const mobilePositionTop = media.gtMd ? 395 : 200
   const paddingX = media.gtMd ? 64 : 12
-  const paddingBottom = media.gtMd ? 96 : 160
+  const paddingBottom = media.gtMd ? 96 : 240
 
   useEffect(() => {
     setDesktopImageSource(
@@ -38,8 +38,8 @@ export const Screenshots = ({ theme }: ScreenShotsProps) => {
         borderColor="$yellow9"
         shadowColor="$yellow3"
         animation="quick"
-        hoverStyle={{
-          scale: 1.05,
+        enterStyle={{
+          opacity: 0,
         }}
       >
         <Image
@@ -61,10 +61,8 @@ export const Screenshots = ({ theme }: ScreenShotsProps) => {
         borderColor="$yellow9"
         shadowColor="$yellow3"
         animation="quick"
-        hoverStyle={{
-          x: -16,
-          y: -16,
-          scale: 1.05,
+        enterStyle={{
+          opacity: 0,
         }}
       >
         <Image
