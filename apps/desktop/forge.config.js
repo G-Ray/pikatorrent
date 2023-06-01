@@ -17,15 +17,15 @@ module.exports = {
     {
       name: '@electron-forge/maker-zip',
     },
-    {
-      name: '@reforged/maker-appimage',
-      config: {
-        options: {
-          name: 'pikatorrent',
-          icon: 'assets/icon.png',
-        },
-      },
-    },
+    // {
+    //   name: '@reforged/maker-appimage',
+    //   config: {
+    //     options: {
+    //       name: 'pikatorrent',
+    //       icon: 'assets/icon.png',
+    //     },
+    //   },
+    // },
   ],
   hooks: {
     prePackage: async () => {
