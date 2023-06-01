@@ -16,6 +16,7 @@
     "build:desktop": "npm -w @pikatorrent/desktop run make"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "patch-package": "^6.5.1"
   },
   "private": true,
