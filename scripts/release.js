@@ -22,7 +22,9 @@ const release = async (version, otp) => {
     process.exit(1)
   }
 
-  // workaround to let npm-version save the new exact package version
+  // npm-version is able to upgrade dependencies with --save,
+  // but it will refuse to upgrade an exact version, so we workaround
+  // this issue by temporarily settings '*' to our ws packages
   await setPkgVersionToWildcard('dependencies.@pikatorrent/node')
   await setPkgVersionToWildcard('dependencies.@pikatorrent/hub')
 
@@ -35,12 +37,6 @@ const release = async (version, otp) => {
     '--save-exact',
     version,
   ])
-
-  // npm-version is able to upgrade dependencies with --save,
-  // but it will refuse tu upgrade an exact version, so we workaround
-  // this issue by temporarily settings '*' to our ws packages
-  await setPkgVersionToWildcard('@pikatorrent/node')
-  await setPkgVersionToWildcard('@pikatorrent/hub')
 
   // Commit
   await execSync(`git commit -am v${version}`, {
