@@ -8,12 +8,12 @@ module.exports = {
   },
   rebuildConfig: {},
   makers: [
-    {
-      name: '@electron-forge/maker-squirrel',
-      config: {
-        setupIcon: 'assets/icon.ico',
-      },
-    },
+    // {
+    //   name: '@electron-forge/maker-squirrel',
+    //   config: {
+    //     setupIcon: 'assets/icon.ico',
+    //   },
+    // },
     {
       name: '@electron-forge/maker-zip',
     },
@@ -45,7 +45,8 @@ module.exports = {
 
       // Build app for web
       execSync(
-        `TAMAGUI_TARGET=web npx expo export --clear --platform web --output-dir ${buildPath}/dist ../app`
+        `npx expo export --clear --platform web --output-dir ${buildPath}/dist ../app`,
+        { env: { ...process.env, TAMAGUI_TARGET: 'web' } }
       )
     },
   },
