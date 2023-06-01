@@ -1,6 +1,6 @@
 {
   "name": "@pikatorrent/app",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "scripts": {
     "build:android": "eas build --profile development --platform android --local",
     "native": "cross-env TAMAGUI_TARGET=native expo start --dev-client",
