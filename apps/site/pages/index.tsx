@@ -2,7 +2,6 @@ import Head from 'next/head'
 import {
   Button,
   Card,
-  Label,
   Paragraph,
   Separator,
   Switch,
@@ -16,6 +15,7 @@ import { useEffect, useState } from 'react'
 
 import { Screenshots } from '../components/Screenshots'
 import { Header } from '@/components/Header'
+import Link from 'next/link'
 
 export default function Home() {
   const [isDarkThemeSwitchChecked, setIsDarkThemeSwitchChecked] =
@@ -60,24 +60,38 @@ export default function Home() {
                 Try the alpha version now :
               </Paragraph>
               <XStack space>
-                <Button
-                  theme="yellow"
-                  borderColor={'$yellow9'}
-                  icon={Download}
-                  size="$5"
-                  br={50}
+                <Link
+                  href={
+                    'https://github.com/G-Ray/pikatorrent/releases/download/v0.1.4/pikatorrent-win32-x64-0.1.4.zip'
+                  }
+                  style={{ textDecoration: 'none' }}
                 >
-                  Windows (.zip)
-                </Button>
-                <Button
-                  theme="yellow"
-                  borderColor={'$yellow9'}
-                  icon={Download}
-                  size="$5"
-                  br={50}
+                  <Button
+                    theme="yellow"
+                    borderColor={'$yellow9'}
+                    icon={Download}
+                    size="$5"
+                    br={50}
+                  >
+                    Windows (.zip)
+                  </Button>
+                </Link>
+                <Link
+                  href={
+                    'https://github.com/G-Ray/pikatorrent/releases/download/v0.1.4/pikatorrent-linux-x64-0.1.4.zip'
+                  }
+                  style={{ textDecoration: 'none' }}
                 >
-                  Linux (.zip)
-                </Button>
+                  <Button
+                    theme="yellow"
+                    borderColor={'$yellow9'}
+                    icon={Download}
+                    size="$5"
+                    br={50}
+                  >
+                    Linux (.zip)
+                  </Button>
+                </Link>
               </XStack>
             </YStack>
           </YStack>
