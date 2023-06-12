@@ -1,28 +1,18 @@
-import { useContext, useEffect } from 'react'
 import isElectron from 'is-electron'
-import { SettingsContext } from '../contexts/settings'
+// import { useEffect, useRef } from 'react'
+
+if (!isElectron()) {
+  throw 'Not in electron'
+}
 
 export const useLocalNode = () => {
-  const { settings, updateSettings } = useContext(SettingsContext)
+  const sendRPCMessage = async (json: any) => {
+    const res = await window.electronAPI.transmissionRequest(json)
+    return res
+  }
 
-  useEffect(() => {
-    if (!settings || !isElectron()) return
-
-    const fetchLocalNodeId = async () => {
-      const nodeId = await window.electronAPI.getLocalNodeId()
-
-      if (
-        nodeId &&
-        (settings.nodes || []).find((n) => n.id === nodeId) === undefined
-      ) {
-        updateSettings({
-          ...settings,
-          nodes: [{ id: nodeId, name: 'Local' }],
-          selectedNodeId: nodeId,
-        })
-      }
-    }
-
-    fetchLocalNodeId()
-  }, [settings, updateSettings])
+  return {
+    sendRPCMessage,
+    isConnected: true,
+  }
 }

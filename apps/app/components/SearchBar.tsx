@@ -5,6 +5,7 @@ import { SearchEngineSelector } from './SearchEngineSelector'
 import { SettingsContext } from '../contexts/settings'
 
 import defaultSettings from '../defaultSettings.json'
+import { Linking, Platform } from 'react-native'
 
 export type Engine = {
   name: string
@@ -38,12 +39,17 @@ export const SearchBar = () => {
     }
   }
 
+  const handleSubmit = () => {
+    const link = `${selectedSearchEngineUrl}${query}`
+    if (Platform.OS !== 'web') {
+      Linking.openURL(link)
+    } else {
+      window.open(link)
+    }
+  }
+
   return (
-    <Form
-      maxWidth={600}
-      onSubmit={() => window.open(`${selectedSearchEngineUrl}${query}`)}
-      f={1}
-    >
+    <Form maxWidth={600} onSubmit={handleSubmit} f={1}>
       <XStack>
         <Input
           f={1}

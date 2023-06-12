@@ -8,6 +8,7 @@ import {
   XStack,
   YGroup,
   YStack,
+  useMedia,
 } from 'tamagui'
 import { SettingsContext } from '../../../contexts/settings'
 import defaultSettings from '../../../defaultSettings.json'
@@ -58,6 +59,7 @@ export const TorrentCardInfo = () => {
   const settingsContext = useContext(SettingsContext)
   const { settings, updateSettings } = settingsContext
   const torrentCardFields = settings.torrentCardFields
+  const media = useMedia()
 
   const handleCheckedChange = (field, isChecked) => {
     updateSettings({
@@ -84,8 +86,10 @@ export const TorrentCardInfo = () => {
     })
   }
 
+  const Container = media.gtXs ? DesktopLayout : MobileLayout
+
   return (
-    <XStack gap="$4">
+    <Container>
       <YStack>
         <Label>Info displayed in torrent cards</Label>
         <YGroup
@@ -121,6 +125,7 @@ export const TorrentCardInfo = () => {
           ))}
         </YGroup>
       </YStack>
+
       <YStack>
         <Label>Display order</Label>
         <YGroup
@@ -155,9 +160,25 @@ export const TorrentCardInfo = () => {
           ))}
         </YGroup>
       </YStack>
-      <Button icon={Undo} onPress={handleReset}>
+      <Button icon={Undo} onPress={handleReset} alignSelf="flex-end" ml="auto">
         Reset
       </Button>
+    </Container>
+  )
+}
+
+const DesktopLayout = ({ children }) => {
+  return (
+    <XStack f={1} gap="$8" flexWrap="wrap" w="100%">
+      {children}
     </XStack>
+  )
+}
+
+const MobileLayout = ({ children }) => {
+  return (
+    <YStack f={1} w="100%" gap="$4">
+      {children}
+    </YStack>
   )
 }

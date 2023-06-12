@@ -3,5 +3,6 @@
 const { contextBridge, ipcRenderer } = require('electron')
 
 contextBridge.exposeInMainWorld('electronAPI', {
-  getLocalNodeId: () => ipcRenderer.invoke('getLocalNodeId'),
+  transmissionRequest: (request) =>
+    ipcRenderer.invoke('transmission:request', request),
 })

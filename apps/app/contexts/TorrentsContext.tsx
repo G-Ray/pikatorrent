@@ -34,8 +34,10 @@ export const TorrentsProvider = ({ children }) => {
         },
       })
 
+      if (!response) return
+
       setTorrents((prevTorrents) => {
-        const torrentsDone = response.payload.arguments.torrents.filter((t) =>
+        const torrentsDone = response.arguments.torrents.filter((t) =>
           prevTorrents.find(
             (pt) => pt.id === t.id && pt.percentDone < 1 && t.percentDone === 1
           )
@@ -43,7 +45,7 @@ export const TorrentsProvider = ({ children }) => {
         torrentsDone.forEach((torrent) =>
           toast.show('Torrent downloaded', { native: true })
         )
-        return response.payload.arguments.torrents
+        return response.arguments.torrents
       })
     } catch (e) {
       console.log('Error fetching torrent', e)

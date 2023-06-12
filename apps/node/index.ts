@@ -240,18 +240,26 @@ process.on('SIGINT', () => {
 })
 
 type Options = {
+  connectWebsocket?: boolean
   wrtc?: any
 }
 
-const startNode = (options: Options = {}) => {
+const startNode = (options: Options = { connectWebsocket: true }) => {
   if (options.wrtc) {
     wrtcInstance = options.wrtc
   }
 
   printNodeInfo()
-  initWebSocket()
+
+  if (options.connectWebsocket) {
+    initWebSocket()
+  }
 
   return nodeId
 }
 
-export default startNode
+const transmission = {
+  request: tr.request,
+}
+
+export { startNode, transmission }

@@ -11,26 +11,18 @@ import {
 import { useFonts } from 'expo-font'
 import { Slot, SplashScreen } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
-import {
-  Toast,
-  ToastProvider,
-  ToastViewport,
-  useToastState,
-} from '@tamagui/toast'
+import { ToastProvider, ToastViewport } from '@tamagui/toast'
 
 import config from '../tamagui.config'
 import { Header, BottomTabs, Sidebar } from '../components'
 import { NodeContext } from '../contexts/node'
-import { useNode } from '../hooks/useNode'
+import { useLocalNode } from '../hooks/useLocalNode'
 import { SettingsContext } from '../contexts/settings'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { UnsupportedBrowserDialog } from '../dialogs/UnsupportedBrowserDialog'
-import { WelcomeDialog } from '../dialogs/WelcomeDialog'
 import { Platform } from 'react-native'
 
 import defaultSettings from '../defaultSettings.json'
-import { useLocalNode } from '../hooks/useLocalNode'
-import { X } from '@tamagui/lucide-icons'
 import { ToastController } from '../components/ToastController'
 
 const screenOptions = { title: 'PikaTorrent' }
@@ -38,9 +30,7 @@ const screenOptions = { title: 'PikaTorrent' }
 export default function Layout() {
   const media = useMedia()
   const [settings, setSettings] = useState({})
-  const node = useNode({ nodeId: settings.selectedNodeId })
-
-  const toast = useToastState()
+  const node = useLocalNode({ nodeId: settings.selectedNodeId })
 
   const fetchSettings = async () => {
     const settingsString = await AsyncStorage.getItem('settings')
@@ -83,7 +73,6 @@ export default function Layout() {
       {node.isUnsupportedBrowser && <UnsupportedBrowserDialog />}
       <SettingsContext.Provider value={{ settings, updateSettings }}>
         <NodeContext.Provider value={node}>
-          <LocalNodeSetup />
           <Theme name={theme}>
             <ToastProvider>
               <ToastViewport
@@ -100,8 +89,6 @@ export default function Layout() {
                 bc="$background"
               >
                 <StatusBar hidden />
-                {(!settings.nodes || (settings.nodes || []).length === 0) &&
-                  !isWebAndNodeDialogOpen && <WelcomeDialog />}
                 <Header />
                 {media.gtMd ? <Desktop /> : <Mobile />}
               </Stack>
@@ -111,12 +98,6 @@ export default function Layout() {
       </SettingsContext.Provider>
     </TamaguiProvider>
   )
-}
-
-const LocalNodeSetup = () => {
-  useLocalNode()
-
-  return null
 }
 
 const Desktop = () => {

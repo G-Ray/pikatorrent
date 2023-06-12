@@ -11,7 +11,7 @@ export const useSession = () => {
         method: 'session-get',
       })
 
-      setSession(response.payload.arguments)
+      setSession(response.arguments)
     } catch (e) {
       console.log('error fetching session info', e)
     }

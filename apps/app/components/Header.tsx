@@ -1,9 +1,7 @@
 import React from 'react'
 import { H1, H3, useMedia, useThemeName, XStack, YStack } from 'tamagui'
-import { AddTorrentDialog } from '../dialogs/AddTorrentDialog'
 import { ConnectionStatus } from './ConnectionStatus'
 import { Logo } from './Logo'
-import { SearchBar } from './SearchBar'
 
 export const Header = () => {
   const media = useMedia()
@@ -27,10 +25,6 @@ export const Header = () => {
         <XStack gap="$8" f={1} jc="flex-end">
           <ConnectionStatus />
         </XStack>
-      </XStack>
-      <XStack px="$4" pt="$2" pb="$4" jc="center">
-        <AddTorrentDialog />
-        <SearchBar />
       </XStack>
     </YStack>
   )

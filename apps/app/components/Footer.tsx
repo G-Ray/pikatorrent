@@ -14,7 +14,7 @@ export const Footer = () => {
           method: 'session-stats',
         })
 
-        setStats(response.payload.arguments)
+        setStats(response.arguments)
       } catch (e) {
         console.log('error fetching session info', e)
       }

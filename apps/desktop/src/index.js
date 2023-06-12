@@ -15,6 +15,7 @@ let loadURL =
 
 let mainWindow
 let nodeId
+let transmission
 
 const createWindow = async () => {
   // Create the browser window.
@@ -46,7 +47,7 @@ const createWindow = async () => {
   }
 }
 
-const createWebrtcRelay = () => {
+const startPikatorrentNode = () => {
   wrtc = require('@ca9io/electron-webrtc-relay')()
   wrtc.init()
 
@@ -54,13 +55,21 @@ const createWebrtcRelay = () => {
   wrtc.on('error', console.error)
 
   import('@pikatorrent/node').then((node) => {
-    nodeId = node.default({ wrtc })
+    nodeId = node.startNode({ wrtc, connectWebsocket: false })
+    transmission = node.transmission
+    transmission.request(
+      { method: 'session-get', arguments: { fields: ['version'] } },
+      (err, res) => console.log('$$$$$', res)
+    )
   })
 }
 
-const handleGetLocalNodeId = () => {
-  // Send nodeId from main to renderer to automatically connect to the local node
-  return nodeId
+const handleTransmissionRequest = (_, json) => {
+  return new Promise((resolve) => {
+    transmission.request(json, (err, res) => {
+      resolve(err || res)
+    })
+  })
 }
 
 // This method will be called when Electron has finished
@@ -68,8 +77,8 @@ const handleGetLocalNodeId = () => {
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
   createWindow()
-  createWebrtcRelay()
-  ipcMain.handle('getLocalNodeId', handleGetLocalNodeId)
+  startPikatorrentNode()
+  ipcMain.handle('transmission:request', handleTransmissionRequest)
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common

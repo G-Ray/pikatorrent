@@ -48,8 +48,8 @@ export const Torrents = () => {
 
   return (
     <Form space ai="flex-start" onSubmit={() => handleSubmit()}>
-      <H2>Node settings</H2>
-      <XStack space w="100%">
+      <H2>Torrents settings</H2>
+      {/* <XStack space w="100%">
         <Label htmlFor="downloadDir">Download directory</Label>
         <Input
           flex={1}
@@ -61,7 +61,7 @@ export const Torrents = () => {
             setSession((s) => ({ ...s, ['download-dir']: text }))
           }}
         />
-      </XStack>
+      </XStack> */}
 
       <XStack space w="100%">
         <Label htmlFor="encryption">Encryption</Label>
@@ -136,7 +136,7 @@ export const Torrents = () => {
         </Select>
       </XStack>
 
-      <Form.Trigger asChild disabled={!hasChanged}>
+      <Form.Trigger asChild disabled={!hasChanged} alignSelf="flex-end">
         <Button theme="yellow" o={!hasChanged ? 0.5 : 1}>
           Save
         </Button>

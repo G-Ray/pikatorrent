@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { H2, Label, Separator, Switch, XStack, YStack } from 'tamagui'
+import { H2, Label, Separator, Switch, Theme, XStack, YStack } from 'tamagui'
 import { SettingsContext } from '../../contexts/settings'
 
 import { SearchEngines } from './AppSettings/SearchEngines'
@@ -16,17 +16,11 @@ export const Preferences = () => {
   }
 
   return (
-    <YStack space ai="flex-start">
+    <YStack ai="flex-start" space="$8">
       <H2>App settings</H2>
-      <XStack width={200} alignItems="center" space="$4">
-        <Label
-          paddingRight="$0"
-          minWidth={90}
-          justifyContent="flex-end"
-          htmlFor="dark-mode-switch"
-        >
-          Dark mode
-        </Label>
+
+      <XStack ai="center" space="$4">
+        <Label htmlFor="dark-mode-switch">Dark mode</Label>
         <Separator minHeight={20} vertical />
         <Switch
           id="dark-mode-switch"

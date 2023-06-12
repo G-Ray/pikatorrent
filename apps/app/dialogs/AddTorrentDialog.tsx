@@ -79,7 +79,6 @@ export const AddTorrentDialog = () => {
           borderColor={'$yellow9'}
           theme="yellow"
           icon={PlusCircle}
-          themeInverse
           borderTopLeftRadius={50}
           borderBottomLeftRadius={50}
           borderTopRightRadius={0}

@@ -38,22 +38,18 @@ export const SearchEngines = () => {
 
   return (
     <YStack w="100%">
-      <XStack space="$4" w="100%">
-        <Label paddingRight="$0" minWidth={160}>
-          Search engines urls (one per line)
-        </Label>
-        <YStack f={1} w="100%">
-          <TextArea
-            theme="yellow"
-            w="100%"
-            height={200}
-            onChangeText={(text) => setSearchEnginesUrls(text.split('\n'))}
-            value={searchEnginesUrls.join('\n')}
-          />
-          {!isValid && <Paragraph color="$red9">Invalid urls</Paragraph>}
-        </YStack>
-      </XStack>
-      <XStack gap="$2">
+      <YStack space="$4" w="100%" mb="$4">
+        <Label minWidth={160}>Search engines urls (one per line)</Label>
+        <TextArea
+          theme="yellow"
+          w="100%"
+          height={200}
+          onChangeText={(text) => setSearchEnginesUrls(text.split('\n'))}
+          value={searchEnginesUrls.join('\n')}
+        />
+        {!isValid && <Paragraph color="$red9">Invalid urls</Paragraph>}
+      </YStack>
+      <XStack gap="$2" alignSelf="flex-end">
         <Button
           icon={Undo}
           onPress={handleReset}

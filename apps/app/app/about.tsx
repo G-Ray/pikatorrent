@@ -17,6 +17,8 @@ export default function About() {
       <XStack space w="100%" ai="center">
         <Label htmlFor="transmissionVersion">Transmission version</Label>
         <Paragraph id="transmissionVersion">{session['version']}</Paragraph>
+      </XStack>
+      <XStack>
         <SessionsInfoDialog session={session} />
       </XStack>
     </YStack>
