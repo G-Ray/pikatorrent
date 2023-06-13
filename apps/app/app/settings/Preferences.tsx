@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import { H2, Label, Separator, Switch, Theme, XStack, YStack } from 'tamagui'
+import React, { useContext, useEffect, useState } from 'react'
+import { H2, Label, Separator, Switch, XStack, YStack } from 'tamagui'
 import { SettingsContext } from '../../contexts/settings'
 
 import { SearchEngines } from './AppSettings/SearchEngines'
@@ -7,13 +7,24 @@ import { TorrentCardInfo } from './AppSettings/TorrentCardInfo'
 
 export const Preferences = () => {
   const { settings, updateSettings } = useContext(SettingsContext)
+  const [isChecked, setIsChecked] = useState(settings.theme === 'dark')
 
   const handleCheckedChange = (isChecked: boolean) => {
-    updateSettings({
-      ...settings,
-      theme: isChecked ? 'dark' : 'light',
-    })
+    setIsChecked(isChecked)
   }
+
+  useEffect(() => {
+    // Let a chance for toggle animation to finish
+    const timeout = setTimeout(() => {
+      updateSettings({ ...settings, theme: isChecked ? 'dark' : 'light' })
+    }, 500)
+
+    return () => clearTimeout(timeout)
+  }, [isChecked, settings, updateSettings])
+
+  useEffect(() => {
+    setIsChecked(settings.theme === 'dark')
+  }, [settings.theme])
 
   return (
     <YStack ai="flex-start" space="$8">
@@ -24,7 +35,7 @@ export const Preferences = () => {
         <Separator minHeight={20} vertical />
         <Switch
           id="dark-mode-switch"
-          checked={settings.theme === 'dark'}
+          checked={isChecked}
           onCheckedChange={handleCheckedChange}
         >
           <Switch.Thumb animation="quick" />
