@@ -259,7 +259,7 @@ const startNode = (options: Options = { connectWebsocket: true }) => {
 }
 
 const transmission = {
-  request: tr.request,
+  request: (...args) => tr.request(...args),
 }
 
 export { startNode, transmission }
