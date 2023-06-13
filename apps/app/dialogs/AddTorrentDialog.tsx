@@ -5,17 +5,24 @@ import { Button, Fieldset, Input, Label, Paragraph, YStack } from 'tamagui'
 import { NodeContext } from '../contexts/node'
 import { Platform } from 'react-native'
 import * as DocumentPicker from 'expo-document-picker'
+import * as FileSystem from 'expo-file-system'
 import { Dialog } from './Dialog'
 
-function readFileToBase64(file: File) {
+function readFileToBase64(document: DocumentPicker.DocumentResult) {
   return new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.readAsDataURL(file)
-    reader.onload = () =>
-      resolve(
-        reader.result?.slice('data:application/x-bittorrent;base64,'.length)
-      )
-    reader.onerror = reject
+    if (Platform.OS === 'web') {
+      const reader = new FileReader()
+      reader.readAsDataURL(document.file)
+      reader.onload = () =>
+        resolve(
+          reader.result?.slice('data:application/x-bittorrent;base64,'.length)
+        )
+      reader.onerror = reject
+    } else {
+      FileSystem.readAsStringAsync(document.uri, { encoding: 'base64' })
+        .then(resolve)
+        .catch(reject)
+    }
   })
 }
 
@@ -44,7 +51,7 @@ export const AddTorrentDialog = () => {
     try {
       const torrentAddArgs = documentResult
         ? {
-            metainfo: await readFileToBase64(documentResult.file),
+            metainfo: await readFileToBase64(documentResult),
           }
         : { filename: magnet }
 
@@ -58,12 +65,12 @@ export const AddTorrentDialog = () => {
   }
 
   const handleSelectTorrentFile = async () => {
-    if (Platform.OS !== 'web') return
-    // TODO: Mobile
-
+    // FIXME: handle rejection
     const documentResult = await DocumentPicker.getDocumentAsync({
-      type: '.torrent',
+      type: ['application/x-bittorrent', '.torrent'],
     })
+
+    console.log('documentResult', documentResult)
 
     if (documentResult.type === 'cancel') return
 
