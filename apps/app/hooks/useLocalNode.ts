@@ -1,5 +1,4 @@
 import isElectron from 'is-electron'
-// import { useEffect, useRef } from 'react'
 
 if (!isElectron()) {
   throw 'Not in electron'

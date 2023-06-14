@@ -79,6 +79,7 @@ export const AddTorrentDialog = () => {
 
   return (
     <Dialog
+      snapPoints={[42]}
       defaultOpen={defaultOpen}
       title="Add a torrent"
       trigger={
@@ -95,33 +96,27 @@ export const AddTorrentDialog = () => {
         </Button>
       }
     >
-      <Dialog.Description>
-        Add a new torrent by pasting a magnet link, or selecting a .torrent file
-        .
-      </Dialog.Description>
-
       <Fieldset horizontal gap="$4">
-        <Label w={160} justifyContent="flex-end" htmlFor="name">
-          Torrent or magnet link
-        </Label>
         <Input
           f={1}
           id="name"
-          placeholder="magnet://"
+          placeholder="torrent or magnet:// links"
           value={magnet}
           onChangeText={setMagnet}
         />
       </Fieldset>
-      <Paragraph>Or</Paragraph>
+      <Paragraph fontWeight="bold" mx="auto">
+        Or
+      </Paragraph>
 
-      <Fieldset horizontal gap="$4">
+      <Fieldset gap="$4">
         <Button theme="yellow" onPress={handleSelectTorrentFile}>
           Select a .torrent file
         </Button>
         {documentResult && <Paragraph>{documentResult.name}</Paragraph>}
       </Fieldset>
 
-      <YStack ai="flex-end" mt="$2">
+      <YStack ai="flex-end">
         <Dialog.Close displayWhenAdapted asChild>
           <Button
             theme="yellow"

@@ -9,7 +9,7 @@ import {
 } from 'tamagui'
 
 type DialogProps = {
-  title: string | React.ReactNode
+  title?: string | React.ReactNode
   trigger?: React.ReactNode
   children: React.ReactNode
   snapPoints?: Array<number>
@@ -29,7 +29,7 @@ const Dialog = ({
   defaultOpen,
   open,
   dismissOnOverlayPress,
-  dismissOnSnapToBottom,
+  dismissOnSnapToBottom = true,
 }: DialogProps) => {
   return (
     <TamaguiDialog modal defaultOpen={defaultOpen} open={open}>
@@ -75,9 +75,8 @@ const Dialog = ({
           enterStyle={{ x: 0, y: -20, opacity: 0, scale: 0.9 }}
           exitStyle={{ x: 0, y: 10, opacity: 0, scale: 0.95 }}
           space
-          maxWidth={500}
         >
-          <TamaguiDialog.Title>{title}</TamaguiDialog.Title>
+          {title && <TamaguiDialog.Title>{title}</TamaguiDialog.Title>}
           {children}
           {dismissOnOverlayPress !== false && (
             <Unspaced>

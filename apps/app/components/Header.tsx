@@ -11,7 +11,7 @@ export const Header = () => {
       <XStack
         pt="$4"
         pb="$2"
-        px={media.gtXs ? '$8' : '$4'}
+        px={media.gtXs ? '$8' : '$2'}
         jc="space-between"
         ai="center"
         bc="$background"

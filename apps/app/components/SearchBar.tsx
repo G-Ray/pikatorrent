@@ -64,7 +64,6 @@ export const SearchBar = () => {
           placeholder="Pick a torrent online..."
           value={query}
           onChangeText={setQuery}
-          fontSize={'$6'}
         />
         <SearchEngineSelector
           engines={engines}

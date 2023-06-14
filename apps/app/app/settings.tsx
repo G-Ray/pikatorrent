@@ -11,10 +11,10 @@ export default function Settings() {
 
   return (
     <ScrollView>
-      <YStack gap="$16" mr={media.gtXs ? '$8' : '$4'}>
+      <YStack gap="$16" mr={media.gtXs ? '$8' : '$0'}>
         {/* <Nodes /> */}
         <Preferences />
-        <Torrents />
+        {/* <Torrents /> */}
       </YStack>
     </ScrollView>
   )

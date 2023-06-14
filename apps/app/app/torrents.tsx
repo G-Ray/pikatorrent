@@ -1,21 +1,22 @@
 import React from 'react'
 import { FlatList } from 'react-native'
 import { TorrentCard, TorrentCardPlaceHolder } from '../components/TorrentCard'
-import { TorrentsProvider } from '../contexts/TorrentsContext'
 import { useTorrents } from '../hooks/useTorrents'
-import { XStack } from 'tamagui'
+import { XStack, YStack, useMedia } from 'tamagui'
 import { AddTorrentDialog } from '../dialogs/AddTorrentDialog'
 import { SearchBar } from '../components/SearchBar'
 
 export default function Torrents() {
+  const media = useMedia()
+
   return (
-    <TorrentsProvider>
-      <XStack px="$4" pt="$2" pb="$4" jc="center">
+    <YStack f={1}>
+      <XStack pb={media.gtXs ? '$8' : '$4'} jc="center">
         <AddTorrentDialog />
         <SearchBar />
       </XStack>
       <TorrentsList />
-    </TorrentsProvider>
+    </YStack>
   )
 }
 

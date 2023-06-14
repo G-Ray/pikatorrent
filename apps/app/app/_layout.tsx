@@ -24,6 +24,7 @@ import { Platform } from 'react-native'
 
 import defaultSettings from '../defaultSettings.json'
 import { ToastController } from '../components/ToastController'
+import { TorrentsProvider } from '../contexts/TorrentsContext'
 
 const screenOptions = { title: 'PikaTorrent' }
 
@@ -90,7 +91,9 @@ export default function Layout() {
               >
                 <StatusBar hidden />
                 <Header />
-                {media.gtMd ? <Desktop /> : <Mobile />}
+                <TorrentsProvider>
+                  {media.gtMd ? <Desktop /> : <Mobile />}
+                </TorrentsProvider>
               </Stack>
             </ToastProvider>
           </Theme>

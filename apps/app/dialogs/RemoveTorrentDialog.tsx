@@ -1,6 +1,6 @@
 import React from 'react'
 import { Trash } from '@tamagui/lucide-icons'
-import { Button, Paragraph, XStack } from 'tamagui'
+import { Button, Paragraph, XStack, YStack } from 'tamagui'
 import { Dialog } from './Dialog'
 import { useTorrents } from '../hooks/useTorrents'
 
@@ -15,20 +15,23 @@ export const RemoveTorrentDialog = ({ id }) => {
           Remove
         </Button>
       }
+      snapPoints={[36]}
     >
-      <XStack space="$4" ai="center">
+      <YStack space="$4" ai="center" minWidth={300}>
         <Dialog.Close displayWhenAdapted asChild>
           <Button onPress={() => remove(id, false)} theme="yellow">
             Remove torrent only
           </Button>
         </Dialog.Close>
-        <Paragraph>or</Paragraph>
+        <Paragraph mx="auto" fontWeight={'bold'}>
+          Or
+        </Paragraph>
         <Dialog.Close displayWhenAdapted asChild>
           <Button onPress={() => remove(id, true)} theme="red">
             Remove torrent and data
           </Button>
         </Dialog.Close>
-      </XStack>
+      </YStack>
     </Dialog>
   )
 }

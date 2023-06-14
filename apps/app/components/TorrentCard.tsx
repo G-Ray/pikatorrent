@@ -23,25 +23,9 @@ import { TorrentFieldFormatter } from './TorrentFieldFormatter'
 import { SettingsContext } from '../contexts/settings'
 import i18n from '../i18n'
 import { useTorrents } from '../hooks/useTorrents'
+import { TORRENT_STATUSES } from '../constants/torrents'
 
 const COLLAPSE_ITEMS_DESKTOP = 7
-
-// 0 - Torrent is stopped
-// 1 - Torrent is queued to verify local data
-// 2 - Torrent is verifying local data
-// 3 - Torrent is queued to download
-// 4 - Torrent is downloading
-// 5 - Torrent is queued to seed
-// 6 - Torrent is seeding
-export const STATUSES = {
-  0: 'Stopped',
-  1: 'Queued',
-  2: 'Verifying', // Torrent is verifying local data
-  3: 'Queued',
-  4: 'Downloading',
-  5: 'Queued',
-  6: 'Seeding',
-}
 
 export const TorrentCard = ({ torrent }) => {
   const [isCollapsed, setIsCollapsed] = useState(true)
@@ -75,7 +59,7 @@ export const TorrentCard = ({ torrent }) => {
         </YStack>
 
         <XStack f={1} ai="center" jc="space-between" pt="$4">
-          {STATUSES[torrent.status] === STATUSES[0] ? (
+          {TORRENT_STATUSES[torrent.status] === TORRENT_STATUSES[0] ? (
             <Button
               onPress={() => start(torrent.id)}
               theme="green"

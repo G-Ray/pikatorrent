@@ -3,8 +3,6 @@ import Transmission from 'react-native-transmission'
 
 import { default as expoConfig } from '../app.config'
 
-console.log('Transmission', Transmission)
-
 const appPackage = expoConfig().expo.android.package
 const ANDROID_TRANSMISSION_CONFIG_FOLDER = `/data/data/${appPackage}/files/transmission`
 const ANDROID_TRANSMISSION_APP_NAME = 'transmission'

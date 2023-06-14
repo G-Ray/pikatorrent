@@ -4,6 +4,7 @@ import { SettingsContext } from '../../contexts/settings'
 
 import { SearchEngines } from './AppSettings/SearchEngines'
 import { TorrentCardInfo } from './AppSettings/TorrentCardInfo'
+import { Platform } from 'react-native'
 
 export const Preferences = () => {
   const { settings, updateSettings } = useContext(SettingsContext)
@@ -30,7 +31,7 @@ export const Preferences = () => {
     <YStack ai="flex-start" space="$8">
       <H2>App settings</H2>
 
-      <XStack ai="center" space="$4">
+      <XStack {...(Platform.OS === 'web' && { ai: 'center' })} space="$4">
         <Label htmlFor="dark-mode-switch">Dark mode</Label>
         <Separator minHeight={20} vertical />
         <Switch

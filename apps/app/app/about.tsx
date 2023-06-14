@@ -4,21 +4,22 @@ import { SessionsInfoDialog } from '../dialogs/SessionInfoDialog'
 import { useSession } from '../hooks/useSession'
 
 import { version } from '../package.json'
+import { Platform } from 'react-native'
 
 export default function About() {
   const { session } = useSession()
 
   return (
     <YStack>
-      <XStack space w="100%" ai="center">
-        <Label htmlFor="transmissionVersion">PikaTorrent version</Label>
-        <Paragraph id="transmissionVersion">{version}</Paragraph>
+      <XStack space w="100%" {...(Platform.OS === 'web' && { ai: 'center' })}>
+        <Label htmlFor="pikaTorrentVersion">PikaTorrent version</Label>
+        <Paragraph id="pikaTorrentVersion">{version}</Paragraph>
       </XStack>
-      <XStack space w="100%" ai="center">
+      <XStack space w="100%" {...(Platform.OS === 'web' && { ai: 'center' })}>
         <Label htmlFor="transmissionVersion">Transmission version</Label>
         <Paragraph id="transmissionVersion">{session['version']}</Paragraph>
       </XStack>
-      <XStack>
+      <XStack ml="auto">
         <SessionsInfoDialog session={session} />
       </XStack>
     </YStack>

@@ -14,9 +14,10 @@ export const FilesListDialog = ({ torrent }) => {
           <Paragraph>{torrent.files.length} Files</Paragraph>
         </Button>
       }
+      snapPoints={[50]}
     >
       <XStack overflow="scroll">
-        <YGroup alignSelf="center" bordered size="$2">
+        <YGroup alignSelf="center" bordered size="$2" f={1}>
           <FlatList
             data={torrent.files}
             renderItem={({ item }) => (

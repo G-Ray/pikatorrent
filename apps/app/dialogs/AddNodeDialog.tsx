@@ -43,11 +43,7 @@ export const AddNodeDialog = ({ settingsContext }) => {
     <Dialog
       title="Add a new node"
       defaultOpen={defaultOpen}
-      trigger={
-        <Button icon={PlusCircle} themeInverse>
-          Add node
-        </Button>
-      }
+      trigger={<Button icon={PlusCircle}>Add node</Button>}
     >
       <Dialog.Description>
         Add a new node to control it from anywhere.
