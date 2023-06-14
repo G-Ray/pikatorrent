@@ -2,7 +2,9 @@
   "name": "@pikatorrent/app",
   "version": "0.1.4",
   "scripts": {
-    "build:android": "eas build --profile development --platform android --local",
+    "build:android:development": "cross-env TAMAGUI_TARGET=native eas build --profile development --platform android --local",
+    "build:android:preview": "cross-env TAMAGUI_TARGET=native eas build --profile preview --platform android --local",
+    "build:android:production": "cross-env TAMAGUI_TARGET=native eas build --profile production --platform android --local",
     "native": "cross-env TAMAGUI_TARGET=native expo start --dev-client",
     "android": "cross-env TAMAGUI_TARGET=native expo start --android --dev-client --clear",
     "ios": "cross-env TAMAGUI_TARGET=native expo start --ios --dev-client",
