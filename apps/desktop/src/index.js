@@ -57,15 +57,12 @@ const startPikatorrentNode = () => {
   import('@pikatorrent/node').then((node) => {
     nodeId = node.startNode({ wrtc, connectWebsocket: false })
     transmission = node.transmission
-    transmission.request(
-      { method: 'session-get', arguments: { fields: ['version'] } },
-      (err, res) => console.log('$$$$$', res)
-    )
   })
 }
 
 const handleTransmissionRequest = (_, json) => {
   return new Promise((resolve) => {
+    console.log('request')
     transmission.request(json, (err, res) => {
       resolve(err || res)
     })
