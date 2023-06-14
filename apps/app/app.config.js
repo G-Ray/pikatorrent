@@ -4,7 +4,7 @@ module.exports = () => {
       name: 'pikatorrent',
       slug: 'pikatorrent',
       scheme: 'pikatorrent',
-      version: '1.0.0',
+      version: '0.1.4',
       orientation: 'portrait',
       icon: './assets/icon.png',
       userInterfaceStyle: 'automatic',
