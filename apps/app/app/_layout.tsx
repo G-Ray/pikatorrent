@@ -46,7 +46,10 @@ export default function Layout() {
   }
 
   const updateSettings = async (updatedSettings) => {
-    await AsyncStorage.setItem('settings', JSON.stringify(updatedSettings))
+    await AsyncStorage.setItem(
+      'settings',
+      JSON.stringify({ ...settings, ...updatedSettings })
+    )
     fetchSettings()
   }
 

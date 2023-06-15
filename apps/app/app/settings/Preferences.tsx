@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { H2, Label, Separator, Switch, XStack, YStack } from 'tamagui'
 import { SettingsContext } from '../../contexts/settings'
 
@@ -9,19 +9,19 @@ import { Platform } from 'react-native'
 export const Preferences = () => {
   const { settings, updateSettings } = useContext(SettingsContext)
   const [isChecked, setIsChecked] = useState(settings.theme === 'dark')
+  const themeChangeTimeout = useRef(null)
 
   const handleCheckedChange = (isChecked: boolean) => {
     setIsChecked(isChecked)
-  }
-
-  useEffect(() => {
     // Let a chance for toggle animation to finish
-    const timeout = setTimeout(() => {
-      updateSettings({ ...settings, theme: isChecked ? 'dark' : 'light' })
-    }, 500)
+    if (themeChangeTimeout.current) {
+      clearTimeout(themeChangeTimeout.current)
+    }
 
-    return () => clearTimeout(timeout)
-  }, [isChecked, settings, updateSettings])
+    themeChangeTimeout.current = setTimeout(() => {
+      updateSettings({ theme: isChecked ? 'dark' : 'light' })
+    }, 500)
+  }
 
   useEffect(() => {
     setIsChecked(settings.theme === 'dark')
