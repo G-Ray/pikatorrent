@@ -14,8 +14,7 @@ let loadURL =
   process.env.NODE_ENV === 'production' ? serve({ directory: 'dist' }) : null
 
 let mainWindow
-let nodeId
-let transmission
+let nodeRef
 
 const createWindow = async () => {
   // Create the browser window.
@@ -47,6 +46,16 @@ const createWindow = async () => {
   }
 }
 
+const handleAcceptOrRejectPeer = (id, name) => {
+  return new Promise((resolve) => {
+    ipcMain.once('onAcceptOrRejectPeerResponse', (_event, response) => {
+      resolve(response)
+    })
+
+    mainWindow.webContents.send('onAcceptOrRejectPeer', { id, name })
+  })
+}
+
 const startPikatorrentNode = () => {
   wrtc = require('@ca9io/electron-webrtc-relay')()
   wrtc.init()
@@ -55,18 +64,35 @@ const startPikatorrentNode = () => {
   wrtc.on('error', console.error)
 
   import('@pikatorrent/node').then((node) => {
-    nodeId = node.startNode({ wrtc, connectWebsocket: false })
-    transmission = node.transmission
+    nodeRef = node
+    node.startNode({
+      wrtc,
+      connectWebsocket: true,
+      onAcceptOrRejectPeer: handleAcceptOrRejectPeer,
+      onUpdateSettings: sendSettingToRenderer,
+    })
   })
 }
 
+// handle IPC transmisison requests
 const handleTransmissionRequest = (_, json) => {
   return new Promise((resolve) => {
-    console.log('request')
-    transmission.request(json, (err, res) => {
+    nodeRef.transmission.request(json, (err, res) => {
       resolve(err || res)
     })
   })
+}
+
+const handleGetNodeSettings = () => {
+  return nodeRef.settings
+}
+
+const handleUpdateNodeSettings = (_, update) => {
+  nodeRef.updateSettings(update)
+}
+
+const sendSettingToRenderer = () => {
+  mainWindow.webContents.send('onNodeSettingsUpdate', nodeRef.settings)
 }
 
 // This method will be called when Electron has finished
@@ -75,6 +101,8 @@ const handleTransmissionRequest = (_, json) => {
 app.on('ready', () => {
   createWindow()
   startPikatorrentNode()
+  ipcMain.handle('node:getNodeSettings', handleGetNodeSettings)
+  ipcMain.handle('node:updateSettings', handleUpdateNodeSettings)
   ipcMain.handle('transmission:request', handleTransmissionRequest)
 })
 

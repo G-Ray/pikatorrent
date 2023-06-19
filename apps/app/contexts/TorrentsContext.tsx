@@ -6,7 +6,7 @@ import {
   useState,
 } from 'react'
 import { SettingsContext } from './settings'
-import { NodeContext } from './node'
+import { NodeContext } from './NodeContext'
 import { useToastController } from '@tamagui/toast'
 
 export const TorrentsContext = createContext(null)

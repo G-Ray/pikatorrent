@@ -13,7 +13,7 @@ A `node` or `app` first need to open a connection to a signaling server in order
 The implemented server use `websockets`.
 
 1. Each `peer` opens a `websocket` connection to the server
-2. Each `peer` subscribes to a `channel` to expect responses. Currently each `peer` can open a channel with its chosen unique id (preferably a random one). To subscribe, they send a message to the websocket with the following data:
+2. Each `peer` subscribes to a `channel` to expect responses. Each `peer` can open a channel with its chosen unique id (a random one). To subscribe, they send a message to the websocket with the following data:
 
 ```jsonc
 {
@@ -28,9 +28,12 @@ The implemented server use `websockets`.
 {
     "type": "signal",
     fromId, // client or node id
+    fromName, // Device name
     toId, // client or node id
     signal
 }
 ```
 
-4. Once `peers` has exchanged signals data (`offer` & `answer`), a webrtc connection should be established between an `app` and `node` with `simple-peer`.
+4. When a new peer try to connect for the first time, we ask on the receiving peer to accept or reject the new connection. Once the user has accepted/rejected, we save the nodeId in a accepted/rejected list.
+
+5. Once `peers` has exchanged signals data (`offer` & `answer`), a webrtc connection should be established between an `app` and `node` with `simple-peer`.

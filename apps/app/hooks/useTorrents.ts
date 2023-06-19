@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { TorrentsContext } from '../contexts/TorrentsContext'
-import { NodeContext } from '../contexts/node'
+import { NodeContext } from '../contexts/NodeContext'
 
 export const useTorrents = () => {
   const { torrents, refresh } = useContext(TorrentsContext)

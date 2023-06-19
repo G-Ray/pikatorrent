@@ -1,5 +1,5 @@
 import { useCallback, useContext, useEffect, useState } from 'react'
-import { NodeContext } from '../contexts/node'
+import { NodeContext } from '../contexts/NodeContext'
 
 export const useSession = () => {
   const { sendRPCMessage } = useContext(NodeContext)

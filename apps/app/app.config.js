@@ -1,3 +1,5 @@
+const IS_DEV = process.env.APP_VARIANT === 'development'
+
 module.exports = () => {
   return {
     expo: {
@@ -22,7 +24,7 @@ module.exports = () => {
           foregroundImage: './assets/adaptive-icon.png',
           backgroundColor: '#ffffff',
         },
-        package: 'com.gray.pikatorrent',
+        package: IS_DEV ? 'com.gray.pikatorrent.dev' : 'com.gray.pikatorrent',
       },
       web: {
         favicon: './assets/favicon.png',

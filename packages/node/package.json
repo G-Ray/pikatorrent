@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "start": "tsc --watch & node --watch ./dist/index.js",
+    "watch": "tsc --watch",
     "prepare": "npm run build"
   },
   "repository": {
@@ -28,6 +28,7 @@
     "ws": "^8.12.1"
   },
   "devDependencies": {
+    "@types/node": "^20.3.1",
     "@typescript-eslint/eslint-plugin": "^5.57.1",
     "@typescript-eslint/parser": "^5.57.1",
     "eslint": "^8.37.0",
@@ -35,5 +36,6 @@
   },
   "files": [
     "dist/"
-  ]
+  ],
+  "license": "GPL-3.0"
 }

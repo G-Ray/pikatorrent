@@ -1,7 +1,7 @@
 import React from 'react'
 
-// import { Nodes } from './settings/Nodes'
-import { Torrents } from './settings/Torrents'
+import { Nodes } from './settings/Nodes'
+// import { Torrents } from './settings/Torrents'
 import { Preferences } from './settings/Preferences'
 import { YStack, useMedia } from 'tamagui'
 import { ScrollView } from 'react-native'
@@ -12,7 +12,7 @@ export default function Settings() {
   return (
     <ScrollView>
       <YStack gap="$16" mr={media.gtXs ? '$8' : '$0'}>
-        {/* <Nodes /> */}
+        <Nodes />
         <Preferences />
         {/* <Torrents /> */}
       </YStack>

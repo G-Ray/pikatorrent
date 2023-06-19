@@ -12,7 +12,7 @@ program
   .description('Start a pikatorrent node')
   .action(() => {
     import('@pikatorrent/node').then((node) => {
-      node.default()
+      node.startNode({ connectWebsocket: true })
     })
   })
 

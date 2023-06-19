@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Circle, Paragraph, XStack, useMedia } from 'tamagui'
-import { NodeContext } from '../contexts/node'
+import { NodeContext } from '../contexts/NodeContext'
 
 export const ConnectionStatus = () => {
   const node = useContext(NodeContext)

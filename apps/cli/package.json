@@ -5,6 +5,7 @@
     "start": "NODE_ENV=development ./cli.js"
   },
   "bin": "./cli.js",
+  "license": "GPL-3.0",
   "dependencies": {
     "@pikatorrent/hub": "0.1.4",
     "@pikatorrent/node": "0.1.4",

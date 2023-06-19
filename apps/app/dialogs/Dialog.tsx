@@ -18,6 +18,7 @@ type DialogProps = {
   open?: boolean
   dismissOnOverlayPress?: boolean
   dismissOnSnapToBottom?: boolean
+  onOpenChange?: () => {}
 }
 
 const Dialog = ({
@@ -28,11 +29,17 @@ const Dialog = ({
   defaultPosition,
   defaultOpen,
   open,
-  dismissOnOverlayPress,
+  dismissOnOverlayPress = true,
   dismissOnSnapToBottom = true,
+  onOpenChange,
 }: DialogProps) => {
   return (
-    <TamaguiDialog modal defaultOpen={defaultOpen} open={open}>
+    <TamaguiDialog
+      modal
+      defaultOpen={defaultOpen}
+      open={open}
+      onOpenChange={onOpenChange}
+    >
       <Dialog.Trigger asChild>{trigger}</Dialog.Trigger>
 
       <Adapt when="sm">
@@ -78,20 +85,18 @@ const Dialog = ({
         >
           {title && <TamaguiDialog.Title>{title}</TamaguiDialog.Title>}
           {children}
-          {dismissOnOverlayPress !== false && (
-            <Unspaced>
-              <TamaguiDialog.Close asChild>
-                <Button
-                  pos="absolute"
-                  t="$3"
-                  r="$3"
-                  size="$2"
-                  circular
-                  icon={X}
-                />
-              </TamaguiDialog.Close>
-            </Unspaced>
-          )}
+          <Unspaced>
+            <TamaguiDialog.Close asChild>
+              <Button
+                pos="absolute"
+                t="$3"
+                r="$3"
+                size="$2"
+                circular
+                icon={X}
+              />
+            </TamaguiDialog.Close>
+          </Unspaced>
         </TamaguiDialog.Content>
       </TamaguiDialog.Portal>
     </TamaguiDialog>

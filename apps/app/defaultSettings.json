@@ -12,5 +12,6 @@
     "rateDownload",
     "rateUpload",
     "totalSize"
-  ]
+  ],
+  "selectedNodeId": "local"
 }

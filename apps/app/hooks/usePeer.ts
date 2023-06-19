@@ -4,6 +4,7 @@ import { SimplePeer } from 'simple-peer'
 
 import Peer from 'simple-peer/simplepeer.min.js'
 import { useWebSocket } from './useWebSocket'
+import { getDeviceName } from '../lib/device'
 
 interface UsePeerOptions {
   nodeId: string
@@ -53,6 +54,7 @@ export const usePeer = ({ nodeId, clientId }: UsePeerOptions) => {
         JSON.stringify({
           type: 'signal',
           fromId: clientId,
+          fromName: getDeviceName(),
           toId: nodeId,
           signal,
         })

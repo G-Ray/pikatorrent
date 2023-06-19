@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Separator, XStack } from 'tamagui'
-import { NodeContext } from '../contexts/node'
+import { NodeContext } from '../contexts/NodeContext'
 import { Speed } from './Speed'
 
 export const Footer = () => {

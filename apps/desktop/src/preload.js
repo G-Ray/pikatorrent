@@ -3,6 +3,13 @@
 const { contextBridge, ipcRenderer } = require('electron')
 
 contextBridge.exposeInMainWorld('electronAPI', {
+  getNodeSettings: () => ipcRenderer.invoke('node:getNodeSettings'),
+  updateNodeSettings: (update) =>
+    ipcRenderer.invoke('node:updateSettings', update),
+  handleUpdateNodeSettings: (callback) =>
+    ipcRenderer.on('onNodeSettingsUpdate', callback),
   transmissionRequest: (request) =>
     ipcRenderer.invoke('transmission:request', request),
+  handleAcceptOrRejectPeer: (callback) =>
+    ipcRenderer.on('onAcceptOrRejectPeer', callback),
 })

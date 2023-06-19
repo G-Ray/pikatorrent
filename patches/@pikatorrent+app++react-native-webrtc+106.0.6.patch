@@ -1,7 +1,7 @@
-diff --git a/node_modules/react-native-webrtc/src/RTCPeerConnection.ts b/node_modules/react-native-webrtc/src/RTCPeerConnection.ts
+diff --git a/node_modules/@pikatorrent/app/node_modules/react-native-webrtc/src/RTCPeerConnection.ts b/node_modules/@pikatorrent/app/node_modules/react-native-webrtc/src/RTCPeerConnection.ts
 index 420d5f5..284865d 100644
---- a/node_modules/react-native-webrtc/src/RTCPeerConnection.ts
-+++ b/node_modules/react-native-webrtc/src/RTCPeerConnection.ts
+--- a/node_modules/@pikatorrent/app/node_modules/react-native-webrtc/src/RTCPeerConnection.ts
++++ b/node_modules/@pikatorrent/app/node_modules/react-native-webrtc/src/RTCPeerConnection.ts
 @@ -442,37 +442,22 @@ export default class RTCPeerConnection extends defineCustomEventTarget(...PEER_C
          existingTransceiver._direction = existingTransceiver.direction === 'sendrecv' ? 'recvonly' : 'inactive';
      }

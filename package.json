@@ -10,6 +10,7 @@
     "hub": "npm start --workspace=@pikatorrent/hub",
     "node": "npm start --workspace=@pikatorrent/node",
     "site": "npm --workspace=@pikatorrent/site run dev",
+    "cli": "npm --workspace=pikatorrent start",
     "postinstall": "patch-package",
     "build:web": "npm run build:web --workspace=@pikatorrent/app",
     "build:site": "npm run build --workspace=@pikatorrent/site",
@@ -21,8 +22,10 @@
   },
   "private": true,
   "workspaces": [
-    "apps/*"
+    "apps/*",
+    "packages/*"
   ],
+  "license": "GPL-3.0",
   "dependencies": {
     "commander": "^10.0.1"
   }

@@ -1,6 +1,7 @@
 import Peer from 'simple-peer'
 import WS from 'ws'
 import Transmission from 'transmission-native'
+import * as readline from 'node:readline'
 import * as crypto from 'node:crypto'
 import * as path from 'node:path'
 import * as fs from 'node:fs'
@@ -13,6 +14,17 @@ const { SIGNALING_URL, APP_URL } = config
 if (!SIGNALING_URL) throw new Error('Missing SIGNALING_URL env var')
 if (!APP_URL) throw new Error('Missing APP_URL env var')
 
+type Peer = {
+  id: string
+  name: string
+}
+
+type Settings = {
+  nodeId: string
+  acceptedPeers: Peer[]
+  rejectedPeers: Peer[]
+}
+
 const configPath = envPaths('pikatorrent', { suffix: null }).config
 if (!fs.existsSync(configPath)) {
   fs.mkdirSync(configPath, { recursive: true })
@@ -24,48 +36,70 @@ const tr = new Transmission(transmissionConfigPath, 'transmission')
 
 let ws
 let wrtcInstance
+let isPromptingForNewPeer = false
+let onUpdateSettings
 const peers = new Map<string, InstanceType<Peer.SimplePeer>>() // clientId -> SimplePeer
 
-let settings = null
+const defaultSettings = {
+  nodeId: null,
+  acceptedPeers: [],
+  rejectedPeers: [],
+}
+let settings: Settings = { ...defaultSettings }
 
-// load settings.json
-if (fs.existsSync(settingsFilePath)) {
-  const settingsFileData = fs.readFileSync(settingsFilePath)
-  if (settingsFileData) {
-    settings = JSON.parse(settingsFileData.toString())
+const loadSettings = () => {
+  // load settings.json
+  if (fs.existsSync(settingsFilePath)) {
+    const settingsFileData = fs.readFileSync(settingsFilePath)
+    if (settingsFileData) {
+      settings = {
+        ...settings,
+        ...JSON.parse(settingsFileData.toString()),
+      }
+    }
   }
 }
+
+loadSettings()
 
 const nodeId =
   settings && settings.nodeId ? settings.nodeId : crypto.randomUUID()
 
-const printNodeInfo = async () => {
-  const qrcode = await QRCode.toString(`${APP_URL}/settings?nodeId=` + nodeId)
+const updateSettings = (update) => {
+  settings = { ...settings, ...update }
+  if (onUpdateSettings) {
+    onUpdateSettings(settings)
+  }
+  saveSettings()
+}
 
-  console.log('> Node ID (keep it secret):', nodeId, '\n')
-  console.log(
-    `> Add this node ID to a pikatorrent manually, click on the url, or scan the qrcode:`
-  )
-  console.log(`- ${APP_URL}/settings?nodeId=` + nodeId)
-
-  console.log(qrcode)
+const saveSettings = () => {
+  fs.writeFileSync(settingsFilePath, JSON.stringify(settings))
 }
 
 if (!settings) {
   // Save nodeId to settings.json
-  fs.writeFileSync(
-    settingsFilePath,
-    JSON.stringify({
-      nodeId,
-    })
-  )
+  updateSettings({ nodeId })
 }
 
-const initWebSocket = () => {
+const printNodeInfo = async () => {
+  console.log('printNodeInfo')
+  const qrcode = await QRCode.toString(`${APP_URL}/settings?nodeId=` + nodeId)
+
+  console.log('> Node ID (keep it secret):', nodeId, '\n')
+  console.log(
+    `> Add this node ID to a pikatorrent app manually, click on the url, or scan the qrcode:`
+  )
+  console.log(qrcode)
+  console.log(`${APP_URL}/settings?nodeId=` + nodeId)
+}
+
+// TODO: Encrypt signaling data
+const initWebSocket = ({ onAcceptOrRejectPeer }) => {
   ws = new WS(SIGNALING_URL)
 
   // Listen for messages
-  ws.on('message', (message) => {
+  ws.on('message', async (message) => {
     const json = JSON.parse(message)
 
     if (
@@ -73,8 +107,36 @@ const initWebSocket = () => {
       json.signal.type === 'offer' &&
       peers.has(json.fromId) === false
     ) {
+      const peerId = json.fromId
       // Create new peer
-      initPeer(json.fromId, json.signal)
+      if (settings.rejectedPeers.find((p) => p.id === peerId)) {
+        // Ignore rejected peer
+        return
+      } else if (settings.acceptedPeers.find((p) => p.id === peerId)) {
+        // accept peer connection immediately
+        initPeer(json.fromId, json.signal)
+      } else {
+        if (isPromptingForNewPeer) {
+          // Ignore new request while old one is still pending
+          return false
+        }
+
+        isPromptingForNewPeer = true
+
+        const isApproved = await onAcceptOrRejectPeer(
+          json.fromId,
+          json.fromName
+        )
+
+        if (isApproved) {
+          saveAcceptedPeer(json.fromId, json.fromName)
+          initPeer(json.fromId, json.signal)
+        } else if (!isApproved) {
+          saveRejectedPeer(json.fromId, json.fromName)
+        }
+
+        isPromptingForNewPeer = false
+      }
     } else {
       // Find existing peer and call signal
       const peer = peers.get(json.fromId)
@@ -86,7 +148,7 @@ const initWebSocket = () => {
 
   ws.on('close', () => {
     // Retry
-    setTimeout(initWebSocket, 1000)
+    setTimeout(() => initWebSocket({ onAcceptOrRejectPeer }), 1000)
   })
 
   ws.on('error', console.error)
@@ -102,6 +164,7 @@ const initWebSocket = () => {
   })
 }
 
+// TODO: approve or reject peer connection
 const initPeer = (id, offer) => {
   const reconstructingMessages = new Map()
 
@@ -233,33 +296,87 @@ const initPeer = (id, offer) => {
   peer.signal(offer)
 }
 
-// Handle exit gracefully
-process.on('SIGINT', () => {
-  tr.close()
-  process.exit()
-})
+const onAcceptOrRejectPeerCli = async (peerId: string, peerName: string) => {
+  return new Promise<boolean>((resolve, reject) => {
+    const readlineInterface = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout,
+    })
 
-type Options = {
-  connectWebsocket?: boolean
-  wrtc?: any
+    readlineInterface.question(
+      `Accept connection from ${peerName} (${peerId}) ? Y/N\n`,
+      (response) => {
+        readlineInterface.close()
+
+        if (['y', 'Y'].includes(response)) {
+          resolve(true)
+        } else if (['n', 'N'].includes(response)) {
+          resolve(false)
+        } else {
+          // Do not save until we have a correct response
+          resolve(false)
+        }
+      }
+    )
+  })
 }
 
-const startNode = (options: Options = { connectWebsocket: true }) => {
+type Options = {
+  onAcceptOrRejectPeer?: (peerId: string, peerName: string) => Promise<boolean>
+  connectWebsocket?: boolean
+  wrtc?: any
+  onUpdateSettings?: () => {}
+}
+
+const startNode = (
+  options: Options = {
+    connectWebsocket: true,
+    onAcceptOrRejectPeer: onAcceptOrRejectPeerCli,
+    onUpdateSettings: null,
+  }
+) => {
   if (options.wrtc) {
     wrtcInstance = options.wrtc
+  }
+
+  if (options.onUpdateSettings) {
+    onUpdateSettings = options.onUpdateSettings
   }
 
   printNodeInfo()
 
   if (options.connectWebsocket) {
-    initWebSocket()
+    console.log('initWebSocket', options.onAcceptOrRejectPeer)
+    initWebSocket({
+      onAcceptOrRejectPeer:
+        options.onAcceptOrRejectPeer || onAcceptOrRejectPeerCli,
+    })
   }
 
   return nodeId
+}
+
+const saveAcceptedPeer = (peerId, name) => {
+  console.log('saveAcceptedPeer')
+  updateSettings({
+    acceptedPeers: [...settings.acceptedPeers, { id: peerId, name }],
+  })
+}
+
+const saveRejectedPeer = (peerId, name) => {
+  updateSettings({
+    rejectedPeers: [...settings.rejectedPeers, { id: peerId, name }],
+  })
 }
 
 const transmission = {
   request: (...args) => tr.request(...args),
 }
 
-export { startNode, transmission }
+// Handle exit gracefully : TODO: expose close/destroy function
+process.on('SIGINT', () => {
+  tr.close()
+  process.exit()
+})
+
+export { startNode, transmission, settings, updateSettings }

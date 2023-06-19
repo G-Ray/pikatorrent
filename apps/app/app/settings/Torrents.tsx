@@ -5,7 +5,6 @@ import {
   Button,
   Form,
   H2,
-  Input,
   Label,
   Select,
   Sheet,
@@ -13,7 +12,7 @@ import {
   YStack,
 } from 'tamagui'
 
-import { NodeContext } from '../../contexts/node'
+import { NodeContext } from '../../contexts/NodeContext'
 import { useSession } from '../../hooks/useSession'
 import { Check, ChevronDown, ChevronUp } from '@tamagui/lucide-icons'
 
@@ -69,7 +68,6 @@ export const Torrents = () => {
           id="node"
           value={session.encryption}
           onValueChange={(mode) => {
-            console.log('mode', mode)
             setSession((s) => ({ ...s, encryption: mode }))
           }}
         >
