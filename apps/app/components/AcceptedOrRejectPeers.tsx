@@ -42,7 +42,7 @@ const PeersList = ({ type, settings, handleRemovePeer }) => {
     <YGroup alignSelf="center" bordered size="$4">
       {settings[type + 'Peers'].map((peer: any) => (
         <ListItem key={peer.id} gap="$4">
-          {peer.id}
+          {peer.name}
           <Button
             icon={Delete}
             theme="red"
