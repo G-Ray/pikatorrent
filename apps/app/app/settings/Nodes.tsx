@@ -123,8 +123,14 @@ export const Nodes = () => {
         </>
       )}
       {Platform.OS !== 'web' && (
-        <>
-          <Button icon={Camera} onPress={() => setIsScanOpen(true)}>
+        <XStack>
+          <Button
+            theme="yellow"
+            icon={Camera}
+            onPress={() => setIsScanOpen(true)}
+            size="$4"
+            f={1}
+          >
             Scan QrCode
           </Button>
           {isScanOpen && (
@@ -133,7 +139,7 @@ export const Nodes = () => {
               onClose={() => setIsScanOpen(false)}
             />
           )}
-        </>
+        </XStack>
       )}
     </YStack>
   )
