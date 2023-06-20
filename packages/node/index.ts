@@ -8,6 +8,7 @@ import * as fs from 'node:fs'
 import * as QRCode from 'qrcode'
 import { default as config } from './config.js'
 import envPaths from 'env-paths'
+import wrtc from 'wrtc'
 
 const { SIGNALING_URL, APP_URL } = config
 
@@ -94,7 +95,7 @@ const printNodeInfo = async () => {
   console.log(`${APP_URL}/settings?nodeId=` + nodeId)
 }
 
-// TODO: Encrypt signaling data
+// TODO: Encrypt signaling data ?
 const initWebSocket = ({ onAcceptOrRejectPeer }) => {
   ws = new WS(SIGNALING_URL)
 
@@ -164,7 +165,6 @@ const initWebSocket = ({ onAcceptOrRejectPeer }) => {
   })
 }
 
-// TODO: approve or reject peer connection
 const initPeer = (id, offer) => {
   const reconstructingMessages = new Map()
 
@@ -335,9 +335,7 @@ const startNode = (
     onUpdateSettings: null,
   }
 ) => {
-  if (options.wrtc) {
-    wrtcInstance = options.wrtc
-  }
+  wrtcInstance = options.wrtc || wrtc
 
   if (options.onUpdateSettings) {
     onUpdateSettings = options.onUpdateSettings

@@ -76,17 +76,20 @@ export const Nodes = () => {
         <Paragraph>Add a node, and select the node to connect to</Paragraph>
         <XStack space w="100%">
           <YGroup alignSelf="center" bordered size="$4">
-            <ListItem gap="$4">
-              <RadioGroup
-                value={settings.selectedNodeId}
-                onValueChange={updateSelectedNodeId}
-              >
-                <RadioGroup.Item id={'local'} value={'local'}>
-                  <RadioGroup.Indicator />
-                </RadioGroup.Item>
-              </RadioGroup>
-              Local node
-            </ListItem>
+            {Platform.OS !== 'web' ||
+              (isElectron() && (
+                <ListItem gap="$4">
+                  <RadioGroup
+                    value={settings.selectedNodeId}
+                    onValueChange={updateSelectedNodeId}
+                  >
+                    <RadioGroup.Item id={'local'} value={'local'}>
+                      <RadioGroup.Indicator />
+                    </RadioGroup.Item>
+                  </RadioGroup>
+                  Local node
+                </ListItem>
+              ))}
             {nodes.map((node) => (
               <YGroup.Item key={node.id}>
                 <ListItem
