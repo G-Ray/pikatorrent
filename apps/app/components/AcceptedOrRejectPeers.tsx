@@ -10,7 +10,7 @@ export const AcceptedOrRejectedPeers = () => {
 
   const handleRemoveRejectedPeer = (type, peerId) => {
     node.updateSettings({
-      [type + 'Peers']: settings.rejectedPeers.filter((p) => p.id !== peerId),
+      [type + 'Peers']: settings[type + 'Peers'].filter((p) => p.id !== peerId),
     })
   }
 
