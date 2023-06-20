@@ -92,17 +92,11 @@ export const TorrentCardInfo = () => {
     <Container>
       <YStack>
         <Label>Info displayed in torrent cards</Label>
-        <YGroup
-          alignSelf="center"
-          bordered
-          size="$4"
-          maxHeight={500}
-          overflow="scroll"
-        >
+        <YGroup alignSelf="center" bordered size="$4">
           {torrentGetFields.map((field) => (
             <YGroup.Item key={field}>
               <ListItem hoverTheme>
-                <XStack alignItems="center" jc="space-between" f={1}>
+                <XStack alignItems="center" f={1}>
                   <XStack ai="center" space="$4">
                     <Checkbox
                       id={`checkbox-${field}`}
@@ -128,13 +122,7 @@ export const TorrentCardInfo = () => {
 
       <YStack>
         <Label>Display order</Label>
-        <YGroup
-          alignSelf="center"
-          bordered
-          size="$4"
-          maxHeight={500}
-          overflow="scroll"
-        >
+        <YGroup alignSelf="center" bordered size="$4">
           {torrentCardFields.map((field, index) => (
             <YGroup.Item key={field}>
               <ListItem hoverTheme>
