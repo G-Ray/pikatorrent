@@ -1,9 +1,4 @@
-import isElectron from 'is-electron'
 import { useEffect, useState } from 'react'
-
-if (!isElectron()) {
-  throw 'Not in electron'
-}
 
 export const useLocalNode = () => {
   const [settings, setSettings] = useState(null)

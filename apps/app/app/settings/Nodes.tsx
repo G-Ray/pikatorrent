@@ -21,6 +21,7 @@ import { getDeviceName } from '../../lib/device'
 import { Camera } from '@tamagui/lucide-icons'
 import { AcceptedOrRejectedPeers } from '../../components/AcceptedOrRejectPeers'
 import { NodeContext } from '../../contexts/NodeContext'
+import { AddNodeDialog } from '../../dialogs/AddNodeDialog'
 
 export const Nodes = () => {
   const settingsContext = useContext(SettingsContext)
@@ -111,7 +112,9 @@ export const Nodes = () => {
           </YGroup>
         </XStack>
       </>
-      {/* <AddNodeDialog settingsContext={settingsContext} /> */}
+      {Platform.OS === 'web' && (
+        <AddNodeDialog settingsContext={settingsContext} />
+      )}
       {isElectron() && (
         <>
           <Paragraph>
