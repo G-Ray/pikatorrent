@@ -59,7 +59,6 @@ export const TorrentCardInfo = () => {
   const settingsContext = useContext(SettingsContext)
   const { settings, updateSettings } = settingsContext
   const torrentCardFields = settings.torrentCardFields
-  console.log('torrentCardFields', settingsContext, settings, torrentCardFields)
   const media = useMedia()
 
   const handleCheckedChange = (field, isChecked) => {

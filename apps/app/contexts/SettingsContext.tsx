@@ -35,8 +35,6 @@ export const SettingsProvider = ({ children }) => {
     fetchSettings()
   }, [])
 
-  console.log('settings', settings)
-
   return (
     <SettingsContext.Provider value={{ settings, updateSettings }}>
       {children}

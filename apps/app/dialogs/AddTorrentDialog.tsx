@@ -70,8 +70,6 @@ export const AddTorrentDialog = () => {
       type: ['application/x-bittorrent', '.torrent'],
     })
 
-    console.log('documentResult', documentResult)
-
     if (documentResult.type === 'cancel') return
 
     setDocumentResult(documentResult)
