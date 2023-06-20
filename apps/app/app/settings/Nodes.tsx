@@ -36,7 +36,9 @@ export const Nodes = () => {
     if (!isElectron()) return
 
     const buildQrCode = async () => {
-      const nodeId = await node.id
+      if (!node.settings) return
+
+      const nodeId = await node.settings.nodeId
       QRCodeGenerator.toString(
         JSON.stringify({ id: nodeId, name: getDeviceName() }),
         { type: 'svg' }
@@ -44,7 +46,7 @@ export const Nodes = () => {
     }
 
     buildQrCode()
-  }, [])
+  }, [node.settings])
 
   const handleDeleteNode = async (id: string) => {
     updateSettings({
