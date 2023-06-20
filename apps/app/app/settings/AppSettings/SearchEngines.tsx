@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { Label, XStack, YStack, Button, TextArea, Paragraph } from 'tamagui'
-import { SettingsContext } from '../../../contexts/settings'
+import { SettingsContext } from '../../../contexts/SettingsContext'
 
 import defaultSettings from '../../../defaultSettings.json'
 import { Undo } from '@tamagui/lucide-icons'

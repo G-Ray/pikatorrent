@@ -1,7 +1,7 @@
 import React, { createContext, useContext } from 'react'
 import { useLocalNode } from '../hooks/useLocalNode'
 import { useRemoteNode } from '../hooks/useRemoteNode'
-import { SettingsContext } from './settings'
+import { SettingsContext } from './SettingsContext'
 import { Platform } from 'react-native'
 import isElectron from 'is-electron'
 

@@ -20,7 +20,7 @@ import {
 import { RemoveTorrentDialog } from '../dialogs/RemoveTorrentDialog'
 import { FilesListDialog } from '../dialogs/FilesListDialog'
 import { TorrentFieldFormatter } from './TorrentFieldFormatter'
-import { SettingsContext } from '../contexts/settings'
+import { SettingsContext } from '../contexts/SettingsContext'
 import i18n from '../i18n'
 import { useTorrents } from '../hooks/useTorrents'
 import { TORRENT_STATUSES } from '../constants/torrents'

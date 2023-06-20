@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { H2, Label, Separator, Switch, XStack, YStack } from 'tamagui'
-import { SettingsContext } from '../../contexts/settings'
+import { SettingsContext } from '../../contexts/SettingsContext'
 
 import { SearchEngines } from './AppSettings/SearchEngines'
 import { TorrentCardInfo } from './AppSettings/TorrentCardInfo'

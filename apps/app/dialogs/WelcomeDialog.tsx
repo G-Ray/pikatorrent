@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { Card, Text, XStack, YStack } from 'tamagui'
 import { AddNodeDialog } from './AddNodeDialog'
 import { Rocket } from '@tamagui/lucide-icons'
-import { SettingsContext } from '../contexts/settings'
+import { SettingsContext } from '../contexts/SettingsContext'
 import { Dialog } from './Dialog'
 
 export const WelcomeDialog = () => {

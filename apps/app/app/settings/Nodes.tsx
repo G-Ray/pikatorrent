@@ -11,7 +11,7 @@ import {
 } from 'tamagui'
 import * as QRCodeGenerator from 'qrcode'
 
-import { SettingsContext } from '../../contexts/settings'
+import { SettingsContext } from '../../contexts/SettingsContext'
 import { ConfirmNodeDeleteAlertDialog } from '../../dialogs/ConfirmNodeDeleteAlertDialog'
 import { QRCode } from '../../components/QRCode'
 import { Platform } from 'react-native'

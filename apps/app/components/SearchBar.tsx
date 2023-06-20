@@ -2,7 +2,7 @@ import { Search } from '@tamagui/lucide-icons'
 import React, { useContext, useState } from 'react'
 import { Button, Input, XStack, Form } from 'tamagui'
 import { SearchEngineSelector } from './SearchEngineSelector'
-import { SettingsContext } from '../contexts/settings'
+import { SettingsContext } from '../contexts/SettingsContext'
 
 import defaultSettings from '../defaultSettings.json'
 import { Linking, Platform } from 'react-native'

@@ -10,7 +10,7 @@ import {
   YStack,
   useMedia,
 } from 'tamagui'
-import { SettingsContext } from '../../../contexts/settings'
+import { SettingsContext } from '../../../contexts/SettingsContext'
 import defaultSettings from '../../../defaultSettings.json'
 
 const torrentGetFields = [
@@ -59,6 +59,7 @@ export const TorrentCardInfo = () => {
   const settingsContext = useContext(SettingsContext)
   const { settings, updateSettings } = settingsContext
   const torrentCardFields = settings.torrentCardFields
+  console.log('torrentCardFields', settingsContext, settings, torrentCardFields)
   const media = useMedia()
 
   const handleCheckedChange = (field, isChecked) => {

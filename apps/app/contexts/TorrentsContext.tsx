@@ -5,7 +5,7 @@ import {
   useEffect,
   useState,
 } from 'react'
-import { SettingsContext } from './settings'
+import { SettingsContext } from './SettingsContext'
 import { NodeContext } from './NodeContext'
 import { useToastController } from '@tamagui/toast'
 
