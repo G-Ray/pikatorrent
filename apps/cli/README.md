@@ -1,6 +1,6 @@
 # PikaTorrent cli
 
-🗲 A next-generation BitTorrent client 🗲
+A next-generation BitTorrent client.
 
 ## Usage
 
