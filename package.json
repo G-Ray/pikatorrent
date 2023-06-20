@@ -2,6 +2,7 @@
   "name": "pikatorrent-monorepo",
   "version": "0.0.0",
   "scripts": {
+    "version": "node ./scripts/version.js",
     "native": "npm run native --workspace=@pikatorrent/app",
     "android": "npm run android --workspace=@pikatorrent/app",
     "ios": "npm run ios --workspace=@pikatorrent/app",
