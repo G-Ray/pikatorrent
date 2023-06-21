@@ -1,11 +1,9 @@
-name: Build desktop app
-
+name: Build desktop app & publish it to github release
 on:
   workflow_dispatch:
   push:
     tags:
       - v*
-  pull_request:
 
 jobs:
   build:
@@ -29,10 +27,7 @@ jobs:
         run: npm i
       - name: Make
         run: npm run build:desktop -- --arch=${{ matrix.arch }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - uses: actions/upload-artifact@v3
+      - name: Release
+        uses: softprops/action-gh-release@v1
         with:
-          name: ${{ matrix.os }}
-          path: apps/desktop/out/make/**/*
+          files: apps/desktop/out/make/**/*
