@@ -1,5 +1,6 @@
 const { execSync } = require('child_process')
 const path = require('path')
+const { bundle } = require('./bundler')
 
 module.exports = {
   packagerConfig: {
@@ -41,6 +42,8 @@ module.exports = {
       /** @type {string} */ platform,
       /** @type {string} */ arch
     ) => {
+      // Copy workspace modules
+      await bundle(__dirname, buildPath)
       const appPath = path.join(__dirname, '../app')
 
       // Build app for web
