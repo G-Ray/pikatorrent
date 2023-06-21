@@ -12,6 +12,7 @@
     "lint": "echo \"No linting configured\""
   },
   "keywords": [],
+  "repository": "https://github.com/G-Ray/pikatorrent",
   "author": {
     "name": "Geoffrey Bonneville",
     "email": "geoffrey.bonneville@gmail.com"
