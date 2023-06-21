@@ -29,3 +29,5 @@ jobs:
         run: npm run build:desktop -- --arch=${{ matrix.arch }}
       - name: Release
         run: npm run publish:desktop
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
