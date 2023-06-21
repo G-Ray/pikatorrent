@@ -24,10 +24,8 @@ jobs:
         with:
           node-version: 18.x
       - name: Install
-        run: npm i
-      - name: Make
-        run: npm run build:desktop -- --arch=${{ matrix.arch }}
+        run: npm ci
       - name: Release
-        run: npm run publish:desktop
+        run: npm run publish:desktop -- --arch=${{ matrix.arch }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
