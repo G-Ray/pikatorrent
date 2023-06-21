@@ -25,12 +25,12 @@
     "@electron-forge/publisher-github": "^6.2.1",
     "@manypkg/find-root": "^2.1.0",
     "@npmcli/arborist": "^6.2.9",
-    "electron": "25.1.1"
+    "electron": "25.1.1",
+    "@reforged/maker-appimage": "^3.2.0"
   },
   "dependencies": {
     "@ca9io/electron-webrtc-relay": "^0.2.0",
     "@pikatorrent/node": "0.2.0",
-    "@reforged/maker-appimage": "^3.2.0",
     "electron-serve": "^1.1.0",
     "electron-squirrel-startup": "^1.0.0",
     "update-electron-app": "^2.0.1"
