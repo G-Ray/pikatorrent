@@ -1,3 +1,5 @@
+import packageProperties from './package.json'
+
 const IS_DEV = process.env.APP_VARIANT === 'development'
 
 module.exports = () => {
@@ -6,7 +8,7 @@ module.exports = () => {
       name: 'pikatorrent',
       slug: 'pikatorrent',
       scheme: 'pikatorrent',
-      version: '0.1.4',
+      version: packageProperties.version,
       orientation: 'portrait',
       icon: './assets/icon.png',
       userInterfaceStyle: 'automatic',
