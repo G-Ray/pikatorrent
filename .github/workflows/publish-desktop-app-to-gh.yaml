@@ -28,6 +28,4 @@ jobs:
       - name: Make
         run: npm run build:desktop -- --arch=${{ matrix.arch }}
       - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: apps/desktop/out/make/**/*
+        run: npm run publish:desktop

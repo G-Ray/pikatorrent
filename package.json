@@ -15,7 +15,8 @@
     "postinstall": "patch-package",
     "build:web": "npm run build:web --workspace=@pikatorrent/app",
     "build:site": "npm run build --workspace=@pikatorrent/site",
-    "build:desktop": "npm -w @pikatorrent/desktop run make"
+    "build:desktop": "npm -w @pikatorrent/desktop run make",
+    "publish:desktop": "npm -w @pikatorrent/desktop run publish"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

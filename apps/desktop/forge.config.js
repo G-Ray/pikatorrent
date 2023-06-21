@@ -50,4 +50,16 @@ module.exports = {
       )
     },
   },
+  publishers: [
+    {
+      name: '@electron-forge/publisher-github',
+      config: {
+        repository: {
+          owner: 'G-Ray',
+          name: 'pikatorrent',
+        },
+        prerelease: true,
+      },
+    },
+  ],
 }
