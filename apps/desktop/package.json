@@ -30,7 +30,8 @@
     "@pikatorrent/node": "0.2.0",
     "@reforged/maker-appimage": "^3.2.0",
     "electron-serve": "^1.1.0",
-    "electron-squirrel-startup": "^1.0.0"
+    "electron-squirrel-startup": "^1.0.0",
+    "update-electron-app": "^2.0.1"
   },
   "private": true
 }

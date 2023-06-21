@@ -3,6 +3,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'production'
 const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const serve = require('electron-serve')
+require('update-electron-app')()
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
