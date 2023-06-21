@@ -1,5 +1,5 @@
 const { execSync } = require('child_process')
-const { bundle } = require('./bundler')
+const path = require('path')
 
 module.exports = {
   packagerConfig: {
@@ -30,7 +30,9 @@ module.exports = {
   hooks: {
     prePackage: async () => {
       // Build @pikatorrent/node as we will copy it
-      execSync(`npm run build --prefix ../node`)
+      execSync(
+        `npm run build --prefix ${path.join(__dirname, '../../packages/node')}`
+      )
     },
     packageAfterCopy: async (
       /** @type {any} */ forgeConfig,
@@ -39,13 +41,11 @@ module.exports = {
       /** @type {string} */ platform,
       /** @type {string} */ arch
     ) => {
-      // this is a workaround until we find a proper solution
-      // for running electron-forge in a mono repository
-      await bundle(__dirname, buildPath)
+      const appPath = path.join(__dirname, '../app')
 
       // Build app for web
       execSync(
-        `npx expo export --clear --platform web --output-dir ${buildPath}/dist ../app`,
+        `npm --prefix ${appPath} run build:web -- --clear --output-dir ${buildPath}/dist ${appPath}`,
         { env: { ...process.env, TAMAGUI_TARGET: 'web' } }
       )
     },
