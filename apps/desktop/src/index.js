@@ -1,6 +1,6 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'production'
 
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, BrowserWindow, ipcMain, shell } = require('electron')
 const path = require('path')
 const serve = require('electron-serve')
 require('update-electron-app')()
@@ -96,6 +96,10 @@ const sendSettingToRenderer = () => {
   mainWindow.webContents.send('onNodeSettingsUpdate', nodeRef.settings)
 }
 
+const handleOpenFolder = (_, path) => {
+  shell.openPath(path)
+}
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -105,6 +109,7 @@ app.on('ready', () => {
   ipcMain.handle('node:getNodeSettings', handleGetNodeSettings)
   ipcMain.handle('node:updateSettings', handleUpdateNodeSettings)
   ipcMain.handle('transmission:request', handleTransmissionRequest)
+  ipcMain.handle('node:openFolder', handleOpenFolder)
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common

@@ -3,6 +3,7 @@ import {
   ArrowBigUp,
   ChevronDown,
   ChevronUp,
+  FolderOpen,
   PauseCircle,
   PlayCircle,
 } from '@tamagui/lucide-icons'
@@ -24,6 +25,7 @@ import { SettingsContext } from '../contexts/SettingsContext'
 import i18n from '../i18n'
 import { useTorrents } from '../hooks/useTorrents'
 import { TORRENT_STATUSES } from '../constants/torrents'
+import isElectron from 'is-electron'
 
 const COLLAPSE_ITEMS_DESKTOP = 7
 
@@ -36,6 +38,13 @@ export const TorrentCard = ({ torrent }) => {
 
   const { start, pause } = useTorrents()
 
+  const handleOpenFolder = () => {
+    if (isElectron()) {
+      const path = torrent.downloadDir + '/' + torrent.name
+      window.electronAPI.openFolder(path)
+    }
+  }
+
   return (
     <Card key={torrent.id} size="$4" bordered br="$6" mb="$4">
       <Card.Header>
@@ -43,7 +52,12 @@ export const TorrentCard = ({ torrent }) => {
           <H4 f={1} numberOfLines={1} fontWeight="bold">
             {torrent.name}
           </H4>
-          <FilesListDialog torrent={torrent} />
+          <XStack gap="$4">
+            {isElectron() && torrent.percentDone === 1 && (
+              <Button circular icon={FolderOpen} onPress={handleOpenFolder} />
+            )}
+            <FilesListDialog torrent={torrent} />
+          </XStack>
         </XStack>
         <YStack>
           <Progress

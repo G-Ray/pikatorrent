@@ -29,6 +29,7 @@ export const TorrentsProvider = ({ children }) => {
             'name',
             'files',
             'percentDone',
+            'downloadDir',
             ...settings.torrentCardFields,
           ],
         },

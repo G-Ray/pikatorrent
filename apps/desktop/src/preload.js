@@ -12,4 +12,5 @@ contextBridge.exposeInMainWorld('electronAPI', {
     ipcRenderer.invoke('transmission:request', request),
   handleAcceptOrRejectPeer: (callback) =>
     ipcRenderer.on('onAcceptOrRejectPeer', callback),
+  openFolder: (path) => ipcRenderer.invoke('node:openFolder', path),
 })
