@@ -1,10 +1,8 @@
 const { execSync } = require('child_process')
 const path = require('path')
-const { bundle } = require('./bundler')
 
 module.exports = {
   packagerConfig: {
-    prune: false,
     icon: 'assets/icon',
   },
   rebuildConfig: {},
@@ -34,6 +32,17 @@ module.exports = {
       execSync(
         `npm run build --prefix ${path.join(__dirname, '../../packages/node')}`
       )
+
+      // Copy @pikatorrent/node as there is no support for npm workspaces
+      execSync(
+        `rm -rf ${path.join(__dirname, 'node_modules/@pikatorrent/node')}`
+      )
+      execSync(
+        `cp -r ${path.join(__dirname, '../../packages/node')} ${path.join(
+          __dirname,
+          'node_modules/@pikatorrent/node'
+        )}`
+      )
     },
     packageAfterCopy: async (
       /** @type {any} */ forgeConfig,
@@ -42,8 +51,6 @@ module.exports = {
       /** @type {string} */ platform,
       /** @type {string} */ arch
     ) => {
-      // Copy workspace modules
-      await bundle(__dirname, buildPath)
       const appPath = path.join(__dirname, '../app')
 
       // Build app for web
