@@ -30,7 +30,10 @@ export default function Home() {
     <>
       <Head>
         <title>PikaTorrent</title>
-        <meta name="description" content="PikaTorrent" />
+        <meta
+          name="description"
+          content="A modern, open source and electric BitTorrent app for mobile, desktop & server."
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

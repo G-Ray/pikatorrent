@@ -12,7 +12,10 @@ export const Header = ({ theme }: any) => {
         </H1>
         <H1 fontWeight="$6">Torrent</H1>
       </XStack>
-      <H3>A next-generation BitTorrent client.</H3>
+      <H3 textAlign="center" maxWidth={500}>
+        A modern, open source and electric BitTorrent app for mobile, desktop &
+        server.
+      </H3>
     </YStack>
   )
 }
