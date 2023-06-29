@@ -92,66 +92,89 @@ export const TorrentCardInfo = () => {
     <Container>
       <YStack>
         <Label>Info displayed in torrent cards</Label>
-        <YGroup alignSelf="center" bordered size="$4">
-          {torrentGetFields.map((field) => (
-            <YGroup.Item key={field}>
-              <ListItem hoverTheme>
-                <XStack alignItems="center" f={1}>
-                  <XStack ai="center" space="$4">
-                    <Checkbox
-                      id={`checkbox-${field}`}
-                      checked={torrentCardFields.includes(field)}
-                      onCheckedChange={(isChecked) =>
-                        handleCheckedChange(field, isChecked)
-                      }
-                    >
-                      <Checkbox.Indicator>
-                        <Check />
-                      </Checkbox.Indicator>
-                    </Checkbox>
-                    <Label htmlFor={`checkbox-${field}`} numberOfLines={1}>
-                      {field}
-                    </Label>
-                  </XStack>
-                </XStack>
-              </ListItem>
-            </YGroup.Item>
-          ))}
-        </YGroup>
+        <TorrentInfo
+          torrentCardFields={torrentCardFields}
+          handleCheckedChange={handleCheckedChange}
+        />
       </YStack>
 
       <YStack>
         <Label>Display order</Label>
-        <YGroup alignSelf="center" bordered size="$4">
-          {torrentCardFields.map((field, index) => (
-            <YGroup.Item key={field}>
-              <ListItem hoverTheme>
-                <XStack alignItems="center" jc="space-between" f={1}>
-                  <Label numberOfLines={1}>{field}</Label>
-                  <XStack gap="$4">
-                    <Button
-                      onPress={() => handleMoveUpField(index)}
-                      size="$2"
-                      circular
-                      icon={ChevronUp}
-                    />
-                    <Button
-                      onPress={() => handleMoveDownField(index)}
-                      size="$2"
-                      circular
-                      icon={ChevronDown}
-                    />
-                  </XStack>
-                </XStack>
-              </ListItem>
-            </YGroup.Item>
-          ))}
-        </YGroup>
+        <TorrentInfoOrder
+          torrentCardFields={torrentCardFields}
+          handleMoveUpField={handleMoveUpField}
+          handleMoveDownField={handleMoveDownField}
+        />
       </YStack>
       <Button icon={Undo} onPress={handleReset} alignSelf="flex-end" ml="auto">
         Reset
       </Button>
     </Container>
+  )
+}
+
+const TorrentInfo = ({ torrentCardFields, handleCheckedChange }) => {
+  return (
+    <YGroup alignSelf="center" bordered size="$4">
+      {torrentGetFields.map((field) => (
+        <YGroup.Item key={field}>
+          <ListItem hoverTheme>
+            <XStack alignItems="center" f={1}>
+              <XStack ai="center" space="$4">
+                <Checkbox
+                  id={`checkbox-${field}`}
+                  checked={torrentCardFields.includes(field)}
+                  onCheckedChange={(isChecked) =>
+                    handleCheckedChange(field, isChecked)
+                  }
+                >
+                  <Checkbox.Indicator>
+                    <Check />
+                  </Checkbox.Indicator>
+                </Checkbox>
+                <Label htmlFor={`checkbox-${field}`} numberOfLines={1}>
+                  {field}
+                </Label>
+              </XStack>
+            </XStack>
+          </ListItem>
+        </YGroup.Item>
+      ))}
+    </YGroup>
+  )
+}
+
+const TorrentInfoOrder = ({
+  torrentCardFields,
+  handleMoveUpField,
+  handleMoveDownField,
+}) => {
+  return (
+    <YGroup alignSelf="center" bordered size="$4">
+      {torrentCardFields.map((field, index) => (
+        <YGroup.Item key={field}>
+          <ListItem hoverTheme>
+            <XStack alignItems="center" jc="space-between" f={1}>
+              <Label numberOfLines={1}>{field}</Label>
+              <XStack gap="$4">
+                <Button
+                  onPress={() => handleMoveUpField(index)}
+                  size="$2"
+                  circular
+                  icon={ChevronUp}
+                />
+                <Button
+                  onPress={() => handleMoveDownField(index)}
+                  size="$2"
+                  circular
+                  icon={ChevronDown}
+                />
+              </XStack>
+            </XStack>
+          </ListItem>
+        </YGroup.Item>
+      ))}
+    </YGroup>
   )
 }
 

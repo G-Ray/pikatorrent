@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import {
   Button,
+  Card,
   H2,
   ListItem,
   Paragraph,
@@ -8,6 +9,7 @@ import {
   XStack,
   YGroup,
   YStack,
+  useMedia,
 } from 'tamagui'
 import * as QRCodeGenerator from 'qrcode'
 
@@ -70,72 +72,41 @@ export const Nodes = () => {
   }
 
   return (
-    <YStack space ai="flex-start">
+    <YStack space w="100%">
       <H2>Nodes</H2>
-      <>
-        <Paragraph>Add a node, and select the node to connect to</Paragraph>
-        <XStack space w="100%">
-          <YGroup alignSelf="center" bordered size="$4">
-            {(Platform.OS !== 'web' || isElectron()) && (
-              <ListItem gap="$4">
-                <RadioGroup
-                  value={settings.selectedNodeId}
-                  onValueChange={updateSelectedNodeId}
-                >
-                  <RadioGroup.Item id={'local'} value={'local'}>
-                    <RadioGroup.Indicator />
-                  </RadioGroup.Item>
-                </RadioGroup>
-                Local node
-              </ListItem>
-            )}
-            {nodes.map((node) => (
-              <YGroup.Item key={node.id}>
-                <ListItem
-                  gap="$4"
-                  iconAfter={
-                    <ConfirmNodeDeleteAlertDialog
-                      onConfirm={() => {
-                        handleDeleteNode(node.id)
-                      }}
-                    />
-                  }
-                >
-                  <RadioGroup
-                    value={settings.selectedNodeId}
-                    onValueChange={updateSelectedNodeId}
-                  >
-                    <RadioGroup.Item id={node.id} value={node.id}>
-                      <RadioGroup.Indicator />
-                    </RadioGroup.Item>
-                  </RadioGroup>
-                  {node.name}
-                </ListItem>
-              </YGroup.Item>
-            ))}
-          </YGroup>
-        </XStack>
-      </>
-      {Platform.OS === 'web' && (
-        <AddNodeDialog settingsContext={settingsContext} />
-      )}
+      <SettingLayout>
+        <Paragraph>Local & remote nodes</Paragraph>
+        <YStack gap="$2">
+          <NodesList
+            nodes={nodes}
+            settings={settings}
+            updateSelectedNodeId={updateSelectedNodeId}
+            handleDeleteNode={handleDeleteNode}
+          />
+
+          {Platform.OS === 'web' && (
+            <AddNodeDialog settingsContext={settingsContext} />
+          )}
+        </YStack>
+      </SettingLayout>
+
       {isElectron() && (
-        <>
-          <Paragraph>
-            Link the mobile app with the desktop app by flashing the following
-            qrcode
-          </Paragraph>
-          <QRCode xml={qrCodeXML} />
-          <AcceptedOrRejectedPeers />
-        </>
+        <SettingLayout>
+          <Paragraph>Flash the qrcode from the mobile app</Paragraph>
+          <Card ai="center" jc="center" bordered p="$1" bg="white">
+            <QRCode xml={qrCodeXML} />
+          </Card>
+        </SettingLayout>
       )}
+      {isElectron() && <AcceptedOrRejectedPeers />}
+
       {Platform.OS !== 'web' && (
         <XStack>
           <Button
+            size="$4"
             theme="yellow"
             icon={Camera}
             onPress={() => setIsScanOpen(true)}
-            size="$4"
             f={1}
           >
             Scan QrCode
@@ -149,5 +120,66 @@ export const Nodes = () => {
         </XStack>
       )}
     </YStack>
+  )
+}
+
+const NodesList = ({
+  nodes,
+  settings,
+  updateSelectedNodeId,
+  handleDeleteNode,
+}) => {
+  return (
+    <YGroup bordered size="$4">
+      {(Platform.OS !== 'web' || isElectron()) && (
+        <ListItem gap="$4">
+          <RadioGroup
+            value={settings.selectedNodeId}
+            onValueChange={updateSelectedNodeId}
+          >
+            <RadioGroup.Item id={'local'} value={'local'}>
+              <RadioGroup.Indicator />
+            </RadioGroup.Item>
+          </RadioGroup>
+          Local node
+        </ListItem>
+      )}
+      {nodes.map((node) => (
+        <YGroup.Item key={node.id}>
+          <ListItem
+            gap="$4"
+            iconAfter={
+              <ConfirmNodeDeleteAlertDialog
+                onConfirm={() => {
+                  handleDeleteNode(node.id)
+                }}
+              />
+            }
+          >
+            <RadioGroup
+              value={settings.selectedNodeId}
+              onValueChange={updateSelectedNodeId}
+            >
+              <RadioGroup.Item id={node.id} value={node.id}>
+                <RadioGroup.Indicator />
+              </RadioGroup.Item>
+            </RadioGroup>
+            {node.name}
+          </ListItem>
+        </YGroup.Item>
+      ))}
+    </YGroup>
+  )
+}
+
+export const SettingLayout = ({ children }) => {
+  const media = useMedia()
+
+  return media.gtXs ? (
+    <XStack jc="space-between" w="100%">
+      {children}
+    </XStack>
+  ) : (
+    <YStack>{children}</YStack>
   )
 }

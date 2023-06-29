@@ -3,19 +3,26 @@ import React from 'react'
 import { Nodes } from './settings/Nodes'
 // import { Torrents } from './settings/Torrents'
 import { Preferences } from './settings/Preferences'
-import { YStack, useMedia } from 'tamagui'
+import { XStack, YStack, useMedia } from 'tamagui'
 import { ScrollView } from 'react-native'
+import { DESKTOP_MAX_CONTENT_WIDTH } from '../constants/layout'
 
 export default function Settings() {
   const media = useMedia()
 
   return (
     <ScrollView>
-      <YStack gap="$16" mr={media.gtXs ? '$8' : '$0'}>
-        <Nodes />
-        <Preferences />
-        {/* <Torrents /> */}
-      </YStack>
+      <XStack f={1} jc="center" w="100%">
+        <YStack
+          flexShrink={1}
+          gap="$16"
+          {...(media.gtXs && { w: DESKTOP_MAX_CONTENT_WIDTH })}
+        >
+          <Nodes />
+          <Preferences />
+          {/* <Torrents /> */}
+        </YStack>
+      </XStack>
     </ScrollView>
   )
 }

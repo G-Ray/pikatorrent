@@ -1,0 +1,1 @@
+export const DESKTOP_MAX_CONTENT_WIDTH = 800

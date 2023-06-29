@@ -1,10 +1,18 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import { H2, Label, Separator, Switch, XStack, YStack } from 'tamagui'
+import {
+  H2,
+  Label,
+  Paragraph,
+  Separator,
+  Switch,
+  XStack,
+  YStack,
+} from 'tamagui'
 import { SettingsContext } from '../../contexts/SettingsContext'
 
 import { SearchEngines } from './AppSettings/SearchEngines'
 import { TorrentCardInfo } from './AppSettings/TorrentCardInfo'
-import { Platform } from 'react-native'
+import { SettingLayout } from './Nodes'
 
 export const Preferences = () => {
   const { settings, updateSettings } = useContext(SettingsContext)
@@ -31,17 +39,18 @@ export const Preferences = () => {
     <YStack ai="flex-start" space="$8">
       <H2>App settings</H2>
 
-      <XStack {...(Platform.OS === 'web' && { ai: 'center' })} space="$4">
-        <Label htmlFor="dark-mode-switch">Dark mode</Label>
-        <Separator minHeight={20} vertical />
-        <Switch
-          id="dark-mode-switch"
-          checked={isChecked}
-          onCheckedChange={handleCheckedChange}
-        >
-          <Switch.Thumb animation="quick" />
-        </Switch>
-      </XStack>
+      <SettingLayout>
+        <Paragraph htmlFor="dark-mode-switch">Dark mode</Paragraph>
+        <XStack>
+          <Switch
+            id="dark-mode-switch"
+            checked={isChecked}
+            onCheckedChange={handleCheckedChange}
+          >
+            <Switch.Thumb animation="quick" />
+          </Switch>
+        </XStack>
+      </SettingLayout>
 
       <SearchEngines />
       <TorrentCardInfo />

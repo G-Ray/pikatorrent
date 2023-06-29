@@ -3,6 +3,7 @@ import { useContext } from 'react'
 import { Button, Label, ListItem, Paragraph, YGroup, YStack } from 'tamagui'
 import { NodeContext } from '../contexts/NodeContext'
 import { Delete } from '@tamagui/lucide-icons'
+import { SettingLayout } from '../app/settings/Nodes'
 
 export const AcceptedOrRejectedPeers = () => {
   const node = useContext(NodeContext)
@@ -19,20 +20,24 @@ export const AcceptedOrRejectedPeers = () => {
   }
 
   return (
-    <YStack>
-      <Label>Accepted peers</Label>
-      <PeersList
-        type="accepted"
-        settings={settings}
-        handleRemovePeer={handleRemoveRejectedPeer}
-      />
+    <YStack gap="$4">
+      <SettingLayout>
+        <Paragraph>Accepted peers</Paragraph>
+        <PeersList
+          type="accepted"
+          settings={settings}
+          handleRemovePeer={handleRemoveRejectedPeer}
+        />
+      </SettingLayout>
 
-      <Label>Rejected peers</Label>
-      <PeersList
-        type="rejected"
-        settings={settings}
-        handleRemovePeer={handleRemoveRejectedPeer}
-      />
+      <SettingLayout>
+        <Paragraph>Rejected peers</Paragraph>
+        <PeersList
+          type="rejected"
+          settings={settings}
+          handleRemovePeer={handleRemoveRejectedPeer}
+        />
+      </SettingLayout>
     </YStack>
   )
 }
@@ -40,6 +45,9 @@ export const AcceptedOrRejectedPeers = () => {
 const PeersList = ({ type, settings, handleRemovePeer }) => {
   return (
     <YGroup alignSelf="center" bordered size="$4">
+      {settings[type + 'Peers'].length === 0 && (
+        <ListItem gap="$4">None</ListItem>
+      )}
       {settings[type + 'Peers'].map((peer: any) => (
         <ListItem key={peer.id} gap="$4">
           {peer.name}

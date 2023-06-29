@@ -4,6 +4,7 @@ import { SettingsContext } from '../../../contexts/SettingsContext'
 
 import defaultSettings from '../../../defaultSettings.json'
 import { Undo } from '@tamagui/lucide-icons'
+import { SettingLayout } from '../Nodes'
 
 export const SearchEngines = () => {
   const { settings, updateSettings } = useContext(SettingsContext)
@@ -37,9 +38,9 @@ export const SearchEngines = () => {
   }
 
   return (
-    <YStack w="100%">
-      <YStack space="$4" w="100%" mb="$4">
-        <Label minWidth={160}>Search engines urls (one per line)</Label>
+    <YStack w="100%" gap="$4">
+      <SettingLayout>
+        <Paragraph minWidth={260}>Search engines urls (one per line)</Paragraph>
         <TextArea
           theme="yellow"
           w="100%"
@@ -48,7 +49,7 @@ export const SearchEngines = () => {
           value={searchEnginesUrls.join('\n')}
         />
         {!isValid && <Paragraph color="$red9">Invalid urls</Paragraph>}
-      </YStack>
+      </SettingLayout>
       <XStack gap="$2" alignSelf="flex-end">
         <Button
           icon={Undo}

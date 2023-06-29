@@ -49,7 +49,7 @@ export const SearchBar = () => {
   }
 
   return (
-    <Form maxWidth={600} onSubmit={handleSubmit} f={1}>
+    <Form onSubmit={handleSubmit} f={1}>
       <XStack>
         <Input
           f={1}
