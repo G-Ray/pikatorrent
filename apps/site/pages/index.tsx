@@ -62,7 +62,7 @@ export default function Home() {
               <XStack space>
                 <Link
                   href={
-                    'https://github.com/G-Ray/pikatorrent/releases/download/v0.1.4/pikatorrent-win32-x64-0.1.4.zip'
+                    'https://github.com/G-Ray/pikatorrent/releases/download/v0.2.1/pikatorrent-win32-x64-0.2.1.zip'
                   }
                   style={{ textDecoration: 'none' }}
                 >
@@ -73,12 +73,12 @@ export default function Home() {
                     size="$5"
                     br={50}
                   >
-                    Windows (.zip)
+                    Windows v0.2.1 (.zip)
                   </Button>
                 </Link>
                 <Link
                   href={
-                    'https://github.com/G-Ray/pikatorrent/releases/download/v0.1.4/pikatorrent-linux-x64-0.1.4.zip'
+                    'https://github.com/G-Ray/pikatorrent/releases/download/v0.2.1/pikatorrent-linux-x64-0.2.1.zip'
                   }
                   style={{ textDecoration: 'none' }}
                 >
@@ -89,7 +89,7 @@ export default function Home() {
                     size="$5"
                     br={50}
                   >
-                    Linux (.zip)
+                    Linux v0.2.1 (.zip)
                   </Button>
                 </Link>
               </XStack>
