@@ -12,6 +12,7 @@ import { useFonts } from 'expo-font'
 import { Slot, SplashScreen } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import { ToastProvider, ToastViewport } from '@tamagui/toast'
+import { useColorScheme } from 'react-native'
 
 import config from '../tamagui.config'
 import { Header, BottomTabs, Sidebar } from '../components'
@@ -46,7 +47,8 @@ export default function Layout() {
 
 const ThemedLayout = () => {
   const { settings } = useContext(SettingsContext)
-  const theme = settings.theme
+  const colorSheme = useColorScheme()
+  const theme = settings.theme === 'system' ? colorSheme : settings.theme
   const media = useMedia()
 
   return (

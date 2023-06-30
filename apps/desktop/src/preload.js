@@ -14,3 +14,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
     ipcRenderer.on('onAcceptOrRejectPeer', callback),
   openFolder: (path) => ipcRenderer.invoke('node:openFolder', path),
 })
+
+contextBridge.exposeInMainWorld('theme', {
+  set: (theme) => ipcRenderer.invoke('theme:set', theme),
+})

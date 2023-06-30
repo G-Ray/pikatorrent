@@ -1,6 +1,6 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'production'
 
-const { app, BrowserWindow, ipcMain, shell } = require('electron')
+const { app, BrowserWindow, ipcMain, shell, nativeTheme } = require('electron')
 const path = require('path')
 const serve = require('electron-serve')
 require('update-electron-app')()
@@ -128,6 +128,11 @@ app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow()
   }
+})
+
+ipcMain.handle('theme:set', (_, theme) => {
+  nativeTheme.themeSource = theme
+  return nativeTheme.shouldUseDarkColors
 })
 
 // In this file you can include the rest of your app's specific main process

@@ -27,7 +27,6 @@ import i18n from '../i18n'
 import { useTorrents } from '../hooks/useTorrents'
 import { TORRENT_STATUSES } from '../constants/torrents'
 import isElectron from 'is-electron'
-import { DESKTOP_MAX_CONTENT_WIDTH } from '../constants/layout'
 
 const COLLAPSE_ITEMS_DESKTOP = 7
 
