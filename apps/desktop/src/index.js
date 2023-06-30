@@ -97,7 +97,7 @@ const sendSettingToRenderer = () => {
 }
 
 const handleOpenFolder = (_, path) => {
-  shell.openPath(path)
+  shell.showItemInFolder(path)
 }
 
 // This method will be called when Electron has finished
