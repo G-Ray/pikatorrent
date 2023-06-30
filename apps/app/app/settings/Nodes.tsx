@@ -180,6 +180,6 @@ export const SettingLayout = ({ children }) => {
       {children}
     </XStack>
   ) : (
-    <YStack>{children}</YStack>
+    <YStack w="100%">{children}</YStack>
   )
 }

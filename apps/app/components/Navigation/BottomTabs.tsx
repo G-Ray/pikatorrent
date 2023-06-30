@@ -1,7 +1,6 @@
 import React from 'react'
 import { Separator, XStack, YStack } from 'tamagui'
 import { ButtonLink } from './ButtonLink'
-import { Tabs } from 'expo-router'
 
 import { buttons, footerButtons } from './buttons'
 

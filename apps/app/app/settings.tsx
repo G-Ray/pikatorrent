@@ -6,6 +6,7 @@ import { Preferences } from './settings/Preferences'
 import { XStack, YStack, useMedia } from 'tamagui'
 import { ScrollView } from 'react-native'
 import { DESKTOP_MAX_CONTENT_WIDTH } from '../constants/layout'
+import { Torrents } from './settings/Torrents'
 
 export default function Settings() {
   const media = useMedia()
@@ -20,7 +21,7 @@ export default function Settings() {
         >
           <Nodes />
           <Preferences />
-          {/* <Torrents /> */}
+          <Torrents />
         </YStack>
       </XStack>
     </ScrollView>

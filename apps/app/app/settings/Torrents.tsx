@@ -5,7 +5,8 @@ import {
   Button,
   Form,
   H2,
-  Label,
+  Input,
+  Paragraph,
   Select,
   Sheet,
   XStack,
@@ -15,6 +16,7 @@ import {
 import { NodeContext } from '../../contexts/NodeContext'
 import { useSession } from '../../hooks/useSession'
 import { Check, ChevronDown, ChevronUp } from '@tamagui/lucide-icons'
+import { SettingLayout } from './Nodes'
 
 export const Torrents = () => {
   const { sendRPCMessage, isConnected } = useContext(NodeContext)
@@ -46,93 +48,99 @@ export const Torrents = () => {
   if (!session || !isConnected) return null
 
   return (
-    <Form space ai="flex-start" onSubmit={() => handleSubmit()}>
+    <Form space ai="flex-start" onSubmit={() => handleSubmit()} w="100%">
       <H2>Torrents settings</H2>
-      {/* <XStack space w="100%">
-        <Label htmlFor="downloadDir">Download directory</Label>
-        <Input
-          flex={1}
-          id="downloadDir"
-          size="$4"
-          borderWidth={2}
-          value={session['download-dir']}
-          onChangeText={(text) => {
-            setSession((s) => ({ ...s, ['download-dir']: text }))
-          }}
-        />
-      </XStack> */}
+      <SettingLayout>
+        <Paragraph>Download directory</Paragraph>
+        <XStack>
+          <Input
+            editable={false}
+            o={0.5}
+            flex={1}
+            id="downloadDir"
+            size="$4"
+            borderWidth={2}
+            value={session['download-dir']}
+            onChangeText={(text) => {
+              setSession((s) => ({ ...s, ['download-dir']: text }))
+            }}
+          />
+        </XStack>
+      </SettingLayout>
 
-      <XStack space w="100%">
-        <Label htmlFor="encryption">Encryption</Label>
-        <Select
-          id="node"
-          value={session.encryption}
-          onValueChange={(mode) => {
-            setSession((s) => ({ ...s, encryption: mode }))
-          }}
-        >
-          <Select.Trigger iconAfter={ChevronDown} f={1}>
-            <Select.Value placeholder="Select an option" />
-          </Select.Trigger>
+      <SettingLayout>
+        <Paragraph>Encryption</Paragraph>
+        <XStack w={180}>
+          <Select
+            id="node"
+            value={session.encryption}
+            onValueChange={(mode) => {
+              setSession((s) => ({ ...s, encryption: mode }))
+            }}
+          >
+            <Select.Trigger iconAfter={ChevronDown} f={1}>
+              <Select.Value placeholder="Select an option" />
+            </Select.Trigger>
 
-          <Adapt when="sm" platform="touch">
-            <Sheet modal dismissOnSnapToBottom>
-              <Sheet.Frame>
-                <Sheet.ScrollView>
-                  <Adapt.Contents />
-                </Sheet.ScrollView>
-              </Sheet.Frame>
-              <Sheet.Overlay />
-            </Sheet>
-          </Adapt>
+            <Adapt when="sm" platform="touch">
+              <Sheet modal dismissOnSnapToBottom>
+                <Sheet.Frame>
+                  <Sheet.ScrollView>
+                    <Adapt.Contents />
+                  </Sheet.ScrollView>
+                </Sheet.Frame>
+                <Sheet.Overlay />
+              </Sheet>
+            </Adapt>
 
-          <Select.Content zIndex={200000}>
-            <Select.ScrollUpButton
-              ai="center"
-              jc="center"
-              pos="relative"
-              w="100%"
-              h="$3"
-            >
-              <YStack zi={10}>
-                <ChevronUp size={20} />
-              </YStack>
-            </Select.ScrollUpButton>
+            <Select.Content zIndex={200000}>
+              <Select.ScrollUpButton
+                ai="center"
+                jc="center"
+                pos="relative"
+                w="100%"
+                h="$3"
+              >
+                <YStack zi={10}>
+                  <ChevronUp size={20} />
+                </YStack>
+              </Select.ScrollUpButton>
 
-            <Select.Viewport outlineStyle="none">
-              <Select.Group space="$0">
-                {['required', 'preferred', 'tolerated'].map((mode, i) => {
-                  return (
-                    <Select.Item
-                      index={i}
-                      key={mode}
-                      value={mode}
-                      outlineStyle="none"
-                    >
-                      <Select.ItemText>{mode}</Select.ItemText>
-                      <Select.ItemIndicator ml="auto">
-                        <Check size={16} />
-                      </Select.ItemIndicator>
-                    </Select.Item>
-                  )
-                })}
-              </Select.Group>
-            </Select.Viewport>
+              <Select.Viewport outlineStyle="none">
+                <Select.Group space="$0">
+                  {['required', 'preferred', 'tolerated'].map((mode, i) => {
+                    return (
+                      <Select.Item
+                        index={i}
+                        key={mode}
+                        value={mode}
+                        outlineStyle="none"
+                      >
+                        <Select.ItemText>{mode}</Select.ItemText>
+                        <Select.ItemIndicator ml="auto">
+                          <Check size={16} />
+                        </Select.ItemIndicator>
+                      </Select.Item>
+                    )
+                  })}
+                </Select.Group>
+              </Select.Viewport>
 
-            <Select.ScrollDownButton
-              ai="center"
-              jc="center"
-              pos="relative"
-              w="100%"
-              h="$3"
-            >
-              <YStack zi={10}>
-                <ChevronDown size={20} />
-              </YStack>
-            </Select.ScrollDownButton>
-          </Select.Content>
-        </Select>
-      </XStack>
+              <Select.ScrollDownButton
+                ai="center"
+                jc="center"
+                pos="relative"
+                w="100%"
+                h="$3"
+              >
+                <YStack zi={10}>
+                  <ChevronDown size={20} />
+                </YStack>
+              </Select.ScrollDownButton>
+            </Select.Content>
+          </Select>
+        </XStack>
+      </SettingLayout>
 
       <Form.Trigger asChild disabled={!hasChanged} alignSelf="flex-end">
         <Button theme="yellow" o={!hasChanged ? 0.5 : 1}>

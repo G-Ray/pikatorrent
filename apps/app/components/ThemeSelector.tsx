@@ -22,7 +22,7 @@ export const ThemeSelector = (props) => {
       onValueChange={handleCheckedChange}
       {...props}
     >
-      <Select.Trigger width={180} iconAfter={ChevronDown}>
+      <Select.Trigger iconAfter={ChevronDown}>
         <Select.Value placeholder="Something" />
       </Select.Trigger>
 
