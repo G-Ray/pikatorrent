@@ -22,6 +22,7 @@ export const Torrents = () => {
   const { sendRPCMessage, isConnected } = useContext(NodeContext)
   const { session: initialSession, fetchSession } = useSession()
   const [session, setSession] = useState({})
+  const media = useMedia()
 
   useEffect(() => {
     setSession(initialSession)
@@ -70,7 +71,7 @@ export const Torrents = () => {
 
       <SettingLayout>
         <Paragraph>Encryption</Paragraph>
-        <XStack w={180}>
+        <XStack w={media.gtXs ? 180 : '100%'}>
           <Select
             id="node"
             value={session.encryption}
@@ -83,11 +84,9 @@ export const Torrents = () => {
             </Select.Trigger>
 
             <Adapt when="sm" platform="touch">
-              <Sheet modal dismissOnSnapToBottom>
+              <Sheet modal dismissOnSnapToBottom snapPoints={[20]}>
                 <Sheet.Frame>
-                  <Sheet.ScrollView>
-                    <Adapt.Contents />
-                  </Sheet.ScrollView>
+                  <Adapt.Contents />
                 </Sheet.Frame>
                 <Sheet.Overlay />
               </Sheet>
