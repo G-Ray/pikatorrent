@@ -12,7 +12,7 @@ export const Preferences = () => {
       <H2>App settings</H2>
 
       <SettingLayout>
-        <Paragraph htmlFor="dark-mode-switch">Dark mode</Paragraph>
+        <Paragraph>Dark mode</Paragraph>
         <ThemeSelector />
       </SettingLayout>
 
