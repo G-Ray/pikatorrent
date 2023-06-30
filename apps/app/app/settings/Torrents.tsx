@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { useContext, useEffect, useState } from 'react'
 import {
   Adapt,
@@ -11,12 +11,14 @@ import {
   Sheet,
   XStack,
   YStack,
+  useMedia,
 } from 'tamagui'
 
 import { NodeContext } from '../../contexts/NodeContext'
 import { useSession } from '../../hooks/useSession'
-import { Check, ChevronDown, ChevronUp } from '@tamagui/lucide-icons'
+import { Check, ChevronDown, ChevronUp, Folder } from '@tamagui/lucide-icons'
 import { SettingLayout } from './Nodes'
+import isElectron from 'is-electron'
 
 export const Torrents = () => {
   const { sendRPCMessage, isConnected } = useContext(NodeContext)
@@ -54,18 +56,7 @@ export const Torrents = () => {
       <SettingLayout>
         <Paragraph>Download directory</Paragraph>
         <XStack>
-          <Input
-            editable={false}
-            o={0.5}
-            flex={1}
-            id="downloadDir"
-            size="$4"
-            borderWidth={2}
-            value={session['download-dir']}
-            onChangeText={(text) => {
-              setSession((s) => ({ ...s, ['download-dir']: text }))
-            }}
-          />
+          <DownloadDirectoryInput session={session} setSession={setSession} />
         </XStack>
       </SettingLayout>
 
@@ -147,5 +138,52 @@ export const Torrents = () => {
         </Button>
       </Form.Trigger>
     </Form>
+  )
+}
+
+const DownloadDirectoryInput = ({ session, setSession }) => {
+  const node = useContext(NodeContext)
+
+  if (!isElectron() || !node.isLocal) {
+    return (
+      <Input
+        editable={false}
+        o={0.5}
+        flex={1}
+        id="downloadDir"
+        size="$4"
+        borderWidth={2}
+        value={session['download-dir']}
+      />
+    )
+  }
+
+  return (
+    <XStack>
+      <Input
+        mr="$2"
+        flex={1}
+        id="downloadDir"
+        size="$4"
+        borderWidth={2}
+        value={session['download-dir']}
+        onChangeText={(text) => {
+          setSession((s) => ({ ...s, ['download-dir']: text }))
+        }}
+      />
+      <Button
+        circular
+        icon={Folder}
+        onPress={async () => {
+          const selectedFolders = await window.electronAPI.selectFolder(
+            session['download-dir']
+          )
+          if (selectedFolders && selectedFolders.length > 0) {
+            const path = selectedFolders[0]
+            setSession((s) => ({ ...s, ['download-dir']: path }))
+          }
+        }}
+      ></Button>
+    </XStack>
   )
 }

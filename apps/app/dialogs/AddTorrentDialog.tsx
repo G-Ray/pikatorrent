@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { PlusCircle, X } from '@tamagui/lucide-icons'
+import { PlusCircle } from '@tamagui/lucide-icons'
 import { useContext, useState } from 'react'
 import { Button, Fieldset, Input, Label, Paragraph, YStack } from 'tamagui'
 import { NodeContext } from '../contexts/NodeContext'

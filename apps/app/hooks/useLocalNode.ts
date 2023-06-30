@@ -30,6 +30,7 @@ export const useLocalNode = () => {
   return {
     sendRPCMessage,
     isConnected: true,
+    isLocal: true,
     settings,
     updateSettings,
   }
