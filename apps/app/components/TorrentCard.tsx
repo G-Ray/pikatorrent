@@ -47,7 +47,7 @@ export const TorrentCard = ({ torrent }) => {
   }
 
   return (
-    <Card key={torrent.id} size="$4" bordered br="$6" mb="$4">
+    <Card key={torrent.id} size="$4" bordered br="$6" mb="$4" bc="white">
       <Card.Header>
         <XStack mb="$2">
           <H4 f={1} numberOfLines={1} fontWeight="bold">
