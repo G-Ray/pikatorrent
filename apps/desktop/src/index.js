@@ -125,6 +125,7 @@ app.on('ready', () => {
   ipcMain.handle('transmission:request', handleTransmissionRequest)
   ipcMain.handle('node:openFolder', handleOpenFolder)
   ipcMain.handle('selectFolder', handleSelectFolder)
+  ipcMain.handle('quitApp', handleClose)
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common

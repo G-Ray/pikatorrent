@@ -14,6 +14,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
     ipcRenderer.on('onAcceptOrRejectPeer', callback),
   openFolder: (path) => ipcRenderer.invoke('node:openFolder', path),
   selectFolder: (...args) => ipcRenderer.invoke('selectFolder', ...args),
+  quitApp: () => ipcRenderer.invoke('quitApp'),
 })
 
 contextBridge.exposeInMainWorld('theme', {

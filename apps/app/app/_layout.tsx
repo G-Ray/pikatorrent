@@ -23,6 +23,7 @@ import { TorrentsProvider } from '../contexts/TorrentsContext'
 import { NodeProvider } from '../contexts/NodeContext'
 import { PeerRequest } from '../components/PeerRequest'
 import { SettingsContext, SettingsProvider } from '../contexts/SettingsContext'
+import { TermsOfUseDialog } from '../dialogs/TermsOfUseDialog'
 
 const screenOptions = { title: 'PikaTorrent' }
 
@@ -54,6 +55,7 @@ const ThemedLayout = () => {
   return (
     <Theme name={theme}>
       <PeerRequest />
+      <TermsOfUseDialog />
       <NodeProvider>
         <ToastProvider>
           <ToastViewport flexDirection="column" top={'$4'} left={0} right={0} />
