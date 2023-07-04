@@ -12,6 +12,8 @@ import wrtc from 'wrtc'
 
 const { SIGNALING_URL, APP_URL } = config
 
+const WEBSOCKET_RETRY_DELAY = 5000
+
 if (!SIGNALING_URL) throw new Error('Missing SIGNALING_URL env var')
 if (!APP_URL) throw new Error('Missing APP_URL env var')
 
@@ -149,10 +151,19 @@ const initWebSocket = ({ onAcceptOrRejectPeer }) => {
 
   ws.on('close', () => {
     // Retry
-    setTimeout(() => initWebSocket({ onAcceptOrRejectPeer }), 1000)
+    setTimeout(
+      () => initWebSocket({ onAcceptOrRejectPeer }),
+      WEBSOCKET_RETRY_DELAY
+    )
   })
 
-  ws.on('error', console.error)
+  ws.on('error', (e) => {
+    if (e.code === 'ECONNREFUSED') {
+      console.error('Connection refused to hub.pikatorrent.com.')
+    } else {
+      console.error(e)
+    }
+  })
 
   ws.on('open', () => {
     // Subscribe to a specific channel
