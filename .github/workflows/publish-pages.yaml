@@ -29,7 +29,7 @@ jobs:
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
       # PikaTorrent app
       - name: Build app
-        run: npm ci && SIGNALING_URL=${{ vars.SIGNALING_URL }} npm run build:web
+        run: SIGNALING_URL=${{ vars.SIGNALING_URL }} npm run build:web
       - name: Publish app
         uses: cloudflare/pages-action@1
         with:
