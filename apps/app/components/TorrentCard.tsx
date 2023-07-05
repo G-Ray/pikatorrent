@@ -14,10 +14,10 @@ import {
   H4,
   Paragraph,
   Progress,
-  Stack,
   XStack,
   YStack,
   useMedia,
+  useThemeName,
 } from 'tamagui'
 import { RemoveTorrentDialog } from '../dialogs/RemoveTorrentDialog'
 import { FilesListDialog } from '../dialogs/FilesListDialog'
@@ -34,6 +34,7 @@ export const TorrentCard = ({ torrent }) => {
   const [isCollapsed, setIsCollapsed] = useState(true)
   const media = useMedia()
   const { settings } = useContext(SettingsContext)
+  const theme = useThemeName()
   const isCollapsible =
     !media.gtXs || settings.torrentCardFields.length > COLLAPSE_ITEMS_DESKTOP
 
@@ -47,7 +48,14 @@ export const TorrentCard = ({ torrent }) => {
   }
 
   return (
-    <Card key={torrent.id} size="$4" bordered br="$6" mb="$4" bc="white">
+    <Card
+      key={torrent.id}
+      size="$4"
+      bordered
+      br="$6"
+      mb="$4"
+      bc={theme === 'light' ? 'white' : 'black'}
+    >
       <Card.Header>
         <XStack mb="$2">
           <H4 f={1} numberOfLines={1} fontWeight="bold">
