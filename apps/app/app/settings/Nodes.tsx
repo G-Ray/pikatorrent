@@ -91,7 +91,7 @@ export const Nodes = () => {
 
       {isElectron() && (
         <SettingLayout>
-          <Paragraph>Flash the qrcode from the mobile app</Paragraph>
+          <Paragraph>QR code to link the mobile app</Paragraph>
           <Card ai="center" jc="center" bordered p="$1" bg="white">
             <QRCode xml={qrCodeXML} />
           </Card>
@@ -108,7 +108,7 @@ export const Nodes = () => {
             onPress={() => setIsScanOpen(true)}
             f={1}
           >
-            Scan QrCode
+            Scan QR code
           </Button>
           {isScanOpen && (
             <ScanQRCodeDialog
