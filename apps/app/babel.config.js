@@ -9,7 +9,12 @@ module.exports = function (api) {
       [
         'transform-inline-environment-variables',
         {
-          include: ['TAMAGUI_TARGET', 'SIGNALING_URL', 'APP_URL'],
+          include: [
+            'TAMAGUI_TARGET',
+            'SIGNALING_URL',
+            'APP_URL',
+            'APP_VARIANT',
+          ],
         },
       ],
       // NOTE: this is optional, you don't *need* the compiler
