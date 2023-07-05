@@ -6,28 +6,87 @@ import defaultSettings from '../defaultSettings.json'
 
 export const SettingsContext = createContext({})
 
-export const SettingsProvider = ({ children }) => {
-  const [settings, setSettings] = useState(defaultSettings)
+interface Node {
+  id: string
+  name: string
+}
 
-  const updateSettings = async (updatedSettings) => {
-    await AsyncStorage.setItem(
-      'settings',
-      JSON.stringify({ ...settings, ...updatedSettings })
-    )
-    setSettings({ ...settings, ...updatedSettings })
+const SETTINGS_KEYS = [
+  'clientId',
+  'theme',
+  'nodes',
+  'selectedNodeId',
+  'searchEnginesUrls',
+  'torrentCardFields',
+  'isTermsOfUseAccepted',
+]
+
+interface ISettings {
+  clientId?: string
+  theme?: 'light' | 'dark' | 'system'
+  nodes?: Node[]
+  selectedNodeId?: string
+  searchEnginesUrls?: string[]
+  torrentCardFields?: string[]
+  isTermsOfUseAccepted?: boolean
+}
+
+const saveSettings = async (updatedSettings: ISettings) => {
+  for (const key of Object.keys(updatedSettings).filter((k) =>
+    SETTINGS_KEYS.includes(k)
+  )) {
+    const typedKey = key as keyof ISettings
+    const value = updatedSettings[typedKey]
+
+    if (typeof value === 'string') {
+      await AsyncStorage.setItem(key, value)
+    } else {
+      await AsyncStorage.setItem(key, JSON.stringify(value))
+    }
+  }
+}
+
+export const SettingsProvider = ({
+  children,
+}: {
+  children: React.ReactNode
+}) => {
+  const [settings, setSettings] = useState<ISettings>(
+    defaultSettings as ISettings
+  )
+
+  const updateSettings = (updatedSettings: ISettings) => {
+    setSettings((settings) => ({ ...settings, ...updatedSettings }))
+    saveSettings(updatedSettings)
   }
 
   useEffect(() => {
     const fetchSettings = async () => {
-      const settingsString = await AsyncStorage.getItem('settings')
-      const parsedSettings = JSON.parse(settingsString || '{}')
+      const values = await AsyncStorage.multiGet(SETTINGS_KEYS)
+      const parsedSettings: ISettings = {}
+
+      values.forEach((kv) => {
+        const [key, value] = kv
+        if (typeof value !== 'string') return
+
+        let parsedValue
+        try {
+          parsedValue = JSON.parse(value)
+        } catch (e) {
+          parsedValue = value
+        }
+
+        const typedKey = key as keyof ISettings
+        parsedSettings[typedKey] = parsedValue
+      })
+
       // Merge default settings
-      const settings = Object.assign(
-        {},
-        defaultSettings,
-        { clientId: Crypto.randomUUID() }, // generate default clientId for first run
-        parsedSettings
-      )
+      const settings = Object.assign({}, defaultSettings, parsedSettings)
+
+      if (!settings.clientId) {
+        const clientId = Crypto.randomUUID() // generate default clientId for first run
+        updateSettings({ clientId })
+      }
 
       setSettings(settings)
     }

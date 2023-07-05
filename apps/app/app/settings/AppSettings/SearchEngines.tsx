@@ -27,7 +27,6 @@ export const SearchEngines = () => {
 
   const handleSave = () => {
     updateSettings({
-      ...settings,
       searchEnginesUrls,
       selectedSearchEngineUrl: searchEnginesUrls[0],
     })

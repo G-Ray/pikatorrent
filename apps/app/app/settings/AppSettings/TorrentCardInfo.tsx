@@ -63,7 +63,6 @@ export const TorrentCardInfo = () => {
 
   const handleCheckedChange = (field, isChecked) => {
     updateSettings({
-      ...settings,
       torrentCardFields: isChecked
         ? [...torrentCardFields.filter((f: string) => f !== field), field]
         : torrentCardFields.filter((f: string) => f !== field),
@@ -72,16 +71,15 @@ export const TorrentCardInfo = () => {
 
   const handleMoveUpField = (index: number) => {
     const updatedFields = moveElementInArray(torrentCardFields, index)
-    updateSettings({ ...settings, torrentCardFields: updatedFields })
+    updateSettings({ torrentCardFields: updatedFields })
   }
   const handleMoveDownField = (index: number) => {
     const updatedFields = moveElementInArray(torrentCardFields, index, 'right')
-    updateSettings({ ...settings, torrentCardFields: updatedFields })
+    updateSettings({ torrentCardFields: updatedFields })
   }
 
   const handleReset = () => {
     updateSettings({
-      ...settings,
       torrentCardFields: defaultSettings.torrentsCardFields,
     })
   }

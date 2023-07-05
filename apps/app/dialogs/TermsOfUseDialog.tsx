@@ -1,28 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { Button, Paragraph, XStack, YStack } from 'tamagui'
 import { Dialog } from './Dialog'
 import { ExternalLink } from '@tamagui/lucide-icons'
 import { openExternalLink } from '../lib/links'
 import { quitApp } from '../lib/lifecycle'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { SettingsContext } from '../contexts/SettingsContext'
 
 export const TermsOfUseDialog = () => {
-  const [isAccepted, setIsAccepted] = useState(true)
-
-  useEffect(() => {
-    AsyncStorage.getItem('isTermsOfUseAccepted').then((value) => {
-      if (value !== 'true') {
-        setIsAccepted(false)
-      }
-    })
-  })
+  const { settings, updateSettings } = useContext(SettingsContext)
 
   const handleAccept = async () => {
-    await AsyncStorage.setItem('isTermsOfUseAccepted', 'true')
-    setIsAccepted(true)
+    updateSettings({ isTermsOfUseAccepted: true })
   }
 
-  if (isAccepted) {
+  if (settings.isTermsOfUseAccepted) {
     return null
   }
 

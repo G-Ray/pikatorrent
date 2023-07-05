@@ -35,7 +35,7 @@ export const SearchBar = () => {
   const handleEngineChange = (name: string) => {
     const engine = engines.find((e) => e.name === name)
     if (engine) {
-      updateSettings({ ...settings, selectedSearchEngineUrl: engine.searchUrl })
+      updateSettings({ selectedSearchEngineUrl: engine.searchUrl })
     }
   }
 

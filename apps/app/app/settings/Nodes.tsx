@@ -52,7 +52,6 @@ export const Nodes = () => {
 
   const handleDeleteNode = async (id: string) => {
     updateSettings({
-      ...settings,
       selectedNodeId:
         settings.selectedNodeId === id ? null : settings.selectedNodeId,
       nodes: nodes.filter((n) => n.id !== id),
@@ -60,7 +59,7 @@ export const Nodes = () => {
   }
 
   const updateSelectedNodeId = (id: string) => {
-    updateSettings({ ...settings, selectedNodeId: id })
+    updateSettings({ selectedNodeId: id })
   }
 
   const handleAddNode = ({ id, name }) => {

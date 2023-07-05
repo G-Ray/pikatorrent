@@ -27,7 +27,6 @@ export const AddNodeDialog = ({ settingsContext }) => {
   const handleSave = async () => {
     if (id.length > 0 && nodes.filter((n) => n.id === id).length === 0) {
       updateSettings({
-        ...settings,
         nodes: [...nodes, { id, name }],
         selectedNodeId: id,
       })
