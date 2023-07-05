@@ -51,7 +51,8 @@ export const TorrentCard = ({ torrent }) => {
     <Card
       key={torrent.id}
       size="$4"
-      bordered
+      // bordered
+      elevation={media.gtXs ? '$4' : '$0.75'}
       br="$6"
       mb="$4"
       bc={theme === 'light' ? 'white' : 'black'}
@@ -117,7 +118,7 @@ export const TorrentCard = ({ torrent }) => {
 
 const TorrentInfo = ({ torrent, isCollapsed = true }) => {
   const { settings } = useContext(SettingsContext)
-  const items = settings.torrentCardFields.map((field) => ({
+  const items = settings.torrentCardFields.map((field, index) => ({
     title: <Paragraph>{i18n.t(field)}</Paragraph>,
     content: <TorrentFieldFormatter name={field} value={torrent[field]} />,
   }))
@@ -146,8 +147,9 @@ const TorrentInfo = ({ torrent, isCollapsed = true }) => {
 const CollapsedItems = ({ isCollapsed, items }) => {
   const media = useMedia()
   const displayedItems = media.gtXs ? COLLAPSE_ITEMS_DESKTOP : 3
+  const displayed = isCollapsed ? items.slice(0, displayedItems) : items
 
-  return isCollapsed ? items.slice(0, displayedItems) : items
+  return displayed.map((i, index) => ({ ...i, key: index }))
 }
 
 export const TorrentCardPlaceHolder = () => {

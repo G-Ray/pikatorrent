@@ -153,7 +153,7 @@ const DownloadDirectoryInput = ({ session, setSession }) => {
         id="downloadDir"
         size="$4"
         borderWidth={2}
-        value={session['download-dir']}
+        value={session['download-dir'] || ''}
       />
     )
   }
@@ -166,7 +166,7 @@ const DownloadDirectoryInput = ({ session, setSession }) => {
         id="downloadDir"
         size="$4"
         borderWidth={2}
-        value={session['download-dir']}
+        value={session['download-dir'] || ''}
         onChangeText={(text) => {
           setSession((s) => ({ ...s, ['download-dir']: text }))
         }}
