@@ -1,9 +1,9 @@
 import React from 'react'
 import { useContext } from 'react'
-import { Button, Label, ListItem, Paragraph, YGroup, YStack } from 'tamagui'
+import { Button, ListItem, Paragraph, YGroup, YStack } from 'tamagui'
 import { NodeContext } from '../contexts/NodeContext'
 import { Delete } from '@tamagui/lucide-icons'
-import { SettingLayout } from '../app/settings/Nodes'
+import { SettingLayout } from './SettingLayout'
 
 export const AcceptedOrRejectedPeers = () => {
   const node = useContext(NodeContext)

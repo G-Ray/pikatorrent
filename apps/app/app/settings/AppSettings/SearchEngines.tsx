@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react'
-import { Label, XStack, YStack, Button, TextArea, Paragraph } from 'tamagui'
+import { XStack, YStack, Button, TextArea, Paragraph } from 'tamagui'
 import { SettingsContext } from '../../../contexts/SettingsContext'
 
 import defaultSettings from '../../../defaultSettings.json'
 import { Undo } from '@tamagui/lucide-icons'
-import { SettingLayout } from '../Nodes'
+import { SettingLayout } from '../../../components/SettingLayout'
 
 export const SearchEngines = () => {
   const { settings, updateSettings } = useContext(SettingsContext)

@@ -17,7 +17,7 @@ import {
 import { NodeContext } from '../../contexts/NodeContext'
 import { useSession } from '../../hooks/useSession'
 import { Check, ChevronDown, ChevronUp, Folder } from '@tamagui/lucide-icons'
-import { SettingLayout } from './Nodes'
+import { SettingLayout } from '../../components/SettingLayout'
 import isElectron from 'is-electron'
 
 export const Torrents = () => {

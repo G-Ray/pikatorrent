@@ -9,7 +9,6 @@ import {
   XStack,
   YGroup,
   YStack,
-  useMedia,
 } from 'tamagui'
 import * as QRCodeGenerator from 'qrcode'
 
@@ -24,6 +23,7 @@ import { Camera } from '@tamagui/lucide-icons'
 import { AcceptedOrRejectedPeers } from '../../components/AcceptedOrRejectPeers'
 import { NodeContext } from '../../contexts/NodeContext'
 import { AddNodeDialog } from '../../dialogs/AddNodeDialog'
+import { SettingLayout } from '../../components/SettingLayout'
 
 export const Nodes = () => {
   const settingsContext = useContext(SettingsContext)
@@ -168,17 +168,5 @@ const NodesList = ({
         </YGroup.Item>
       ))}
     </YGroup>
-  )
-}
-
-export const SettingLayout = ({ children }) => {
-  const media = useMedia()
-
-  return media.gtXs ? (
-    <XStack jc="space-between" w="100%">
-      {children}
-    </XStack>
-  ) : (
-    <YStack w="100%">{children}</YStack>
   )
 }
