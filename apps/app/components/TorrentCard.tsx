@@ -52,7 +52,7 @@ export const TorrentCard = ({ torrent }) => {
       key={torrent.id}
       size="$4"
       // bordered
-      elevation={media.gtXs ? '$4' : '$0.75'}
+      elevation={media.gtXs ? '$4' : '$0.5'}
       br="$6"
       mb="$4"
       bc={theme === 'light' ? 'white' : 'black'}
