@@ -24,6 +24,7 @@ import { AcceptedOrRejectedPeers } from '../../components/AcceptedOrRejectPeers'
 import { NodeContext } from '../../contexts/NodeContext'
 import { AddNodeDialog } from '../../dialogs/AddNodeDialog'
 import { SettingLayout } from '../../components/SettingLayout'
+import { APP_URL } from '../../config'
 
 export const Nodes = () => {
   const settingsContext = useContext(SettingsContext)
@@ -42,7 +43,9 @@ export const Nodes = () => {
 
       const nodeId = await node.settings.nodeId
       QRCodeGenerator.toString(
-        JSON.stringify({ id: nodeId, name: getDeviceName() }),
+        encodeURI(
+          `${APP_URL}/settings?nodeId=${nodeId}&name=${getDeviceName()}`
+        ),
         { type: 'svg' }
       ).then(setQrCodeXML)
     }

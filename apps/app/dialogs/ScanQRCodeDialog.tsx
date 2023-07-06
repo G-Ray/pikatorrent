@@ -17,11 +17,15 @@ export const ScanQRCodeDialog = ({ onScannedNode, onClose }) => {
 
   const handleBarCodeScanned = ({ type, data }) => {
     try {
-      const parsed = JSON.parse(data)
-      if (parsed.id && parsed.name) {
-        onScannedNode({ id: parsed.id, name: parsed.name })
+      const url = new URL(data)
+      const id = url.searchParams.get('nodeId')
+      const name = url.searchParams.get('name')
+      if (id && name) {
+        onScannedNode({ id, name })
       }
-    } catch (e) {}
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   return (

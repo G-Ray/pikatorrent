@@ -22,6 +22,9 @@ export const AddNodeDialog = ({ settingsContext }) => {
     if (searchParams.get('nodeId')) {
       setId(searchParams.get('nodeId'))
     }
+    if (searchParams.get('name')) {
+      setName(searchParams.get('name'))
+    }
   }, [])
 
   const handleSave = async () => {

@@ -17,6 +17,19 @@ const WEBSOCKET_RETRY_DELAY = 5000
 if (!SIGNALING_URL) throw new Error('Missing SIGNALING_URL env var')
 if (!APP_URL) throw new Error('Missing APP_URL env var')
 
+const getOSName = () => {
+  switch (process.platform) {
+    case 'darwin':
+      return 'macOS'
+    case 'linux':
+      return 'Linux'
+    case 'win32':
+      return 'Windows'
+    default:
+      return process.platform
+  }
+}
+
 type Peer = {
   id: string
   name: string
@@ -86,15 +99,18 @@ if (!settings) {
 }
 
 const printNodeInfo = async () => {
-  console.log('printNodeInfo')
-  const qrcode = await QRCode.toString(`${APP_URL}/settings?nodeId=` + nodeId)
+  const linkUrl = encodeURI(
+    `${APP_URL}/settings?nodeId=${nodeId}&name=PikaTorrent cli on ${getOSName()}`
+  )
 
-  console.log('> Node ID (keep it secret):', nodeId, '\n')
+  const qrcode = await QRCode.toString(linkUrl)
+
   console.log(
-    `> Add this node ID to a pikatorrent app manually, click on the url, or scan the qrcode:`
+    `> Control this node by clicking on the url, or scan the QR code from the mobile app:`
   )
   console.log(qrcode)
-  console.log(`${APP_URL}/settings?nodeId=` + nodeId)
+  console.log(linkUrl)
+  console.log('\nDo not share your unique link or QR code with anyone.')
 }
 
 // TODO: Encrypt signaling data ?
@@ -159,7 +175,7 @@ const initWebSocket = ({ onAcceptOrRejectPeer }) => {
 
   ws.on('error', (e) => {
     if (e.code === 'ECONNREFUSED') {
-      console.error('Connection refused to hub.pikatorrent.com.')
+      console.error('Connection refused to ' + SIGNALING_URL)
     } else {
       console.error(e)
     }
@@ -355,7 +371,6 @@ const startNode = (
   printNodeInfo()
 
   if (options.connectWebsocket) {
-    console.log('initWebSocket', options.onAcceptOrRejectPeer)
     initWebSocket({
       onAcceptOrRejectPeer:
         options.onAcceptOrRejectPeer || onAcceptOrRejectPeerCli,
@@ -366,7 +381,6 @@ const startNode = (
 }
 
 const saveAcceptedPeer = (peerId, name) => {
-  console.log('saveAcceptedPeer')
   updateSettings({
     acceptedPeers: [...settings.acceptedPeers, { id: peerId, name }],
   })
