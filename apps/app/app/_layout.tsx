@@ -9,7 +9,7 @@ import {
   YStack,
 } from 'tamagui'
 import { useFonts } from 'expo-font'
-import { Slot, SplashScreen } from 'expo-router'
+import { SplashScreen, Tabs } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import { ToastProvider, ToastViewport } from '@tamagui/toast'
 import { useColorScheme } from 'react-native'
@@ -25,7 +25,11 @@ import { PeerRequest } from '../components/PeerRequest'
 import { SettingsContext, SettingsProvider } from '../contexts/SettingsContext'
 import { TermsOfUseDialog } from '../dialogs/TermsOfUseDialog'
 
-const screenOptions = { title: 'PikaTorrent' }
+const screenOptions = {
+  title: 'PikaTorrent',
+  headerShown: false,
+  lazy: false,
+}
 
 export default function Layout() {
   const [loaded] = useFonts({
@@ -88,7 +92,11 @@ const Desktop = () => {
       <Sidebar />
       <Separator vertical />
       <YStack p="$8" f={1}>
-        <Slot screenOptions={screenOptions} />
+        <Tabs
+          screenOptions={screenOptions}
+          sceneContainerStyle={{ backgroundColor: 'transparent' }}
+          tabBar={() => null}
+        ></Tabs>
       </YStack>
     </XStack>
   )
@@ -98,10 +106,11 @@ const Mobile = () => {
   return (
     <>
       <YStack p="$3" f={1}>
-        <Slot screenOptions={screenOptions} />
-      </YStack>
-      <YStack>
-        <BottomTabs />
+        <Tabs
+          screenOptions={screenOptions}
+          sceneContainerStyle={{ backgroundColor: 'transparent' }}
+          tabBar={BottomTabs}
+        ></Tabs>
       </YStack>
     </>
   )

@@ -53,7 +53,6 @@ export const SearchBar = () => {
       <XStack>
         <Input
           f={1}
-          id="query"
           borderTopLeftRadius={0}
           borderBottomLeftRadius={0}
           borderTopRightRadius={0}
