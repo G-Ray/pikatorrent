@@ -150,7 +150,6 @@ const DownloadDirectoryInput = ({ session, setSession }) => {
         editable={false}
         o={0.5}
         flex={1}
-        id="downloadDirDisabled"
         size="$4"
         borderWidth={2}
         value={session['download-dir'] || ''}
@@ -163,7 +162,6 @@ const DownloadDirectoryInput = ({ session, setSession }) => {
       <Input
         mr="$2"
         flex={1}
-        id="downloadDirEnabled"
         size="$4"
         borderWidth={2}
         value={session['download-dir'] || ''}
