@@ -28,7 +28,6 @@ import { TermsOfUseDialog } from '../dialogs/TermsOfUseDialog'
 const screenOptions = {
   title: 'PikaTorrent',
   headerShown: false,
-  lazy: false,
 }
 
 export default function Layout() {
