@@ -12,5 +12,6 @@
     "rateUpload",
     "totalSize"
   ],
-  "selectedNodeId": "local"
+  "selectedNodeId": "local",
+  "nodes": []
 }

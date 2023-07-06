@@ -45,6 +45,7 @@ export const useLocalNode = () => {
 
   return {
     sendRPCMessage,
+    isLocal: true,
     isConnected: true,
   }
 }

@@ -1,6 +1,7 @@
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import { usePeer } from './usePeer'
 import { Buffer } from 'buffer'
+import { SettingsContext } from '../contexts/SettingsContext'
 
 const RESPONSE_TIMEOUT = 10_000
 
@@ -9,10 +10,13 @@ const responsesPromises = new Map()
 
 // Hook to interact with a pikatorrent node
 export const useRemoteNode = ({ clientId, nodeId }) => {
+  const { settings } = useContext(SettingsContext)
   const { peerRef, isConnected, isUnsupportedBrowser } = usePeer({
     clientId,
     nodeId,
   })
+
+  const node = settings.nodes.find((n) => n.id === nodeId)
 
   useEffect(() => {
     const peer = peerRef.current
@@ -93,6 +97,7 @@ export const useRemoteNode = ({ clientId, nodeId }) => {
   }
 
   return {
+    name: node ? node.name : '',
     isConnected,
     sendRPCMessage,
     isUnsupportedBrowser,
