@@ -60,7 +60,7 @@ export default function Home() {
 
             <YStack ai="center" gap="$4">
               <Paragraph fontWeight={'bold'}>
-                Try the alpha version now :
+                Try PikaTorrent v0.2.1 now :
               </Paragraph>
               <XStack space>
                 <Link
@@ -76,7 +76,7 @@ export default function Home() {
                     size="$5"
                     br={50}
                   >
-                    Windows v0.2.1 (.zip)
+                    Windows (.zip)
                   </Button>
                 </Link>
                 <Link
@@ -92,7 +92,7 @@ export default function Home() {
                     size="$5"
                     br={50}
                   >
-                    Linux v0.2.1 (.zip)
+                    Linux (.zip)
                   </Button>
                 </Link>
               </XStack>
