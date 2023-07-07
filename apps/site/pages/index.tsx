@@ -76,7 +76,7 @@ export default function Home() {
                     size="$5"
                     br={50}
                   >
-                    Windows (.zip)
+                    Windows(.zip)
                   </Button>
                 </Link>
                 <Link
@@ -92,7 +92,7 @@ export default function Home() {
                     size="$5"
                     br={50}
                   >
-                    Linux (.zip)
+                    Linux(.zip)
                   </Button>
                 </Link>
               </XStack>
