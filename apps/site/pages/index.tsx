@@ -103,6 +103,19 @@ export default function Home() {
                   src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
                 />
               </a>
+
+              <a
+                href="https://www.producthunt.com/posts/pikatorrent?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-pikatorrent"
+                target="_blank"
+              >
+                <img
+                  src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=403326&theme=light"
+                  alt="PikaTorrent - A&#0032;modern&#0044;&#0032;simple&#0044;&#0032;connected&#0044;&#0032;and&#0032;electric&#0032;BitTorrent&#0032;app&#0032;⚡ | Product Hunt"
+                  style={{ width: 250, height: 54 }}
+                  width="250"
+                  height="54"
+                />
+              </a>
             </YStack>
           </YStack>
 
