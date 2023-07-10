@@ -10,7 +10,6 @@ const {
 } = require('electron')
 const path = require('path')
 const serve = require('electron-serve')
-require('update-electron-app')()
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -126,6 +125,7 @@ app.on('ready', () => {
   ipcMain.handle('node:openFolder', handleOpenFolder)
   ipcMain.handle('selectFolder', handleSelectFolder)
   ipcMain.handle('quitApp', handleClose)
+  require('./check-updates')
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common

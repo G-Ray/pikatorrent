@@ -32,8 +32,7 @@
     "@ca9io/electron-webrtc-relay": "^0.2.0",
     "@pikatorrent/node": "0.2.1",
     "electron-serve": "^1.1.0",
-    "electron-squirrel-startup": "^1.0.0",
-    "update-electron-app": "^2.0.1"
+    "electron-squirrel-startup": "^1.0.0"
   },
   "private": true
 }
