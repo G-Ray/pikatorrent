@@ -26,7 +26,7 @@ let nodeRef
 const createWindow = async () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: process.env.NODE_ENV === 'production' ? 1280 : 1600,
+    width: process.env.NODE_ENV === 'production' ? 1280 : 1800,
     height: process.env.NODE_ENV === 'production' ? 720 : 900,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
