@@ -1,12 +1,13 @@
 import React from 'react'
-import { Label, Paragraph, XStack, YStack, useMedia } from 'tamagui'
+import { Button, Label, Paragraph, XStack, YStack, useMedia } from 'tamagui'
 import { SessionsInfoDialog } from '../dialogs/SessionInfoDialog'
 import { useSession } from '../hooks/useSession'
 
 import { version } from '../package.json'
-import { Platform } from 'react-native'
 import { DESKTOP_MAX_CONTENT_WIDTH } from '../constants/layout'
 import { SettingLayout } from '../components/SettingLayout'
+import { ExternalLink, Github, Heart } from '@tamagui/lucide-icons'
+import { openExternalLink } from '../lib/links'
 
 export default function About() {
   const { session } = useSession()
@@ -28,6 +29,24 @@ export default function About() {
         </SettingLayout>
         <XStack ml="auto">
           <SessionsInfoDialog session={session} />
+        </XStack>
+        <XStack mx="auto" mt="$8" gap="$2">
+          <Heart color="$red9" />
+          <Paragraph>Found a bug or want to suggest a feature ?</Paragraph>
+          <Heart color="$red9" />
+        </XStack>
+        <XStack mx="auto">
+          <Button
+            icon={ExternalLink}
+            iconAfter={Github}
+            onPress={() =>
+              openExternalLink(
+                'https://www.github.com/G-Ray/pikatorrent/issues'
+              )
+            }
+          >
+            <Paragraph>Open an issue on Github.</Paragraph>
+          </Button>
         </XStack>
       </YStack>
     </XStack>

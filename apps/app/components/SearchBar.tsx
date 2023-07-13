@@ -5,7 +5,7 @@ import { SearchEngineSelector } from './SearchEngineSelector'
 import { SettingsContext } from '../contexts/SettingsContext'
 
 import defaultSettings from '../defaultSettings.json'
-import { Linking, Platform } from 'react-native'
+import { openExternalLink } from '../lib/links'
 
 export type Engine = {
   name: string
@@ -41,11 +41,7 @@ export const SearchBar = () => {
 
   const handleSubmit = () => {
     const link = `${selectedSearchEngineUrl}${query}`
-    if (Platform.OS !== 'web') {
-      Linking.openURL(link)
-    } else {
-      window.open(link)
-    }
+    openExternalLink(link)
   }
 
   return (
