@@ -1,7 +1,7 @@
 {
   "name": "@pikatorrent/desktop",
   "productName": "pikatorrent",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "My Electron application description",
   "main": "src/index.js",
   "scripts": {
@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@ca9io/electron-webrtc-relay": "^0.2.0",
-    "@pikatorrent/node": "0.2.1",
+    "@pikatorrent/node": "0.3.0",
     "electron-serve": "^1.1.0",
     "electron-squirrel-startup": "^1.0.0"
   },
