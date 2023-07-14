@@ -59,13 +59,13 @@ export default function Home() {
             <Header theme={currentTheme} />
 
             <YStack ai="center" gap="$4">
-              <Paragraph fontWeight={'bold'}>
-                Try PikaTorrent v0.2.1 now :
+              <Paragraph fontWeight={'600'}>
+                Try PikaTorrent v0.3.0 now :
               </Paragraph>
               <XStack space>
                 <Link
                   href={
-                    'https://github.com/G-Ray/pikatorrent/releases/download/v0.2.1/pikatorrent-win32-x64-0.2.1.zip'
+                    'https://github.com/G-Ray/pikatorrent/releases/download/v0.3.0/pikatorrent-win32-x64-0.3.0.zip'
                   }
                   style={{ textDecoration: 'none' }}
                 >
@@ -76,12 +76,12 @@ export default function Home() {
                     size="$5"
                     br={50}
                   >
-                    Windows(.zip)
+                    Windows
                   </Button>
                 </Link>
                 <Link
                   href={
-                    'https://github.com/G-Ray/pikatorrent/releases/download/v0.2.1/pikatorrent-linux-x64-0.2.1.zip'
+                    'https://github.com/G-Ray/pikatorrent/releases/download/v0.3.0/pikatorrent-linux-x64-0.3.0.zip'
                   }
                   style={{ textDecoration: 'none' }}
                 >
@@ -92,18 +92,17 @@ export default function Home() {
                     size="$5"
                     br={50}
                   >
-                    Linux(.zip)
+                    Linux
                   </Button>
                 </Link>
               </XStack>
-              <a href="https://play.google.com/store/apps/details?id=com.gray.pikatorrent&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1">
-                <img
-                  width={200}
-                  alt="Get it on Google Play"
-                  src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
-                />
-              </a>
+            </YStack>
+          </YStack>
 
+          <Screenshots theme={currentTheme} />
+
+          <YStack ai="center" space>
+            <XStack>
               <a
                 href="https://www.producthunt.com/posts/pikatorrent?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-pikatorrent"
                 target="_blank"
@@ -111,17 +110,10 @@ export default function Home() {
                 <img
                   src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=403326&theme=light"
                   alt="PikaTorrent - A&#0032;modern&#0044;&#0032;simple&#0044;&#0032;connected&#0044;&#0032;and&#0032;electric&#0032;BitTorrent&#0032;app&#0032;⚡ | Product Hunt"
-                  style={{ width: 250, height: 54 }}
-                  width="250"
-                  height="54"
+                  style={{ width: 240 }}
                 />
               </a>
-            </YStack>
-          </YStack>
-
-          <Screenshots theme={currentTheme} />
-
-          <YStack ai="center" space>
+            </XStack>
             <Paragraph>Prefer to manage your torrents on a server ?</Paragraph>
             <Theme inverse>
               <Card bordered px="$4" py="$2" elevate size="$4">
@@ -135,6 +127,20 @@ export default function Home() {
           </YStack>
         </YStack>
       </main>
+      <footer>
+        <XStack jc="center" py="$4" gap="$8">
+          <Paragraph>
+            <Link href={'/privacy-policy'} target="_blank">
+              Privacy Policy
+            </Link>
+          </Paragraph>
+          <Paragraph>
+            <Link href={'https://github.com/G-Ray/pikatorrent'} target="_blank">
+              Github
+            </Link>
+          </Paragraph>
+        </XStack>
+      </footer>
     </>
   )
 }

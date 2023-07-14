@@ -10,12 +10,12 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@tamagui/animations-css": "^1.35.6",
-    "@tamagui/font-inter": "^1.35.6",
-    "@tamagui/lucide-icons": "~1.35.6",
-    "@tamagui/next-plugin": "~1.35.6",
-    "@tamagui/next-theme": "~1.35.6",
-    "@tamagui/themes": "^1.35.6",
+    "@tamagui/animations-css": "~1.39.9",
+    "@tamagui/font-inter": "~1.39.9",
+    "@tamagui/lucide-icons": "~1.39.9",
+    "@tamagui/next-plugin": "~1.39.9",
+    "@tamagui/next-theme": "~1.39.9",
+    "@tamagui/themes": "~1.39.9",
     "@types/node": "20.1.3",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
@@ -24,7 +24,7 @@
     "next": "13.4.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "tamagui": "~1.35.6",
+    "tamagui": "~1.39.9",
     "typescript": "5.0.4"
   }
 }

@@ -37,10 +37,6 @@ export const Screenshots = ({ theme }: ScreenShotsProps) => {
         elevate
         borderColor="$yellow9"
         shadowColor="$yellow3"
-        animation="quick"
-        enterStyle={{
-          opacity: 0,
-        }}
         p="$2"
       >
         <Image
@@ -61,10 +57,6 @@ export const Screenshots = ({ theme }: ScreenShotsProps) => {
         top={mobilePositionTop}
         borderColor="$yellow9"
         shadowColor="$yellow3"
-        animation="quick"
-        enterStyle={{
-          opacity: 0,
-        }}
         p="$2"
       >
         <Image
