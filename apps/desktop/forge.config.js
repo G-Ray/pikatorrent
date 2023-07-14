@@ -37,10 +37,11 @@ module.exports = {
       execSync(
         `rm -rf ${path.join(__dirname, 'node_modules/@pikatorrent/node')}`
       )
+      execSync(`mkdir -p ${path.join(__dirname, 'node_modules/@pikatorrent/')}`)
       execSync(
         `cp -r ${path.join(__dirname, '../../packages/node')} ${path.join(
           __dirname,
-          'node_modules/@pikatorrent/node'
+          'node_modules/@pikatorrent'
         )}`
       )
     },
