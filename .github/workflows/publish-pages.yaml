@@ -28,13 +28,15 @@ jobs:
           directory: apps/site/out
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
       # PikaTorrent app
-      - name: Build app
-        run: SIGNALING_URL=${{ vars.SIGNALING_URL }} npm run build:web
-      - name: Publish app
-        uses: cloudflare/pages-action@1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: pikatorrent-app
-          directory: apps/app/dist
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+      # We can not upload assets/node_modules with wrangler for now
+      # See https://github.com/cloudflare/workers-sdk/issues/3615
+      # - name: Build app
+      #   run: SIGNALING_URL=${{ vars.SIGNALING_URL }} npm run build:web
+      # - name: Publish app
+      #   uses: cloudflare/pages-action@1
+      #   with:
+      #     apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      #     accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      #     projectName: pikatorrent-app
+      #     directory: apps/app/dist
+      #     gitHubToken: ${{ secrets.GITHUB_TOKEN }}
