@@ -36,7 +36,7 @@ export default function App({ Component, pageProps }: AppProps) {
           defaultTheme={theme}
         >
           <Theme name={theme}>
-            <Stack bc="$background" minHeight="100vh" minWidth="100vw">
+            <Stack bc="$background" minHeight="100%" minWidth="100%">
               {contents}
             </Stack>
           </Theme>
