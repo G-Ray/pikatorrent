@@ -8,10 +8,11 @@ interface ScreenShotsProps {
 
 export const Screenshots = ({ theme }: ScreenShotsProps) => {
   const media = useMedia()
-  const [desktopImageSource, setDesktopImageSource] =
-    useState('/desktop-light.png')
+  const [desktopImageSource, setDesktopImageSource] = useState(
+    '/desktop-light.webp'
+  )
   const [mobileImageSource, setMobileImageSource] =
-    useState('/mobile-light.png')
+    useState('/mobile-light.webp')
 
   const desktopWidth = media.gtMd ? 800 : media.gtXs ? 400 : '90vw'
   const mobileWidth = media.gtMd ? 280 : 140
@@ -21,10 +22,10 @@ export const Screenshots = ({ theme }: ScreenShotsProps) => {
 
   useEffect(() => {
     setDesktopImageSource(
-      theme === 'light' ? '/desktop-light.png' : '/desktop-dark.png'
+      theme === 'light' ? '/desktop-light.webp' : '/desktop-dark.webp'
     )
     setMobileImageSource(
-      theme === 'light' ? '/mobile-light.png' : '/mobile-dark.png'
+      theme === 'light' ? '/mobile-light.webp' : '/mobile-dark.webp'
     )
   }, [theme])
 
