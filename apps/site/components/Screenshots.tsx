@@ -18,7 +18,7 @@ export const Screenshots = ({ theme }: ScreenShotsProps) => {
   const mobileWidth = media.gtMd ? 280 : 140
   const mobilePositionTop = media.gtMd ? 395 : 200
   const paddingX = media.gtMd ? 64 : 12
-  const paddingBottom = media.gtMd ? 128 : 240
+  const paddingBottom = media.gtMd ? 128 : 280
 
   useEffect(() => {
     setDesktopImageSource(
@@ -30,7 +30,7 @@ export const Screenshots = ({ theme }: ScreenShotsProps) => {
   }, [theme])
 
   return (
-    <XStack px={paddingX} pt={64} pb={paddingBottom} position="relative">
+    <XStack px={paddingX} pt={32} pb={paddingBottom} position="relative">
       <Card
         bordered
         w={desktopWidth}

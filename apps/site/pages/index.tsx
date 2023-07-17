@@ -103,6 +103,12 @@ export default function Home() {
                   src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
                 />
               </a>
+
+              <Paragraph>
+                <Link href={'https://discord.gg/6HxCV4aGdy'}>
+                  Join us on Discord
+                </Link>
+              </Paragraph>
             </YStack>
           </YStack>
 
@@ -145,6 +151,10 @@ export default function Home() {
             <Link href={'https://github.com/G-Ray/pikatorrent'} target="_blank">
               Github
             </Link>
+          </Paragraph>
+
+          <Paragraph>
+            <Link href={'https://discord.gg/6HxCV4aGdy'}>Discord</Link>
           </Paragraph>
         </XStack>
       </footer>
