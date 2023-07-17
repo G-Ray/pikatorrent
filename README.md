@@ -28,6 +28,10 @@ Link the mobile app with the desktop app or a server instance to control it from
   <img alt="mobile app screenshot" src="https://github.com/G-Ray/pikatorrent/assets/2981774/637e321d-595f-4840-8fb2-db6996621834" height="auto" width="200px" />
 </picture>
 
+## Development
+
+See [docs/development.md](docs/development.md)
+
 ## License
 
 GPL-3.0

@@ -11,12 +11,12 @@ version: '3'
 
 services:
   hub:
-    image: node:18
+    image: docker.io/library/node:18
     restart: unless-stopped
-    command: sh -c "npm install -g @pikatorrent/hub && node /usr/local/lib/node_modules/@pikatorrent/hub"
+    command: sh -c "npm i -g pikatorrent && pikatorrent hub"
 
   caddy:
-    image: caddy:2.6-alpine
+    image: docker.io/library/caddy:2-alpine
     restart: unless-stopped
     command: caddy reverse-proxy --from hub.pikatorrent.com --to hub:9001
     ports:
