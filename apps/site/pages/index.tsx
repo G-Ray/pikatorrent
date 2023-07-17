@@ -104,11 +104,12 @@ export default function Home() {
                 />
               </a>
 
-              <Paragraph>
-                <Link href={'https://discord.gg/6HxCV4aGdy'}>
-                  Join us on Discord
-                </Link>
-              </Paragraph>
+              <Link href="https://discord.gg/6HxCV4aGdy">
+                <img
+                  height={24}
+                  src="https://img.shields.io/badge/Join_us_on_discord-gray?logo=discord"
+                />
+              </Link>
             </YStack>
           </YStack>
 
