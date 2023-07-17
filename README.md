@@ -2,6 +2,10 @@
 
 A modern, simple, connected, and electric BitTorrent app ⚡
 
+<a href="https://discord.gg/6HxCV4aGdy">
+  <img src="https://img.shields.io/badge/Join_us_on_discord-gray?logo=discord" />
+</a>
+
 ## Installation
 
 - For desktop, download the [latest release from github](https://github.com/G-Ray/pikatorrent/releases).
