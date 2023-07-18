@@ -155,18 +155,22 @@ const TorrentInfoOrder = ({
             <XStack alignItems="center" jc="space-between" f={1}>
               <Label numberOfLines={1}>{field}</Label>
               <XStack gap="$4">
-                <Button
-                  onPress={() => handleMoveUpField(index)}
-                  size="$2"
-                  circular
-                  icon={ChevronUp}
-                />
-                <Button
-                  onPress={() => handleMoveDownField(index)}
-                  size="$2"
-                  circular
-                  icon={ChevronDown}
-                />
+                {index !== 0 && (
+                  <Button
+                    onPress={() => handleMoveUpField(index)}
+                    size="$2"
+                    circular
+                    icon={ChevronUp}
+                  />
+                )}
+                {index !== torrentCardFields.length - 1 && (
+                  <Button
+                    onPress={() => handleMoveDownField(index)}
+                    size="$2"
+                    circular
+                    icon={ChevronDown}
+                  />
+                )}
               </XStack>
             </XStack>
           </ListItem>
