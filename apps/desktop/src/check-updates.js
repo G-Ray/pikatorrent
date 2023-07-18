@@ -34,7 +34,7 @@ const isNewReleaseAvailable = async () => {
 }
 
 const displayNewReleaseDialog = () => {
-  const clickedButtonIndex = dialog.showMessageBox({
+  const clickedButtonIndex = dialog.showMessageBoxSync({
     message: 'A new PikaTorrent release is available.',
     buttons: ['Cancel', 'Open downloads page'],
   })
