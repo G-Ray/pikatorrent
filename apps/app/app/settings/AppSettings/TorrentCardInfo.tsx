@@ -80,7 +80,7 @@ export const TorrentCardInfo = () => {
 
   const handleReset = () => {
     updateSettings({
-      torrentCardFields: defaultSettings.torrentsCardFields,
+      torrentCardFields: defaultSettings.torrentCardFields,
     })
   }
 
@@ -143,7 +143,7 @@ const TorrentInfo = ({ torrentCardFields, handleCheckedChange }) => {
 }
 
 const TorrentInfoOrder = ({
-  torrentCardFields,
+  torrentCardFields = [],
   handleMoveUpField,
   handleMoveDownField,
 }) => {
