@@ -67,16 +67,21 @@ export const SettingsProvider = ({
 
       values.forEach((kv) => {
         const [key, value] = kv
+        const typedKey = key as keyof ISettings
+
         if (typeof value !== 'string') return
 
         let parsedValue
         try {
           parsedValue = JSON.parse(value)
         } catch (e) {
-          parsedValue = value
+          if (value === 'undefined') {
+            parsedValue = (defaultSettings as ISettings)[typedKey]
+          } else {
+            parsedValue = value
+          }
         }
 
-        const typedKey = key as keyof ISettings
         parsedSettings[typedKey] = parsedValue
       })
 
