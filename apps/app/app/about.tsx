@@ -35,7 +35,7 @@ export default function About() {
           <Paragraph>Found a bug or want to suggest a feature ?</Paragraph>
           <Heart color="$red9" />
         </XStack>
-        <XStack mx="auto">
+        <XStack mx="auto" mt="$4">
           <Button
             icon={ExternalLink}
             iconAfter={Github}
@@ -45,7 +45,15 @@ export default function About() {
               )
             }
           >
-            <Paragraph>Open an issue on Github.</Paragraph>
+            <Paragraph>Open an issue on Github</Paragraph>
+          </Button>
+        </XStack>
+        <XStack mx="auto" mt="$4">
+          <Button
+            icon={ExternalLink}
+            onPress={() => openExternalLink('https://discord.gg/6HxCV4aGdy')}
+          >
+            <Paragraph>Join us on Discord</Paragraph>
           </Button>
         </XStack>
       </YStack>
