@@ -42,8 +42,11 @@ export const TorrentFieldFormatter = ({
     // Dates
     name.includes('Date')
   ) {
-    formattedValue =
-      value <= 0 ? '-' : new Intl.DateTimeFormat('default').format(value * 1000)
+    if (value === undefined || value <= 0) {
+      formattedValue = '-'
+    } else {
+      formattedValue = new Intl.DateTimeFormat('default').format(value * 1000)
+    }
   } else if (['uploadLimit', 'downloadLimit'].includes(name)) {
     // value is in KBps
     formattedValue = `${prettyBytes(value * 1000)} / s`
