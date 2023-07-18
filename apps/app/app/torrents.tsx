@@ -38,7 +38,8 @@ const TorrentsList = () => {
     <FlatList
       contentContainerStyle={{
         width: '100%',
-        margin: 'auto',
+        marginLeft: 'auto',
+        marginRight: 'auto',
         padding: media.gtXs ? 0 : 4,
         maxWidth: DESKTOP_MAX_CONTENT_WIDTH,
       }}
