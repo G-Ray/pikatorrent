@@ -60,12 +60,12 @@ export default function Home() {
 
             <YStack ai="center" gap="$4">
               <Paragraph fontWeight={'600'}>
-                Try PikaTorrent v0.3.0 now :
+                Try PikaTorrent v0.3.1 now :
               </Paragraph>
               <XStack space>
                 <Link
                   href={
-                    'https://github.com/G-Ray/pikatorrent/releases/download/v0.3.0/pikatorrent-win32-x64-0.3.0.zip'
+                    'https://github.com/G-Ray/pikatorrent/releases/download/v0.3.1/pikatorrent-win32-x64-0.3.1.zip'
                   }
                   style={{ textDecoration: 'none' }}
                 >
@@ -81,7 +81,7 @@ export default function Home() {
                 </Link>
                 <Link
                   href={
-                    'https://github.com/G-Ray/pikatorrent/releases/download/v0.3.0/pikatorrent-linux-x64-0.3.0.zip'
+                    'https://github.com/G-Ray/pikatorrent/releases/download/v0.3.1/pikatorrent-linux-x64-0.3.1.zip'
                   }
                   style={{ textDecoration: 'none' }}
                 >
