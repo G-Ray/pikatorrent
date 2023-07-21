@@ -2,7 +2,6 @@ import React from 'react'
 import { H2, Paragraph, XStack, YStack, useMedia } from 'tamagui'
 
 import { SearchEngines } from './AppSettings/SearchEngines'
-import { TorrentCardInfo } from './AppSettings/TorrentCardInfo'
 import { SettingLayout } from '../../components/SettingLayout'
 import { ThemeSelector } from '../../components/ThemeSelector'
 
@@ -21,7 +20,6 @@ export const Preferences = () => {
       </SettingLayout>
 
       <SearchEngines />
-      <TorrentCardInfo />
     </YStack>
   )
 }

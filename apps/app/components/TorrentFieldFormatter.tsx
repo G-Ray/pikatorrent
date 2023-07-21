@@ -15,23 +15,35 @@ export const TorrentFieldFormatter = ({
   value,
 }: TorrentFieldFormatterProps) => {
   let formattedValue: string | React.ReactNode
+  let color
 
   if (name === 'status') {
     formattedValue = TORRENT_STATUSES[value]
+    if (formattedValue === 'Seeding') {
+      color = '$green9'
+    }
+
+    if (formattedValue === 'Downloading') {
+      color = '$blue9'
+    }
   } else if (name.includes('Size') || name.includes('size')) {
     // Bytes
     formattedValue = prettyBytes(value)
   } else if (name === 'eta') {
-    formattedValue = value < 0 ? '-' : prettyMilliseconds(value * 1000)
+    if (!value || value < 0) {
+      formattedValue = '-'
+    } else {
+      formattedValue = prettyMilliseconds(value * 1000)
+    }
   } else if (['rateDownload', 'rateUpload'].includes(name)) {
     return (
-      <XStack>
+      <XStack ai="center">
         {name.includes('Download') ? (
-          <ChevronDown color="$purple9" />
+          <ChevronDown color="$blue9" size={'$1'} />
         ) : (
-          <ChevronUp color="$blue9" />
+          <ChevronUp color="$green9" size={'$1'} />
         )}
-        <Paragraph fontWeight="bold">{prettyBytes(value)}/s</Paragraph>
+        <Paragraph fontSize={'$2'}>{prettyBytes(value)}/s</Paragraph>
       </XStack>
     )
 
@@ -54,5 +66,9 @@ export const TorrentFieldFormatter = ({
     formattedValue = typeof value === 'string' ? value : JSON.stringify(value) // fallback
   }
 
-  return <Paragraph fontWeight="bold">{formattedValue}</Paragraph>
+  return (
+    <Paragraph color={color} fontSize={'$2'}>
+      {formattedValue}
+    </Paragraph>
+  )
 }

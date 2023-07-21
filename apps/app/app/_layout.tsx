@@ -90,7 +90,7 @@ const Desktop = () => {
     <XStack f={1}>
       <Sidebar />
       <Separator vertical />
-      <YStack p="$8" f={1}>
+      <YStack px="$8" f={1}>
         <Tabs
           screenOptions={screenOptions}
           sceneContainerStyle={{ backgroundColor: 'transparent' }}
@@ -103,14 +103,12 @@ const Desktop = () => {
 
 const Mobile = () => {
   return (
-    <>
-      <YStack p="$3" f={1}>
-        <Tabs
-          screenOptions={screenOptions}
-          sceneContainerStyle={{ backgroundColor: 'transparent' }}
-          tabBar={BottomTabs}
-        ></Tabs>
-      </YStack>
-    </>
+    <YStack pt="$2" px="$2" f={1}>
+      <Tabs
+        screenOptions={screenOptions}
+        sceneContainerStyle={{ backgroundColor: 'transparent' }}
+        tabBar={BottomTabs}
+      ></Tabs>
+    </YStack>
   )
 }

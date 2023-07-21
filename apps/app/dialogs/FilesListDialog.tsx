@@ -9,11 +9,7 @@ export const FilesListDialog = ({ torrent }) => {
   return (
     <Dialog
       title="Files"
-      trigger={
-        <Button icon={List} br={50}>
-          <Paragraph>{torrent.files.length} Files</Paragraph>
-        </Button>
-      }
+      trigger={<Button icon={List}>Files</Button>}
       snapPoints={[50]}
     >
       <XStack overflow="scroll">

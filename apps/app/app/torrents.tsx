@@ -28,7 +28,6 @@ export default function Torrents() {
 
 const TorrentsList = () => {
   const { torrents } = useTorrents()
-  const media = useMedia()
 
   if (torrents.length === 0) {
     return <TorrentCardPlaceHolder />
@@ -40,7 +39,7 @@ const TorrentsList = () => {
         width: '100%',
         marginLeft: 'auto',
         marginRight: 'auto',
-        padding: media.gtXs ? 0 : 4,
+        padding: 4,
         maxWidth: DESKTOP_MAX_CONTENT_WIDTH,
       }}
       data={(torrents || []).map((torrent) => ({

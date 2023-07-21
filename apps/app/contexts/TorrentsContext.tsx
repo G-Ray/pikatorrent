@@ -28,9 +28,12 @@ export const TorrentsProvider = ({ children }) => {
             'id',
             'name',
             'files',
+            'status',
             'percentDone',
             'downloadDir',
-            ...settings.torrentCardFields,
+            'rateDownload',
+            'rateUpload',
+            'totalSize',
           ],
         },
       })
@@ -51,7 +54,7 @@ export const TorrentsProvider = ({ children }) => {
     } catch (e) {
       console.log('Error fetching torrent', e)
     }
-  }, [sendRPCMessage, settings.torrentCardFields, toast])
+  }, [sendRPCMessage, toast])
 
   useEffect(() => {
     const interval = setInterval(async () => {

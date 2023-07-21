@@ -17,7 +17,6 @@ const SETTINGS_KEYS = [
   'nodes',
   'selectedNodeId',
   'searchEnginesUrls',
-  'torrentCardFields',
   'isTermsOfUseAccepted',
 ]
 
@@ -27,7 +26,6 @@ interface ISettings {
   nodes?: Node[]
   selectedNodeId?: string
   searchEnginesUrls?: string[]
-  torrentCardFields?: string[]
   isTermsOfUseAccepted?: boolean
 }
 

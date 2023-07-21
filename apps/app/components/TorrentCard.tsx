@@ -1,42 +1,37 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import {
   ArrowBigUp,
-  ChevronDown,
-  ChevronUp,
   FolderOpen,
+  Menu,
   PauseCircle,
   PlayCircle,
 } from '@tamagui/lucide-icons'
-import { useState } from 'react'
 import {
   Button,
   Card,
   H4,
+  H6,
   Paragraph,
   Progress,
   XStack,
   YStack,
   useMedia,
+  useTheme,
   useThemeName,
 } from 'tamagui'
 import { RemoveTorrentDialog } from '../dialogs/RemoveTorrentDialog'
 import { FilesListDialog } from '../dialogs/FilesListDialog'
 import { TorrentFieldFormatter } from './TorrentFieldFormatter'
-import { SettingsContext } from '../contexts/SettingsContext'
-import i18n from '../i18n'
 import { useTorrents } from '../hooks/useTorrents'
 import { TORRENT_STATUSES } from '../constants/torrents'
 import isElectron from 'is-electron'
-
-const COLLAPSE_ITEMS_DESKTOP = 7
+import { Dialog } from '../dialogs/Dialog'
+import { TorrentsProvider } from '../contexts/TorrentsContext'
+import { NodeProvider } from '../contexts/NodeContext'
 
 export const TorrentCard = ({ torrent }) => {
-  const [isCollapsed, setIsCollapsed] = useState(true)
   const media = useMedia()
-  const { settings } = useContext(SettingsContext)
   const theme = useThemeName()
-  const isCollapsible =
-    !media.gtXs || settings.torrentCardFields.length > COLLAPSE_ITEMS_DESKTOP
 
   const { start, pause } = useTorrents()
 
@@ -51,105 +46,113 @@ export const TorrentCard = ({ torrent }) => {
     <Card
       key={torrent.id}
       size="$4"
-      // bordered
+      p="$2"
+      pt="$1"
       elevation={media.gtXs ? '$4' : '$0.5'}
-      br="$6"
-      mb="$4"
+      mb={media.gtXs ? '$4' : '$2'}
       bc={theme === 'light' ? 'white' : 'black'}
     >
-      <Card.Header>
-        <XStack mb="$2">
-          <H4 f={1} numberOfLines={1} fontWeight="bold">
-            {torrent.name}
-          </H4>
-          <XStack gap="$4">
-            {isElectron() && torrent.percentDone === 1 && (
-              <Button circular icon={FolderOpen} onPress={handleOpenFolder} />
-            )}
-            <FilesListDialog torrent={torrent} />
-          </XStack>
-        </XStack>
-        <YStack>
-          <Progress
-            mt="$2"
-            mb="$4"
-            value={Math.round(torrent.percentDone * 100)}
-            theme="yellow"
-            bordered
-          >
-            <Progress.Indicator animation="lazy" bc={'$yellow9'} />
-          </Progress>
-          <TorrentInfo torrent={torrent} isCollapsed={isCollapsed} />
-        </YStack>
-
-        <XStack f={1} ai="center" jc="space-between" pt="$4">
+      <XStack ai="center">
+        <XStack mr="$2">
           {TORRENT_STATUSES[torrent.status] === TORRENT_STATUSES[0] ? (
             <Button
               onPress={() => start(torrent.id)}
-              theme="green"
+              bc={theme === 'light' ? 'white' : 'black'}
               icon={PlayCircle}
-              br={50}
-            >
-              Start
-            </Button>
+              circular
+              scaleIcon={2}
+            />
           ) : (
             <Button
               onPress={() => pause(torrent.id)}
-              theme="gray"
+              bc={theme === 'light' ? 'white' : 'black'}
               icon={PauseCircle}
-              br={50}
-            >
-              Pause
-            </Button>
-          )}
-          {isCollapsible && (
-            <Button
               circular
-              icon={isCollapsed ? ChevronDown : ChevronUp}
-              onPress={() => setIsCollapsed(!isCollapsed)}
+              scaleIcon={2}
             />
           )}
-          <RemoveTorrentDialog id={torrent.id} />
         </XStack>
-      </Card.Header>
+        <YStack f={1} alignSelf="flex-start">
+          <XStack>
+            <XStack alignSelf="center">
+              <H6 numberOfLines={1}>{torrent.name}</H6>
+            </XStack>
+            <TorrentActions
+              theme={theme}
+              torrent={torrent}
+              handleOpenFolder={handleOpenFolder}
+            />
+          </XStack>
+          <Progress
+            mb="$2"
+            value={Math.round(torrent.percentDone * 100)}
+            theme="yellow"
+            bordered
+            size="$2"
+          >
+            <Progress.Indicator animation="lazy" bc={'$yellow9'} />
+          </Progress>
+          <XStack>
+            <TorrentInfo torrent={torrent} />
+          </XStack>
+        </YStack>
+      </XStack>
     </Card>
   )
 }
 
-const TorrentInfo = ({ torrent, isCollapsed = true }) => {
-  const { settings } = useContext(SettingsContext)
-  const items = settings.torrentCardFields.map((field, index) => ({
-    title: <Paragraph>{i18n.t(field)}</Paragraph>,
-    content: <TorrentFieldFormatter name={field} value={torrent[field]} />,
-  }))
-
+const TorrentActions = ({ theme = 'light', torrent, handleOpenFolder }) => {
   return (
-    <XStack
-      jc="space-between"
-      w="100%"
-      flexWrap="wrap"
-      columnGap="$8"
-      rowGap="$4"
-    >
-      <CollapsedItems
-        isCollapsed={isCollapsed}
-        items={items.map((i, index) => (
-          <YStack key={index}>
-            {i.title}
-            {i.content}
-          </YStack>
-        ))}
-      />
+    <XStack ml="auto">
+      <Dialog
+        trigger={
+          <Button
+            circular
+            icon={Menu}
+            bc={theme === 'light' ? 'white' : 'black'}
+          ></Button>
+        }
+        snapPoints={[24]}
+      >
+        <YStack gap="$4" pt="$8">
+          {isElectron() && torrent.percentDone === 1 && (
+            <Button icon={FolderOpen} onPress={handleOpenFolder}>
+              Open Folder
+            </Button>
+          )}
+          <FilesListDialog torrent={torrent} />
+          <NodeProvider>
+            <TorrentsProvider>
+              <RemoveTorrentDialog id={torrent.id} />
+            </TorrentsProvider>
+          </NodeProvider>
+        </YStack>
+      </Dialog>
     </XStack>
   )
 }
 
-const CollapsedItems = ({ isCollapsed, items }) => {
-  const media = useMedia()
-  const displayedItems = media.gtXs ? COLLAPSE_ITEMS_DESKTOP : 3
-  const displayed = isCollapsed ? items.slice(0, displayedItems) : items
-
-  return displayed.map((i, index) => ({ ...i, key: index }))
+const TorrentInfo = ({ torrent }) => {
+  return (
+    <YStack>
+      <XStack columnGap="$2">
+        <TorrentFieldFormatter name="percentDone" value={torrent.percentDone} />
+        <Paragraph>•</Paragraph>
+        <TorrentFieldFormatter name="totalSize" value={torrent.totalSize} />
+      </XStack>
+      <XStack columnGap="$2">
+        <TorrentFieldFormatter name="status" value={torrent.status} />
+        <Paragraph>•</Paragraph>
+        <XStack gap="$2">
+          <TorrentFieldFormatter
+            name="rateDownload"
+            value={torrent.rateDownload}
+          />
+          <TorrentFieldFormatter name="rateUpload" value={torrent.rateUpload} />
+        </XStack>
+      </XStack>
+    </YStack>
+  )
 }
 
 export const TorrentCardPlaceHolder = () => {
