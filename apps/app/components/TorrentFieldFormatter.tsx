@@ -67,7 +67,7 @@ export const TorrentFieldFormatter = ({
   }
 
   return (
-    <Paragraph color={color} fontSize={'$2'}>
+    <Paragraph {...(color ? { color } : {})} fontSize={'$2'}>
       {formattedValue}
     </Paragraph>
   )
