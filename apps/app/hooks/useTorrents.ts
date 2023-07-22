@@ -17,7 +17,7 @@ export const useTorrents = () => {
   }
 
   const remove = async (id: string, deleteLocalData: boolean) => {
-    sendRPCMessage({
+    await sendRPCMessage({
       method: 'torrent-remove',
       arguments: { ids: [id], 'delete-local-data': deleteLocalData },
     })
