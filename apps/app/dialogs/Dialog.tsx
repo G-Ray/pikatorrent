@@ -7,6 +7,7 @@ import {
   Sheet,
   Unspaced,
 } from 'tamagui'
+import { Platform } from 'react-native'
 
 type DialogProps = {
   title?: string | React.ReactNode
@@ -68,6 +69,10 @@ const Dialog = ({
         />
 
         <TamaguiDialog.Content
+          {...(Platform.OS === 'web' && {
+            maxHeight: '50vh',
+            maxWidth: '50vw',
+          })}
           bordered
           elevate
           key="content"
