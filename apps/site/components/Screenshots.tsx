@@ -38,14 +38,18 @@ export const Screenshots = ({ theme }: ScreenShotsProps) => {
         elevate
         borderColor="$yellow9"
         shadowColor="$yellow3"
-        p="$2"
       >
         <Image
           src={desktopImageSource}
           alt="pikatorrent screenshot on desktop."
           width={0}
           height={0}
-          style={{ objectFit: 'contain', width: '100%', height: 'auto' }}
+          style={{
+            objectFit: 'contain',
+            width: '100%',
+            height: 'auto',
+            borderRadius: 16,
+          }}
         />
       </Card>
       <Card
@@ -58,14 +62,18 @@ export const Screenshots = ({ theme }: ScreenShotsProps) => {
         top={mobilePositionTop}
         borderColor="$yellow9"
         shadowColor="$yellow3"
-        p="$2"
       >
         <Image
           src={mobileImageSource}
           alt="pikatorrent screenshot on mobile."
           width={0}
           height={0}
-          style={{ objectFit: 'contain', width: '100%', height: 'auto' }}
+          style={{
+            objectFit: 'contain',
+            width: '100%',
+            height: 'auto',
+            borderRadius: 16,
+          }}
         />
       </Card>
     </XStack>
