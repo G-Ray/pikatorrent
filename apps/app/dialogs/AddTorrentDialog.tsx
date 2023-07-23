@@ -47,6 +47,11 @@ export const AddTorrentDialog = () => {
     }
   }, [])
 
+  const resetState = () => {
+    setMagnet('')
+    setDocumentResult(null)
+  }
+
   const handleAddTorrent = async () => {
     try {
       const torrentAddArgs = documentResult
@@ -77,6 +82,7 @@ export const AddTorrentDialog = () => {
 
   return (
     <Dialog
+      onOpenChange={resetState}
       snapPoints={[42]}
       defaultOpen={defaultOpen}
       title="Add a torrent"
