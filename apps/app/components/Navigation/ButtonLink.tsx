@@ -14,7 +14,6 @@ export const ButtonLink = ({ title, href, icon, withLabel = true }) => {
         size="$6"
         br={50}
         icon={icon}
-        active={isActive}
         scaleIcon={1.4}
         {...(isActive
           ? {
