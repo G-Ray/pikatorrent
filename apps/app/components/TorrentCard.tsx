@@ -16,7 +16,6 @@ import {
   XStack,
   YStack,
   useMedia,
-  useTheme,
   useThemeName,
 } from 'tamagui'
 import { RemoveTorrentDialog } from '../dialogs/RemoveTorrentDialog'
@@ -28,6 +27,7 @@ import isElectron from 'is-electron'
 import { Dialog } from '../dialogs/Dialog'
 import { TorrentsProvider } from '../contexts/TorrentsContext'
 import { NodeProvider } from '../contexts/NodeContext'
+import { SettingsProvider } from '../contexts/SettingsContext'
 
 export const TorrentCard = ({ torrent }) => {
   const media = useMedia()
@@ -121,11 +121,13 @@ const TorrentActions = ({ theme = 'light', torrent, handleOpenFolder }) => {
             </Button>
           )}
           <FilesListDialog torrent={torrent} />
-          <NodeProvider>
-            <TorrentsProvider>
-              <RemoveTorrentDialog id={torrent.id} />
-            </TorrentsProvider>
-          </NodeProvider>
+          <SettingsProvider>
+            <NodeProvider>
+              <TorrentsProvider>
+                <RemoveTorrentDialog id={torrent.id} />
+              </TorrentsProvider>
+            </NodeProvider>
+          </SettingsProvider>
         </YStack>
       </Dialog>
     </XStack>
