@@ -10,7 +10,7 @@ export const SessionsInfoDialog = ({ session }) => {
       snapPoints={[90]}
     >
       <TextArea
-        w={800}
+        w={500}
         h={500}
         value={JSON.stringify(session, null, 2)}
         disabled
