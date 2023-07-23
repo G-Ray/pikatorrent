@@ -74,7 +74,7 @@ export const TorrentCard = ({ torrent }) => {
         </XStack>
         <YStack f={1} alignSelf="flex-start">
           <XStack>
-            <XStack alignSelf="center">
+            <XStack alignSelf="center" f={1}>
               <H6 numberOfLines={1}>{torrent.name}</H6>
             </XStack>
             <TorrentActions
