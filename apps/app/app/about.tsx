@@ -14,7 +14,7 @@ export default function About() {
   const media = useMedia()
 
   return (
-    <XStack f={1} jc="center" w="100%">
+    <XStack f={1} jc="center" w="100%" px={media.gtXs ? '$8' : '$2'}>
       <YStack
         flexShrink={1}
         {...(media.gtXs && { w: DESKTOP_MAX_CONTENT_WIDTH })}

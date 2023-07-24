@@ -13,7 +13,7 @@ export default function Settings() {
 
   return (
     <ScrollView>
-      <XStack f={1} jc="center" w="100%" pb="$8">
+      <XStack f={1} jc="center" w="100%" pb="$8" px={media.gtXs ? '$8' : '$2'}>
         <YStack
           flexShrink={1}
           gap="$16"

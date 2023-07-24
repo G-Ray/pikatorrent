@@ -16,27 +16,29 @@ export default function Torrents() {
 
   return (
     <YStack f={1}>
-      <XStack mx="auto" w="100%" maxWidth={DESKTOP_MAX_CONTENT_WIDTH}>
-        <AddTorrentDialog />
-        <SearchBar />
-      </XStack>
+      <YStack px={media.gtXs ? '$8' : '$2'}>
+        <XStack mx="auto" w="100%" maxWidth={DESKTOP_MAX_CONTENT_WIDTH}>
+          <AddTorrentDialog />
+          <SearchBar />
+        </XStack>
 
-      <XStack
-        mx="auto"
-        w="100%"
-        py={media.gtXs ? '$4' : '$2'}
-        jc="space-between"
-        maxWidth={DESKTOP_MAX_CONTENT_WIDTH}
-      >
-        <Input
-          br={50}
-          minWidth={220}
-          placeholder="Filter torrents list..."
-          value={filter}
-          onChangeText={setFilter}
-        />
-        <GlobalStats />
-      </XStack>
+        <XStack
+          mx="auto"
+          w="100%"
+          py={media.gtXs ? '$4' : '$2'}
+          jc="space-between"
+          maxWidth={DESKTOP_MAX_CONTENT_WIDTH}
+        >
+          <Input
+            br={50}
+            minWidth={220}
+            placeholder="Filter torrents list..."
+            value={filter}
+            onChangeText={setFilter}
+          />
+          <GlobalStats />
+        </XStack>
+      </YStack>
       <TorrentsList filter={filter} />
     </YStack>
   )
@@ -48,6 +50,7 @@ type TorrentsListProp = {
 
 const TorrentsList = ({ filter }: TorrentsListProp) => {
   const { torrents } = useTorrents()
+  const media = useMedia()
 
   const fuse = useMemo(
     () =>
@@ -72,9 +75,11 @@ const TorrentsList = ({ filter }: TorrentsListProp) => {
         width: '100%',
         marginLeft: 'auto',
         marginRight: 'auto',
-        paddingLeft: 4,
-        paddingRight: 4,
-        maxWidth: DESKTOP_MAX_CONTENT_WIDTH,
+        paddingLeft: media.gtXs ? 46 : 7, // $8 $2
+        paddingRight: media.gtXs ? 46 : 7, // $8 $2
+        paddingTop: 4,
+        paddingBottom: 4,
+        maxWidth: DESKTOP_MAX_CONTENT_WIDTH + (media.gtXs ? 46 * 2 : 7 * 2),
       }}
       data={displayedTorrents || []}
       renderItem={({ item }) => <TorrentCard key={item.id} torrent={item} />}
