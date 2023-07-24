@@ -21,5 +21,7 @@ config.resolver.nodeModulesPaths = [
 
 // Ignore electron out folder
 config.resolver.blockList = [/desktop/]
+// https://github.com/facebook/metro/issues/1003#issuecomment-1626398738
+config.resolver.sourceExts = [...config.resolver.sourceExts, 'mjs']
 
 module.exports = config

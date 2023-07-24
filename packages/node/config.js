@@ -2,7 +2,7 @@ const { NODE_ENV } = process.env
 
 const development = {
   SIGNALING_URL: 'ws://localhost:9001',
-  APP_URL: 'http://localhost:19000',
+  APP_URL: 'http://localhost:8081',
 }
 
 const production = {

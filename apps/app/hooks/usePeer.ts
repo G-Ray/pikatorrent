@@ -85,7 +85,7 @@ export const usePeer = ({ nodeId, clientId }: UsePeerOptions) => {
             ? <InstanceType<SimplePeer>>new Peer({ initiator: true })
             : <InstanceType<SimplePeer>>new Peer({
                 initiator: true,
-                wrtc: require('react-native-webrtc'),
+                wrtc: require('../lib/webrtc'),
               })
 
         peerRef.current.addListener('close', handleClose)

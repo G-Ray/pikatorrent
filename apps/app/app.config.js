@@ -22,12 +22,12 @@ module.exports = () => {
         supportsTablet: true,
       },
       android: {
-        versionCode: 5,
+        package: IS_DEV ? 'com.gray.pikatorrent.dev' : 'com.gray.pikatorrent',
+        versionCode: 6,
         adaptiveIcon: {
           foregroundImage: './assets/adaptive-icon.png',
           backgroundColor: '#ffffff',
         },
-        package: IS_DEV ? 'com.gray.pikatorrent.dev' : 'com.gray.pikatorrent',
       },
       web: {
         favicon: './assets/favicon.png',
@@ -38,7 +38,25 @@ module.exports = () => {
           projectId: 'e2afa425-163f-4c4c-95e7-1217ac950dc5',
         },
       },
-      plugins: ['@config-plugins/react-native-webrtc', 'expo-localization'],
+      plugins: [
+        '@config-plugins/react-native-webrtc',
+        'expo-localization',
+        [
+          'expo-build-properties',
+          {
+            android: {
+              packagingOptions: {
+                pickFirst: [
+                  '/lib/arm64-v8a/libcrypto.so',
+                  '/lib/arm64-v8a/libssl.so',
+                  '/lib/x86_64/libcrypto.so',
+                  '/lib/x86_64/libssl.so',
+                ],
+              },
+            },
+          },
+        ],
+      ],
     },
   }
 }

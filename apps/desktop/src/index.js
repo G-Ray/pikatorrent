@@ -47,7 +47,7 @@ const createWindow = async () => {
     await loadURL(mainWindow)
     await mainWindow.loadURL('app://-')
   } else {
-    mainWindow.loadURL('http://localhost:19000')
+    mainWindow.loadURL('http://localhost:8081')
     // Open the DevTools.
     mainWindow.webContents.openDevTools()
   }
