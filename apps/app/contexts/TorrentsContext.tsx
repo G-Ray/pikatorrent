@@ -1,11 +1,10 @@
-import {
+import React, {
   createContext,
   useCallback,
   useContext,
   useEffect,
   useState,
 } from 'react'
-import { SettingsContext } from './SettingsContext'
 import { NodeContext } from './NodeContext'
 import { useToastController } from '@tamagui/toast'
 
@@ -15,7 +14,7 @@ const REFRESH_INTERVAL = 5_000
 
 export const TorrentsProvider = ({ children }) => {
   const [torrents, setTorrents] = useState([])
-  const { settings } = useContext(SettingsContext)
+  const [sessionStats, setSessionStats] = useState({})
   const { sendRPCMessage } = useContext(NodeContext)
   const toast = useToastController()
 
@@ -56,18 +55,35 @@ export const TorrentsProvider = ({ children }) => {
     }
   }, [sendRPCMessage, toast])
 
+  const fetchSessionStats = useCallback(async () => {
+    try {
+      const response = await sendRPCMessage({
+        method: 'session-stats',
+      })
+
+      setSessionStats(response.arguments)
+    } catch (e) {
+      console.log('error fetching session info', e)
+    }
+  }, [sendRPCMessage])
+
+  const refresh = useCallback(() => {
+    fetchTorrents()
+    fetchSessionStats()
+  }, [fetchTorrents, fetchSessionStats])
+
   useEffect(() => {
     const interval = setInterval(async () => {
-      fetchTorrents()
+      refresh()
     }, REFRESH_INTERVAL)
 
-    fetchTorrents()
+    refresh()
 
     return () => clearInterval(interval)
-  }, [fetchTorrents])
+  }, [refresh])
 
   return (
-    <TorrentsContext.Provider value={{ torrents, refresh: fetchTorrents }}>
+    <TorrentsContext.Provider value={{ torrents, sessionStats, refresh }}>
       {children}
     </TorrentsContext.Provider>
   )

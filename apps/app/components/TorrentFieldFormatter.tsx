@@ -8,11 +8,13 @@ import { TORRENT_STATUSES } from '../constants/torrents'
 type TorrentFieldFormatterProps = {
   name: string
   value: any
+  props: any
 }
 
 export const TorrentFieldFormatter = ({
   name,
   value,
+  ...props
 }: TorrentFieldFormatterProps) => {
   let formattedValue: string | React.ReactNode
   let color
@@ -43,7 +45,9 @@ export const TorrentFieldFormatter = ({
         ) : (
           <ChevronUp color="$green9" size={'$1'} />
         )}
-        <Paragraph fontSize={'$2'}>{prettyBytes(value)}/s</Paragraph>
+        <Paragraph fontSize={'$2'} {...props}>
+          {prettyBytes(value)}/s
+        </Paragraph>
       </XStack>
     )
 
@@ -67,7 +71,7 @@ export const TorrentFieldFormatter = ({
   }
 
   return (
-    <Paragraph {...(color ? { color } : {})} fontSize={'$2'}>
+    <Paragraph {...(color ? { color } : {})} fontSize={'$2'} {...props}>
       {formattedValue}
     </Paragraph>
   )
