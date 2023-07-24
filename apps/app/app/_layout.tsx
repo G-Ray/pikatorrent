@@ -63,6 +63,11 @@ const ThemedLayout = () => {
 
   return (
     <Theme name={theme}>
+      <StatusBar
+        translucent={false}
+        style={theme === 'dark' ? 'light' : 'dark'}
+        backgroundColor={theme === 'dark' ? '#151515' : '#f9f9f9'}
+      />
       <PeerRequest />
       <TermsOfUseDialog />
       <NodeProvider>
@@ -75,11 +80,6 @@ const ThemedLayout = () => {
             {...(Platform.OS === 'web' ? { h: '100vh' } : {})}
             bc="$background"
           >
-            <StatusBar
-              translucent={false}
-              style={theme === 'dark' ? 'light' : 'dark'}
-              backgroundColor={theme === 'dark' ? '#151515' : '#f9f9f9'}
-            />
             <Header />
             <TorrentsProvider>
               {media.gtMd ? <Desktop /> : <Mobile />}
