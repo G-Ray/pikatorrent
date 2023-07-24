@@ -30,6 +30,7 @@
     "burnt": "^0.10.0",
     "expo": "^49.0.4",
     "expo-barcode-scanner": "~12.5.3",
+    "expo-build-properties": "~0.8.3",
     "expo-constants": "~14.4.2",
     "expo-crypto": "~12.4.1",
     "expo-dev-client": "~2.4.6",
@@ -41,6 +42,7 @@
     "expo-splash-screen": "~0.20.4",
     "expo-standard-web-crypto": "^1.5.0",
     "expo-status-bar": "~1.6.0",
+    "fuse.js": "^6.6.2",
     "i18n-js": "^4.2.3",
     "is-electron": "^2.2.2",
     "pretty-bytes": "^6.1.0",
@@ -59,8 +61,7 @@
     "react-native-web": "~0.19.6",
     "react-native-webrtc": "111.0.3",
     "simple-peer": "^9.11.1",
-    "tamagui": "1.43.17",
-    "expo-build-properties": "~0.8.3"
+    "tamagui": "1.43.17"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

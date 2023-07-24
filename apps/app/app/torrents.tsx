@@ -1,28 +1,66 @@
-import React from 'react'
+import React, { useMemo, useState } from 'react'
 import { FlatList } from 'react-native'
+import Fuse from 'fuse.js'
+
 import { TorrentCard, TorrentCardPlaceHolder } from '../components/TorrentCard'
 import { useTorrents } from '../hooks/useTorrents'
-import { XStack, YStack } from 'tamagui'
+import { Input, XStack, YStack, useMedia } from 'tamagui'
 import { AddTorrentDialog } from '../dialogs/AddTorrentDialog'
 import { SearchBar } from '../components/SearchBar'
 import { DESKTOP_MAX_CONTENT_WIDTH } from '../constants/layout'
 import { GlobalStats } from '../components/GlobalStats'
 
 export default function Torrents() {
+  const [filter, setFilter] = useState('')
+  const media = useMedia()
+
   return (
     <YStack f={1}>
       <XStack mx="auto" w="100%" maxWidth={DESKTOP_MAX_CONTENT_WIDTH}>
         <AddTorrentDialog />
         <SearchBar />
       </XStack>
-      <GlobalStats />
-      <TorrentsList />
+
+      <XStack
+        mx="auto"
+        w="100%"
+        py={media.gtXs ? '$4' : '$2'}
+        jc="space-between"
+        maxWidth={DESKTOP_MAX_CONTENT_WIDTH}
+      >
+        <Input
+          br={50}
+          minWidth={220}
+          placeholder="Filter torrents list..."
+          value={filter}
+          onChangeText={setFilter}
+        />
+        <GlobalStats />
+      </XStack>
+      <TorrentsList filter={filter} />
     </YStack>
   )
 }
 
-const TorrentsList = () => {
+type TorrentsListProp = {
+  filter: string
+}
+
+const TorrentsList = ({ filter }: TorrentsListProp) => {
   const { torrents } = useTorrents()
+
+  const fuse = useMemo(
+    () =>
+      new Fuse(torrents, {
+        keys: ['name'],
+        findAllMatches: true,
+        threshold: 0.3,
+      }),
+    [torrents]
+  )
+
+  const displayedTorrents =
+    filter === '' ? torrents : fuse.search(filter).map((res) => res.item)
 
   if (torrents.length === 0) {
     return <TorrentCardPlaceHolder />
@@ -34,15 +72,12 @@ const TorrentsList = () => {
         width: '100%',
         marginLeft: 'auto',
         marginRight: 'auto',
-        padding: 4,
+        paddingLeft: 4,
+        paddingRight: 4,
         maxWidth: DESKTOP_MAX_CONTENT_WIDTH,
       }}
-      data={(torrents || []).map((torrent) => ({
-        torrent,
-      }))}
-      renderItem={({ item }) => (
-        <TorrentCard key={item.torrent.id} torrent={item.torrent} />
-      )}
+      data={displayedTorrents || []}
+      renderItem={({ item }) => <TorrentCard key={item.id} torrent={item} />}
     />
   )
 }

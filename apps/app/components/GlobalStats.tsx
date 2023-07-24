@@ -1,14 +1,13 @@
 import React, { useContext } from 'react'
-import { XStack, useMedia } from 'tamagui'
+import { XStack } from 'tamagui'
 import { TorrentFieldFormatter } from './TorrentFieldFormatter'
 import { TorrentsContext } from '../contexts/TorrentsContext'
 
 export const GlobalStats = () => {
   const { sessionStats } = useContext(TorrentsContext)
-  const media = useMedia()
 
   return (
-    <XStack jc="center" py={media.gtXs ? '$4' : '$2'}>
+    <XStack jc="center">
       <XStack gap="$2">
         <TorrentFieldFormatter
           fontSize={'$3'}
