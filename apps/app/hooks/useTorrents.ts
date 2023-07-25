@@ -7,12 +7,25 @@ export const useTorrents = () => {
   const { sendRPCMessage } = useContext(NodeContext)
 
   const start = async (id: string) => {
-    await sendRPCMessage({ method: 'torrent-start', arguments: { ids: id } }) // NOTE: What difference with torrent-start-now ?
+    await sendRPCMessage({
+      method: 'torrent-start-now',
+      arguments: { ids: id },
+    })
+    refresh()
+  }
+
+  const startAll = async () => {
+    await sendRPCMessage({ method: 'torrent-start-now', arguments: {} })
     refresh()
   }
 
   const pause = async (id: string) => {
     await sendRPCMessage({ method: 'torrent-stop', arguments: { ids: [id] } })
+    refresh()
+  }
+
+  const pauseAll = async () => {
+    await sendRPCMessage({ method: 'torrent-stop', arguments: {} })
     refresh()
   }
 
@@ -25,5 +38,5 @@ export const useTorrents = () => {
     refresh()
   }
 
-  return { torrents, refresh, start, pause, remove }
+  return { torrents, refresh, start, startAll, pause, pauseAll, remove }
 }

@@ -1,14 +1,16 @@
-import React, { useMemo, useState } from 'react'
+import React, { useContext, useMemo, useState } from 'react'
 import { FlatList } from 'react-native'
 import Fuse from 'fuse.js'
 
 import { TorrentCard, TorrentCardPlaceHolder } from '../components/TorrentCard'
 import { useTorrents } from '../hooks/useTorrents'
-import { Input, XStack, YStack, useMedia } from 'tamagui'
+import { Button, Input, XStack, YStack, useMedia, useThemeName } from 'tamagui'
 import { AddTorrentDialog } from '../dialogs/AddTorrentDialog'
 import { SearchBar } from '../components/SearchBar'
 import { DESKTOP_MAX_CONTENT_WIDTH } from '../constants/layout'
 import { GlobalStats } from '../components/GlobalStats'
+import { PauseCircle, PlayCircle } from '@tamagui/lucide-icons'
+import { TorrentsContext } from '../contexts/TorrentsContext'
 
 export default function Torrents() {
   const [filter, setFilter] = useState('')
@@ -28,19 +30,51 @@ export default function Torrents() {
           py={media.gtXs ? '$4' : '$2'}
           jc="space-between"
           maxWidth={DESKTOP_MAX_CONTENT_WIDTH}
+          gap="$2"
         >
+          <StartOrPauseAllTorrents />
           <Input
             br={50}
-            minWidth={220}
+            minWidth={120}
+            maxWidth={300}
+            f={1}
             placeholder="Filter torrents list..."
             value={filter}
             onChangeText={setFilter}
           />
-          <GlobalStats />
+          <XStack gap="$4">
+            <GlobalStats />
+          </XStack>
         </XStack>
       </YStack>
       <TorrentsList filter={filter} />
     </YStack>
+  )
+}
+
+const StartOrPauseAllTorrents = () => {
+  const theme = useThemeName()
+  const { startAll, pauseAll } = useTorrents()
+  const { sessionStats } = useContext(TorrentsContext)
+  const media = useMedia()
+
+  const isAllTorrentsActive = sessionStats.pausedTorrentCount === 0
+
+  if (sessionStats.torrentCount === 0) {
+    return null
+  }
+
+  return (
+    <Button
+      icon={isAllTorrentsActive ? PauseCircle : PlayCircle}
+      elevate
+      bc={theme === 'dark' ? 'black' : 'white'}
+      br={50}
+      px={media.gtXs ? '$4' : '$3'}
+      onPress={isAllTorrentsActive ? pauseAll : startAll}
+    >
+      {isAllTorrentsActive ? 'Pause All' : 'Start All'}
+    </Button>
   )
 }
 

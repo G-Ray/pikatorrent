@@ -9,9 +9,8 @@ export const Header = () => {
   return (
     <YStack>
       <XStack
-        pt="$4"
-        pb="$2"
-        px={media.gtXs ? '$8' : '$2'}
+        pt={media.gtXs ? '$4' : '$0'}
+        px={media.gtXs ? '$8' : '$0'}
         jc="space-between"
         ai="center"
         bc="$background"
