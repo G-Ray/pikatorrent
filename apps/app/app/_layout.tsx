@@ -37,6 +37,8 @@ export default function Layout() {
   })
 
   if (!loaded) {
+    // Note: Deprecated, but status bar has issues if we migrate to the new api
+    // https://github.com/expo/expo/issues/23450
     return <SplashScreen />
   }
 
