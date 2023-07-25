@@ -1,9 +1,10 @@
 import React, { useContext } from 'react'
-import { Card, XStack, useMedia } from 'tamagui'
+import { Card, XStack, useMedia, useThemeName } from 'tamagui'
 import { TorrentFieldFormatter } from './TorrentFieldFormatter'
 import { TorrentsContext } from '../contexts/TorrentsContext'
 
 export const GlobalStats = () => {
+  const theme = useThemeName()
   const { sessionStats } = useContext(TorrentsContext)
   const media = useMedia()
 
@@ -12,7 +13,7 @@ export const GlobalStats = () => {
       <Card
         ai="center"
         jc="center"
-        bc="white"
+        bc={theme === 'light' ? 'white' : 'black'}
         br={50}
         px={media.gtXs ? '$4' : '$2'}
         bordered
