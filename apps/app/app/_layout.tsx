@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import {
   Separator,
   Stack,
@@ -30,21 +30,15 @@ const screenOptions = {
   headerShown: false,
 }
 
-SplashScreen.preventAutoHideAsync()
-
 export default function Layout() {
   const [loaded] = useFonts({
     Inter: require('@tamagui/font-inter/otf/Inter-Medium.otf'),
     InterBold: require('@tamagui/font-inter/otf/Inter-Bold.otf'),
   })
 
-  useEffect(() => {
-    if (loaded) {
-      // Hide the splash screen after the fonts have loaded and the
-      // UI is ready.
-      SplashScreen.hideAsync()
-    }
-  }, [loaded])
+  if (!loaded) {
+    return <SplashScreen />
+  }
 
   return (
     <TamaguiProvider config={config}>
