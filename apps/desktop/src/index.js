@@ -133,6 +133,7 @@ app.on('ready', () => {
 // explicitly with Cmd + Q.
 const handleClose = () => {
   if (process.platform !== 'darwin') {
+    nodeRef.transmission.close()
     wrtc.close()
     app.quit()
   }
