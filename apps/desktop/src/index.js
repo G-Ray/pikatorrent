@@ -113,6 +113,11 @@ const handleSelectFolder = (_, defaultPath) => {
   })
 }
 
+const handleOpenFile = async (_, path) => {
+  const res = await shell.openPath(path)
+  return res
+}
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -124,6 +129,7 @@ app.on('ready', () => {
   ipcMain.handle('transmission:request', handleTransmissionRequest)
   ipcMain.handle('node:openFolder', handleOpenFolder)
   ipcMain.handle('selectFolder', handleSelectFolder)
+  ipcMain.handle('openFile', handleOpenFile)
   ipcMain.handle('quitApp', handleClose)
   require('./check-updates')
 })
@@ -151,5 +157,14 @@ ipcMain.handle('theme:set', (_, theme) => {
   return nativeTheme.shouldUseDarkColors
 })
 
+if (process.defaultApp) {
+  if (process.argv.length >= 2) {
+    app.setAsDefaultProtocolClient('magnet', process.execPath, [
+      path.resolve(process.argv[1]),
+    ])
+  }
+} else {
+  app.setAsDefaultProtocolClient('magnet')
+}
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.

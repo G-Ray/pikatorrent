@@ -19,6 +19,7 @@ module.exports = () => {
       },
       assetBundlePatterns: ['**/*'],
       ios: {
+        bundleIdentifier: 'com.gray.pikatorrent',
         supportsTablet: true,
       },
       android: {
