@@ -24,6 +24,9 @@ export const init = async () => {
       'download-dir': ANDROID_TRANSMISSION_DOWNLOAD_DIR,
     },
   })
+
+  // Save settings as they have been updated
+  transmission.saveSettings()
 }
 
 export const request = (...args) => {
