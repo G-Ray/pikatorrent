@@ -6,7 +6,7 @@
     "build:android:preview": "cross-env TAMAGUI_TARGET=native eas build --profile preview --platform android --local",
     "build:android:production": "cross-env TAMAGUI_TARGET=native eas build --profile production --platform android --local",
     "native": "cross-env TAMAGUI_TARGET=native APP_VARIANT=development expo start --dev-client -p 8082",
-    "android": "cross-env TAMAGUI_TARGET=native expo start --android --dev-client -p 8082",
+    "android": "cross-env TAMAGUI_TARGET=native APP_VARIANT=development expo start --android --dev-client -p 8082",
     "ios": "cross-env TAMAGUI_TARGET=native APP_VARIANT=development expo start --ios --dev-client -p 8082",
     "web": "cross-env TAMAGUI_TARGET=web expo start --web",
     "build:web": "cross-env TAMAGUI_TARGET=web expo export --platform web",
@@ -69,7 +69,6 @@
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@tamagui/babel-plugin": "1.43.17",
-    "@types/mime": "^3.0.1",
     "@types/react": "~18.2.14",
     "@types/simple-peer": "^9.11.5",
     "@typescript-eslint/eslint-plugin": "^5.57.0",

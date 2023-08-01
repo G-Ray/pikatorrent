@@ -145,10 +145,8 @@ const TorrentActions = ({ theme = 'light', torrent, handleOpenFolder }) => {
             <SettingsProvider>
               <NodeProvider>
                 <TorrentsProvider>
-                  {/* <ThemeProvider theme={theme}> */}
                   <EditLabelsDialog torrent={torrent} />
-                  <RemoveTorrentDialog id={torrent.id} />
-                  {/* </ThemeProvider> */}
+                  <RemoveTorrentDialog id={torrent.id} name={torrent.name} />
                 </TorrentsProvider>
               </NodeProvider>
             </SettingsProvider>

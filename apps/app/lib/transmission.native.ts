@@ -7,7 +7,7 @@ const documentDirectory = FileSystem.documentDirectory?.substring(
 
 const ANDROID_TRANSMISSION_CONFIG_DIR = `${documentDirectory}transmission`
 const ANDROID_TRANSMISSION_APP_NAME = 'transmission'
-const ANDROID_TRANSMISSION_DOWNLOAD_DIR = '/sdcard/Download'
+const ANDROID_TRANSMISSION_DOWNLOAD_DIR = `${documentDirectory}downloads`
 
 let transmission: Transmission
 
