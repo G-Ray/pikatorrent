@@ -14,6 +14,7 @@ import {
   Paragraph,
   Progress,
   ScrollView,
+  Theme,
   XStack,
   YStack,
   useMedia,
@@ -121,38 +122,40 @@ export const TorrentCard = ({ torrent }) => {
 
 const TorrentActions = ({ theme = 'light', torrent, handleOpenFolder }) => {
   return (
-    <XStack ml="auto">
-      <Dialog
-        trigger={
-          <Button
-            circular
-            icon={Menu}
-            bc={theme === 'light' ? 'white' : 'black'}
-          ></Button>
-        }
-        snapPoints={[32]}
-      >
-        <YStack gap="$4" pt="$8">
-          {isElectron() && torrent.percentDone === 1 && (
-            <Button icon={FolderOpen} onPress={handleOpenFolder}>
-              Open Folder
-            </Button>
-          )}
-          <FilesListDialog torrent={torrent} />
-          {/* NOTE: we need to redeclare providers for the nested dialog */}
-          <SettingsProvider>
-            <NodeProvider>
-              <TorrentsProvider>
-                {/* <ThemeProvider theme={theme}> */}
-                <EditLabelsDialog torrent={torrent} />
-                <RemoveTorrentDialog id={torrent.id} />
-                {/* </ThemeProvider> */}
-              </TorrentsProvider>
-            </NodeProvider>
-          </SettingsProvider>
-        </YStack>
-      </Dialog>
-    </XStack>
+    <Theme name={theme}>
+      <XStack ml="auto">
+        <Dialog
+          trigger={
+            <Button
+              circular
+              icon={Menu}
+              bc={theme === 'light' ? 'white' : 'black'}
+            ></Button>
+          }
+          snapPoints={[32]}
+        >
+          <YStack gap="$4" pt="$8">
+            {isElectron() && torrent.percentDone === 1 && (
+              <Button icon={FolderOpen} onPress={handleOpenFolder}>
+                Open Folder
+              </Button>
+            )}
+            <FilesListDialog torrent={torrent} />
+            {/* NOTE: we need to redeclare providers for the nested dialog */}
+            <SettingsProvider>
+              <NodeProvider>
+                <TorrentsProvider>
+                  {/* <ThemeProvider theme={theme}> */}
+                  <EditLabelsDialog torrent={torrent} />
+                  <RemoveTorrentDialog id={torrent.id} />
+                  {/* </ThemeProvider> */}
+                </TorrentsProvider>
+              </NodeProvider>
+            </SettingsProvider>
+          </YStack>
+        </Dialog>
+      </XStack>
+    </Theme>
   )
 }
 
