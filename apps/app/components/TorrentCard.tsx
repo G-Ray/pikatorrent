@@ -98,6 +98,7 @@ export const TorrentCard = ({ torrent }) => {
           <XStack jc="space-between">
             <TorrentInfo torrent={torrent} />
             <ScrollView
+              ml="$2"
               horizontal
               contentContainerStyle={{
                 flexGrow: 1,
