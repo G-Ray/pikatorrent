@@ -102,8 +102,9 @@ const sendSettingToRenderer = () => {
   mainWindow.webContents.send('onNodeSettingsUpdate', nodeRef.settings)
 }
 
-const handleOpenFolder = (_, path) => {
-  shell.showItemInFolder(path)
+const handleOpenFolder = (_, ...paths) => {
+  const pathToFolder = path.join(...paths)
+  shell.showItemInFolder(pathToFolder)
 }
 
 const handleSelectFolder = (_, defaultPath) => {
@@ -113,8 +114,9 @@ const handleSelectFolder = (_, defaultPath) => {
   })
 }
 
-const handleOpenFile = async (_, path) => {
-  const res = await shell.openPath(path)
+const handleOpenFile = async (_, ...paths) => {
+  const pathToFile = path.join(...paths)
+  const res = await shell.openPath(pathToFile)
   return res
 }
 

@@ -12,10 +12,10 @@ contextBridge.exposeInMainWorld('electronAPI', {
     ipcRenderer.invoke('transmission:request', request),
   handleAcceptOrRejectPeer: (callback) =>
     ipcRenderer.on('onAcceptOrRejectPeer', callback),
-  openFolder: (path) => ipcRenderer.invoke('node:openFolder', path),
+  openFolder: (...paths) => ipcRenderer.invoke('node:openFolder', ...paths),
   selectFolder: (...args) => ipcRenderer.invoke('selectFolder', ...args),
   quitApp: () => ipcRenderer.invoke('quitApp'),
-  openFile: (path) => ipcRenderer.invoke('openFile', path),
+  openFile: (...paths) => ipcRenderer.invoke('openFile', ...paths)
 })
 
 contextBridge.exposeInMainWorld('theme', {

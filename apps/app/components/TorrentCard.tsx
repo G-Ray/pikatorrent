@@ -41,8 +41,7 @@ export const TorrentCard = ({ torrent }) => {
 
   const handleOpenFolder = () => {
     if (isElectron()) {
-      const path = torrent.downloadDir + '/' + torrent.name
-      window.electronAPI.openFolder(path)
+      window.electronAPI.openFolder(torrent.downloadDir, torrent.name)
     }
   }
 

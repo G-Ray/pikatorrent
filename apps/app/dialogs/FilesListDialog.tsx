@@ -40,7 +40,7 @@ const handleOpenFile = async (torrent, file) => {
   }
 
   if (isElectron()) {
-    await window.electronAPI.openFile(buildFilePath(torrent, file))
+    await window.electronAPI.openFile(torrent.downloadDir, file.name)
   }
 }
 
