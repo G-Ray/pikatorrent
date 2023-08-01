@@ -33,6 +33,7 @@ export const TorrentsProvider = ({ children }) => {
             'rateDownload',
             'rateUpload',
             'totalSize',
+            'labels',
           ],
         },
       })

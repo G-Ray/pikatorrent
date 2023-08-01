@@ -11,9 +11,11 @@ import { DESKTOP_MAX_CONTENT_WIDTH } from '../constants/layout'
 import { GlobalStats } from '../components/GlobalStats'
 import { PauseCircle, PlayCircle } from '@tamagui/lucide-icons'
 import { TorrentsContext } from '../contexts/TorrentsContext'
+import { Filters } from '../components/Filters'
 
 export default function Torrents() {
   const [filter, setFilter] = useState('')
+  const [filters, setFilters] = useState([])
   const media = useMedia()
 
   return (
@@ -33,6 +35,7 @@ export default function Torrents() {
           gap="$2"
         >
           <StartOrPauseAllTorrents />
+          <Filters onChangeFilters={setFilters} />
           <Input
             br={50}
             minWidth={120}
@@ -47,7 +50,7 @@ export default function Torrents() {
           </XStack>
         </XStack>
       </YStack>
-      <TorrentsList filter={filter} />
+      <TorrentsList filter={filter} filters={filters} />
     </YStack>
   )
 }
@@ -72,35 +75,53 @@ const StartOrPauseAllTorrents = () => {
       br={50}
       px={media.gtXs ? '$4' : '$3'}
       onPress={isAllTorrentsActive ? pauseAll : startAll}
+      circular={!media.gtXs}
     >
-      {isAllTorrentsActive ? 'Pause All' : 'Start All'}
+      {media.gtXs ? (isAllTorrentsActive ? 'Pause All' : 'Start All') : ''}
     </Button>
   )
 }
 
 type TorrentsListProp = {
   filter: string
+  filters: string[] // only labels for now
 }
 
-const TorrentsList = ({ filter }: TorrentsListProp) => {
+const TorrentsList = ({ filter, filters }: TorrentsListProp) => {
   const { torrents } = useTorrents()
   const media = useMedia()
 
+  const filteredTorrents =
+    filters.length > 0
+      ? torrents.filter((t) => filters.every((l) => t.labels.includes(l)))
+      : torrents
+
   const fuse = useMemo(
     () =>
-      new Fuse(torrents, {
+      new Fuse(filteredTorrents, {
         keys: ['name'],
         findAllMatches: true,
         threshold: 0.3,
       }),
-    [torrents]
+    [filteredTorrents]
   )
 
   const displayedTorrents =
-    filter === '' ? torrents : fuse.search(filter).map((res) => res.item)
+    filter === ''
+      ? filteredTorrents
+      : fuse.search(filter).map((res) => res.item)
 
   if (torrents.length === 0) {
-    return <TorrentCardPlaceHolder />
+    return (
+      <XStack
+        w="100%"
+        mx="auto"
+        px={media.gtXs ? 46 : 7}
+        maxWidth={DESKTOP_MAX_CONTENT_WIDTH + (media.gtXs ? 46 * 2 : 7 * 2)}
+      >
+        <TorrentCardPlaceHolder />
+      </XStack>
+    )
   }
 
   return (
