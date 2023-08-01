@@ -15,6 +15,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   openFolder: (path) => ipcRenderer.invoke('node:openFolder', path),
   selectFolder: (...args) => ipcRenderer.invoke('selectFolder', ...args),
   quitApp: () => ipcRenderer.invoke('quitApp'),
+  openFile: (path) => ipcRenderer.invoke('openFile', path),
 })
 
 contextBridge.exposeInMainWorld('theme', {
