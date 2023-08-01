@@ -272,6 +272,7 @@ const initPeer = (id, offer) => {
       // Trigger request
       try {
         response = await tr.request(payload)
+        saveSettingsIfNeeded(payload)
       } catch (e) {
         response = { error: e.message }
       }
@@ -392,8 +393,20 @@ const saveRejectedPeer = (peerId, name) => {
   })
 }
 
+const saveSettingsIfNeeded = (request) => {
+  if (request.method === 'session-set') {
+    // session have been updated, so save settings
+    tr.saveSettings()
+  }
+}
+
 const transmission = {
-  request: (...args) => tr.request(...args),
+  request: (...args) => {
+    tr.request(...args)
+    saveSettingsIfNeeded(args[0])
+  },
+  saveSettings: () => tr.saveSettings(),
+  close: () => tr.close(),
 }
 
 // Handle exit gracefully : TODO: expose close/destroy function

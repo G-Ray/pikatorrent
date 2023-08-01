@@ -88,7 +88,9 @@ const Dialog = ({
           exitStyle={{ x: 0, y: 10, opacity: 0, scale: 0.95 }}
           space
         >
-          {title && <TamaguiDialog.Title>{title}</TamaguiDialog.Title>}
+          {title && (
+            <TamaguiDialog.Title fontSize={'$8'}>{title}</TamaguiDialog.Title>
+          )}
           {children}
           <Unspaced>
             <TamaguiDialog.Close asChild>

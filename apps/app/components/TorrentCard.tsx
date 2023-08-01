@@ -13,6 +13,8 @@ import {
   H6,
   Paragraph,
   Progress,
+  ScrollView,
+  Theme,
   XStack,
   YStack,
   useMedia,
@@ -28,6 +30,8 @@ import { Dialog } from '../dialogs/Dialog'
 import { TorrentsProvider } from '../contexts/TorrentsContext'
 import { NodeProvider } from '../contexts/NodeContext'
 import { SettingsProvider } from '../contexts/SettingsContext'
+import { Label } from './Label'
+import { EditLabelsDialog } from '../dialogs/EditLabelsDialog'
 
 export const TorrentCard = ({ torrent }) => {
   const media = useMedia()
@@ -92,8 +96,23 @@ export const TorrentCard = ({ torrent }) => {
           >
             <Progress.Indicator animation="lazy" bc={'$yellow9'} />
           </Progress>
-          <XStack>
+          <XStack jc="space-between">
             <TorrentInfo torrent={torrent} />
+            <ScrollView
+              ml="$2"
+              horizontal
+              contentContainerStyle={{
+                flexGrow: 1,
+                alignItems: 'flex-end',
+                justifyContent: 'flex-end',
+              }}
+            >
+              <XStack gap={media.gtXs ? '$2' : '$1'}>
+                {torrent.labels.map((label, index) => (
+                  <Label key={index} name={label} color={'$gray12'}></Label>
+                ))}
+              </XStack>
+            </ScrollView>
           </XStack>
         </YStack>
       </XStack>
@@ -103,34 +122,40 @@ export const TorrentCard = ({ torrent }) => {
 
 const TorrentActions = ({ theme = 'light', torrent, handleOpenFolder }) => {
   return (
-    <XStack ml="auto">
-      <Dialog
-        trigger={
-          <Button
-            circular
-            icon={Menu}
-            bc={theme === 'light' ? 'white' : 'black'}
-          ></Button>
-        }
-        snapPoints={[24]}
-      >
-        <YStack gap="$4" pt="$8">
-          {isElectron() && torrent.percentDone === 1 && (
-            <Button icon={FolderOpen} onPress={handleOpenFolder}>
-              Open Folder
-            </Button>
-          )}
-          <FilesListDialog torrent={torrent} />
-          <SettingsProvider>
-            <NodeProvider>
-              <TorrentsProvider>
-                <RemoveTorrentDialog id={torrent.id} />
-              </TorrentsProvider>
-            </NodeProvider>
-          </SettingsProvider>
-        </YStack>
-      </Dialog>
-    </XStack>
+    <Theme name={theme}>
+      <XStack ml="auto">
+        <Dialog
+          trigger={
+            <Button
+              circular
+              icon={Menu}
+              bc={theme === 'light' ? 'white' : 'black'}
+            ></Button>
+          }
+          snapPoints={[32]}
+        >
+          <YStack gap="$4" pt="$8">
+            {isElectron() && torrent.percentDone === 1 && (
+              <Button icon={FolderOpen} onPress={handleOpenFolder}>
+                Open Folder
+              </Button>
+            )}
+            <FilesListDialog torrent={torrent} />
+            {/* NOTE: we need to redeclare providers for the nested dialog */}
+            <SettingsProvider>
+              <NodeProvider>
+                <TorrentsProvider>
+                  {/* <ThemeProvider theme={theme}> */}
+                  <EditLabelsDialog torrent={torrent} />
+                  <RemoveTorrentDialog id={torrent.id} />
+                  {/* </ThemeProvider> */}
+                </TorrentsProvider>
+              </NodeProvider>
+            </SettingsProvider>
+          </YStack>
+        </Dialog>
+      </XStack>
+    </Theme>
   )
 }
 
@@ -160,20 +185,22 @@ const TorrentInfo = ({ torrent }) => {
 export const TorrentCardPlaceHolder = () => {
   return (
     <Card
+      w="100%"
       size="$4"
       bordered
       br="$6"
-      mb="$4"
       height={160}
       borderStyle="dashed"
       borderWidth="$1"
     >
-      <Card.Header f={1} ai="center" jc="center">
-        <ArrowBigUp size={'$4'} />
-        <H4 numberOfLines={1} fontWeight="bold">
-          Add your first torrent
-        </H4>
-        <Paragraph>Your torrents will be displayed here</Paragraph>
+      <Card.Header w="100%">
+        <YStack ai="center" jc="center">
+          <ArrowBigUp size={'$4'} />
+          <H4 numberOfLines={1} fontWeight="bold">
+            Add your first torrent
+          </H4>
+          <Paragraph>Your torrents will be displayed here</Paragraph>
+        </YStack>
       </Card.Header>
     </Card>
   )

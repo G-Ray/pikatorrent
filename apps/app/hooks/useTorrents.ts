@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useMemo } from 'react'
 import { TorrentsContext } from '../contexts/TorrentsContext'
 import { NodeContext } from '../contexts/NodeContext'
 
@@ -38,5 +38,31 @@ export const useTorrents = () => {
     refresh()
   }
 
-  return { torrents, refresh, start, startAll, pause, pauseAll, remove }
+  const setLabels = async (id: string, labels: string[]) => {
+    await sendRPCMessage({
+      method: 'torrent-set',
+      arguments: { ids: id, labels },
+    })
+    refresh()
+  }
+
+  const labels = useMemo(
+    () =>
+      torrents.reduce((acc: string[], t: any) => {
+        return [...acc, ...t.labels.filter((l: string) => !acc.includes(l))]
+      }, []),
+    [torrents]
+  )
+
+  return {
+    torrents,
+    refresh,
+    start,
+    startAll,
+    pause,
+    pauseAll,
+    remove,
+    setLabels,
+    labels,
+  }
 }
