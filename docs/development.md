@@ -63,3 +63,8 @@ npm run cli node
 ```sh
 npm run site
 ```
+
+### Notes
+
+`patch-package` is not compatible with lockfile version 3.
+As a workaround, create a temporary v2 lockfile with npm i --lockfile-version 2
