@@ -2,16 +2,19 @@ import React, { useContext, useMemo, useState } from 'react'
 import { FlatList } from 'react-native'
 import Fuse from 'fuse.js'
 
-import { TorrentCard, TorrentCardPlaceHolder } from '../components/TorrentCard'
-import { useTorrents } from '../hooks/useTorrents'
+import {
+  TorrentCard,
+  TorrentCardPlaceHolder,
+} from '../../components/TorrentCard'
+import { useTorrents } from '../../hooks/useTorrents'
 import { Button, Input, XStack, YStack, useMedia, useThemeName } from 'tamagui'
-import { AddTorrentDialog } from '../dialogs/AddTorrentDialog'
-import { SearchBar } from '../components/SearchBar'
-import { DESKTOP_MAX_CONTENT_WIDTH } from '../constants/layout'
-import { GlobalStats } from '../components/GlobalStats'
-import { PauseCircle, PlayCircle } from '@tamagui/lucide-icons'
-import { TorrentsContext } from '../contexts/TorrentsContext'
-import { Filters } from '../components/Filters'
+import { SearchBar } from '../../components/SearchBar'
+import { DESKTOP_MAX_CONTENT_WIDTH } from '../../constants/layout'
+import { GlobalStats } from '../../components/GlobalStats'
+import { PauseCircle, PlayCircle, PlusCircle } from '@tamagui/lucide-icons'
+import { TorrentsContext } from '../../contexts/TorrentsContext'
+import { Filters } from '../../components/Filters'
+import { Link, Slot } from 'expo-router'
 
 export default function Torrents() {
   const [filter, setFilter] = useState('')
@@ -22,7 +25,19 @@ export default function Torrents() {
     <YStack f={1}>
       <YStack px={media.gtXs ? '$8' : '$2'}>
         <XStack mx="auto" w="100%" maxWidth={DESKTOP_MAX_CONTENT_WIDTH}>
-          <AddTorrentDialog />
+          <Link asChild href="/add" style={{ textDecorationLine: 'none' }}>
+            <Button
+              borderColor={'$yellow9'}
+              theme="yellow"
+              icon={PlusCircle}
+              borderTopLeftRadius={50}
+              borderBottomLeftRadius={50}
+              borderTopRightRadius={0}
+              borderBottomRightRadius={0}
+            >
+              Add
+            </Button>
+          </Link>
           <SearchBar />
         </XStack>
 
@@ -51,6 +66,7 @@ export default function Torrents() {
         </XStack>
       </YStack>
       <TorrentsList filter={filter} filters={filters} />
+      <Slot />
     </YStack>
   )
 }

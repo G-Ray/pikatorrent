@@ -28,6 +28,19 @@ module.exports = () => {
           foregroundImage: './assets/adaptive-icon.png',
           backgroundColor: '#ffffff',
         },
+        intentFilters: [
+          {
+            action: 'VIEW',
+            data: [{ scheme: 'magnet' }],
+            category: ['BROWSABLE', 'DEFAULT'],
+          },
+          // TODO:
+          // {
+          //   action: 'VIEW',
+          //   data: [{ scheme: 'content', mimeType: 'application/x-bittorrent' }],
+          //   category: ['BROWSABLE', 'DEFAULT'],
+          // },
+        ],
       },
       web: {
         favicon: './assets/favicon.png',

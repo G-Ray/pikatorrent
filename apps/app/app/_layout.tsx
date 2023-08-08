@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import {
   Separator,
   Stack,
@@ -9,10 +9,11 @@ import {
   YStack,
 } from 'tamagui'
 import { useFonts } from 'expo-font'
-import { SplashScreen, Tabs } from 'expo-router'
+import { Redirect, SplashScreen, Tabs, useRouter } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import { ToastProvider, ToastViewport } from '@tamagui/toast'
 import { useColorScheme } from 'react-native'
+import * as Linking from 'expo-linking'
 
 import config from '../tamagui.config'
 import { Header, BottomTabs, Sidebar } from '../components'
@@ -24,6 +25,7 @@ import { NodeProvider } from '../contexts/NodeContext'
 import { PeerRequest } from '../components/PeerRequest'
 import { SettingsContext, SettingsProvider } from '../contexts/SettingsContext'
 import { TermsOfUseDialog } from '../dialogs/TermsOfUseDialog'
+import isElectron from 'is-electron'
 
 const screenOptions = {
   title: 'PikaTorrent',
@@ -44,11 +46,41 @@ export default function Layout() {
 
   return (
     <TamaguiProvider config={config}>
+      <NativeURLHandlers />
       <SettingsProvider>
         <ThemedLayout />
       </SettingsProvider>
     </TamaguiProvider>
   )
+}
+
+const NativeURLHandlers = () => {
+  const url = Linking.useURL()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!isElectron()) {
+      return
+    }
+
+    // subscribe to redirects from electron main
+    window.electronAPI.onRedirect((_, route: string) => {
+      router.push(route)
+    })
+  }, [router])
+
+  if (Platform.OS === 'android') {
+    if (typeof url === 'string' && /^magnet:/.test(url)) {
+      return <Redirect href={'/add?magnet=' + encodeURIComponent(url)} />
+    }
+
+    // TODO
+    // if (typeof url === 'string' && /^content:/.test(url)) {
+    //   return <Redirect href={'/add?content=' + encodeURIComponent(url)} />
+    // }
+  }
+
+  return null
 }
 
 const ThemedLayout = () => {

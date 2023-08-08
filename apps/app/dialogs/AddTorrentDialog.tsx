@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import { PlusCircle } from '@tamagui/lucide-icons'
 import { useContext, useState } from 'react'
 import { Button, Fieldset, Input, Label, Paragraph, YStack } from 'tamagui'
 import { NodeContext } from '../contexts/NodeContext'
@@ -7,6 +6,8 @@ import { Platform } from 'react-native'
 import * as DocumentPicker from 'expo-document-picker'
 import * as FileSystem from 'expo-file-system'
 import { Dialog } from './Dialog'
+import { useLocalSearchParams, useRouter } from 'expo-router'
+import { useURL } from 'expo-linking'
 
 function readFileToBase64(document: DocumentPicker.DocumentResult) {
   return new Promise((resolve, reject) => {
@@ -31,26 +32,37 @@ export const AddTorrentDialog = () => {
   const [documentResult, setDocumentResult] =
     useState<DocumentPicker.DocumentResult | null>(null)
   const { sendRPCMessage } = useContext(NodeContext)
-
-  const defaultOpen = Boolean(
-    Platform.OS === 'web' &&
-      new URLSearchParams(document.location.search).get('magnet')
-  )
+  const localSearchParams = useLocalSearchParams()
+  const router = useRouter()
+  const url = useURL()
 
   useEffect(() => {
-    // Open modal with magnet from url searchParams
-    if (Platform.OS !== 'web') return
+    if (!url) return
 
-    const searchParams = new URLSearchParams(document.location.search)
-    if (searchParams.get('magnet')) {
-      setMagnet(searchParams.get('magnet'))
+    // Web links, hash are supported
+    if (url.includes('#')) {
+      const afterHash = url.split('#')[1]
+      if (afterHash) {
+        setMagnet(decodeURIComponent(afterHash))
+        return
+      }
     }
-  }, [])
+  }, [url])
 
-  const resetState = () => {
-    setMagnet('')
-    setDocumentResult(null)
-  }
+  useEffect(() => {
+    if (Platform.OS !== 'android') {
+      return
+    }
+
+    // Handle magnet links on Android
+    // hash in routes are not supported yet
+    if (
+      localSearchParams.magnet &&
+      typeof localSearchParams.magnet === 'string'
+    ) {
+      setMagnet(decodeURIComponent(localSearchParams.magnet))
+    }
+  }, [localSearchParams])
 
   const handleAddTorrent = async () => {
     try {
@@ -82,28 +94,18 @@ export const AddTorrentDialog = () => {
 
   return (
     <Dialog
-      onOpenChange={resetState}
+      onOpenChange={() => {
+        router.push('')
+        // TODO: wait for animation duration to finish
+      }}
       snapPoints={[42]}
-      defaultOpen={defaultOpen}
+      defaultOpen
       title="Add a torrent"
-      trigger={
-        <Button
-          borderColor={'$yellow9'}
-          theme="yellow"
-          icon={PlusCircle}
-          borderTopLeftRadius={50}
-          borderBottomLeftRadius={50}
-          borderTopRightRadius={0}
-          borderBottomRightRadius={0}
-        >
-          Add
-        </Button>
-      }
     >
       <Fieldset horizontal gap="$4">
         <Input
           f={1}
-          id="name"
+          id="torrent-uri"
           placeholder="torrent or magnet:// links"
           value={magnet}
           onChangeText={setMagnet}

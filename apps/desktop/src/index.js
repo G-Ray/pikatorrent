@@ -16,6 +16,60 @@ if (require('electron-squirrel-startup')) {
   app.quit()
 }
 
+if (process.defaultApp) {
+  if (process.argv.length >= 2) {
+    app.setAsDefaultProtocolClient('magnet', process.execPath, [
+      path.resolve(process.argv[1]),
+    ])
+  }
+} else {
+  app.setAsDefaultProtocolClient('magnet')
+}
+
+const gotTheLock = app.requestSingleInstanceLock()
+
+if (!gotTheLock) {
+  app.quit()
+} else {
+  // Linux & Windows
+  app.on('second-instance', (event, commandLine, workingDirectory) => {
+    // Someone tried to run a second instance, we should focus our window.
+    if (mainWindow) {
+      if (mainWindow.isMinimized()) mainWindow.restore()
+      mainWindow.focus()
+    }
+
+    // the commandLine is array of strings in which last element is deep link url
+    const link = commandLine.pop()
+    if (/^magnet:/.test(link)) {
+      // Redirect app to /add#magnet:
+      redirect('/add#' + link)
+    }
+  })
+
+  // Create mainWindow, load the rest of the app, etc...
+  app.whenReady().then(() => {
+    handleAppReady()
+  })
+
+  // TODO: MacOS only
+  // app.on('open-url', (event, url) => {
+  // })
+}
+
+const handleAppReady = () => {
+  createWindow()
+  startPikatorrentNode()
+  ipcMain.handle('node:getNodeSettings', handleGetNodeSettings)
+  ipcMain.handle('node:updateSettings', handleUpdateNodeSettings)
+  ipcMain.handle('transmission:request', handleTransmissionRequest)
+  ipcMain.handle('node:openFolder', handleOpenFolder)
+  ipcMain.handle('selectFolder', handleSelectFolder)
+  ipcMain.handle('openFile', handleOpenFile)
+  ipcMain.handle('quitApp', handleClose)
+  require('./check-updates')
+}
+
 let wrtc
 let loadURL =
   process.env.NODE_ENV === 'production' ? serve({ directory: 'dist' }) : null
@@ -107,6 +161,10 @@ const handleOpenFolder = (_, ...paths) => {
   shell.showItemInFolder(pathToFolder)
 }
 
+const redirect = (route) => {
+  mainWindow.webContents.send('onRedirect', route)
+}
+
 const handleSelectFolder = (_, defaultPath) => {
   return dialog.showOpenDialogSync(mainWindow, {
     defaultPath,
@@ -119,22 +177,6 @@ const handleOpenFile = async (_, ...paths) => {
   const res = await shell.openPath(pathToFile)
   return res
 }
-
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on('ready', () => {
-  createWindow()
-  startPikatorrentNode()
-  ipcMain.handle('node:getNodeSettings', handleGetNodeSettings)
-  ipcMain.handle('node:updateSettings', handleUpdateNodeSettings)
-  ipcMain.handle('transmission:request', handleTransmissionRequest)
-  ipcMain.handle('node:openFolder', handleOpenFolder)
-  ipcMain.handle('selectFolder', handleSelectFolder)
-  ipcMain.handle('openFile', handleOpenFile)
-  ipcMain.handle('quitApp', handleClose)
-  require('./check-updates')
-})
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
@@ -159,15 +201,5 @@ ipcMain.handle('theme:set', (_, theme) => {
   nativeTheme.themeSource = theme
   return nativeTheme.shouldUseDarkColors
 })
-
-if (process.defaultApp) {
-  if (process.argv.length >= 2) {
-    app.setAsDefaultProtocolClient('magnet', process.execPath, [
-      path.resolve(process.argv[1]),
-    ])
-  }
-} else {
-  app.setAsDefaultProtocolClient('magnet')
-}
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.

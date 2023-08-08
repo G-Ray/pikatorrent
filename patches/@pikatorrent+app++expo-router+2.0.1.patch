@@ -1,0 +1,25 @@
+diff --git a/node_modules/@pikatorrent/app/node_modules/expo-router/src/fork/useLinking.native.ts b/node_modules/@pikatorrent/app/node_modules/expo-router/src/fork/useLinking.native.ts
+index 93ccd6c..c65d148 100644
+--- a/node_modules/@pikatorrent/app/node_modules/expo-router/src/fork/useLinking.native.ts
++++ b/node_modules/@pikatorrent/app/node_modules/expo-router/src/fork/useLinking.native.ts
+@@ -11,6 +11,7 @@ import {
+ import type { LinkingOptions } from "@react-navigation/native";
+ import * as React from "react";
+ import { Linking, Platform } from "react-native";
++import URL from "url-parse";
+ 
+ import { extractExpoPathFromURL } from "./extractPathFromURL";
+ 
+@@ -172,6 +173,12 @@ export default function useLinking(
+       //   if (!enabled) {
+       //     return;
+       //   }
++      const parsedUrl = new URL(url, true)
++
++      // Hack to avoid expo-router to redirect with a protocols we use
++      if (['content:', 'magnet:'].includes(parsedUrl.protocol)) {
++        return
++      }
+ 
+       const navigation = ref.current;
+       const state = navigation ? getStateFromURL(url) : undefined;
