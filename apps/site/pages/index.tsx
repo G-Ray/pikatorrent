@@ -155,7 +155,9 @@ export default function Home() {
           </Paragraph>
 
           <Paragraph>
-            <Link href={'https://discord.gg/6HxCV4aGdy'}>Discord</Link>
+            <Link href={'https://discord.gg/6HxCV4aGdy'} target="_blank">
+              Discord
+            </Link>
           </Paragraph>
         </XStack>
       </footer>
