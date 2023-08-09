@@ -6,7 +6,7 @@ export const ButtonLink = ({ title, href, icon, withLabel = true }) => {
   const pathname = usePathname()
   const media = useMedia()
 
-  const isActive = pathname === href
+  const isActive = pathname.substring(0, href.length) === href
 
   return (
     <Link href={href} asChild style={{ textDecorationLine: 'none' }}>
