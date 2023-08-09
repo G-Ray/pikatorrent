@@ -42,8 +42,8 @@ if (!gotTheLock) {
     // the commandLine is array of strings in which last element is deep link url
     const link = commandLine.pop()
     if (/^magnet:/.test(link)) {
-      // Redirect app to /add#magnet:
-      redirect('/add#' + link)
+      // Redirect app to /add?magnet Url hashes are not supported yet by expo-router
+      redirect(buildDeepLink(link))
     }
   })
 
@@ -55,6 +55,22 @@ if (!gotTheLock) {
   // TODO: MacOS only
   // app.on('open-url', (event, url) => {
   // })
+}
+
+const buildInitialDeepLink = () => {
+  const initialLink =
+    process.env.NODE_ENV === 'production' ? process.argv[1] : process.argv[2]
+
+  return buildDeepLink(initialLink)
+}
+
+const buildDeepLink = (link) => {
+  if (/^magnet:/.test(link)) {
+    // Redirect app to /add?magnet Url hashes are not supported yet by expo-router
+    return '/add?magnet=' + encodeURIComponent(link)
+  }
+
+  return ''
 }
 
 const handleAppReady = () => {
@@ -99,9 +115,9 @@ const createWindow = async () => {
   if (process.env.NODE_ENV === 'production') {
     mainWindow.removeMenu()
     await loadURL(mainWindow)
-    await mainWindow.loadURL('app://-')
+    await mainWindow.loadURL('app://-' + buildInitialDeepLink())
   } else {
-    mainWindow.loadURL('http://localhost:8081')
+    mainWindow.loadURL('http://localhost:8081' + buildInitialDeepLink())
     // Open the DevTools.
     mainWindow.webContents.openDevTools()
   }
