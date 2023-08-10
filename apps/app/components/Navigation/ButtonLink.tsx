@@ -1,12 +1,12 @@
 import React from 'react'
-import { Link, usePathname } from 'expo-router'
+import { Link, useSegments } from 'expo-router'
 import { Button, useMedia } from 'tamagui'
 
-export const ButtonLink = ({ title, href, icon, withLabel = true }) => {
-  const pathname = usePathname()
+export const ButtonLink = ({ title, href, segment, icon }) => {
   const media = useMedia()
+  const segments = useSegments()
 
-  const isActive = pathname.substring(0, href.length) === href
+  const isActive = segments[0] === segment
 
   return (
     <Link href={href} asChild style={{ textDecorationLine: 'none' }}>
