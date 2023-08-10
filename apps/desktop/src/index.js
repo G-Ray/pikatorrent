@@ -65,13 +65,24 @@ const buildInitialDeepLink = () => {
 }
 
 const buildDeepLink = (link) => {
-  if (/^magnet:/.test(link)) {
-    // Redirect app to /add?magnet Url hashes are not supported yet by expo-router
-    return '/add?magnet=' + encodeURIComponent(link)
+  try {
+    const url = new URL(link)
+    if (url.protocol === 'magnet:') {
+      return '/add#' + encodeURIComponent(link)
+    }
+
+    if (url.protocol === 'pikatorrent:') {
+      // Open deep link
+      return url.pathname + url.hash
+    }
+  } catch (e) {
+    console.error(e)
   }
 
   return ''
 }
+
+console.log('buildInitialDeepLink', buildInitialDeepLink())
 
 const handleAppReady = () => {
   createWindow()

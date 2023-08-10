@@ -9,7 +9,7 @@ import {
   YStack,
 } from 'tamagui'
 import { useFonts } from 'expo-font'
-import { Redirect, SplashScreen, Tabs, useRouter } from 'expo-router'
+import { SplashScreen, Tabs, usePathname, useRouter } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import { ToastProvider, ToastViewport } from '@tamagui/toast'
 import { useColorScheme } from 'react-native'
@@ -57,28 +57,44 @@ export default function Layout() {
 const NativeURLHandlers = () => {
   const url = Linking.useURL()
   const router = useRouter()
+  const pathname = usePathname()
 
   useEffect(() => {
+    // In Electron, subscribe for redirects from main process
     if (!isElectron()) {
       return
     }
 
-    // subscribe to redirects from electron main
     window.electronAPI.onRedirect((_, route: string) => {
       router.push(route)
     })
   }, [router])
 
-  if (Platform.OS === 'android') {
+  useEffect(() => {
+    // Redirect incoming magnet links to /add?magnet=
+    // as expo-router does not support hash for now
     if (typeof url === 'string' && /^magnet:/.test(url)) {
-      return <Redirect href={'/add?magnet=' + encodeURIComponent(url)} />
+      router.replace('/add?magnet=' + encodeURIComponent(url))
     }
 
-    // TODO
+    // TODO for Android, handle content:
     // if (typeof url === 'string' && /^content:/.test(url)) {
     //   return <Redirect href={'/add?content=' + encodeURIComponent(url)} />
     // }
-  }
+  }, [url, router])
+
+  useEffect(() => {
+    // Handle pikatorrent deep links on Web
+    if (
+      Platform.OS === 'web' &&
+      !isElectron() &&
+      pathname === '/add' &&
+      window.location.hash[0] === '#'
+    ) {
+      // on web, redirect to native or desktop app
+      window.location.replace(`pikatorrent:${pathname}${window.location.hash}`)
+    }
+  }, [router, pathname])
 
   return null
 }

@@ -8,6 +8,7 @@ import * as FileSystem from 'expo-file-system'
 import { Dialog } from './Dialog'
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import { useURL } from 'expo-linking'
+import isElectron from 'is-electron'
 
 function readFileToBase64(document: DocumentPicker.DocumentResult) {
   return new Promise((resolve, reject) => {
@@ -50,11 +51,11 @@ export const AddTorrentDialog = () => {
   }, [url])
 
   useEffect(() => {
-    if (Platform.OS !== 'android') {
+    if (Platform.OS !== 'android' && !isElectron()) {
       return
     }
 
-    // Handle magnet links on Android
+    // Handle magnet links on Android & electron
     // hash in routes are not supported yet
     if (
       localSearchParams.magnet &&
@@ -95,7 +96,7 @@ export const AddTorrentDialog = () => {
   return (
     <Dialog
       onOpenChange={() => {
-        router.push('')
+        router.push('/')
         // TODO: wait for animation duration to finish
       }}
       snapPoints={[42]}
