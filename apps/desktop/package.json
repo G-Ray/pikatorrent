@@ -20,6 +20,7 @@
   "license": "GPL-3.0",
   "devDependencies": {
     "@electron-forge/cli": "^6.1.1",
+    "@electron-forge/maker-flatpak": "^6.3.0",
     "@electron-forge/maker-squirrel": "^6.1.1",
     "@electron-forge/maker-zip": "^6.1.1",
     "@electron-forge/publisher-github": "^6.2.1",

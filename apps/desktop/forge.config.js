@@ -13,18 +13,42 @@ module.exports = {
     //     setupIcon: 'assets/icon.ico',
     //   },
     // },
-    {
-      name: '@electron-forge/maker-zip',
-    },
     // {
-    //   name: '@reforged/maker-appimage',
-    //   config: {
-    //     options: {
-    //       name: 'pikatorrent',
-    //       icon: 'assets/icon.png',
-    //     },
-    //   },
+    //   name: '@electron-forge/maker-zip',
     // },
+    {
+      name: '@electron-forge/maker-flatpak',
+      config: {
+        options: {
+          id: 'com.github.G_Ray.pikatorrent',
+          productName: 'PikaTorrent',
+          genericName: 'Bittorrent client',
+          icon: 'assets/icon.png',
+          bin: 'pikatorrent',
+          categories: ['Utility'],
+          mimeType: [
+            'x-scheme-handler/magnet',
+            'x-scheme-handler/pikatorrent',
+            // 'application/x-bittorrent',
+          ],
+          base: 'org.electronjs.Electron2.BaseApp',
+          runtimeVersion: '22.08',
+          baseVersion: '22.08',
+          modules: [
+            {
+              name: 'zypak',
+              sources: [
+                {
+                  type: 'git',
+                  url: 'https://github.com/refi64/zypak',
+                  tag: 'v2022.04',
+                },
+              ],
+            },
+          ],
+        },
+      },
+    },
   ],
   hooks: {
     prePackage: async () => {
