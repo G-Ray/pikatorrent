@@ -29,7 +29,7 @@ module.exports = {
           mimeType: [
             'x-scheme-handler/magnet',
             'x-scheme-handler/pikatorrent',
-            // 'application/x-bittorrent',
+            'application/x-bittorrent',
           ],
           base: 'org.electronjs.Electron2.BaseApp',
           runtimeVersion: '22.08',

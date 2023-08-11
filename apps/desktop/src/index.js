@@ -8,6 +8,7 @@ const {
   nativeTheme,
   dialog,
 } = require('electron')
+const fs = require('fs')
 const path = require('path')
 const serve = require('electron-serve')
 
@@ -67,16 +68,28 @@ const buildInitialDeepLink = () => {
 const buildDeepLink = (link) => {
   try {
     const url = new URL(link)
+    // Magnet:
     if (url.protocol === 'magnet:') {
       return '/add#' + encodeURIComponent(link)
     }
 
+    // Pikatorrent:
     if (url.protocol === 'pikatorrent:') {
       // Open deep link
       return url.pathname + url.hash
     }
   } catch (e) {
     console.error(e)
+
+    try {
+      // Is it a path to .torrent file ?
+      const parsedPath = path.parse(link)
+      if (parsedPath.ext === '.torrent') {
+        return '/add#' + path.normalize(link)
+      }
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   return ''
@@ -94,6 +107,7 @@ const handleAppReady = () => {
   ipcMain.handle('selectFolder', handleSelectFolder)
   ipcMain.handle('openFile', handleOpenFile)
   ipcMain.handle('quitApp', handleClose)
+  ipcMain.handle('readFileAsBase64', readFileAsBase64)
   require('./check-updates')
 }
 
@@ -190,6 +204,15 @@ const handleOpenFolder = (_, ...paths) => {
 
 const redirect = (route) => {
   mainWindow.webContents.send('onRedirect', route)
+}
+
+const readFileAsBase64 = async (_, path) => {
+  try {
+    const buffer = fs.readFileSync(path, { encoding: 'base64' })
+    return buffer
+  } catch (e) {
+    console.error(e)
+  }
 }
 
 const handleSelectFolder = (_, defaultPath) => {

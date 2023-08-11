@@ -17,6 +17,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   quitApp: () => ipcRenderer.invoke('quitApp'),
   openFile: (...paths) => ipcRenderer.invoke('openFile', ...paths),
   onRedirect: (callback) => ipcRenderer.on('onRedirect', callback),
+  readFileAsBase64: (path) => ipcRenderer.invoke('readFileAsBase64', path),
 })
 
 contextBridge.exposeInMainWorld('theme', {
