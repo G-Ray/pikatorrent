@@ -22,9 +22,13 @@ if (process.defaultApp) {
     app.setAsDefaultProtocolClient('magnet', process.execPath, [
       path.resolve(process.argv[1]),
     ])
+    app.setAsDefaultProtocolClient('pikatorrent', process.execPath, [
+      path.resolve(process.argv[1]),
+    ])
   }
 } else {
   app.setAsDefaultProtocolClient('magnet')
+  app.setAsDefaultProtocolClient('pikatorrent')
 }
 
 const gotTheLock = app.requestSingleInstanceLock()
