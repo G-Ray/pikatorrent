@@ -83,19 +83,6 @@ const NativeURLHandlers = () => {
     // }
   }, [url, router])
 
-  useEffect(() => {
-    // Handle pikatorrent deep links on Web
-    if (
-      Platform.OS === 'web' &&
-      !isElectron() &&
-      pathname === '/add' &&
-      window.location.hash[0] === '#'
-    ) {
-      // on web, redirect to native or desktop app
-      window.location.replace(`pikatorrent:${pathname}${window.location.hash}`)
-    }
-  }, [router, pathname])
-
   return null
 }
 
