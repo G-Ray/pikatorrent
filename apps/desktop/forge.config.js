@@ -13,9 +13,9 @@ module.exports = {
     //     setupIcon: 'assets/icon.ico',
     //   },
     // },
-    // {
-    //   name: '@electron-forge/maker-zip',
-    // },
+    {
+      name: '@electron-forge/maker-zip',
+    },
     {
       name: '@electron-forge/maker-flatpak',
       config: {
