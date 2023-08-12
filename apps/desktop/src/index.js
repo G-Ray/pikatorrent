@@ -65,7 +65,11 @@ const buildInitialDeepLink = () => {
   return buildDeepLink(initialLink)
 }
 
-const buildDeepLink = (link) => {
+const buildDeepLink = (link = '') => {
+  if (link === '') {
+    return ''
+  }
+
   try {
     const url = new URL(link)
     // Magnet:
@@ -94,8 +98,6 @@ const buildDeepLink = (link) => {
 
   return ''
 }
-
-console.log('buildInitialDeepLink', buildInitialDeepLink())
 
 const handleAppReady = () => {
   createWindow()
