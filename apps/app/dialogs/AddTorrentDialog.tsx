@@ -46,8 +46,7 @@ export const AddTorrentDialog = () => {
       const afterHash = url.split('#')[1]
       if (
         afterHash &&
-        /^magnet:/.test(afterHash) &&
-        /^https:/.test(afterHash)
+        (/^magnet:/.test(afterHash) || /^https:/.test(afterHash))
       ) {
         setMagnet(decodeURIComponent(afterHash))
         setTorrentFilePath(null)
