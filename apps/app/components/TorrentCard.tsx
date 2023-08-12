@@ -5,6 +5,7 @@ import {
   Menu,
   PauseCircle,
   PlayCircle,
+  Share2,
 } from '@tamagui/lucide-icons'
 import {
   Button,
@@ -32,6 +33,10 @@ import { NodeProvider } from '../contexts/NodeContext'
 import { SettingsProvider } from '../contexts/SettingsContext'
 import { Label } from './Label'
 import { EditLabelsDialog } from '../dialogs/EditLabelsDialog'
+import { APP_URL } from '../config'
+import { Platform, Share } from 'react-native'
+import { ToastProvider, useToastController } from '@tamagui/toast'
+import { ToastController } from './ToastController'
 
 export const TorrentCard = ({ torrent }) => {
   const media = useMedia()
@@ -134,25 +139,69 @@ const TorrentActions = ({ theme = 'light', torrent, handleOpenFolder }) => {
           snapPoints={[32]}
         >
           <YStack gap="$4" pt="$8">
-            {isElectron() && torrent.percentDone === 1 && (
-              <Button icon={FolderOpen} onPress={handleOpenFolder}>
-                Open Folder
-              </Button>
-            )}
-            <FilesListDialog torrent={torrent} />
-            {/* NOTE: we need to redeclare providers for the nested dialog */}
+            {/* NOTE: workaround for desktop, we need to redeclare providers for the nested dialog */}
             <SettingsProvider>
-              <NodeProvider>
-                <TorrentsProvider>
-                  <EditLabelsDialog torrent={torrent} />
-                  <RemoveTorrentDialog id={torrent.id} name={torrent.name} />
-                </TorrentsProvider>
-              </NodeProvider>
+              <ToastProvider>
+                <ToastController />
+                <NodeProvider>
+                  <TorrentsProvider>
+                    <ShareButtons torrent={torrent} />
+                    {isElectron() && torrent.percentDone === 1 && (
+                      <Button icon={FolderOpen} onPress={handleOpenFolder}>
+                        Open Folder
+                      </Button>
+                    )}
+                    <FilesListDialog torrent={torrent} />
+                    <EditLabelsDialog torrent={torrent} />
+                    <RemoveTorrentDialog id={torrent.id} name={torrent.name} />
+                  </TorrentsProvider>
+                </NodeProvider>
+              </ToastProvider>
             </SettingsProvider>
           </YStack>
         </Dialog>
       </XStack>
     </Theme>
+  )
+}
+
+const ShareButtons = ({ torrent }) => {
+  const toast = useToastController()
+
+  if (Platform.OS === 'web') {
+    return (
+      <Button
+        icon={Share2}
+        onPress={async () => {
+          const shareLink = APP_URL + '/add#' + torrent.magnetLink
+          try {
+            navigator.clipboard.writeText(shareLink)
+            toast.show('Link copied')
+          } catch (e) {
+            toast.show('Error copying link')
+          }
+        }}
+      >
+        Copy link
+      </Button>
+    )
+  }
+
+  // Native
+  return (
+    <Button
+      icon={Share2}
+      onPress={async () => {
+        const shareLink = APP_URL + '/add#' + torrent.magnetLink
+        Share.share({
+          url: shareLink,
+          message: shareLink,
+          title: torrent.name,
+        })
+      }}
+    >
+      Share
+    </Button>
   )
 }
 

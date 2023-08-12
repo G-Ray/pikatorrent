@@ -34,6 +34,7 @@ export const TorrentsProvider = ({ children }) => {
             'rateUpload',
             'totalSize',
             'labels',
+            'magnetLink',
           ],
         },
       })

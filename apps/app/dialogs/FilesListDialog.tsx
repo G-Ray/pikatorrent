@@ -16,12 +16,7 @@ import { Dialog } from './Dialog'
 import { Platform } from 'react-native'
 import prettyBytes from 'pretty-bytes'
 import isElectron from 'is-electron'
-import {
-  ToastProvider,
-  ToastViewport,
-  useToastController,
-} from '@tamagui/toast'
-import { ToastController } from '../components/ToastController'
+import { useToastController } from '@tamagui/toast'
 
 const buildFilePath = (torrent, file) => {
   return `${torrent.downloadDir}/${file.name}`
@@ -53,24 +48,20 @@ export const FilesListDialog = ({ torrent }) => {
       trigger={<Button icon={List}>Files</Button>}
       snapPoints={[50]}
     >
-      <ToastProvider>
-        <ToastViewport flexDirection="column" top={'$4'} left={0} right={0} />
-        <ToastController />
-        <ScrollView horizontal>
-          <YGroup bordered size="$2" f={1}>
-            <ScrollView>
-              {torrent.files.map((file) => (
-                <FileRow
-                  key={file.name}
-                  torrent={torrent}
-                  isTorrentFinished={isTorrentFinished}
-                  file={file}
-                />
-              ))}
-            </ScrollView>
-          </YGroup>
-        </ScrollView>
-      </ToastProvider>
+      <ScrollView horizontal>
+        <YGroup bordered size="$2" f={1}>
+          <ScrollView>
+            {torrent.files.map((file) => (
+              <FileRow
+                key={file.name}
+                torrent={torrent}
+                isTorrentFinished={isTorrentFinished}
+                file={file}
+              />
+            ))}
+          </ScrollView>
+        </YGroup>
+      </ScrollView>
     </Dialog>
   )
 }
