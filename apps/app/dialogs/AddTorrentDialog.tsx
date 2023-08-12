@@ -38,7 +38,7 @@ function readFileToBase64(document: DocumentPicker.DocumentResult) {
 }
 
 export const AddTorrentDialog = () => {
-  const [magnet, setMagnet] = useState('')
+  const [magnet, setMagnet] = useState<string>('')
   const [torrentFilePath, setTorrentFilePath] = useState<string | null>(null)
   const [documentResult, setDocumentResult] =
     useState<DocumentPicker.DocumentResult | null>(null)
@@ -60,15 +60,12 @@ export const AddTorrentDialog = () => {
       ) {
         setMagnet(decodeURIComponent(afterHash))
         setTorrentFilePath(null)
-      } else if (isElectron()) {
-        // could be a path ?
-        setTorrentFilePath(afterHash)
       }
     }
   }, [url])
 
   useEffect(() => {
-    if (Platform.OS !== 'android' && !isElectron()) {
+    if (Platform.OS === 'web' && !isElectron()) {
       return
     }
 
@@ -80,6 +77,13 @@ export const AddTorrentDialog = () => {
     ) {
       setMagnet(decodeURIComponent(localSearchParams.magnet))
       setTorrentFilePath(null)
+      setDocumentResult(null)
+    } else if (
+      localSearchParams.file &&
+      typeof localSearchParams.file === 'string'
+    ) {
+      setTorrentFilePath(localSearchParams.file)
+      setMagnet('')
       setDocumentResult(null)
     }
   }, [localSearchParams])
@@ -171,7 +175,7 @@ export const AddTorrentDialog = () => {
                 theme="yellow"
                 aria-label="Close"
                 disabled={
-                  magnet.length === 0 &&
+                  magnet === '' &&
                   torrentFilePath === null &&
                   documentResult === null
                 }

@@ -42,10 +42,7 @@ if (!gotTheLock) {
 
     // the commandLine is array of strings in which last element is deep link url
     const link = commandLine.pop()
-    if (/^magnet:/.test(link)) {
-      // Redirect app to /add?magnet Url hashes are not supported yet by expo-router
-      redirect(buildDeepLink(link))
-    }
+    redirect(buildDeepLink(link))
   })
 
   // Create mainWindow, load the rest of the app, etc...
@@ -66,6 +63,7 @@ const buildInitialDeepLink = () => {
 }
 
 const buildDeepLink = (link = '') => {
+  // Hash in url is not supported by expo-router yet
   if (link === '') {
     return ''
   }
@@ -74,13 +72,22 @@ const buildDeepLink = (link = '') => {
     const url = new URL(link)
     // Magnet:
     if (url.protocol === 'magnet:') {
-      return '/add#' + encodeURIComponent(link)
+      return '/add?magnet=' + encodeURIComponent(link)
     }
 
     // Pikatorrent:
     if (url.protocol === 'pikatorrent:') {
       // Open deep link
-      return url.pathname + url.hash
+      try {
+        const afterHash = url.hash.split('#')[1]
+        if (/^magnet:/.test(afterHash)) {
+          return '/add?magnet=' + afterHash
+        }
+
+        return url.pathname
+      } catch (e) {
+        console.error(e)
+      }
     }
   } catch (e) {
     console.error(e)
@@ -89,7 +96,7 @@ const buildDeepLink = (link = '') => {
       // Is it a path to .torrent file ?
       const parsedPath = path.parse(link)
       if (parsedPath.ext === '.torrent') {
-        return '/add#' + path.normalize(link)
+        return '/add?file=' + path.normalize(link)
       }
     } catch (e) {
       console.error(e)

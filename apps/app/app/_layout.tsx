@@ -57,7 +57,6 @@ export default function Layout() {
 const NativeURLHandlers = () => {
   const url = Linking.useURL()
   const router = useRouter()
-  const pathname = usePathname()
 
   useEffect(() => {
     // In Electron, subscribe for redirects from main process
