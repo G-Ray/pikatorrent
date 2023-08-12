@@ -124,7 +124,7 @@ export const AddTorrentDialog = () => {
         router.push('/')
         // TODO: wait for animation duration to finish
       }}
-      snapPoints={[42]}
+      // snapPoints={[42]}
       defaultOpen
       title="Add a torrent"
     >
@@ -156,8 +156,8 @@ export const AddTorrentDialog = () => {
             aria-label="Close"
             disabled={
               magnet.length === 0 &&
-              documentResult === null &&
-              torrentFilePath === null
+              torrentFilePath === null &&
+              documentResult === null
             }
             onPress={handleAddTorrent}
           >
