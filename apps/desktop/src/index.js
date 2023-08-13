@@ -72,6 +72,20 @@ const buildDeepLink = (link = '') => {
     return ''
   }
 
+  const isFilePath = fs.existsSync(link)
+
+  if (isFilePath) {
+    try {
+      const normalizedPath = path.normalize(link)
+      // Is it a path to .torrent file ?
+      const parsedPath = path.parse(normalizedPath)
+      if (parsedPath.ext === '.torrent') {
+        return '/add?file=' + normalizedPath
+      }
+    } catch (e) {
+      console.error(e)
+    }
+  } else {
   try {
     const url = new URL(link)
     // Magnet:
@@ -92,15 +106,6 @@ const buildDeepLink = (link = '') => {
       } catch (e) {
         console.error(e)
       }
-    }
-  } catch (e) {
-    console.error(e)
-
-    try {
-      // Is it a path to .torrent file ?
-      const parsedPath = path.parse(link)
-      if (parsedPath.ext === '.torrent') {
-        return '/add?file=' + path.normalize(link)
       }
     } catch (e) {
       console.error(e)
