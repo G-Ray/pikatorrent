@@ -12,23 +12,27 @@ const fs = require('fs')
 const path = require('path')
 const serve = require('electron-serve')
 
+const {
+  handleSquirrelEvent,
+  registerAppAssociations,
+} = require('./windows')
+
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
-if (require('electron-squirrel-startup')) {
-  app.quit()
-}
+handleSquirrelEvent(app)
 
 if (process.defaultApp) {
   if (process.argv.length >= 2) {
-    app.setAsDefaultProtocolClient('magnet', process.execPath, [
-      path.resolve(process.argv[1]),
-    ])
+    // Can not register magnet yet: https://github.com/electron/electron/issues/14108
     app.setAsDefaultProtocolClient('pikatorrent', process.execPath, [
       path.resolve(process.argv[1]),
     ])
   }
 } else {
-  app.setAsDefaultProtocolClient('magnet')
   app.setAsDefaultProtocolClient('pikatorrent')
+}
+
+if (process.platform === 'win32') {
+  registerAppAssociations()
 }
 
 const gotTheLock = app.requestSingleInstanceLock()

@@ -13,10 +13,7 @@
   },
   "keywords": [],
   "repository": "https://github.com/G-Ray/pikatorrent",
-  "author": {
-    "name": "Geoffrey Bonneville",
-    "email": "geoffrey.bonneville@gmail.com"
-  },
+  "author": "PikaTorrent",
   "license": "GPL-3.0",
   "devDependencies": {
     "@electron-forge/cli": "^6.1.1",
@@ -33,7 +30,8 @@
     "@ca9io/electron-webrtc-relay": "^0.2.0",
     "@pikatorrent/node": "0.4.1",
     "electron-serve": "^1.1.0",
-    "electron-squirrel-startup": "^1.0.0"
+    "electron-squirrel-startup": "^1.0.0",
+    "rage-edit": "^1.2.0"
   },
   "private": true
 }

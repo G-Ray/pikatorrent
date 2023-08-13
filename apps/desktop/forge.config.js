@@ -1,5 +1,6 @@
 const { execSync } = require('child_process')
 const path = require('path')
+const fs = require('fs')
 
 module.exports = {
   packagerConfig: {
@@ -7,12 +8,14 @@ module.exports = {
   },
   rebuildConfig: {},
   makers: [
-    // {
-    //   name: '@electron-forge/maker-squirrel',
-    //   config: {
-    //     setupIcon: 'assets/icon.ico',
-    //   },
-    // },
+    {
+      name: '@electron-forge/maker-squirrel',
+      config: {
+        setupIcon: 'assets/icon.ico',
+        iconUrl: 'https://raw.githubusercontent.com/G-Ray/pikatorrent/main/apps/desktop/assets/icon.ico' ,
+        name: 'PikaTorrent'
+      },
+    },
     {
       name: '@electron-forge/maker-zip',
     },
@@ -58,15 +61,15 @@ module.exports = {
       )
 
       // Copy @pikatorrent/node as there is no support for npm workspaces
-      execSync(
-        `rm -rf ${path.join(__dirname, 'node_modules/@pikatorrent/node')}`
-      )
-      execSync(`mkdir -p ${path.join(__dirname, 'node_modules/@pikatorrent/')}`)
-      execSync(
-        `cp -r ${path.join(__dirname, '../../packages/node')} ${path.join(
-          __dirname,
-          'node_modules/@pikatorrent'
-        )}`
+      fs.rmSync(path.join(__dirname, 'node_modules/@pikatorrent/node'), {
+        recursive: true,
+        force: true,
+      })
+
+      fs.cpSync(
+        path.join(__dirname, '../../packages/node'),
+        path.join(__dirname, 'node_modules/@pikatorrent/node'),
+        { recursive: true }
       )
     },
     packageAfterCopy: async (
