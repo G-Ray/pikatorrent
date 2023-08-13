@@ -27,7 +27,7 @@ export const ThemeSelector = (props) => {
       </Select.Trigger>
 
       <Adapt when="sm" platform="touch">
-        <Sheet native modal dismissOnSnapToBottom snapPoints={[30]}>
+        <Sheet native modal dismissOnSnapToBottom>
           <Sheet.Frame>
             <Adapt.Contents />
           </Sheet.Frame>

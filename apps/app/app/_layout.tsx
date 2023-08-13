@@ -95,7 +95,7 @@ const ThemedLayout = () => {
     <Theme name={theme}>
       <StatusBar
         translucent={false}
-        style={theme === 'dark' ? 'light' : 'dark'}
+        style={theme === 'light' ? 'dark' : 'light'}
         backgroundColor={theme === 'dark' ? '#151515' : '#f9f9f9'}
       />
       <PeerRequest />

@@ -7,7 +7,15 @@ import {
   TorrentCardPlaceHolder,
 } from '../../components/TorrentCard'
 import { useTorrents } from '../../hooks/useTorrents'
-import { Button, Input, XStack, YStack, useMedia, useThemeName } from 'tamagui'
+import {
+  Button,
+  Card,
+  Input,
+  Separator,
+  XStack,
+  YStack,
+  useMedia,
+} from 'tamagui'
 import { SearchBar } from '../../components/SearchBar'
 import { DESKTOP_MAX_CONTENT_WIDTH } from '../../constants/layout'
 import { GlobalStats } from '../../components/GlobalStats'
@@ -15,8 +23,45 @@ import { PauseCircle, PlayCircle, PlusCircle } from '@tamagui/lucide-icons'
 import { TorrentsContext } from '../../contexts/TorrentsContext'
 import { Filters } from '../../components/Filters'
 import { Link, Slot } from 'expo-router'
+import { SettingsContext } from '../../contexts/SettingsContext'
+
+const SearchBarWithAddButton = () => {
+  const { settings } = useContext(SettingsContext)
+  const media = useMedia()
+
+  return (
+    <Card
+      mx="auto"
+      w="100%"
+      br={'$4'}
+      bordered
+      maxWidth={DESKTOP_MAX_CONTENT_WIDTH}
+    >
+      <XStack>
+        <Link asChild href="/add" style={{ textDecorationLine: 'none' }}>
+          <Button
+            bc={settings.theme === 'light' ? 'white' : 'black'}
+            color="$blue9"
+            icon={() => (
+              <XStack alignSelf="center">
+                <PlusCircle size={18} color="$blue9" />
+              </XStack>
+            )}
+            borderTopRightRadius={0}
+            borderBottomRightRadius={0}
+          >
+            {media.gtXs ? 'Add' : ''}
+          </Button>
+        </Link>
+        <Separator vertical />
+        <SearchBar />
+      </XStack>
+    </Card>
+  )
+}
 
 export default function Torrents() {
+  const { settings } = useContext(SettingsContext)
   const [filter, setFilter] = useState('')
   const [filters, setFilters] = useState([])
   const media = useMedia()
@@ -24,55 +69,50 @@ export default function Torrents() {
   return (
     <YStack f={1}>
       <YStack px={media.gtXs ? '$8' : '$2'}>
-        <XStack mx="auto" w="100%" maxWidth={DESKTOP_MAX_CONTENT_WIDTH}>
-          <Link asChild href="/add" style={{ textDecorationLine: 'none' }}>
-            <Button
-              borderColor={'$yellow9'}
-              theme="yellow"
-              icon={PlusCircle}
-              borderTopLeftRadius={50}
-              borderBottomLeftRadius={50}
-              borderTopRightRadius={0}
-              borderBottomRightRadius={0}
-            >
-              Add
-            </Button>
-          </Link>
-          <SearchBar />
-        </XStack>
+        {media.gtXs && <SearchBarWithAddButton />}
 
-        <XStack
+        <Card
           mx="auto"
           w="100%"
-          py={media.gtXs ? '$4' : '$2'}
-          jc="space-between"
+          my={media.gtXs ? '$4' : '$2'}
+          br={'$4'}
+          bordered
           maxWidth={DESKTOP_MAX_CONTENT_WIDTH}
-          gap="$2"
         >
-          <StartOrPauseAllTorrents />
-          <Filters onChangeFilters={setFilters} />
-          <Input
-            br={50}
-            minWidth={120}
-            maxWidth={300}
-            f={1}
-            placeholder="Filter torrents list..."
-            value={filter}
-            onChangeText={setFilter}
-          />
-          <XStack gap="$4">
+          <XStack jc="space-between">
+            <StartOrPauseAllTorrents />
+            <Separator vertical />
+            <Filters onChangeFilters={setFilters} />
+            <Separator vertical />
+            <Input
+              minWidth={120}
+              f={1}
+              placeholder="Filter list..."
+              value={filter}
+              onChangeText={setFilter}
+              bc={settings.theme === 'light' ? 'white' : 'black'}
+              color={settings.theme === 'light' ? 'black' : 'black'}
+              borderWidth={0}
+              borderRadius={0}
+            />
+            <Separator vertical />
             <GlobalStats />
           </XStack>
-        </XStack>
+        </Card>
       </YStack>
       <TorrentsList filter={filter} filters={filters} />
       <Slot />
+      {!media.gtXs && (
+        <XStack py="$2" mx="$2">
+          <SearchBarWithAddButton />
+        </XStack>
+      )}
     </YStack>
   )
 }
 
 const StartOrPauseAllTorrents = () => {
-  const theme = useThemeName()
+  const { settings } = useContext(SettingsContext)
   const { startAll, pauseAll } = useTorrents()
   const { sessionStats } = useContext(TorrentsContext)
   const media = useMedia()
@@ -86,12 +126,11 @@ const StartOrPauseAllTorrents = () => {
   return (
     <Button
       icon={isAllTorrentsActive ? PauseCircle : PlayCircle}
-      elevate
-      bc={theme === 'dark' ? 'black' : 'white'}
-      br={50}
-      px={media.gtXs ? '$4' : '$3'}
       onPress={isAllTorrentsActive ? pauseAll : startAll}
-      circular={!media.gtXs}
+      borderTopRightRadius={0}
+      borderBottomRightRadius={0}
+      bc={settings.theme === 'light' ? 'white' : 'black'}
+      // {...(!isAllTorrentsActive && { color: '$blue9' })}
     >
       {media.gtXs ? (isAllTorrentsActive ? 'Pause All' : 'Start All') : ''}
     </Button>

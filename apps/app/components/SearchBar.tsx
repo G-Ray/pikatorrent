@@ -49,13 +49,12 @@ export const SearchBar = () => {
       <XStack>
         <Input
           f={1}
+          borderWidth={0}
           borderTopLeftRadius={0}
           borderBottomLeftRadius={0}
           borderTopRightRadius={0}
           borderBottomRightRadius={0}
-          borderLeftWidth={0}
-          borderRightWidth={0}
-          borderColor={'$yellow9'}
+          bc={settings.theme === 'light' ? 'white' : 'dark'}
           placeholder="Pick a torrent online..."
           value={query}
           onChangeText={setQuery}
@@ -67,13 +66,14 @@ export const SearchBar = () => {
         />
         <Form.Trigger asChild disabled={query.length === 0}>
           <Button
+            bc={settings.theme === 'light' ? 'white' : 'black'}
+            icon={() => (
+              <XStack alignSelf="center">
+                <Search size={16} />
+              </XStack>
+            )}
             borderTopLeftRadius={0}
             borderBottomLeftRadius={0}
-            borderTopRightRadius={50}
-            borderBottomRightRadius={50}
-            icon={Search}
-            borderLeftWidth={0}
-            borderColor={'$yellow9'}
           />
         </Form.Trigger>
       </XStack>

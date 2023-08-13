@@ -1,29 +1,28 @@
-import { Filter } from '@tamagui/lucide-icons'
-import React, { useState } from 'react'
+import { Tags } from '@tamagui/lucide-icons'
+import React, { useContext, useState } from 'react'
 import { Button, Separator, YStack, useMedia, useThemeName } from 'tamagui'
 import { Dialog } from '../dialogs/Dialog'
 import { useTorrents } from '../hooks/useTorrents'
 import { LabelsSelector, SelectedLabels } from '../dialogs/EditLabelsDialog'
+import { SettingsContext } from '../contexts/SettingsContext'
 
 export const Filters = ({ onChangeFilters }) => {
   const media = useMedia()
-  const theme = useThemeName()
+  const { settings } = useContext(SettingsContext)
   const { labels } = useTorrents()
   const [filteredLabels, setFilteredLabels] = useState<string[]>([])
 
   return (
     <Dialog
-      title="Filters"
+      title="Labels"
       trigger={
         <Button
-          icon={Filter}
-          elevate
-          bc={theme === 'dark' ? 'black' : 'white'}
-          br={50}
+          icon={Tags}
+          bc={settings.theme === 'light' ? 'white' : 'black'}
           {...(filteredLabels.length > 0 && { color: '$blue9' })}
-          circular={!media.gtXs}
+          borderRadius={0}
         >
-          {media.gtXs ? `${filteredLabels.length} Filters` : ''}
+          {media.gtXs ? `${filteredLabels.length} Filtered tags` : ''}
         </Button>
       }
     >

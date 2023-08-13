@@ -98,7 +98,7 @@ const Dialog = ({
                 pos="absolute"
                 t="$3"
                 r="$3"
-                size="$2"
+                size="$3"
                 circular
                 icon={X}
               />

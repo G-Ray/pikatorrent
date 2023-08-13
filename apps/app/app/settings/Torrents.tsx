@@ -76,7 +76,7 @@ export const Torrents = () => {
               </Select.Trigger>
 
               <Adapt when="sm" platform="touch">
-                <Sheet modal dismissOnSnapToBottom snapPoints={[20]}>
+                <Sheet modal dismissOnSnapToBottom>
                   <Sheet.Frame>
                     <Adapt.Contents />
                   </Sheet.Frame>

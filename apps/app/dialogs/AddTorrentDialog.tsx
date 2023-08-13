@@ -162,7 +162,11 @@ export const AddTorrentDialog = () => {
           </Paragraph>
 
           <Fieldset gap="$4">
-            <Button theme="yellow" onPress={handleSelectTorrentFile}>
+            <Button
+              theme="yellow"
+              onPress={handleSelectTorrentFile}
+              borderColor={'$yellow9'}
+            >
               Select a .torrent file
             </Button>
             {documentResult && <Paragraph>{documentResult.name}</Paragraph>}
@@ -179,6 +183,14 @@ export const AddTorrentDialog = () => {
                   torrentFilePath === null &&
                   documentResult === null
                 }
+                o={
+                  magnet === '' &&
+                  torrentFilePath === null &&
+                  documentResult === null
+                    ? 0.5
+                    : 1
+                }
+                borderColor={'$yellow9'}
                 onPress={handleAddTorrent}
               >
                 Add

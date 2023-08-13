@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Check, ChevronDown, ChevronUp } from '@tamagui/lucide-icons'
 import {
   Adapt,
@@ -14,6 +14,7 @@ import {
 import { Engine } from './SearchBar'
 
 import defaultSettings from '../defaultSettings.json'
+import { SettingsContext } from '../contexts/SettingsContext'
 
 type SearchEngineSelectorProps = {
   engines: Array<Engine>
@@ -27,6 +28,7 @@ export const SearchEngineSelector = ({
   value,
   ...props
 }: SearchEngineSelectorProps) => {
+  const { settings } = useContext(SettingsContext)
   const selectedEngine =
     engines.find((e) => e.searchUrl === value) ||
     defaultSettings.searchEnginesUrls[0]
@@ -38,9 +40,10 @@ export const SearchEngineSelector = ({
       <Select.Trigger
         w={media.gtXs ? 180 : '$6'}
         size={media.gtXs ? '$4' : '$2'}
-        br={0}
-        borderColor={'$yellow9'}
         iconAfter={ChevronDown}
+        bc={settings.theme === 'light' ? 'white' : 'dark'}
+        br={0}
+        borderWidth={0}
       >
         <XStack f={1} ai="center" jc="space-between">
           <XStack f={1} gap="$2">
@@ -59,7 +62,7 @@ export const SearchEngineSelector = ({
       </Select.Trigger>
 
       <Adapt when="sm" platform="touch">
-        <Sheet native modal dismissOnSnapToBottom snapPoints={[50]}>
+        <Sheet native modal dismissOnSnapToBottom>
           <Sheet.Frame>
             <Sheet.ScrollView>
               <Adapt.Contents />

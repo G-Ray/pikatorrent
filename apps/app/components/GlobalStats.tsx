@@ -1,36 +1,35 @@
 import React, { useContext } from 'react'
-import { Card, XStack, useMedia, useThemeName } from 'tamagui'
+import { XStack, useMedia } from 'tamagui'
 import { TorrentFieldFormatter } from './TorrentFieldFormatter'
 import { TorrentsContext } from '../contexts/TorrentsContext'
+import { SettingsContext } from '../contexts/SettingsContext'
 
 export const GlobalStats = () => {
-  const theme = useThemeName()
+  const { settings } = useContext(SettingsContext)
   const { sessionStats } = useContext(TorrentsContext)
   const media = useMedia()
 
   return (
-    <XStack jc="center" br={50}>
-      <Card
-        ai="center"
-        jc="center"
-        bc={theme === 'light' ? 'white' : 'black'}
-        br={50}
-        px={media.gtXs ? '$4' : '$2'}
-        bordered
-      >
-        <XStack gap={media.gtXs ? '$4' : '$1'}>
-          <TorrentFieldFormatter
-            fontSize={'$3'}
-            name="rateDownload"
-            value={sessionStats.downloadSpeed || 0}
-          />
-          <TorrentFieldFormatter
-            fontSize={'$3'}
-            name="rateUpload"
-            value={sessionStats.uploadSpeed || 0}
-          />
-        </XStack>
-      </Card>
+    <XStack
+      jc="center"
+      px="$2"
+      bc={settings.theme === 'light' ? 'white' : 'black'}
+      br="$4"
+      borderTopLeftRadius={0}
+      borderBottomLeftRadius={0}
+    >
+      <XStack gap={media.gtXs ? '$4' : '$1'}>
+        <TorrentFieldFormatter
+          fontSize={media.gtXs ? '$3' : '$1'}
+          name="rateDownload"
+          value={sessionStats.downloadSpeed || 0}
+        />
+        <TorrentFieldFormatter
+          fontSize={media.gtXs ? '$3' : '$1'}
+          name="rateUpload"
+          value={sessionStats.uploadSpeed || 0}
+        />
+      </XStack>
     </XStack>
   )
 }
