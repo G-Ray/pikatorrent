@@ -8,8 +8,8 @@ import {
   Form,
   ScrollView,
   Separator,
-  H5,
   H6,
+  Paragraph,
 } from 'tamagui'
 import { Dialog } from './Dialog'
 import { Label } from '../components/Label'
@@ -102,6 +102,12 @@ export const LabelsSelector = ({
   return (
     <YStack>
       <H6 mb="$2">All labels</H6>
+      {labels.length === 0 && (
+        <>
+          <Paragraph>There is no labels yet.</Paragraph>
+          <Paragraph>Add labels by editing a torrent.</Paragraph>
+        </>
+      )}
       <ScrollView maxHeight={200}>
         <LabelsGroup
           labels={labels.filter((l) => !labelsToExlude.includes(l))}
