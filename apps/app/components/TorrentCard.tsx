@@ -1,5 +1,6 @@
 import React from 'react'
 import {
+  ArrowBigDown,
   ArrowBigUp,
   FolderOpen,
   Menu,
@@ -229,6 +230,8 @@ const TorrentInfo = ({ torrent }) => {
 }
 
 export const TorrentCardPlaceHolder = () => {
+  const media = useMedia()
+
   return (
     <Card
       w="100%"
@@ -241,7 +244,11 @@ export const TorrentCardPlaceHolder = () => {
     >
       <Card.Header w="100%">
         <YStack ai="center" jc="center">
-          <ArrowBigUp size={'$4'} />
+          {media.gtXs ? (
+            <ArrowBigUp size={'$4'} />
+          ) : (
+            <ArrowBigDown size={'$4'} />
+          )}
           <H4 numberOfLines={1} fontWeight="bold">
             Add your first torrent
           </H4>
