@@ -63,72 +63,75 @@ export const Torrents = () => {
       <SettingLayout>
         <Paragraph>Encryption</Paragraph>
         <XStack w={media.gtXs ? 180 : '100%'}>
-          <Select
-            id="node"
-            value={session.encryption}
-            onValueChange={(mode) => {
-              setSession((s) => ({ ...s, encryption: mode }))
-            }}
-          >
-            <Select.Trigger iconAfter={ChevronDown} f={1}>
-              <Select.Value placeholder="Select an option" />
-            </Select.Trigger>
+          {session.encryption && (
+            <Select
+              id="encryption"
+              value={session.encryption}
+              onValueChange={(mode) => {
+                setSession((s) => ({ ...s, encryption: mode }))
+              }}
+            >
+              <Select.Trigger iconAfter={ChevronDown} f={1}>
+                <Select.Value placeholder="Select an option" />
+              </Select.Trigger>
 
-            <Adapt when="sm" platform="touch">
-              <Sheet modal dismissOnSnapToBottom snapPoints={[20]}>
-                <Sheet.Frame>
-                  <Adapt.Contents />
-                </Sheet.Frame>
-                <Sheet.Overlay />
-              </Sheet>
-            </Adapt>
+              <Adapt when="sm" platform="touch">
+                <Sheet modal dismissOnSnapToBottom snapPoints={[20]}>
+                  <Sheet.Frame>
+                    <Adapt.Contents />
+                  </Sheet.Frame>
+                  <Sheet.Overlay />
+                </Sheet>
+              </Adapt>
 
-            <Select.Content zIndex={200000}>
-              <Select.ScrollUpButton
-                ai="center"
-                jc="center"
-                pos="relative"
-                w="100%"
-                h="$3"
-              >
-                <YStack zi={10}>
-                  <ChevronUp size={20} />
-                </YStack>
-              </Select.ScrollUpButton>
+              <Select.Content zIndex={200000}>
+                <Select.ScrollUpButton
+                  ai="center"
+                  jc="center"
+                  pos="relative"
+                  w="100%"
+                  h="$3"
+                >
+                  <YStack zi={10}>
+                    <ChevronUp size={20} />
+                  </YStack>
+                </Select.ScrollUpButton>
 
-              <Select.Viewport outlineStyle="none">
-                <Select.Group space="$0">
-                  {['required', 'preferred', 'tolerated'].map((mode, i) => {
-                    return (
-                      <Select.Item
-                        index={i}
-                        key={mode}
-                        value={mode}
-                        outlineStyle="none"
-                      >
-                        <Select.ItemText>{mode}</Select.ItemText>
-                        <Select.ItemIndicator ml="auto">
-                          <Check size={16} />
-                        </Select.ItemIndicator>
-                      </Select.Item>
-                    )
-                  })}
-                </Select.Group>
-              </Select.Viewport>
+                <Select.Viewport outlineStyle="none">
+                  <Select.Group space="$0">
+                    <Select.Label>Encryption</Select.Label>
+                    {encryptionModes.map((mode, i) => {
+                      return (
+                        <Select.Item
+                          index={i}
+                          key={mode}
+                          value={mode}
+                          outlineStyle="none"
+                        >
+                          <Select.ItemText>{mode}</Select.ItemText>
+                          <Select.ItemIndicator ml="auto">
+                            <Check size={16} />
+                          </Select.ItemIndicator>
+                        </Select.Item>
+                      )
+                    })}
+                  </Select.Group>
+                </Select.Viewport>
 
-              <Select.ScrollDownButton
-                ai="center"
-                jc="center"
-                pos="relative"
-                w="100%"
-                h="$3"
-              >
-                <YStack zi={10}>
-                  <ChevronDown size={20} />
-                </YStack>
-              </Select.ScrollDownButton>
-            </Select.Content>
-          </Select>
+                <Select.ScrollDownButton
+                  ai="center"
+                  jc="center"
+                  pos="relative"
+                  w="100%"
+                  h="$3"
+                >
+                  <YStack zi={10}>
+                    <ChevronDown size={20} />
+                  </YStack>
+                </Select.ScrollDownButton>
+              </Select.Content>
+            </Select>
+          )}
         </XStack>
       </SettingLayout>
 
@@ -140,6 +143,8 @@ export const Torrents = () => {
     </Form>
   )
 }
+
+const encryptionModes = ['required', 'preferred', 'tolerated']
 
 const DownloadDirectoryInput = ({ session, setSession }) => {
   const node = useContext(NodeContext)
