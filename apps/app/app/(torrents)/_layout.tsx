@@ -103,7 +103,7 @@ export default function Torrents() {
       <TorrentsList filter={filter} filters={filters} />
       <Slot />
       {!media.gtXs && (
-        <XStack py="$2" mx="$2">
+        <XStack py="$2" mx="$2" mt="auto">
           <SearchBarWithAddButton />
         </XStack>
       )}
