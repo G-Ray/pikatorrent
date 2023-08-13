@@ -1,8 +1,8 @@
 {
   "name": "@pikatorrent/desktop",
-  "productName": "pikatorrent",
+  "productName": "PikaTorrent",
   "version": "0.4.1",
-  "description": "My Electron application description",
+  "description": "A modern, simple, connected, and electric BitTorrent app",
   "main": "src/index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development electron-forge start",
