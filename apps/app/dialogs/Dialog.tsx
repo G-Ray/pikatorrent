@@ -70,7 +70,7 @@ const Dialog = ({
 
         <TamaguiDialog.Content
           {...(Platform.OS === 'web' && {
-            maxHeight: '50vh',
+            // maxHeight: '50vh',
             maxWidth: '50vw',
           })}
           bordered
