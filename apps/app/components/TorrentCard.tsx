@@ -139,7 +139,7 @@ const TorrentActions = ({ theme = 'light', torrent, handleOpenFolder }) => {
           }
           snapPoints={[32]}
         >
-          <YStack gap="$4" pt="$8">
+          <YStack gap="$4" pt="$8" pb="$2">
             {/* NOTE: workaround for desktop, we need to redeclare providers for the nested dialog */}
             <SettingsProvider>
               <ToastProvider>
