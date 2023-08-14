@@ -142,12 +142,13 @@ export const AddTorrentDialog = () => {
       defaultOpen
       title="Add a torrent"
     >
-      <OpenInApp />
-      {node.isConnected && Platform.OS === 'web' && !isElectron() && (
-        <Separator />
-      )}
+      <OpenInApp node={node} />
+
       {node?.isConnected && (
         <YStack gap="$2">
+          {Platform.OS === 'web' && (
+            <Paragraph>Send this torrent to {node.name}:</Paragraph>
+          )}
           <Fieldset horizontal gap="$4">
             <Input
               f={1}
@@ -203,13 +204,22 @@ export const AddTorrentDialog = () => {
   )
 }
 
-const OpenInApp = () => {
+const OpenInApp = ({ node }) => {
   const pathname = usePathname()
+  const searchParams = useLocalSearchParams()
+  const isFromDeepLink =
+    Object.keys(searchParams).length > 0 ||
+    (window.location.hash && window.location.hash.length > 1)
+
   const handleOpenInApp = () => {
     window.location.replace(`pikatorrent:${pathname}${window.location.hash}`)
   }
 
   if (Platform.OS !== 'web' || isElectron()) {
+    return null
+  }
+
+  if (!isFromDeepLink) {
     return null
   }
 
@@ -257,6 +267,9 @@ const OpenInApp = () => {
           />
         </Link>
       </XStack>
+      {node.isConnected && Platform.OS === 'web' && !isElectron() && (
+        <Separator />
+      )}
     </YStack>
   )
 }
