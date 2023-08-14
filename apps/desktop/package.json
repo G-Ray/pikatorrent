@@ -1,6 +1,6 @@
 {
   "name": "@pikatorrent/desktop",
-  "productName": "PikaTorrent",
+  "productName": "pikatorrent",
   "version": "0.4.1",
   "description": "A modern, simple, connected, and electric BitTorrent app",
   "main": "src/index.js",
