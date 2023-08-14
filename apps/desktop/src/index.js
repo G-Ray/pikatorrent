@@ -12,10 +12,7 @@ const fs = require('fs')
 const path = require('path')
 const serve = require('electron-serve')
 
-const {
-  handleSquirrelEvent,
-  registerAppAssociations,
-} = require('./windows')
+const { handleSquirrelEvent, registerAppAssociations } = require('./windows')
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 handleSquirrelEvent(app)
@@ -90,26 +87,26 @@ const buildDeepLink = (link = '') => {
       console.error(e)
     }
   } else {
-  try {
-    const url = new URL(link)
-    // Magnet:
-    if (url.protocol === 'magnet:') {
-      return '/add?magnet=' + encodeURIComponent(link)
-    }
-
-    // Pikatorrent:
-    if (url.protocol === 'pikatorrent:') {
-      // Open deep link
-      try {
-        const afterHash = url.hash.split('#')[1]
-        if (/^magnet:/.test(afterHash)) {
-          return '/add?magnet=' + afterHash
-        }
-
-        return url.pathname
-      } catch (e) {
-        console.error(e)
+    try {
+      const url = new URL(link)
+      // Magnet:
+      if (url.protocol === 'magnet:') {
+        return '/add?magnet=' + encodeURIComponent(link)
       }
+
+      // Pikatorrent:
+      if (url.protocol === 'pikatorrent:') {
+        // Open deep link
+        try {
+          const afterHash = url.hash.split('#')[1]
+          if (/^magnet:/.test(afterHash)) {
+            return '/add?magnet=' + encodeURIComponent(afterHash)
+          }
+
+          return url.pathname
+        } catch (e) {
+          console.error(e)
+        }
       }
     } catch (e) {
       console.error(e)
