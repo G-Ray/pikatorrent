@@ -1,6 +1,6 @@
 {
   "name": "@pikatorrent/node",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "",
   "main": "./dist/index.js",
   "type": "module",
