@@ -1,19 +1,18 @@
 import React, { useContext } from 'react'
-import { XStack, useMedia } from 'tamagui'
+import { XStack, useMedia, useThemeName } from 'tamagui'
 import { TorrentFieldFormatter } from './TorrentFieldFormatter'
 import { TorrentsContext } from '../contexts/TorrentsContext'
-import { SettingsContext } from '../contexts/SettingsContext'
 
 export const GlobalStats = () => {
-  const { settings } = useContext(SettingsContext)
   const { sessionStats } = useContext(TorrentsContext)
   const media = useMedia()
+  const theme = useThemeName()
 
   return (
     <XStack
       jc="center"
       px="$2"
-      bc={settings.theme === 'light' ? 'white' : 'black'}
+      bc={/^light/.test(theme) ? 'white' : 'black'}
       br="$4"
       borderTopLeftRadius={0}
       borderBottomLeftRadius={0}

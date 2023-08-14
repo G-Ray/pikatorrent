@@ -15,6 +15,7 @@ import {
   XStack,
   YStack,
   useMedia,
+  useThemeName,
 } from 'tamagui'
 import { SearchBar } from '../../components/SearchBar'
 import { DESKTOP_MAX_CONTENT_WIDTH } from '../../constants/layout'
@@ -24,10 +25,11 @@ import { TorrentsContext } from '../../contexts/TorrentsContext'
 import { Filters } from '../../components/Filters'
 import { Link, Slot } from 'expo-router'
 import { SettingsContext } from '../../contexts/SettingsContext'
+import { Theme } from 'tamagui'
 
 const SearchBarWithAddButton = () => {
-  const { settings } = useContext(SettingsContext)
   const media = useMedia()
+  const theme = useThemeName()
 
   return (
     <Card
@@ -40,7 +42,7 @@ const SearchBarWithAddButton = () => {
       <XStack>
         <Link asChild href="/add" style={{ textDecorationLine: 'none' }}>
           <Button
-            bc={settings.theme === 'light' ? 'white' : 'black'}
+            bc={theme === 'light' ? 'white' : 'black'}
             color="$blue9"
             icon={() => (
               <XStack alignSelf="center">
@@ -61,10 +63,10 @@ const SearchBarWithAddButton = () => {
 }
 
 export default function Torrents() {
-  const { settings } = useContext(SettingsContext)
   const [filter, setFilter] = useState('')
   const [filters, setFilters] = useState([])
   const media = useMedia()
+  const theme = useThemeName()
 
   return (
     <YStack f={1}>
@@ -82,7 +84,9 @@ export default function Torrents() {
           <XStack jc="space-between">
             <StartOrPauseAllTorrents />
             <Separator vertical />
-            <Filters onChangeFilters={setFilters} />
+            <Theme reset>
+              <Filters onChangeFilters={setFilters} />
+            </Theme>
             <Separator vertical />
             <Input
               minWidth={120}
@@ -90,8 +94,8 @@ export default function Torrents() {
               placeholder="Filter list..."
               value={filter}
               onChangeText={setFilter}
-              bc={settings.theme === 'light' ? 'white' : 'black'}
-              color={settings.theme === 'light' ? 'black' : 'black'}
+              bc={theme === 'light' ? 'white' : 'black'}
+              color={theme === 'light' ? 'black' : 'black'}
               borderWidth={0}
               borderRadius={0}
             />
@@ -112,10 +116,10 @@ export default function Torrents() {
 }
 
 const StartOrPauseAllTorrents = () => {
-  const { settings } = useContext(SettingsContext)
   const { startAll, pauseAll } = useTorrents()
   const { sessionStats } = useContext(TorrentsContext)
   const media = useMedia()
+  const theme = useThemeName()
 
   const isAllTorrentsActive = sessionStats.pausedTorrentCount === 0
 
@@ -129,7 +133,7 @@ const StartOrPauseAllTorrents = () => {
       onPress={isAllTorrentsActive ? pauseAll : startAll}
       borderTopRightRadius={0}
       borderBottomRightRadius={0}
-      bc={settings.theme === 'light' ? 'white' : 'black'}
+      bc={/^light/.test(theme) ? 'white' : 'black'}
       // {...(!isAllTorrentsActive && { color: '$blue9' })}
     >
       {media.gtXs ? (isAllTorrentsActive ? 'Pause All' : 'Start All') : ''}

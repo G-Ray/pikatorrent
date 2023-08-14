@@ -1,6 +1,6 @@
 import { Search } from '@tamagui/lucide-icons'
 import React, { useContext, useState } from 'react'
-import { Button, Input, XStack, Form } from 'tamagui'
+import { Button, Input, XStack, Form, useThemeName } from 'tamagui'
 import { SearchEngineSelector } from './SearchEngineSelector'
 import { SettingsContext } from '../contexts/SettingsContext'
 
@@ -18,6 +18,7 @@ export const SearchBar = () => {
   const { settings, updateSettings } = useContext(SettingsContext)
   const selectedSearchEngineUrl =
     settings.selectedSearchEngineUrl || defaultSettings.searchEnginesUrls[0]
+  const theme = useThemeName()
 
   const engines: Array<Engine> = (
     settings.searchEnginesUrls || defaultSettings.searchEnginesUrls
@@ -54,7 +55,7 @@ export const SearchBar = () => {
           borderBottomLeftRadius={0}
           borderTopRightRadius={0}
           borderBottomRightRadius={0}
-          bc={settings.theme === 'light' ? 'white' : 'dark'}
+          bc={/^light/.test(theme) ? 'white' : 'black'}
           placeholder="Pick a torrent online..."
           value={query}
           onChangeText={setQuery}
@@ -66,7 +67,7 @@ export const SearchBar = () => {
         />
         <Form.Trigger asChild disabled={query.length === 0}>
           <Button
-            bc={settings.theme === 'light' ? 'white' : 'black'}
+            bc={/^light/.test(theme) ? 'white' : 'black'}
             icon={() => (
               <XStack alignSelf="center">
                 <Search size={16} />

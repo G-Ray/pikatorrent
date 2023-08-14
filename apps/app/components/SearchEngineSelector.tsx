@@ -10,6 +10,7 @@ import {
   YStack,
   getFontSize,
   useMedia,
+  useThemeName,
 } from 'tamagui'
 import { Engine } from './SearchBar'
 
@@ -28,12 +29,12 @@ export const SearchEngineSelector = ({
   value,
   ...props
 }: SearchEngineSelectorProps) => {
-  const { settings } = useContext(SettingsContext)
   const selectedEngine =
     engines.find((e) => e.searchUrl === value) ||
     defaultSettings.searchEnginesUrls[0]
 
   const media = useMedia()
+  const theme = useThemeName()
 
   return (
     <Select id="food" value={value} onValueChange={onValueChange} {...props}>
@@ -41,7 +42,7 @@ export const SearchEngineSelector = ({
         w={media.gtXs ? 180 : '$6'}
         size={media.gtXs ? '$4' : '$2'}
         iconAfter={ChevronDown}
-        bc={settings.theme === 'light' ? 'white' : 'dark'}
+        bc={/^light/.test(theme) ? 'white' : 'black'}
         br={0}
         borderWidth={0}
       >

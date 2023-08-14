@@ -1,16 +1,15 @@
 import { Tags } from '@tamagui/lucide-icons'
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { Button, Separator, YStack, useMedia, useThemeName } from 'tamagui'
 import { Dialog } from '../dialogs/Dialog'
 import { useTorrents } from '../hooks/useTorrents'
 import { LabelsSelector, SelectedLabels } from '../dialogs/EditLabelsDialog'
-import { SettingsContext } from '../contexts/SettingsContext'
 
 export const Filters = ({ onChangeFilters }) => {
   const media = useMedia()
-  const { settings } = useContext(SettingsContext)
   const { labels } = useTorrents()
   const [filteredLabels, setFilteredLabels] = useState<string[]>([])
+  const theme = useThemeName()
 
   return (
     <Dialog
@@ -18,7 +17,7 @@ export const Filters = ({ onChangeFilters }) => {
       trigger={
         <Button
           icon={Tags}
-          bc={settings.theme === 'light' ? 'white' : 'black'}
+          bc={/^light/.test(theme) ? 'white' : 'black'}
           {...(filteredLabels.length > 0 && { color: '$blue9' })}
           borderRadius={0}
         >
