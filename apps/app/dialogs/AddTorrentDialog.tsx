@@ -3,6 +3,7 @@ import { useContext, useState } from 'react'
 import {
   Button,
   Fieldset,
+  H6,
   Input,
   Paragraph,
   Separator,
@@ -143,7 +144,7 @@ export const AddTorrentDialog = () => {
       defaultOpen
       title="Add a torrent"
     >
-      <OpenInApp node={node} />
+      <OpenInApp node={node} magnet={magnet} />
 
       {node?.isConnected && (
         <YStack gap="$2">
@@ -205,7 +206,7 @@ export const AddTorrentDialog = () => {
   )
 }
 
-const OpenInApp = ({ node }) => {
+const OpenInApp = ({ node, magnet }) => {
   const pathname = usePathname()
   const searchParams = useLocalSearchParams()
   const isFromDeepLink =
@@ -224,8 +225,18 @@ const OpenInApp = ({ node }) => {
     return null
   }
 
+  let name
+  try {
+    name = new URL(magnet).searchParams.get('dn')
+  } catch (e) {}
+
   return (
     <YStack>
+      {name && (
+        <H6 textAlign="center" numberOfLines={1} mb="$4">
+          {name}
+        </H6>
+      )}
       <Button
         onPress={handleOpenInApp}
         theme="yellow"
@@ -270,6 +281,7 @@ const OpenInApp = ({ node }) => {
       </XStack>
       <Button
         ml="$2"
+        mb="$6"
         size="$2"
         icon={ExternalLink}
         onPress={() => {
