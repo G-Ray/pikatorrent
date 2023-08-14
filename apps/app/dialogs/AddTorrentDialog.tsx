@@ -18,6 +18,7 @@ import { Link, useLocalSearchParams, usePathname, useRouter } from 'expo-router'
 import { useURL } from 'expo-linking'
 import isElectron from 'is-electron'
 import { Download, ExternalLink } from '@tamagui/lucide-icons'
+import { openExternalLink } from '../lib/links'
 
 function readFileToBase64(document: DocumentPicker.DocumentResult) {
   return new Promise((resolve, reject) => {
@@ -267,6 +268,16 @@ const OpenInApp = ({ node }) => {
           />
         </Link>
       </XStack>
+      <Button
+        ml="$2"
+        size="$2"
+        icon={ExternalLink}
+        onPress={() => {
+          openExternalLink('https://github.com/G-Ray/pikatorrent/releases')
+        }}
+      >
+        All downloads options
+      </Button>
       {node.isConnected && Platform.OS === 'web' && !isElectron() && (
         <Separator />
       )}
