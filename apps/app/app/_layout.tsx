@@ -70,10 +70,20 @@ const NativeURLHandlers = () => {
   }, [router])
 
   useEffect(() => {
+    if (!url || typeof url !== 'string') return
+    const parsedUrl = new URL(url)
     // Redirect incoming magnet links to /add?magnet=
     // as expo-router does not support hash for now
-    if (typeof url === 'string' && /^magnet:/.test(url)) {
+    if (parsedUrl.protocol === 'magnet:') {
       router.replace('/add?magnet=' + encodeURIComponent(url))
+    }
+
+    // Handle pikatorrent deep link for magnet
+    if (parsedUrl.protocol === 'pikatorrent:') {
+      const afterHash = parsedUrl.hash.split('#')[1]
+      if (/^magnet/.test(afterHash)) {
+        router.replace('/add?magnet=' + encodeURIComponent(afterHash))
+      }
     }
 
     // TODO for Android, handle content:

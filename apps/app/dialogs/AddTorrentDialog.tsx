@@ -132,6 +132,7 @@ export const AddTorrentDialog = () => {
 
     setDocumentResult(documentResult.assets[0])
     setTorrentFilePath(null)
+    setMagnet('')
   }
 
   return (
