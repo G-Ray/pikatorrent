@@ -1,9 +1,9 @@
 name: Build desktop app & publish it to github release
 on:
   workflow_dispatch:
-  push:
-    tags:
-      - v*
+  # push:
+  #   tags:
+  #     - v*
 
 jobs:
   publish:
