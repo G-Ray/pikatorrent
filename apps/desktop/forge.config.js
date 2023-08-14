@@ -13,7 +13,7 @@ module.exports = {
       config: {
         setupIcon: 'assets/icon.ico',
         iconUrl: 'https://raw.githubusercontent.com/G-Ray/pikatorrent/main/apps/desktop/assets/icon.ico' ,
-        name: 'PikaTorrent'
+        name: 'pikatorrent',
       },
     },
     {
