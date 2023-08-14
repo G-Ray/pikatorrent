@@ -25,6 +25,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
+      - name: Install linux deps
+        run: sudo apt update && sudo apt install -y flatpak flatpak-builder elfutils
+        if: ${{ matrix.os == 'ubuntu-latest' }}
       - name: Install
         run: npm ci
       - name: Release
