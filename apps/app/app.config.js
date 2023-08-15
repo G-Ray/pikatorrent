@@ -23,7 +23,7 @@ module.exports = () => {
       },
       android: {
         package: IS_DEV ? 'com.gray.pikatorrent.dev' : 'com.gray.pikatorrent',
-        versionCode: 8,
+        versionCode: 9,
         adaptiveIcon: {
           foregroundImage: './assets/adaptive-icon.png',
           backgroundColor: '#ffffff',
@@ -60,10 +60,16 @@ module.exports = () => {
             android: {
               packagingOptions: {
                 pickFirst: [
+                  // X64
                   '/lib/arm64-v8a/libcrypto.so',
                   '/lib/arm64-v8a/libssl.so',
                   '/lib/x86_64/libcrypto.so',
                   '/lib/x86_64/libssl.so',
+                  // x86
+                  '/lib/armeabi-v7a/libcrypto.so',
+                  '/lib/armeabi-v7a/libssl.so',
+                  '/lib/x86/libcrypto.so',
+                  '/lib/x86/libssl.so',
                 ],
               },
             },
