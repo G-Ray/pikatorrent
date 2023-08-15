@@ -60,7 +60,7 @@ export default function Home() {
 
             <YStack ai="center" gap="$4">
               <Paragraph fontWeight={'600'}>
-                Try PikaTorrent v0.4.1 now :
+                Try PikaTorrent v0.5 now :
               </Paragraph>
               <XStack space>
                 <Link
