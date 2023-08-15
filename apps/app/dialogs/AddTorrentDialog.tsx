@@ -210,16 +210,19 @@ export const AddTorrentDialog = () => {
 const OpenInApp = ({ node, magnet }) => {
   const pathname = usePathname()
   const searchParams = useLocalSearchParams()
+
+  if (Platform.OS !== 'web' || isElectron()) {
+    return null
+  }
+
+  // Beware when accessing window.location, as it seems defined
+  // in expo in dev mode, but not in production
   const isFromDeepLink =
     Object.keys(searchParams).length > 0 ||
     (window.location.hash && window.location.hash.length > 1)
 
   const handleOpenInApp = () => {
     window.location.replace(`pikatorrent:${pathname}${window.location.hash}`)
-  }
-
-  if (Platform.OS !== 'web' || isElectron()) {
-    return null
   }
 
   if (!isFromDeepLink) {

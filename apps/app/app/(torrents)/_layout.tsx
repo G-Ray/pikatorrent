@@ -24,7 +24,6 @@ import { PauseCircle, PlayCircle, PlusCircle } from '@tamagui/lucide-icons'
 import { TorrentsContext } from '../../contexts/TorrentsContext'
 import { Filters } from '../../components/Filters'
 import { Link, Slot } from 'expo-router'
-import { SettingsContext } from '../../contexts/SettingsContext'
 import { Theme } from 'tamagui'
 
 const SearchBarWithAddButton = () => {
