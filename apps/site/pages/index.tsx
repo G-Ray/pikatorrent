@@ -9,7 +9,7 @@ import {
   XStack,
   YStack,
 } from 'tamagui'
-import { Download, Moon, Sun } from '@tamagui/lucide-icons'
+import { Download, ExternalLink, Moon, Sun } from '@tamagui/lucide-icons'
 import { useThemeSetting } from '@tamagui/next-theme'
 import { useEffect, useState } from 'react'
 
@@ -104,7 +104,17 @@ export default function Home() {
                 />
               </a>
 
-              <Link href="https://discord.gg/6HxCV4aGdy">
+              <Link
+                href={'https://github.com/G-Ray/pikatorrent/releases'}
+                style={{ textDecoration: 'none' }}
+                target="_blank"
+              >
+                <Button ml="$2" mb="$6" size="$2" icon={ExternalLink}>
+                  All downloads options
+                </Button>
+              </Link>
+
+              <Link href="https://discord.gg/6HxCV4aGdy" target="_blank">
                 <img
                   height={24}
                   src="https://img.shields.io/badge/Join_us_on_discord-gray?logo=discord"
