@@ -93,8 +93,7 @@ export default function Torrents() {
               placeholder="Filter list..."
               value={filter}
               onChangeText={setFilter}
-              bc={theme === 'light' ? 'white' : 'black'}
-              color={theme === 'light' ? 'black' : 'black'}
+              bc={/^light/.test(theme) ? 'white' : 'black'}
               borderWidth={0}
               borderRadius={0}
             />
