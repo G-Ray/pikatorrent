@@ -1,6 +1,6 @@
 {
   "name": "@pikatorrent/site",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
