@@ -65,7 +65,7 @@ export default function Home() {
               <XStack space>
                 <Link
                   href={
-                    'https://github.com/G-Ray/pikatorrent/releases/download/v0.5.0/pikatorrent-0.5.0.Setup.exe'
+                    'https://github.com/G-Ray/pikatorrent/releases/download/v0.5.3/pikatorrent-0.5.3.Setup.exe'
                   }
                   style={{ textDecoration: 'none' }}
                 >
@@ -81,7 +81,7 @@ export default function Home() {
                 </Link>
                 <Link
                   href={
-                    'https://github.com/G-Ray/pikatorrent/releases/download/v0.5.0/pikatorrent-linux-x64-0.5.0.zip'
+                    'https://github.com/G-Ray/pikatorrent/releases/download/v0.5.3/pikatorrent-linux-x64-0.5.3.zip'
                   }
                   style={{ textDecoration: 'none' }}
                 >
