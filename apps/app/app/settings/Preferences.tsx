@@ -13,7 +13,7 @@ export const Preferences = () => {
       <H2>App settings</H2>
 
       <SettingLayout>
-        <Paragraph>Dark mode</Paragraph>
+        <Paragraph>Theme</Paragraph>
         <XStack w={media.gtXs ? 180 : '100%'}>
           <ThemeSelector />
         </XStack>
