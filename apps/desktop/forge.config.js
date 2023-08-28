@@ -8,6 +8,20 @@ module.exports = {
   },
   rebuildConfig: {},
   makers: [
+    // All OS
+    {
+      name: '@electron-forge/maker-zip',
+    },
+    // Windows
+    {
+      name: '@electron-forge/maker-appx',
+      config: {
+        identityName: '19653GRay.PikaTorrent',
+        publisher: 'CN=9FB02A40-50B6-49F9-92D4-AA9DC9AC1AAB',
+        publisherDisplayName: 'G_Ray',
+        packageName: 'pikatorrent',
+      }
+    },
     {
       name: '@electron-forge/maker-squirrel',
       config: {
@@ -16,9 +30,7 @@ module.exports = {
         name: 'pikatorrent',
       },
     },
-    {
-      name: '@electron-forge/maker-zip',
-    },
+    // Linux
     {
       name: '@electron-forge/maker-flatpak',
       config: {
