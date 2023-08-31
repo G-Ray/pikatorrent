@@ -19,7 +19,7 @@ export const ThemeSelector = (props) => {
     <Select
       id="theme"
       value={settings.theme}
-      onValueChange={handleCheckedChange}
+      onValueChange={(value) => handleCheckedChange(value.toLowerCase())}
       {...props}
     >
       <Select.Trigger iconAfter={ChevronDown}>
@@ -54,7 +54,7 @@ export const ThemeSelector = (props) => {
               <Select.Label>Theme</Select.Label>
               {items.map((item, i) => {
                 return (
-                  <Select.Item index={i} key={item} value={item.toLowerCase()}>
+                  <Select.Item index={i} key={item} value={item}>
                     <Select.ItemText>{item}</Select.ItemText>
                     <Select.ItemIndicator marginLeft="auto">
                       <Check size={16} />
