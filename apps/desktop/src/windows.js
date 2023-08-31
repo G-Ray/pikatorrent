@@ -18,6 +18,11 @@ const handleSquirrelEvent = async (app) => {
 const registerAppAssociations = async () => {
   const Registry = require('rage-edit').default
   await Registry.set(
+    'HKCU\\Software\\Classes\\pikatorrent\\shell\\open\\command',
+    '',
+    `"${process.execPath}" "%1"`
+  )
+  await Registry.set(
     'HKCU\\Software\\PikaTorrent\\Capabilities',
     'ApplicationName',
     'PikaTorrent'

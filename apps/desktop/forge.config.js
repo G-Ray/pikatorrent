@@ -20,7 +20,9 @@ module.exports = {
         publisher: 'CN=9FB02A40-50B6-49F9-92D4-AA9DC9AC1AAB',
         publisherDisplayName: 'G_Ray',
         packageName: 'pikatorrent',
-        assets: 'assets/appx'
+        assets: 'assets/appx',
+        manifestTemplate: 'assets/appx/template/appxmanifest.xml'
+        // protocol: 'pikatorrent' // electron forge is not up to date with latest electron-windows-store
       }
     },
     {

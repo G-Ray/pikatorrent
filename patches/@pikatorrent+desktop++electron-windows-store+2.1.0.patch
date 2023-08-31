@@ -1,0 +1,12 @@
+diff --git a/node_modules/@pikatorrent/desktop/node_modules/electron-windows-store/lib/convert.js b/node_modules/@pikatorrent/desktop/node_modules/electron-windows-store/lib/convert.js
+index 83b33e8..da02886 100644
+--- a/node_modules/@pikatorrent/desktop/node_modules/electron-windows-store/lib/convert.js
++++ b/node_modules/@pikatorrent/desktop/node_modules/electron-windows-store/lib/convert.js
+@@ -97,7 +97,7 @@ function convertWithFileCopy (program) {
+     let preAppx = path.join(program.outputDirectory, 'pre-appx')
+     let app = path.join(preAppx, 'app')
+     let manifest = path.join(preAppx, 'AppXManifest.xml')
+-    let manifestTemplate = path.join(__dirname, '..', 'template', 'AppXManifest.xml')
++    let manifestTemplate = program.manifestTemplate || path.join(__dirname, '..', 'template', 'AppXManifest.xml')
+     let assets = path.join(preAppx, 'assets')
+     let assetsTemplate = path.join(__dirname, '..', 'template', 'assets')
