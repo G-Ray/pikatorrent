@@ -10,3 +10,4 @@ index 83b33e8..da02886 100644
 +    let manifestTemplate = program.manifestTemplate || path.join(__dirname, '..', 'template', 'AppXManifest.xml')
      let assets = path.join(preAppx, 'assets')
      let assetsTemplate = path.join(__dirname, '..', 'template', 'assets')
+ 
