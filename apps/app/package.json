@@ -48,6 +48,7 @@
     "i18n-js": "^4.2.3",
     "install-expo-modules": "^0.6.2",
     "is-electron": "^2.2.2",
+    "minimist": "^1.2.8",
     "pretty-bytes": "^6.1.0",
     "pretty-ms": "^8.0.0",
     "qrcode": "^1.5.3",

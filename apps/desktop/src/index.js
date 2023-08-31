@@ -11,6 +11,7 @@ const {
 const fs = require('fs')
 const path = require('path')
 const serve = require('electron-serve')
+const minimist = require('minimist')
 
 const { handleSquirrelEvent, registerAppAssociations } = require('./windows')
 
@@ -31,6 +32,10 @@ if (process.defaultApp) {
 if (process.platform === 'win32') {
   registerAppAssociations()
 }
+
+const parsedArgs = minimist(
+  process.argv.slice(process.env.NODE_ENV === 'production' ? 1 : 2)
+)
 
 const gotTheLock = app.requestSingleInstanceLock()
 
@@ -61,8 +66,7 @@ if (!gotTheLock) {
 }
 
 const buildInitialDeepLink = () => {
-  const initialLink =
-    process.env.NODE_ENV === 'production' ? process.argv[1] : process.argv[2]
+  const initialLink = parsedArgs._[0]
 
   return buildDeepLink(initialLink)
 }
@@ -127,7 +131,7 @@ const handleAppReady = () => {
   ipcMain.handle('openFile', handleOpenFile)
   ipcMain.handle('quitApp', handleClose)
   ipcMain.handle('readFileAsBase64', readFileAsBase64)
-  require('./check-updates')
+  require('./check-updates')(parsedArgs)
 }
 
 let wrtc

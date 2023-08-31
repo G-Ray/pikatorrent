@@ -44,7 +44,12 @@ const displayNewReleaseDialog = () => {
   }
 }
 
-const checkNewRelease = async () => {
+const checkNewRelease = async (parsedArgs) => {
+  if (process.windowsStore || parsedArgs['check-updates'] === false) {
+    // no-check-updates
+    return
+  }
+
   try {
     if (await isNewReleaseAvailable()) {
       displayNewReleaseDialog()
@@ -54,4 +59,4 @@ const checkNewRelease = async () => {
   }
 }
 
-checkNewRelease()
+module.exports = checkNewRelease
