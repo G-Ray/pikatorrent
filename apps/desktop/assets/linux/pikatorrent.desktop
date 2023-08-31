@@ -8,6 +8,6 @@ Categories=Network;FileTransfer;
 
 MimeType=x-scheme-handler/magnet;x-scheme-handler/pikatorrent;application/x-bittorrent;
 
-Icon=com.github.G_Ray.PikaTorrent
+Icon=com.pikatorrent.PikaTorrent
 Exec=run.sh %u
 Terminal=false

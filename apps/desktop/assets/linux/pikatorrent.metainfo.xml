@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-  <id>com.github.G_Ray.PikaTorrent</id>
+  <id>com.pikatorrent.PikaTorrent</id>
   
   <name>PikaTorrent</name>
   <summary>A modern, simple, connected, and electric BitTorrent app ⚡</summary>
@@ -35,7 +35,7 @@
     </ul>
   </description>
   
-  <launchable type="desktop-id">com.github.G_Ray.PikaTorrent.desktop</launchable>
+  <launchable type="desktop-id">com.pikatorrent.PikaTorrent.desktop</launchable>
   <screenshots>
     <screenshot type="default">
       <image>https://www.pikatorrent.com/desktop-light.webp</image>
