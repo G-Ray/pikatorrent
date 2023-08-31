@@ -14,10 +14,8 @@ import {
 import { Dialog } from './Dialog'
 import { Label } from '../components/Label'
 import { YStack } from 'tamagui'
-import { useTorrents } from '../hooks/useTorrents'
 
-export const EditLabelsDialog = ({ torrent }) => {
-  const torrentsFunctions = useTorrents()
+export const EditLabelsDialog = ({ torrentsFunctions, torrent }) => {
   const [label, setLabel] = useState('')
   const [labels, setLabels] = useState<string[]>(torrent.labels)
 

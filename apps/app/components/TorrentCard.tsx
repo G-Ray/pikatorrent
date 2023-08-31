@@ -29,15 +29,11 @@ import { useTorrents } from '../hooks/useTorrents'
 import { TORRENT_STATUSES } from '../constants/torrents'
 import isElectron from 'is-electron'
 import { Dialog } from '../dialogs/Dialog'
-import { TorrentsProvider } from '../contexts/TorrentsContext'
-import { NodeProvider } from '../contexts/NodeContext'
-import { SettingsProvider } from '../contexts/SettingsContext'
 import { Label } from './Label'
 import { EditLabelsDialog } from '../dialogs/EditLabelsDialog'
 import { APP_URL } from '../config'
 import { Platform, Share } from 'react-native'
-import { ToastProvider, useToastController } from '@tamagui/toast'
-import { ToastController } from './ToastController'
+import { useToastController } from '@tamagui/toast'
 
 export const TorrentCard = ({ torrent }) => {
   const media = useMedia()
@@ -126,6 +122,10 @@ export const TorrentCard = ({ torrent }) => {
 }
 
 const TorrentActions = ({ theme = 'light', torrent, handleOpenFolder }) => {
+  /* Bug: we can't access contexts inside nested dialogs, see https://github.com/tamagui/tamagui/issues/1481 */
+  const torrentsFunctions = useTorrents()
+  const toast = useToastController()
+
   return (
     <Theme name={theme}>
       <XStack ml="auto">
@@ -140,25 +140,22 @@ const TorrentActions = ({ theme = 'light', torrent, handleOpenFolder }) => {
           snapPoints={[32]}
         >
           <YStack gap="$4" pt="$8" pb="$2">
-            {/* NOTE: workaround for desktop, we need to redeclare providers for the nested dialog */}
-            <SettingsProvider>
-              <ToastProvider>
-                <ToastController />
-                <NodeProvider>
-                  <TorrentsProvider>
-                    <ShareButtons torrent={torrent} />
-                    {isElectron() && torrent.percentDone === 1 && (
-                      <Button icon={FolderOpen} onPress={handleOpenFolder}>
-                        Open Folder
-                      </Button>
-                    )}
-                    <FilesListDialog torrent={torrent} />
-                    <EditLabelsDialog torrent={torrent} />
-                    <RemoveTorrentDialog id={torrent.id} name={torrent.name} />
-                  </TorrentsProvider>
-                </NodeProvider>
-              </ToastProvider>
-            </SettingsProvider>
+            <ShareButtons torrent={torrent} toast={toast} />
+            {isElectron() && torrent.percentDone === 1 && (
+              <Button icon={FolderOpen} onPress={handleOpenFolder}>
+                Open Folder
+              </Button>
+            )}
+            <FilesListDialog torrent={torrent} />
+            <EditLabelsDialog
+              torrent={torrent}
+              torrentsFunctions={torrentsFunctions}
+            />
+            <RemoveTorrentDialog
+              id={torrent.id}
+              name={torrent.name}
+              torrentsFunctions={torrentsFunctions}
+            />
           </YStack>
         </Dialog>
       </XStack>
@@ -166,9 +163,7 @@ const TorrentActions = ({ theme = 'light', torrent, handleOpenFolder }) => {
   )
 }
 
-const ShareButtons = ({ torrent }) => {
-  const toast = useToastController()
-
+const ShareButtons = ({ toast, torrent }) => {
   if (Platform.OS === 'web') {
     return (
       <Button
