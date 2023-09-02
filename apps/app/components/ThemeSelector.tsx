@@ -1,11 +1,11 @@
 import { Check, ChevronDown, ChevronUp } from '@tamagui/lucide-icons'
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { Adapt, Select, Sheet, XStack, YStack, getFontSize } from 'tamagui'
 import { SettingsContext } from '../contexts/SettingsContext'
 import isElectron from 'is-electron'
 
 export const ThemeSelector = (props) => {
-  const { settings, updateSettings } = useContext(SettingsContext)
+  const { settings, updateSettings, isLoaded } = useContext(SettingsContext)
 
   const handleCheckedChange = async (theme: string) => {
     updateSettings({ theme })
@@ -15,15 +15,17 @@ export const ThemeSelector = (props) => {
     }
   }
 
+  if (!isLoaded) return null
+
   return (
     <Select
       id="theme"
       value={settings.theme}
-      onValueChange={(value) => handleCheckedChange(value.toLowerCase())}
+      onValueChange={(value) => handleCheckedChange(value)}
       {...props}
     >
       <Select.Trigger iconAfter={ChevronDown}>
-        <Select.Value placeholder="Something" />
+        <Select.Value placeholder="theme" />
       </Select.Trigger>
 
       <Adapt when="sm" platform="touch">
@@ -99,4 +101,4 @@ export const ThemeSelector = (props) => {
   )
 }
 
-const items = ['System', 'Light', 'Dark']
+const items = ['system', 'light', 'dark']

@@ -49,6 +49,7 @@ export const SettingsProvider = ({
 }: {
   children: React.ReactNode
 }) => {
+  const [isLoaded, setIsLoaded] = useState(false)
   const [settings, setSettings] = useState<ISettings>(
     defaultSettings as ISettings
   )
@@ -92,13 +93,14 @@ export const SettingsProvider = ({
       }
 
       setSettings(settings)
+      setIsLoaded(true)
     }
 
     fetchSettings()
   }, [])
 
   return (
-    <SettingsContext.Provider value={{ settings, updateSettings }}>
+    <SettingsContext.Provider value={{ settings, updateSettings, isLoaded }}>
       {children}
     </SettingsContext.Provider>
   )
