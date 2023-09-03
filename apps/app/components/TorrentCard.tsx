@@ -90,7 +90,7 @@ export const TorrentCard = ({ torrent }) => {
           </XStack>
           <Progress
             mb="$2"
-            value={Math.round(torrent.percentDone * 100)}
+            value={Math.floor(torrent.percentDone * 100)}
             theme="yellow"
             bordered
             size="$2"

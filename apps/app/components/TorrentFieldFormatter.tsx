@@ -53,7 +53,7 @@ export const TorrentFieldFormatter = ({
 
     // Percent
   } else if (name.includes('percentDone')) {
-    formattedValue = `${Math.round(value * 100)} %`
+    formattedValue = `${Math.floor(value * 100)} %`
   } else if (
     // Dates
     name.includes('Date')
