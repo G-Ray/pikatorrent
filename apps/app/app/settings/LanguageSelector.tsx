@@ -7,6 +7,7 @@ import { SettingsContext } from '../../contexts/SettingsContext'
 import isElectron from 'is-electron'
 
 import i18n, { translationsLanguages } from '../../i18n'
+import { getLocales } from 'expo-localization'
 
 // On Android/iOS, the language should be set in the OS settings
 export const LanguageSelector = (props) => {
@@ -25,7 +26,7 @@ export const LanguageSelector = (props) => {
   return (
     <Select
       id="language"
-      value={settings.language}
+      value={settings.language || getLocales()[0].languageCode}
       onValueChange={(value) => handleCheckedChange(value.toLowerCase())}
       {...props}
     >
