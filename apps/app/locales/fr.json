@@ -1,4 +1,105 @@
 {
-  "settings": "Paramètres",
-  "about": "À propos"
+  "menu": {
+    "about": "À propos",
+    "settings": "Paramètres"
+  },
+  "torrents": {
+    "add": "Ajouter",
+    "startAll": "Tout reprendre",
+    "pauseAll": "Tout mettre en pause",
+    "searchPlaceholder": "Choisir un torrent en ligne...",
+    "filterListPlaceholder": "Filtrer la liste...",
+    "searchEngineSelectorLabel": "Moteurs de recherches",
+    "addYourFirstTorrentTitle": "Ajoutez votre premier torrent",
+    "addYourFirstTorrentDescription": "Vos torrents seront affichés ici",
+    "filteredLabels": "Étiquettes filtrées"
+  },
+  "settings": {
+    "nodes": {
+      "title": "Nœuds",
+      "listLabel": "Nœuds local et à distance",
+      "qrCodeLabel": "QR code pour lier l'application mobile",
+      "acceptedPeersLabel": "Connections acceptées",
+      "rejectedPeersLabel": "Connections rejetées",
+      "acceptedOrRejectedPeers": {
+        "none": "Aucun",
+        "delete": "Supprimer"
+      }
+    },
+    "app": {
+      "title": "Paramètres de l'application",
+      "theme": "Théme",
+      "language": "Langue",
+      "searchEngines": "Urls de moteurs de recherches (un par ligne)",
+      "invalidUrls": "Urls invalides",
+      "save": "Sauvegarder",
+      "reset": "Réinitialiser"
+    },
+    "torrents": {
+      "title": "Paramètres des torrents",
+      "downloadDirectory": "Dossier de téléchargements",
+      "encryption": "Chiffrement",
+      "encryptionModes": {
+        "required": "Requis",
+        "preferred": "Préféré",
+        "tolerated": "Toléré"
+      },
+      "save": "Sauvegarder"
+    }
+  },
+  "about": {
+    "pikatorrentVersion": "Version de PikaTorrent",
+    "transmissionVersion": "Version de Transmission",
+    "reportBugOrFeature": "Un bug trouvé ou une fonctionnalité à proposer ?",
+    "githubLinkDescription": "Ouvrir un ticket sur Github",
+    "discordLinkDescription": "Rejoindre le Discord"
+  },
+  "addNodeDialog": {
+    "title": "Ajouter un nœuds",
+    "description": "Ajouter un nouveau nœuds pour le contrôler depuis n'importe où.",
+    "triggerLabel": "Ajouter le nœud",
+    "nameLabel": "Nom",
+    "idLabel": "Id",
+    "namePlaceholder": "Nom",
+    "idPlaceholder": "Id",
+    "add": "Ajouter"
+  },
+  "addTorrentDialog": {
+    "title": "Ajouter un torrent",
+    "add": "Ajouter",
+    "selectFile": "Selectionner un fichier .torrent",
+    "torrentOrMagnetLinkPlaceholder": "Lien torrent ou magnet://"
+  },
+  "sessionInfoDialog": {
+    "title": "Info de session"
+  },
+  "acceptOrRejectPeerDialog": {
+    "title": "Authoriser une nouvelle connection",
+    "description": "Un nouvel appareil souhaite contrôler pikatorrent:",
+    "warningIfNotRecognize": "Si vous ne reconnaissez pas cet appareil, cliquez sur rejeter.",
+    "reject": "Rejeter",
+    "accept": "Accepter"
+  },
+  "torrentDialog": {
+    "copyLink": "Copier le lien",
+    "share": "Partager",
+    "editLabels": "Editer les étiquettes",
+    "openFolder": "Ouvrir le dossier",
+    "remove": "Supprimer",
+    "files": "Fichiers"
+  },
+  "removeTorrentDialog": {
+    "title": "Confirmation de suppression",
+    "warningMessage": "Êtes vous certain de supprimer",
+    "remove": "Supprimer"
+  },
+  "filesListDialog": {
+    "title": "Fichiers",
+    "open": "Ouvrir"
+  },
+  "toasts": {
+    "linkCopied": "Lien copié",
+    "torrentDownloaded": "Torrent téléchargé",
+    "noAppCanOpenFile": "Aucune application ne peut ouvrir ce fichier"
+  }
 }

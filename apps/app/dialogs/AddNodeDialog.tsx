@@ -6,6 +6,7 @@ import { Label } from 'tamagui'
 import { Form } from 'tamagui'
 import { Platform } from 'react-native'
 import { Dialog } from './Dialog'
+import i18n from '../i18n'
 
 export const AddNodeDialog = ({ settingsContext }) => {
   const [id, setId] = useState('')
@@ -43,39 +44,39 @@ export const AddNodeDialog = ({ settingsContext }) => {
 
   return (
     <Dialog
-      title="Add a new node"
+      title={i18n.t('addNodeDialog.title')}
       defaultOpen={defaultOpen}
       trigger={
         <Button theme="yellow" icon={PlusCircle}>
-          Add node
+          {i18n.t('addNodeDialog.triggerLabel')}
         </Button>
       }
     >
       <Dialog.Description>
-        Add a new node to control it from anywhere.
+        {i18n.t('addNodeDialog.description')}
       </Dialog.Description>
 
       <Form onSubmit={handleSave} gap="$4">
         <Fieldset horizontal gap="$4">
           <Label w={160} justifyContent="flex-end" htmlFor="name">
-            Name
+            {i18n.t('addNodeDialog.nameLabel')}
           </Label>
           <Input
             f={1}
             id="name"
-            placeholder="name"
+            placeholder={i18n.t('addNodeDialog.namePlaceholder')}
             value={name}
             onChangeText={setName}
           />
         </Fieldset>
         <Fieldset horizontal gap="$4">
           <Label w={160} justifyContent="flex-end" htmlFor="name">
-            ID
+            {i18n.t('addNodeDialog.idLabel')}
           </Label>
           <Input
             f={1}
             id="id"
-            placeholder="id"
+            placeholder={i18n.t('addNodeDialog.idPlaceholder')}
             value={id}
             onChangeText={setId}
           />
@@ -85,7 +86,7 @@ export const AddNodeDialog = ({ settingsContext }) => {
           <Dialog.Close displayWhenAdapted asChild>
             <Form.Trigger asChild>
               <Button theme="yellow" aria-label="Submit">
-                Add
+                {i18n.t('addNodeDialog.add')}
               </Button>
             </Form.Trigger>
           </Dialog.Close>

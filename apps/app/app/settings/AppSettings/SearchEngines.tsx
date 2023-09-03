@@ -5,6 +5,7 @@ import { SettingsContext } from '../../../contexts/SettingsContext'
 import defaultSettings from '../../../defaultSettings.json'
 import { Undo } from '@tamagui/lucide-icons'
 import { SettingLayout } from '../../../components/SettingLayout'
+import i18n from '../../../i18n'
 
 export const SearchEngines = () => {
   const { settings, updateSettings } = useContext(SettingsContext)
@@ -39,7 +40,9 @@ export const SearchEngines = () => {
   return (
     <YStack w="100%" gap="$4">
       <SettingLayout>
-        <Paragraph minWidth={260}>Search engines urls (one per line)</Paragraph>
+        <Paragraph minWidth={260}>
+          {i18n.t('settings.app.searchEngines')}
+        </Paragraph>
         <TextArea
           theme="yellow"
           w="100%"
@@ -47,7 +50,11 @@ export const SearchEngines = () => {
           onChangeText={(text) => setSearchEnginesUrls(text.split('\n'))}
           value={searchEnginesUrls.join('\n')}
         />
-        {!isValid && <Paragraph color="$red9">Invalid urls</Paragraph>}
+        {!isValid && (
+          <Paragraph color="$red9">
+            {i18n.t('settings.app.invalidUrls')}
+          </Paragraph>
+        )}
       </SettingLayout>
       <XStack gap="$2" alignSelf="flex-end">
         <Button
@@ -64,7 +71,7 @@ export const SearchEngines = () => {
               : 1
           }
         >
-          Reset
+          {i18n.t('settings.app.reset')}
         </Button>
         <Button
           theme="yellow"
@@ -72,7 +79,7 @@ export const SearchEngines = () => {
           disabled={!isValid || !hasChanged}
           o={!isValid || !hasChanged ? 0.5 : 1}
         >
-          Save
+          {i18n.t('settings.app.save')}
         </Button>
       </XStack>
     </YStack>

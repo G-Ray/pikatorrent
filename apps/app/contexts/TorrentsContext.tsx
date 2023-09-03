@@ -48,7 +48,7 @@ export const TorrentsProvider = ({ children }) => {
           )
         )
         torrentsDone.forEach((torrent) =>
-          toast.show('Torrent downloaded', { native: true })
+          toast.show('toasts.torrentDownloaded', { native: true })
         )
         return response.arguments.torrents
       })

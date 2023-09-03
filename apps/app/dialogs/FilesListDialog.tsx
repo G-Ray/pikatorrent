@@ -17,6 +17,7 @@ import { Platform } from 'react-native'
 import prettyBytes from 'pretty-bytes'
 import isElectron from 'is-electron'
 import { useToastController } from '@tamagui/toast'
+import i18n from '../i18n'
 
 const buildFilePath = (torrent, file) => {
   return `${torrent.downloadDir}/${file.name}`
@@ -44,8 +45,8 @@ export const FilesListDialog = ({ torrent }) => {
 
   return (
     <Dialog
-      title="Files"
-      trigger={<Button icon={List}>Files</Button>}
+      title={i18n.t('filesListDialog.title')}
+      trigger={<Button icon={List}>{i18n.t('torrentDialog.files')}</Button>}
       snapPoints={[50]}
     >
       <ScrollView horizontal>
@@ -85,13 +86,13 @@ const FileRow = ({ isTorrentFinished, torrent, file }) => {
                 try {
                   await handleOpenFile(torrent, file)
                 } catch (e) {
-                  toast.show('No application can handle this file', {
+                  toast.show(i18n.t('toasts.noAppCanOpenFile'), {
                     native: true,
                   })
                 }
               }}
             >
-              Open
+              {i18n.t('filesListDialog.open')}
             </Button>
           </XStack>
         )}

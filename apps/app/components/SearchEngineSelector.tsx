@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Check, ChevronDown, ChevronUp } from '@tamagui/lucide-icons'
 import {
   Adapt,
@@ -15,7 +15,7 @@ import {
 import { Engine } from './SearchBar'
 
 import defaultSettings from '../defaultSettings.json'
-import { SettingsContext } from '../contexts/SettingsContext'
+import i18n from '../i18n'
 
 type SearchEngineSelectorProps = {
   engines: Array<Engine>
@@ -89,7 +89,9 @@ export const SearchEngineSelector = ({
         <Select.Viewport minWidth={200}>
           <XStack>
             <Select.Group space="$0">
-              <Select.Label>Search engines</Select.Label>
+              <Select.Label>
+                {i18n.t('torrents.searchEngineSelectorLabel')}
+              </Select.Label>
               {engines.map((engine, i) => {
                 return (
                   <Select.Item index={i} key={engine.name} value={engine.name}>

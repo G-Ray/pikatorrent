@@ -11,10 +11,11 @@ interface Node {
   name: string
 }
 
-const SETTINGS_KEYS = [
+export const SETTINGS_KEYS = [
   'clientId',
   'theme',
   'nodes',
+  'language',
   'selectedNodeId',
   'searchEnginesUrls',
   'isTermsOfUseAccepted',

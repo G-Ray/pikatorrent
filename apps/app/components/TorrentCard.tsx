@@ -34,6 +34,7 @@ import { EditLabelsDialog } from '../dialogs/EditLabelsDialog'
 import { APP_URL } from '../config'
 import { Platform, Share } from 'react-native'
 import { useToastController } from '@tamagui/toast'
+import i18n from '../i18n'
 
 export const TorrentCard = ({ torrent }) => {
   const media = useMedia()
@@ -143,7 +144,7 @@ const TorrentActions = ({ theme = 'light', torrent, handleOpenFolder }) => {
             <ShareButtons torrent={torrent} toast={toast} />
             {isElectron() && torrent.percentDone === 1 && (
               <Button icon={FolderOpen} onPress={handleOpenFolder}>
-                Open Folder
+                {i18n.t('torrentDialog.openFolder')}
               </Button>
             )}
             <FilesListDialog torrent={torrent} />
@@ -172,13 +173,11 @@ const ShareButtons = ({ toast, torrent }) => {
           const shareLink = APP_URL + '/add#' + torrent.magnetLink
           try {
             navigator.clipboard.writeText(shareLink)
-            toast.show('Link copied')
-          } catch (e) {
-            toast.show('Error copying link')
-          }
+            toast.show(i18n.t('toasts.copiedLink'))
+          } catch (e) {}
         }}
       >
-        Copy link
+        {i18n.t('torrentDialog.copyLink')}
       </Button>
     )
   }
@@ -196,7 +195,7 @@ const ShareButtons = ({ toast, torrent }) => {
         })
       }}
     >
-      Share
+      {i18n.t('torrentDialog.share')}
     </Button>
   )
 }
@@ -245,9 +244,11 @@ export const TorrentCardPlaceHolder = () => {
             <ArrowBigDown size={'$4'} />
           )}
           <H4 numberOfLines={1} fontWeight="bold">
-            Add your first torrent
+            {i18n.t('torrents.addYourFirstTorrentTitle')}
           </H4>
-          <Paragraph>Your torrents will be displayed here</Paragraph>
+          <Paragraph>
+            {i18n.t('torrents.addYourFirstTorrentDescription')}
+          </Paragraph>
         </YStack>
       </Card.Header>
     </Card>

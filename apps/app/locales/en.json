@@ -1,17 +1,105 @@
 {
-  "settings": "Settings",
-  "about": "About",
-  "percentDone": "Progress",
-  "status": "Status",
-  "eta": "Eta",
-  "rateDownload": "Download rate",
-  "rateUpload": "Upload rate",
-  "totalSize": "Total size",
-  "addedDate": "Added Date",
-  "comment": "Comment",
-  "creator": "Creator",
-  "doneDate": "Done date",
-  "peersConnected": "Peers connected",
-  "startDate": "Start date",
-  "uploadRatio": "Upload ratio"
+  "menu": {
+    "about": "About",
+    "settings": "Settings"
+  },
+  "torrents": {
+    "add": "Add",
+    "startAll": "Start all",
+    "pauseAll": "Pause all",
+    "searchPlaceholder": "Pick a torrent online...",
+    "filterListPlaceholder": "Filter list...",
+    "searchEngineSelectorLabel": "Search engines",
+    "addYourFirstTorrentTitle": "Add your first torrent",
+    "addYourFirstTorrentDescription": "Your torrents will be displayed here",
+    "filteredLabels": "Filtered labels"
+  },
+  "settings": {
+    "nodes": {
+      "title": "Nodes",
+      "listLabel": "Local & remote nodes",
+      "qrCodeLabel": "QR code to link the mobile app",
+      "acceptedPeersLabel": "Accepted connections",
+      "rejectedPeersLabel": "Rejected connections",
+      "acceptedOrRejectedPeers": {
+        "none": "None",
+        "delete": "Delete"
+      }
+    },
+    "app": {
+      "title": "App settings",
+      "theme": "Theme",
+      "language": "Language",
+      "searchEngines": "Search engines urls (one per line)",
+      "invalidUrls": "Invalid urls",
+      "save": "Save",
+      "reset": "Reset"
+    },
+    "torrents": {
+      "title": "Torrents settings",
+      "downloadDirectory": "Download directory",
+      "encryption": "Encryption",
+      "encryptionModes": {
+        "required": "Required",
+        "preferred": "Preferred",
+        "tolerated": "Tolerated"
+      },
+      "save": "Save"
+    }
+  },
+  "about": {
+    "pikatorrentVersion": "PikaTorrent version",
+    "transmissionVersion": "Transmission version",
+    "reportBugOrFeature": "Found a bug or want to suggest a feature ?",
+    "githubLinkDescription": "Open an issue on Github",
+    "discordLinkDescription": "Join us on Discord"
+  },
+  "addNodeDialog": {
+    "title": "Add a new node",
+    "description": "Add a new node to control it from anywhere.",
+    "triggerLabel": "Add node",
+    "nameLabel": "Name",
+    "idLabel": "Id",
+    "namePlaceholder": "Name",
+    "idPlaceholder": "Id",
+    "add": "Add"
+  },
+  "addTorrentDialog": {
+    "title": "Add a torrent",
+    "add": "Add",
+    "selectFile": "Select a .torrent file",
+    "torrentOrMagnetLinkPlaceholder": "Torrent or magnet:// links"
+  },
+  "sessionInfoDialog": {
+    "title": "Session info"
+  },
+  "acceptOrRejectPeerDialog": {
+    "title": "Authorize new connection",
+    "description": "A new device would like to control pikatorrent:",
+    "warningIfNotRecognize": "If you do not recognize this device, click on reject.",
+    "reject": "Reject",
+    "accept": "Accept"
+  },
+  "torrentDialog": {
+    "copyLink": "Copy Link",
+    "share": "Share",
+    "editLabels": "Edit Labels",
+    "openFolder": "Open Folder",
+    "remove": "Remove",
+    "files": "Files"
+  },
+  "removeTorrentDialog": {
+    "title": "Remove confirmation",
+    "warningMessage": "Are your sure to delete",
+    "remove": "Remove"
+  },
+  "filesListDialog": {
+    "title": "Files",
+    "open": "Open"
+  },
+  "toasts": {
+    "linkCopied": "Link copied",
+    "torrentDownloaded": "Torrent downloaded",
+    "noAppCanOpenFile": "No application can handle this file"
+  }
 }

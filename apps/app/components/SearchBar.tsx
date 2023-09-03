@@ -6,6 +6,7 @@ import { SettingsContext } from '../contexts/SettingsContext'
 
 import defaultSettings from '../defaultSettings.json'
 import { openExternalLink } from '../lib/links'
+import i18n from '../i18n'
 
 export type Engine = {
   name: string
@@ -56,7 +57,7 @@ export const SearchBar = () => {
           borderTopRightRadius={0}
           borderBottomRightRadius={0}
           bc={/^light/.test(theme) ? 'white' : 'black'}
-          placeholder="Pick a torrent online..."
+          placeholder={i18n.t('torrents.searchPlaceholder')}
           value={query}
           onChangeText={setQuery}
         />

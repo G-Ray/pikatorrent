@@ -2,26 +2,29 @@ import React from 'react'
 import { Trash } from '@tamagui/lucide-icons'
 import { Button, Paragraph, YStack } from 'tamagui'
 import { Dialog } from './Dialog'
+import i18n from '../i18n'
 
 export const RemoveTorrentDialog = ({ id, name, torrentsFunctions }) => {
   return (
     <Dialog
-      title="Delete confirmation"
+      title={i18n.t('removeTorrentDialog.title')}
       trigger={
         <Button icon={Trash} theme="red">
-          Remove
+          {i18n.t('torrentDialog.remove')}
         </Button>
       }
       snapPoints={[32, 90]}
     >
-      <Paragraph>Are your sure to delete {name} ?</Paragraph>
+      <Paragraph>
+        {i18n.t('removeTorrentDialog.warningMessage')} {name} ?
+      </Paragraph>
       <YStack space="$4" ai="center" minWidth={300}>
         <Dialog.Close displayWhenAdapted asChild>
           <Button
             onPress={() => torrentsFunctions.remove(id, true)}
             theme="red"
           >
-            Delete
+            {i18n.t('removeTorrentDialog.remove')}
           </Button>
         </Dialog.Close>
       </YStack>

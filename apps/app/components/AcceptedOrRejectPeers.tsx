@@ -4,6 +4,7 @@ import { Button, ListItem, Paragraph, YGroup, YStack } from 'tamagui'
 import { NodeContext } from '../contexts/NodeContext'
 import { Delete } from '@tamagui/lucide-icons'
 import { SettingLayout } from './SettingLayout'
+import i18n from '../i18n'
 
 export const AcceptedOrRejectedPeers = () => {
   const node = useContext(NodeContext)
@@ -22,7 +23,7 @@ export const AcceptedOrRejectedPeers = () => {
   return (
     <YStack gap="$4">
       <SettingLayout>
-        <Paragraph>Accepted peers</Paragraph>
+        <Paragraph>{i18n.t('settings.nodes.acceptedPeersLabel')}</Paragraph>
         <PeersList
           type="accepted"
           settings={settings}
@@ -31,7 +32,7 @@ export const AcceptedOrRejectedPeers = () => {
       </SettingLayout>
 
       <SettingLayout>
-        <Paragraph>Rejected peers</Paragraph>
+        <Paragraph>{i18n.t('settings.nodes.rejectedPeersLabel')}</Paragraph>
         <PeersList
           type="rejected"
           settings={settings}
@@ -46,7 +47,9 @@ const PeersList = ({ type, settings, handleRemovePeer }) => {
   return (
     <YGroup alignSelf="center" bordered size="$4">
       {settings[type + 'Peers'].length === 0 && (
-        <ListItem gap="$4">None</ListItem>
+        <ListItem gap="$4">
+          {i18n.t('settings.nodes.acceptedOrRejectedPeers.none')}
+        </ListItem>
       )}
       {settings[type + 'Peers'].map((peer: any) => (
         <ListItem key={peer.id} gap="$4">
@@ -57,7 +60,7 @@ const PeersList = ({ type, settings, handleRemovePeer }) => {
             size="$2"
             onPress={() => handleRemovePeer(type, peer.id)}
           >
-            Delete
+            {i18n.t('settings.nodes.acceptedOrRejectedPeers.delete')}
           </Button>
         </ListItem>
       ))}

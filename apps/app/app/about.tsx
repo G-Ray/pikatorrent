@@ -8,6 +8,7 @@ import { DESKTOP_MAX_CONTENT_WIDTH } from '../constants/layout'
 import { SettingLayout } from '../components/SettingLayout'
 import { ExternalLink, Github, Heart } from '@tamagui/lucide-icons'
 import { openExternalLink } from '../lib/links'
+import i18n from '../i18n'
 
 export default function About() {
   const { session } = useSession()
@@ -20,11 +21,15 @@ export default function About() {
         {...(media.gtXs && { w: DESKTOP_MAX_CONTENT_WIDTH })}
       >
         <SettingLayout>
-          <Label htmlFor="pikaTorrentVersion">PikaTorrent version</Label>
+          <Label htmlFor="pikaTorrentVersion">
+            {i18n.t('about.pikatorrentVersion')}
+          </Label>
           <Paragraph id="pikaTorrentVersion">{version}</Paragraph>
         </SettingLayout>
         <SettingLayout>
-          <Label htmlFor="transmissionVersion">Transmission version</Label>
+          <Label htmlFor="transmissionVersion">
+            {i18n.t('about.transmissionVersion')}
+          </Label>
           <Paragraph id="transmissionVersion">{session['version']}</Paragraph>
         </SettingLayout>
         <XStack ml="auto">
@@ -32,7 +37,7 @@ export default function About() {
         </XStack>
         <XStack mx="auto" mt="$8" gap="$2">
           <Heart color="$red9" />
-          <Paragraph>Found a bug or want to suggest a feature ?</Paragraph>
+          <Paragraph>{i18n.t('about.reportBugOrFeature')}</Paragraph>
           <Heart color="$red9" />
         </XStack>
         <XStack mx="auto" mt="$4">
@@ -45,7 +50,7 @@ export default function About() {
               )
             }
           >
-            <Paragraph>Open an issue on Github</Paragraph>
+            <Paragraph>{i18n.t('about.githubLinkDescription')}</Paragraph>
           </Button>
         </XStack>
         <XStack mx="auto" mt="$4">
@@ -53,7 +58,7 @@ export default function About() {
             icon={ExternalLink}
             onPress={() => openExternalLink('https://discord.gg/6HxCV4aGdy')}
           >
-            <Paragraph>Join us on Discord</Paragraph>
+            <Paragraph>{i18n.t('about.discordLinkDescription')}</Paragraph>
           </Button>
         </XStack>
       </YStack>

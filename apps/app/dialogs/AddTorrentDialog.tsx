@@ -20,6 +20,7 @@ import { useURL } from 'expo-linking'
 import isElectron from 'is-electron'
 import { Download, ExternalLink } from '@tamagui/lucide-icons'
 import { openExternalLink } from '../lib/links'
+import i18n from '../i18n'
 
 function readFileToBase64(document: DocumentPicker.DocumentResult) {
   return new Promise((resolve, reject) => {
@@ -143,7 +144,7 @@ export const AddTorrentDialog = () => {
       }}
       // snapPoints={[42]}
       defaultOpen
-      title="Add a torrent"
+      title={i18n.t('addTorrentDialog.title')}
     >
       <OpenInApp node={node} magnet={magnet} />
 
@@ -156,7 +157,9 @@ export const AddTorrentDialog = () => {
             <Input
               f={1}
               id="torrent-uri"
-              placeholder="torrent or magnet:// links"
+              placeholder={i18n.t(
+                'addTorrentDialog.torrentOrMagnetLinkPlaceholder'
+              )}
               value={magnet}
               onChangeText={setMagnet}
             />
@@ -171,7 +174,7 @@ export const AddTorrentDialog = () => {
               onPress={handleSelectTorrentFile}
               borderColor={'$yellow9'}
             >
-              Select a .torrent file
+              {i18n.t('addTorrentDialog.selectFile')}
             </Button>
             {documentResult && <Paragraph>{documentResult.name}</Paragraph>}
             {torrentFilePath && <Paragraph>{torrentFilePath}</Paragraph>}
@@ -197,7 +200,7 @@ export const AddTorrentDialog = () => {
                 borderColor={'$yellow9'}
                 onPress={handleAddTorrent}
               >
-                Add
+                {i18n.t('addTorrentDialog.add')}
               </Button>
             </Dialog.Close>
           </YStack>

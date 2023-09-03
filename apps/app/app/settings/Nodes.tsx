@@ -25,6 +25,7 @@ import { NodeContext } from '../../contexts/NodeContext'
 import { AddNodeDialog } from '../../dialogs/AddNodeDialog'
 import { SettingLayout } from '../../components/SettingLayout'
 import { APP_URL } from '../../config'
+import i18n from '../../i18n'
 
 export const Nodes = () => {
   const settingsContext = useContext(SettingsContext)
@@ -75,9 +76,9 @@ export const Nodes = () => {
 
   return (
     <YStack space w="100%">
-      <H2>Nodes</H2>
+      <H2>{i18n.t('settings.nodes.title')}</H2>
       <SettingLayout>
-        <Paragraph>Local & remote nodes</Paragraph>
+        <Paragraph>{i18n.t('settings.nodes.listLabel')}</Paragraph>
         <YStack gap="$2">
           <NodesList
             nodes={nodes}
@@ -94,7 +95,7 @@ export const Nodes = () => {
 
       {isElectron() && (
         <SettingLayout>
-          <Paragraph>QR code to link the mobile app</Paragraph>
+          <Paragraph>{i18n.t('settings.nodes.qrCodeLabel')}</Paragraph>
           <Card ai="center" jc="center" bordered p="$1" bg="white">
             <QRCode xml={qrCodeXML} />
           </Card>
@@ -111,7 +112,7 @@ export const Nodes = () => {
             onPress={() => setIsScanOpen(true)}
             f={1}
           >
-            Scan QR code
+            {i18n.t('settings.nodes.nodes.qrCodeScanButtonLabel')}Scan QR code
           </Button>
           {isScanOpen && (
             <ScanQRCodeDialog

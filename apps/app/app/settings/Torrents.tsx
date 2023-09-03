@@ -19,6 +19,7 @@ import { useSession } from '../../hooks/useSession'
 import { Check, ChevronDown, ChevronUp, Folder } from '@tamagui/lucide-icons'
 import { SettingLayout } from '../../components/SettingLayout'
 import isElectron from 'is-electron'
+import i18n from '../../i18n'
 
 export const Torrents = () => {
   const { sendRPCMessage, isConnected } = useContext(NodeContext)
@@ -52,9 +53,9 @@ export const Torrents = () => {
 
   return (
     <Form space ai="flex-start" onSubmit={() => handleSubmit()} w="100%">
-      <H2>Torrents settings</H2>
+      <H2>{i18n.t('settings.torrents.title')}</H2>
       <SettingLayout>
-        <Paragraph>Download directory</Paragraph>
+        <Paragraph>{i18n.t('settings.torrents.downloadDirectory')}</Paragraph>
         <XStack>
           <DownloadDirectoryInput session={session} setSession={setSession} />
         </XStack>
@@ -99,7 +100,9 @@ export const Torrents = () => {
 
                 <Select.Viewport outlineStyle="none">
                   <Select.Group space="$0">
-                    <Select.Label>Encryption</Select.Label>
+                    <Select.Label>
+                      {i18n.t('settings.torrents.encryption')}
+                    </Select.Label>
                     {encryptionModes.map((mode, i) => {
                       return (
                         <Select.Item
@@ -108,7 +111,11 @@ export const Torrents = () => {
                           value={mode}
                           outlineStyle="none"
                         >
-                          <Select.ItemText>{mode}</Select.ItemText>
+                          <Select.ItemText>
+                            {i18n.t(
+                              `settings.torrents.encryptionModes.${mode}`
+                            )}
+                          </Select.ItemText>
                           <Select.ItemIndicator ml="auto">
                             <Check size={16} />
                           </Select.ItemIndicator>
@@ -137,7 +144,7 @@ export const Torrents = () => {
 
       <Form.Trigger asChild disabled={!hasChanged} alignSelf="flex-end">
         <Button theme="yellow" o={!hasChanged ? 0.5 : 1}>
-          Save
+          {i18n.t('settings.torrents.save')}
         </Button>
       </Form.Trigger>
     </Form>

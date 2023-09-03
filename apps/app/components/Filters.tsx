@@ -4,6 +4,7 @@ import { Button, Separator, YStack, useMedia, useThemeName } from 'tamagui'
 import { Dialog } from '../dialogs/Dialog'
 import { useTorrents } from '../hooks/useTorrents'
 import { LabelsSelector, SelectedLabels } from '../dialogs/EditLabelsDialog'
+import i18n from '../i18n'
 
 export const Filters = ({ onChangeFilters }) => {
   const media = useMedia()
@@ -21,7 +22,9 @@ export const Filters = ({ onChangeFilters }) => {
           {...(filteredLabels.length > 0 && { color: '$blue9' })}
           borderRadius={0}
         >
-          {media.gtXs ? `${filteredLabels.length} Filtered tags` : ''}
+          {media.gtXs
+            ? `${filteredLabels.length} ${i18n.t('torrents.filteredLabels')}`
+            : ''}
         </Button>
       }
     >

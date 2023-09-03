@@ -14,6 +14,7 @@ import {
 import { Dialog } from './Dialog'
 import { Label } from '../components/Label'
 import { YStack } from 'tamagui'
+import i18n from '../i18n'
 
 export const EditLabelsDialog = ({ torrentsFunctions, torrent }) => {
   const [label, setLabel] = useState('')
@@ -39,7 +40,7 @@ export const EditLabelsDialog = ({ torrentsFunctions, torrent }) => {
   return (
     <Dialog
       title="Labels"
-      trigger={<Button icon={Tag}>Edit Labels</Button>}
+      trigger={<Button icon={Tag}>{i18n.t('torrentDialog.editLabels')}</Button>}
       snapPoints={[50]}
     >
       <YStack gap="$4" w={360}>

@@ -25,6 +25,7 @@ import { TorrentsContext } from '../../contexts/TorrentsContext'
 import { Filters } from '../../components/Filters'
 import { Link, Slot } from 'expo-router'
 import { Theme } from 'tamagui'
+import i18n from '../../i18n'
 
 const SearchBarWithAddButton = () => {
   const media = useMedia()
@@ -51,7 +52,7 @@ const SearchBarWithAddButton = () => {
             borderTopRightRadius={0}
             borderBottomRightRadius={0}
           >
-            {media.gtXs ? 'Add' : ''}
+            {media.gtXs ? i18n.t('torrents.add') : ''}
           </Button>
         </Link>
         <Separator vertical />
@@ -90,7 +91,7 @@ export default function Torrents() {
             <Input
               minWidth={120}
               f={1}
-              placeholder="Filter list..."
+              placeholder={i18n.t('torrents.filterListPlaceholder')}
               value={filter}
               onChangeText={setFilter}
               bc={/^light/.test(theme) ? 'white' : 'black'}
@@ -134,7 +135,11 @@ const StartOrPauseAllTorrents = () => {
       bc={/^light/.test(theme) ? 'white' : 'black'}
       // {...(!isAllTorrentsActive && { color: '$blue9' })}
     >
-      {media.gtXs ? (isAllTorrentsActive ? 'Pause All' : 'Start All') : ''}
+      {media.gtXs
+        ? isAllTorrentsActive
+          ? i18n.t('torrents.pauseAll')
+          : i18n.t('torrents.startAll')
+        : ''}
     </Button>
   )
 }
