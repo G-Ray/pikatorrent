@@ -36,6 +36,10 @@ Link the mobile app with the desktop app or a server instance to control it from
 
 See [docs/development.md](docs/development.md)
 
+## Localization
+
+See [docs/localization.md](docs/localization.md)
+
 ## License
 
 GPL-3.0
