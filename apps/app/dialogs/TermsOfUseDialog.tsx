@@ -5,6 +5,7 @@ import { ExternalLink } from '@tamagui/lucide-icons'
 import { openExternalLink } from '../lib/links'
 import { quitApp } from '../lib/lifecycle'
 import { SettingsContext } from '../contexts/SettingsContext'
+import i18n from '../i18n'
 
 export const TermsOfUseDialog = () => {
   const { settings, updateSettings } = useContext(SettingsContext)
@@ -19,19 +20,19 @@ export const TermsOfUseDialog = () => {
 
   return (
     <Dialog
-      title="Terms of use"
+      title={i18n.t('termsOfUseDialog.title')}
       open
       snapPoints={[30]}
       dismissOnOverlayPress={false}
       dismissOnSnapToBottom={false}
     >
       <YStack maxWidth={500}>
-        <Paragraph>
-          By using PikaTorrent, you accept the content you download or share is
-          your sole responsability.
-        </Paragraph>
+        <Paragraph>{i18n.t('termsOfUseDialog.termsOfUseMessage')}</Paragraph>
         <XStack ai="center">
-          <Paragraph> You also accept the</Paragraph>
+          <Paragraph>
+            {' '}
+            {i18n.t('termsOfUseDialog.privacyPolicyMessage')}
+          </Paragraph>
           <Button
             ml="$2"
             size="$2"
@@ -40,14 +41,14 @@ export const TermsOfUseDialog = () => {
               openExternalLink('https://www.pikatorrent.com/privacy-policy')
             }}
           >
-            privacy policy.
+            {i18n.t('termsOfUseDialog.privacyPolicy')}.
           </Button>
         </XStack>
       </YStack>
       <XStack jc="flex-end" mt="$2" gap="$2">
-        <Button onPress={quitApp}>Cancel</Button>
+        <Button onPress={quitApp}>{i18n.t('termsOfUseDialog.cancel')}</Button>
         <Dialog.Close displayWhenAdapted asChild onPress={handleAccept}>
-          <Button theme="yellow">Accept</Button>
+          <Button theme="yellow">{i18n.t('termsOfUseDialog.accept')}</Button>
         </Dialog.Close>
       </XStack>
     </Dialog>

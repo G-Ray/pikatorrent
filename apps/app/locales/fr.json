@@ -97,6 +97,14 @@
     "title": "Fichiers",
     "open": "Ouvrir"
   },
+  "termsOfUseDialog": {
+    "title": "Conditions d'utilisation",
+    "termsOfUseMessage": "En utilisant PikaTorrent, vous acceptez que le contenu que vous téléchargez ou partagez est de votre entière responsabilité.",
+    "privacyPolicyMessage": "Vous acceptez également la",
+    "privacyPolicy": "politique de vie privée",
+    "cancel": "Cancel",
+    "accept": "Accept"
+  },
   "toasts": {
     "linkCopied": "Lien copié",
     "torrentDownloaded": "Torrent téléchargé",

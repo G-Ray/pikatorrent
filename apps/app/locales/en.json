@@ -97,6 +97,14 @@
     "title": "Files",
     "open": "Open"
   },
+  "termsOfUseDialog": {
+    "title": "Terms of use",
+    "termsOfUseMessage": "By using PikaTorrent, you accept the content you download or share is your sole responsability.",
+    "privacyPolicyMessage": "You also accept the",
+    "privacyPolicy": "privacy policy",
+    "cancel": "Cancel",
+    "accept": "Accept"
+  },
   "toasts": {
     "linkCopied": "Link copied",
     "torrentDownloaded": "Torrent downloaded",
