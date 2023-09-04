@@ -173,7 +173,7 @@ const ShareButtons = ({ toast, torrent }) => {
           const shareLink = APP_URL + '/add#' + torrent.magnetLink
           try {
             navigator.clipboard.writeText(shareLink)
-            toast.show(i18n.t('toasts.copiedLink'))
+            toast.show(i18n.t('toasts.linkCopied'))
           } catch (e) {}
         }}
       >
