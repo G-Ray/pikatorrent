@@ -40,7 +40,7 @@ const handleOpenFile = async (torrent, file) => {
   }
 }
 
-export const FilesListDialog = ({ torrent }) => {
+export const FilesListDialog = ({ torrent, toast }) => {
   const isTorrentFinished = torrent.percentDone === 1
 
   return (
@@ -58,6 +58,7 @@ export const FilesListDialog = ({ torrent }) => {
                 torrent={torrent}
                 isTorrentFinished={isTorrentFinished}
                 file={file}
+                toast={toast}
               />
             ))}
           </ScrollView>
@@ -67,9 +68,7 @@ export const FilesListDialog = ({ torrent }) => {
   )
 }
 
-const FileRow = ({ isTorrentFinished, torrent, file }) => {
-  const toast = useToastController()
-
+const FileRow = ({ isTorrentFinished, torrent, file, toast }) => {
   return (
     <ListItem key={file.name} hoverTheme>
       <XStack ai="center" jc="space-between" gap="$4" f={1}>
@@ -86,6 +85,7 @@ const FileRow = ({ isTorrentFinished, torrent, file }) => {
                 try {
                   await handleOpenFile(torrent, file)
                 } catch (e) {
+                  console.error(e)
                   toast.show(i18n.t('toasts.noAppCanOpenFile'), {
                     native: true,
                   })

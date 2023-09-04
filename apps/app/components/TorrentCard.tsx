@@ -147,7 +147,7 @@ const TorrentActions = ({ theme = 'light', torrent, handleOpenFolder }) => {
                 {i18n.t('torrentDialog.openFolder')}
               </Button>
             )}
-            <FilesListDialog torrent={torrent} />
+            <FilesListDialog torrent={torrent} toast={toast} />
             <EditLabelsDialog
               torrent={torrent}
               torrentsFunctions={torrentsFunctions}
