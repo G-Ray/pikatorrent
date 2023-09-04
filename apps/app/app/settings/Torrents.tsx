@@ -9,6 +9,7 @@ import {
   Paragraph,
   Select,
   Sheet,
+  Stack,
   XStack,
   YStack,
   useMedia,
@@ -52,7 +53,7 @@ export const Torrents = () => {
   if (!session || !isConnected) return null
 
   return (
-    <Form space ai="flex-start" onSubmit={() => handleSubmit()} w="100%">
+    <YStack space ai="flex-start" w="100%">
       <H2>{i18n.t('settings.torrents.title')}</H2>
       <SettingLayout>
         <Paragraph>{i18n.t('settings.torrents.downloadDirectory')}</Paragraph>
@@ -142,12 +143,16 @@ export const Torrents = () => {
         </XStack>
       </SettingLayout>
 
-      <Form.Trigger asChild disabled={!hasChanged} alignSelf="flex-end">
-        <Button theme="yellow" o={!hasChanged ? 0.5 : 1}>
-          {i18n.t('settings.torrents.save')}
-        </Button>
-      </Form.Trigger>
-    </Form>
+      <Button
+        ml="auto"
+        theme="yellow"
+        o={!hasChanged ? 0.5 : 1}
+        disabled={!hasChanged}
+        onPress={handleSubmit}
+      >
+        {i18n.t('settings.torrents.save')}
+      </Button>
+    </YStack>
   )
 }
 
