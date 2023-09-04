@@ -1,7 +1,6 @@
 import React from 'react'
 import { useContext } from 'react'
 import { SettingsContext } from '../../contexts/SettingsContext'
-import isElectron from 'is-electron'
 
 import i18n, { translationsLanguages } from '../../i18n'
 import { getLocales } from 'expo-localization'
@@ -14,9 +13,6 @@ export const LanguageSelector = () => {
   const handleCheckedChange = async (language: string) => {
     updateSettings({ language })
     i18n.locale = language
-    if (isElectron()) {
-      window.location.reload()
-    }
   }
 
   if (!isLoaded) return null
