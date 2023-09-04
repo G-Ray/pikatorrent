@@ -112,7 +112,7 @@ export const Nodes = () => {
             onPress={() => setIsScanOpen(true)}
             f={1}
           >
-            {i18n.t('settings.nodes.nodes.qrCodeScanButtonLabel')}Scan QR code
+            {i18n.t('settings.nodes.qrCodeScanButtonLabel')}
           </Button>
           {isScanOpen && (
             <ScanQRCodeDialog

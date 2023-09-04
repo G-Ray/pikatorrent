@@ -19,6 +19,7 @@
       "title": "Nodes",
       "listLabel": "Local & remote nodes",
       "qrCodeLabel": "QR code to link the mobile app",
+      "qrCodeScanButtonLabel": "Scan QR code",
       "acceptedPeersLabel": "Accepted connections",
       "rejectedPeersLabel": "Rejected connections",
       "acceptedOrRejectedPeers": {
