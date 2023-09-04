@@ -2,7 +2,8 @@
   "theme": "light",
   "searchEnginesUrls": [
     "https://www.google.com/search?q=torrent+",
-    "https://duckduckgo.com/?q=torrent+"
+    "https://duckduckgo.com/?q=torrent+",
+    "https://archive.org/search?query="
   ],
   "selectedNodeId": "local",
   "nodes": []
