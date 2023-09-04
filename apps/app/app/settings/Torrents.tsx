@@ -9,6 +9,7 @@ import {
   XStack,
   YStack,
   useMedia,
+  useThemeName,
 } from 'tamagui'
 
 import { NodeContext } from '../../contexts/NodeContext'
@@ -24,6 +25,7 @@ export const Torrents = () => {
   const { session: initialSession, fetchSession } = useSession()
   const [session, setSession] = useState({})
   const media = useMedia()
+  const theme = useThemeName()
 
   useEffect(() => {
     setSession(initialSession)
@@ -65,14 +67,15 @@ export const Torrents = () => {
         <XStack w={media.gtXs ? 180 : '100%'}>
           {session.encryption && (
             <Select
-              label={'encryption'}
+              label={i18n.t('settings.torrents.encryption')}
               id="encryption"
-              placeholder={'Select encryption mode'}
+              placeholder={i18n.t('settings.torrents.encryption')}
               value={session.encryption}
               onValueChange={(mode) => {
                 setSession((s) => ({ ...s, encryption: mode }))
               }}
               options={encryptionModes}
+              optionsTexts={encryptionModesTexts}
             ></Select>
           )}
         </XStack>
@@ -84,7 +87,6 @@ export const Torrents = () => {
           id={'utp-enabled'}
           checked={session['utp-enabled']}
           onCheckedChange={(isEnabled) => {
-            console.log('isEnabled', isEnabled)
             setSession((s) => ({ ...s, 'utp-enabled': isEnabled }))
           }}
         >
@@ -109,6 +111,10 @@ export const Torrents = () => {
 }
 
 const encryptionModes = ['required', 'preferred', 'tolerated']
+
+const encryptionModesTexts = encryptionModes.map((mode) =>
+  i18n.t('settings.torrents.encryptionModes.' + mode)
+)
 
 const DownloadDirectoryInput = ({ session, setSession }) => {
   const node = useContext(NodeContext)

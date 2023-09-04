@@ -1,6 +1,6 @@
 import { Check, ChevronDown, ChevronUp } from '@tamagui/lucide-icons'
 import React from 'react'
-import { Sheet, YStack } from 'tamagui'
+import { Sheet, YStack, useThemeName } from 'tamagui'
 
 import { Adapt, Select as SelectTamagui } from 'tamagui'
 
@@ -11,10 +11,17 @@ export const Select = ({
   placeholder,
   label,
   options,
+  optionsTexts,
 }) => {
+  const theme = useThemeName()
+
   return (
     <SelectTamagui id={id} value={value} onValueChange={onValueChange}>
-      <SelectTamagui.Trigger iconAfter={ChevronDown} f={1}>
+      <SelectTamagui.Trigger
+        iconAfter={ChevronDown}
+        f={1}
+        bc={theme === 'light' ? 'white' : 'black'}
+      >
         <SelectTamagui.Value placeholder={placeholder} />
       </SelectTamagui.Trigger>
 
@@ -51,7 +58,9 @@ export const Select = ({
                   value={option}
                   outlineStyle="none"
                 >
-                  <SelectTamagui.ItemText>{option}</SelectTamagui.ItemText>
+                  <SelectTamagui.ItemText>
+                    {optionsTexts[i]}
+                  </SelectTamagui.ItemText>
                   <SelectTamagui.ItemIndicator ml="auto">
                     <Check size={16} />
                   </SelectTamagui.ItemIndicator>
