@@ -19,6 +19,8 @@
       "title": "Nœuds",
       "listLabel": "Nœuds local et à distance",
       "qrCodeLabel": "QR code pour lier l'application mobile",
+      "copyLink": "Copier le lien",
+      "secretLinkLabel": "Url secrète pour lier app.pikatorrent.com",
       "qrCodeScanButtonLabel": "Scanner un QR code",
       "acceptedPeersLabel": "Connections acceptées",
       "rejectedPeersLabel": "Connections rejetées",

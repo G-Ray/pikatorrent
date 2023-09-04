@@ -19,13 +19,14 @@ import { Platform } from 'react-native'
 import isElectron from 'is-electron'
 import { ScanQRCodeDialog } from '../../dialogs/ScanQRCodeDialog'
 import { getDeviceName } from '../../lib/device'
-import { Camera } from '@tamagui/lucide-icons'
+import { Camera, Clipboard } from '@tamagui/lucide-icons'
 import { AcceptedOrRejectedPeers } from '../../components/AcceptedOrRejectPeers'
 import { NodeContext } from '../../contexts/NodeContext'
 import { AddNodeDialog } from '../../dialogs/AddNodeDialog'
 import { SettingLayout } from '../../components/SettingLayout'
 import { APP_URL } from '../../config'
 import i18n from '../../i18n'
+import { useToastController } from '@tamagui/toast'
 
 export const Nodes = () => {
   const settingsContext = useContext(SettingsContext)
@@ -33,8 +34,14 @@ export const Nodes = () => {
   const [qrCodeXML, setQrCodeXML] = useState(null)
   const [isScanOpen, setIsScanOpen] = useState(false)
   const node = useContext(NodeContext)
+  const toast = useToastController()
 
   const nodes = settings.nodes || []
+
+  const nodeId = node?.settings?.nodeId
+  const linkURL = `${APP_URL}/settings?nodeId=${nodeId}&name=${getDeviceName()}`
+
+  console.log('linkURL', linkURL)
 
   useEffect(() => {
     if (!isElectron()) return
@@ -42,17 +49,13 @@ export const Nodes = () => {
     const buildQrCode = async () => {
       if (!node.settings) return
 
-      const nodeId = await node.settings.nodeId
-      QRCodeGenerator.toString(
-        encodeURI(
-          `${APP_URL}/settings?nodeId=${nodeId}&name=${getDeviceName()}`
-        ),
-        { type: 'svg' }
-      ).then(setQrCodeXML)
+      QRCodeGenerator.toString(encodeURI(linkURL), { type: 'svg' }).then(
+        setQrCodeXML
+      )
     }
 
     buildQrCode()
-  }, [node.settings])
+  }, [node.settings, linkURL])
 
   const handleDeleteNode = async (id: string) => {
     updateSettings({
@@ -75,7 +78,7 @@ export const Nodes = () => {
   }
 
   return (
-    <YStack space w="100%">
+    <YStack space w="100%" gap="$2">
       <H2>{i18n.t('settings.nodes.title')}</H2>
       <SettingLayout>
         <Paragraph>{i18n.t('settings.nodes.listLabel')}</Paragraph>
@@ -94,12 +97,26 @@ export const Nodes = () => {
       </SettingLayout>
 
       {isElectron() && (
-        <SettingLayout>
-          <Paragraph>{i18n.t('settings.nodes.qrCodeLabel')}</Paragraph>
-          <Card ai="center" jc="center" bordered p="$1" bg="white">
-            <QRCode xml={qrCodeXML} />
-          </Card>
-        </SettingLayout>
+        <>
+          <SettingLayout>
+            <Paragraph>{i18n.t('settings.nodes.qrCodeLabel')}</Paragraph>
+            <Card ai="center" jc="center" bordered p="$1" bg="white">
+              <QRCode xml={qrCodeXML} />
+            </Card>
+          </SettingLayout>
+          <SettingLayout>
+            <Paragraph>{i18n.t('settings.nodes.secretLinkLabel')}</Paragraph>
+            <Button
+              icon={Clipboard}
+              onPress={async () => {
+                navigator.clipboard.writeText(linkURL)
+                toast.show(i18n.t('toasts.linkCopied'))
+              }}
+            >
+              {i18n.t('settings.nodes.copyLink')}
+            </Button>
+          </SettingLayout>
+        </>
       )}
       {isElectron() && <AcceptedOrRejectedPeers />}
 
