@@ -78,6 +78,20 @@ export const Torrents = () => {
         </XStack>
       </SettingLayout>
 
+      <SettingLayout>
+        <Paragraph>Enable uTP</Paragraph>
+        <Switch
+          id={'utp-enabled'}
+          checked={session['utp-enabled']}
+          onCheckedChange={(isEnabled) => {
+            console.log('isEnabled', isEnabled)
+            setSession((s) => ({ ...s, 'utp-enabled': isEnabled }))
+          }}
+        >
+          <Switch.Thumb animation="quick" />
+        </Switch>
+      </SettingLayout>
+
       <Button
         ml="auto"
         theme="yellow"
