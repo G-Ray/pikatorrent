@@ -88,7 +88,10 @@ export const Torrents = () => {
             setSession((s) => ({ ...s, 'utp-enabled': isEnabled }))
           }}
         >
-          <Switch.Thumb animation="quick" />
+          <Switch.Thumb
+            animation="quick"
+            bc={theme === 'light' ? 'black' : 'white'}
+          />
         </Switch>
       </SettingLayout>
 
