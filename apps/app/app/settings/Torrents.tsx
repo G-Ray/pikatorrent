@@ -1,15 +1,11 @@
 import React, { useRef } from 'react'
 import { useContext, useEffect, useState } from 'react'
 import {
-  Adapt,
   Button,
-  Form,
   H2,
   Input,
   Paragraph,
-  Select,
-  Sheet,
-  Stack,
+  Switch,
   XStack,
   YStack,
   useMedia,
@@ -17,10 +13,11 @@ import {
 
 import { NodeContext } from '../../contexts/NodeContext'
 import { useSession } from '../../hooks/useSession'
-import { Check, ChevronDown, ChevronUp, Folder } from '@tamagui/lucide-icons'
+import { Folder } from '@tamagui/lucide-icons'
 import { SettingLayout } from '../../components/SettingLayout'
 import isElectron from 'is-electron'
 import i18n from '../../i18n'
+import { Select } from '../../components/reusable/Select'
 
 export const Torrents = () => {
   const { sendRPCMessage, isConnected } = useContext(NodeContext)
@@ -41,6 +38,7 @@ export const Torrents = () => {
         arguments: {
           'download-dir': session['download-dir'],
           encryption: session.encryption,
+          'utp-enabled': session['utp-enabled'],
         },
       })
 
@@ -67,78 +65,15 @@ export const Torrents = () => {
         <XStack w={media.gtXs ? 180 : '100%'}>
           {session.encryption && (
             <Select
+              label={'encryption'}
               id="encryption"
+              placeholder={'Select encryption mode'}
               value={session.encryption}
               onValueChange={(mode) => {
                 setSession((s) => ({ ...s, encryption: mode }))
               }}
-            >
-              <Select.Trigger iconAfter={ChevronDown} f={1}>
-                <Select.Value placeholder="Select an option" />
-              </Select.Trigger>
-
-              <Adapt when="sm" platform="touch">
-                <Sheet modal dismissOnSnapToBottom>
-                  <Sheet.Frame>
-                    <Adapt.Contents />
-                  </Sheet.Frame>
-                  <Sheet.Overlay />
-                </Sheet>
-              </Adapt>
-
-              <Select.Content zIndex={200000}>
-                <Select.ScrollUpButton
-                  ai="center"
-                  jc="center"
-                  pos="relative"
-                  w="100%"
-                  h="$3"
-                >
-                  <YStack zi={10}>
-                    <ChevronUp size={20} />
-                  </YStack>
-                </Select.ScrollUpButton>
-
-                <Select.Viewport outlineStyle="none">
-                  <Select.Group space="$0">
-                    <Select.Label>
-                      {i18n.t('settings.torrents.encryption')}
-                    </Select.Label>
-                    {encryptionModes.map((mode, i) => {
-                      return (
-                        <Select.Item
-                          index={i}
-                          key={mode}
-                          value={mode}
-                          outlineStyle="none"
-                        >
-                          <Select.ItemText>
-                            {i18n.t(
-                              `settings.torrents.encryptionModes.${mode}`
-                            )}
-                          </Select.ItemText>
-                          <Select.ItemIndicator ml="auto">
-                            <Check size={16} />
-                          </Select.ItemIndicator>
-                        </Select.Item>
-                      )
-                    })}
-                  </Select.Group>
-                </Select.Viewport>
-
-                <Select.ScrollDownButton
-                  ai="center"
-                  jc="center"
-                  pos="relative"
-                  w="100%"
-                  h="$3"
-                >
-                  <YStack zi={10}>
-                    <ChevronDown size={20} />
-                  </YStack>
-                </Select.ScrollDownButton>
-              </Select.Content>
-            </Select>
+              options={encryptionModes}
+            ></Select>
           )}
         </XStack>
       </SettingLayout>
