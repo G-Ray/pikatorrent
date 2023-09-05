@@ -41,6 +41,10 @@ export const Torrents = () => {
           'download-dir': session['download-dir'],
           encryption: session.encryption,
           'utp-enabled': session['utp-enabled'],
+          'dht-enabled': session['dht-enabled'],
+          'lpd-enabled': session['lpd-enabled'],
+          'pex-enabled': session['pex-enabled'],
+          'port-forwarding-enabled': session['port-forwarding-enabled'],
         },
       })
 
@@ -82,7 +86,7 @@ export const Torrents = () => {
       </SettingLayout>
 
       <SettingLayout>
-        <Paragraph>Enable uTP</Paragraph>
+        <Paragraph>{i18n.t('settings.torrents.enableUTP')}</Paragraph>
         <Switch
           id={'utp-enabled'}
           checked={session['utp-enabled']}
@@ -95,6 +99,83 @@ export const Torrents = () => {
             bc={theme === 'light' ? 'black' : 'white'}
           />
         </Switch>
+      </SettingLayout>
+
+      <SettingLayout>
+        <Paragraph>{i18n.t('settings.torrents.enableDHT')}</Paragraph>
+        <Switch
+          id={'dht-enabled'}
+          checked={session['dht-enabled']}
+          onCheckedChange={(isEnabled) => {
+            setSession((s) => ({ ...s, 'dht-enabled': isEnabled }))
+          }}
+        >
+          <Switch.Thumb
+            animation="quick"
+            bc={theme === 'light' ? 'black' : 'white'}
+          />
+        </Switch>
+      </SettingLayout>
+
+      <SettingLayout>
+        <Paragraph>{i18n.t('settings.torrents.enableLPD')}</Paragraph>
+        <Switch
+          id={'lpd-enabled'}
+          checked={session['lpd-enabled']}
+          onCheckedChange={(isEnabled) => {
+            setSession((s) => ({ ...s, 'lpd-enabled': isEnabled }))
+          }}
+        >
+          <Switch.Thumb
+            animation="quick"
+            bc={theme === 'light' ? 'black' : 'white'}
+          />
+        </Switch>
+      </SettingLayout>
+
+      <SettingLayout>
+        <Paragraph>{i18n.t('settings.torrents.enablePEX')}</Paragraph>
+        <Switch
+          id={'pex-enabled'}
+          checked={session['pex-enabled']}
+          onCheckedChange={(isEnabled) => {
+            setSession((s) => ({ ...s, 'pex-enabled': isEnabled }))
+          }}
+        >
+          <Switch.Thumb
+            animation="quick"
+            bc={theme === 'light' ? 'black' : 'white'}
+          />
+        </Switch>
+      </SettingLayout>
+
+      <SettingLayout>
+        <Paragraph>
+          {i18n.t('settings.torrents.enablePortForwarding')}
+        </Paragraph>
+        <Switch
+          id={'nabled'}
+          checked={session['port-forwarding-enabled']}
+          onCheckedChange={(isEnabled) => {
+            setSession((s) => ({ ...s, 'port-forwarding-enabled': isEnabled }))
+          }}
+        >
+          <Switch.Thumb
+            animation="quick"
+            bc={theme === 'light' ? 'black' : 'white'}
+          />
+        </Switch>
+      </SettingLayout>
+
+      <SettingLayout>
+        <Paragraph>{i18n.t('settings.torrents.peerPort')}</Paragraph>
+        <Input
+          borderWidth={2}
+          value={session['peer-port']}
+          onChangeText={(text) => {
+            setSession((s) => ({ ...s, ['peer-port']: text }))
+          }}
+        />
       </SettingLayout>
 
       <Button

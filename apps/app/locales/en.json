@@ -47,7 +47,13 @@
         "preferred": "Preferred",
         "tolerated": "Tolerated"
       },
-      "save": "Save"
+      "save": "Save",
+      "enableUTP": "Enable uTP",
+      "enableDHT": "Enable DHT",
+      "enableLPD": "Enable LPD",
+      "enablePEX": "Enable PEX",
+      "enablePortForwarding": "Enable port forwarding",
+      "peerPort": "Peer port"
     }
   },
   "about": {
