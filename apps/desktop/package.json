@@ -32,6 +32,7 @@
     "@pikatorrent/node": "0.5.3",
     "electron-serve": "^1.1.0",
     "electron-squirrel-startup": "^1.0.0",
+    "minimist": "^1.2.8",
     "rage-edit": "^1.2.0"
   },
   "private": true
