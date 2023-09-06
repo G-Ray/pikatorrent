@@ -9,6 +9,7 @@ import {
   Separator,
   XStack,
   YStack,
+  useThemeName,
 } from 'tamagui'
 import prettyBytes from 'pretty-bytes'
 import { NodeContext } from '../contexts/NodeContext'
@@ -19,7 +20,7 @@ import { Dialog } from './Dialog'
 import { Link, useLocalSearchParams, usePathname, useRouter } from 'expo-router'
 import { useURL } from 'expo-linking'
 import isElectron from 'is-electron'
-import { Download, ExternalLink } from '@tamagui/lucide-icons'
+import { ExternalLink } from '@tamagui/lucide-icons'
 import { openExternalLink } from '../lib/links'
 import i18n from '../i18n'
 
@@ -215,6 +216,7 @@ export const AddTorrentDialog = () => {
 const OpenInApp = ({ node, magnet }) => {
   const pathname = usePathname()
   const searchParams = useLocalSearchParams()
+  const theme = useThemeName()
 
   if (Platform.OS !== 'web' || isElectron()) {
     return null
@@ -265,49 +267,63 @@ const OpenInApp = ({ node, magnet }) => {
         Open in app
       </Button>
       <Separator />
-      <Paragraph my="$4">{`Don't have the app yet ?`}</Paragraph>
-      <XStack space>
-        <Link
-          href={
-            'https://github.com/G-Ray/pikatorrent/releases/download/v0.5.0/pikatorrent-0.5.0.Setup.exe'
-          }
-          style={{ textDecoration: 'none' }}
-        >
-          <Button theme="yellow" borderColor={'$yellow9'} icon={Download}>
-            Windows
-          </Button>
-        </Link>
-        <Link
-          href={
-            'https://github.com/G-Ray/pikatorrent/releases/download/v0.5.0/pikatorrent-linux-x64-0.5.0.zip'
-          }
-          style={{ textDecoration: 'none' }}
-        >
-          <Button theme="yellow" borderColor={'$yellow9'} icon={Download}>
-            Linux
-          </Button>
-        </Link>
-      </XStack>
-      <XStack jc="center">
-        <Link href="https://play.google.com/store/apps/details?id=com.gray.pikatorrent">
-          <img
-            width={180}
-            alt="Get it on Google Play"
-            src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
-          />
-        </Link>
-      </XStack>
+      <Paragraph
+        my="$4"
+        textAlign="center"
+      >{`Don't have the app yet ?`}</Paragraph>
+      <YStack ai="center" gap="$4">
+        <XStack space>
+          <YStack>
+            <Paragraph textAlign="center">Windows</Paragraph>
+            <Link href="https://apps.microsoft.com/store/detail/9N9GJQ9BDJW3?launch=true&mode=mini">
+              <img
+                height={48}
+                alt="Download on Windows Store"
+                src={
+                  theme === 'dark'
+                    ? 'https://get.microsoft.com/images/en-US%20light.svg'
+                    : 'https://get.microsoft.com/images/en-US%20dark.svg'
+                }
+              />
+            </Link>
+          </YStack>
+          <YStack>
+            <Paragraph textAlign="center">Linux</Paragraph>
+            <Link href="https://flathub.org/apps/org.gimp.GIMP">
+              <img
+                height={48}
+                alt="Download on Flathub"
+                src={
+                  theme === 'dark'
+                    ? 'https://dl.flathub.org/assets/badges/flathub-badge-i-en.png'
+                    : 'https://dl.flathub.org/assets/badges/flathub-badge-en.png'
+                }
+              />
+            </Link>
+          </YStack>
+        </XStack>
+        <YStack>
+          <Paragraph textAlign="center">Android</Paragraph>
+          <Link href="https://play.google.com/store/apps/details?id=com.gray.pikatorrent&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1">
+            <img
+              height={72}
+              alt="Get it on Google Play"
+              src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
+            />
+          </Link>
+        </YStack>
+      </YStack>
+
       <Button
-        ml="$2"
-        mb="$6"
         size="$2"
         icon={ExternalLink}
         onPress={() => {
           openExternalLink('https://github.com/G-Ray/pikatorrent/releases')
         }}
       >
-        All downloads options
+        Alternative downloads (.zip, .exe, etc...)
       </Button>
+
       {node.isConnected && Platform.OS === 'web' && !isElectron() && (
         <Separator />
       )}
