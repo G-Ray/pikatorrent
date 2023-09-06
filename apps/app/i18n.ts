@@ -5,11 +5,13 @@ import { I18n } from 'i18n-js'
 export const translations = {
   en: require('./locales/en.json'),
   fr: require('./locales/fr.json'),
+  ru: require('./locales/ru.json'),
 }
 
 export const translationsLanguages = {
   en: 'English',
   fr: 'Français',
+  ru: 'Русский',
 }
 
 const i18n = new I18n(translations)

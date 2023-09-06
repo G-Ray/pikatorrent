@@ -1,0 +1,129 @@
+{
+  "menu": {
+    "about": "Подробнее",
+    "settings": "Настройки"
+  },
+  "torrents": {
+    "add": "Добавить",
+    "startAll": "Возобновить все",
+    "pauseAll": "Остановить все",
+    "searchPlaceholder": "Выбрать торрент онлайн...",
+    "filterListPlaceholder": "Фильтровать список...",
+    "searchEngineSelectorLabel": "Поисковые системы",
+    "addYourFirstTorrentTitle": "Добавить свой первый торрент",
+    "addYourFirstTorrentDescription": "Ваши торренты будут отображаться здесь",
+    "filteredLabels": "Отфильтрованные метки"
+  },
+  "settings": {
+    "nodes": {
+      "title": "Узлы",
+      "listLabel": "Локальные & удалённые узлы",
+      "qrCodeLabel": "QR-код для перехода к мобильному приложению",
+      "secretLinkLabel": "Секретный URL для app.pikatorrent.com",
+      "copyLink": "Копировать ссылку",
+      "qrCodeScanButtonLabel": "Сканировать QR-код",
+      "acceptedPeersLabel": "Разрешённые соединения",
+      "rejectedPeersLabel": "Запрещённые соединения",
+      "acceptedOrRejectedPeers": {
+        "none": "Нет",
+        "delete": "Удалить"
+      }
+    },
+    "app": {
+      "title": "Настройки приложения",
+      "theme": "Тема",
+      "language": "Язык",
+      "searchEngines": "URL-адреса поисковых систем (один адрес на строку)",
+      "invalidUrls": "Недопустимые URL-адреса",
+      "save": "Сохранить",
+      "reset": "Сбросить"
+    },
+    "torrents": {
+      "title": "Настройки торрентов",
+      "downloadDirectory": "Папка загрузки",
+      "encryption": "Шифрование",
+      "encryptionModes": {
+        "required": "Необходимо",
+        "preferred": "Предпочтительно",
+        "tolerated": "Допустимо"
+      },
+      "save": "Сохранить",
+      "enableUTP": "Включить uTP",
+      "enableDHT": "Включить DHT",
+      "enableLPD": "Включить LPD",
+      "enablePEX": "Включить PEX",
+      "enablePortForwarding": "Включить перенаправление портов",
+      "peerPort": "Порт пира"
+    }
+  },
+  "about": {
+    "pikatorrentVersion": "Версия PikaTorrent",
+    "transmissionVersion": "Версия передачи данных",
+    "reportBugOrFeature": "Нашли баг или хотите предложить новую функцию?",
+    "githubLinkDescription": "Открыть задачу на GitHub",
+    "discordLinkDescription": "Присоединиться к нам в Discord"
+  },
+  "addNodeDialog": {
+    "title": "Добавить новый узел",
+    "description": "Добавить новый узел, чтобы управлять им откуда угодно.",
+    "triggerLabel": "Добавить узел",
+    "nameLabel": "Имя",
+    "idLabel": "Id",
+    "namePlaceholder": "Имя",
+    "idPlaceholder": "Id",
+    "add": "Добавить"
+  },
+  "addTorrentDialog": {
+    "title": "Добавить торрент",
+    "add": "Добавить",
+    "selectFile": "Выбрать файл .torrent",
+    "torrentOrMagnetLinkPlaceholder": "Торренты или magnet:// ссылки"
+  },
+  "sessionInfoDialog": {
+    "title": "Информация о сессии"
+  },
+  "acceptOrRejectPeerDialog": {
+    "title": "Авторизовать новое подлючение",
+    "description": "Новый запрос на управление picktorrent от устройства:",
+    "warningIfNotRecognize": "Если вы не узнаёте данное устройство, нажмите на кнопку отклонения.",
+    "reject": "Отклонить",
+    "accept": "Разрешить"
+  },
+  "torrentDialog": {
+    "copyLink": "Копировать Ссылку",
+    "share": "Поделиться",
+    "editLabels": "Изменить Название",
+    "openFolder": "Открыть Папку",
+    "remove": "Удалить",
+    "files": "Файлы"
+  },
+  "removeTorrentDialog": {
+    "title": "Подтверждение удаления",
+    "warningMessage": "Вы уверены, что хотите удалить",
+    "remove": "Удалить"
+  },
+  "filesListDialog": {
+    "title": "Файлы",
+    "open": "Открыть"
+  },
+  "termsOfUseDialog": {
+    "title": "Условия использования",
+    "termsOfUseMessage": "Используя Pika Torrent, вы соглашаетесь с тем, что контент, который вы загружаете или которым делитесь, является исключительно вашей ответственностью.",
+    "privacyPolicyMessage": "Вы также соглашаетесь с",
+    "privacyPolicy": "политикой конфиденциальности",
+    "cancel": "Отмена",
+    "accept": "Подтверждаю"
+  },
+  "toasts": {
+    "linkCopied": "Ссылка скопирована",
+    "torrentDownloaded": "Торрент загружен",
+    "noAppCanOpenFile": "Не найдено приложение для открытия данного файла"
+  },
+  "sortingOptionsDialog": {
+    "title": "Сортировать по",
+    "name": "Имени",
+    "totalSize": "Размеру ",
+    "percentDone": "Прогрессу",
+    "reverseOrder": "В обратном порядке"
+  }
+}
