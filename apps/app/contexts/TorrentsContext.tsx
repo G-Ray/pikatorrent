@@ -7,6 +7,7 @@ import React, {
 } from 'react'
 import { NodeContext } from './NodeContext'
 import { useToastController } from '@tamagui/toast'
+import i18n from '../i18n'
 
 export const TorrentsContext = createContext(null)
 
@@ -48,7 +49,7 @@ export const TorrentsProvider = ({ children }) => {
           )
         )
         torrentsDone.forEach((torrent) =>
-          toast.show('toasts.torrentDownloaded', { native: true })
+          toast.show(i18n.t('toasts.torrentDownloaded'), { native: true })
         )
         return response.arguments.torrents
       })
