@@ -78,8 +78,6 @@ export default function Torrents() {
     updateSettings({ sortOptions })
   }
 
-  if (!isLoaded) return null
-
   return (
     <YStack f={1}>
       <YStack px={media.gtXs ? '$8' : '$2'}>
