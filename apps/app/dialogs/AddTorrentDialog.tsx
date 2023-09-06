@@ -10,6 +10,7 @@ import {
   XStack,
   YStack,
 } from 'tamagui'
+import prettyBytes from 'pretty-bytes'
 import { NodeContext } from '../contexts/NodeContext'
 import { Platform } from 'react-native'
 import * as DocumentPicker from 'expo-document-picker'
@@ -233,9 +234,10 @@ const OpenInApp = ({ node, magnet }) => {
     return null
   }
 
-  let name
+  let name, xl
   try {
     name = new URL(magnet).searchParams.get('dn')
+    xl = parseInt(new URL(magnet).searchParams.get('xl'))
   } catch (e) {}
 
   return (
@@ -244,6 +246,11 @@ const OpenInApp = ({ node, magnet }) => {
         <H6 textAlign="center" numberOfLines={1} mb="$4">
           {name}
         </H6>
+      )}
+      {xl && (
+        <Paragraph textAlign="center" numberOfLines={1} mb="$4">
+          {prettyBytes(xl)}
+        </Paragraph>
       )}
       <Button
         onPress={handleOpenInApp}
