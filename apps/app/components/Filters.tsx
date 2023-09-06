@@ -27,6 +27,7 @@ export const Filters = ({ onChangeFilters }) => {
             : ''}
         </Button>
       }
+      snapPointsMode="fit"
     >
       <YStack w={360} gap="$4">
         <LabelsSelector

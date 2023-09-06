@@ -29,7 +29,7 @@ export const ScanQRCodeDialog = ({ onScannedNode, onClose }) => {
   }
 
   return (
-    <Dialog defaultOpen onOpenChange={onClose} title="Scan" snapPoints={[70]}>
+    <Dialog defaultOpen onOpenChange={onClose} title="Scan">
       {!hasPermission && <Paragraph>Camera permission denied</Paragraph>}
       {hasPermission && (
         <BarCodeScanner

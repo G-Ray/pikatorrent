@@ -16,7 +16,6 @@ import { Dialog } from './Dialog'
 import { Platform } from 'react-native'
 import prettyBytes from 'pretty-bytes'
 import isElectron from 'is-electron'
-import { useToastController } from '@tamagui/toast'
 import i18n from '../i18n'
 
 const buildFilePath = (torrent, file) => {
@@ -47,7 +46,7 @@ export const FilesListDialog = ({ torrent, toast }) => {
     <Dialog
       title={i18n.t('filesListDialog.title')}
       trigger={<Button icon={List}>{i18n.t('torrentDialog.files')}</Button>}
-      snapPoints={[50]}
+      snapPointsMode="fit"
     >
       <ScrollView horizontal>
         <YGroup bordered size="$2" f={1}>

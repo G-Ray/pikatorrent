@@ -13,7 +13,7 @@ export const RemoveTorrentDialog = ({ id, name, torrentsFunctions }) => {
           {i18n.t('torrentDialog.remove')}
         </Button>
       }
-      snapPoints={[32, 90]}
+      snapPointsMode="fit"
     >
       <Paragraph>
         {i18n.t('removeTorrentDialog.warningMessage')} {name} ?

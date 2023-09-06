@@ -47,6 +47,7 @@ export const SortingOptionsDialog = ({
           {media.gtXs && i18n.t('sortingOptionsDialog.' + sortOptions.property)}
         </Button>
       }
+      snapPointsMode="fit"
     >
       <YStack w={360} gap="$4">
         <XStack gap="$4">

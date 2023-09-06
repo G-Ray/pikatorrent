@@ -145,6 +145,7 @@ export const AddTorrentDialog = () => {
       // snapPoints={[42]}
       defaultOpen
       title={i18n.t('addTorrentDialog.title')}
+      snapPointsMode="fit"
     >
       <OpenInApp node={node} magnet={magnet} />
 

@@ -41,7 +41,7 @@ export const EditLabelsDialog = ({ torrentsFunctions, torrent }) => {
     <Dialog
       title="Labels"
       trigger={<Button icon={Tag}>{i18n.t('torrentDialog.editLabels')}</Button>}
-      snapPoints={[50]}
+      snapPointsMode="fit"
     >
       <YStack gap="$4" w={360}>
         <LabelsSelector

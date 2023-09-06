@@ -138,7 +138,7 @@ const TorrentActions = ({ theme = 'light', torrent, handleOpenFolder }) => {
               bc={theme === 'light' ? 'white' : 'black'}
             ></Button>
           }
-          snapPoints={[32]}
+          snapPointsMode="fit"
         >
           <YStack gap="$4" pt="$8" pb="$2">
             <ShareButtons torrent={torrent} toast={toast} />

@@ -8,6 +8,7 @@ import {
   Unspaced,
 } from 'tamagui'
 import { Platform } from 'react-native'
+import { SnapPointsMode } from 'tamagui'
 
 type DialogProps = {
   title?: string | React.ReactNode
@@ -20,6 +21,7 @@ type DialogProps = {
   dismissOnOverlayPress?: boolean
   dismissOnSnapToBottom?: boolean
   onOpenChange?: () => {}
+  snapPointsMode?: SnapPointsMode
 }
 
 const Dialog = ({
@@ -33,6 +35,7 @@ const Dialog = ({
   dismissOnOverlayPress = true,
   dismissOnSnapToBottom = true,
   onOpenChange,
+  snapPointsMode,
 }: DialogProps) => {
   return (
     <TamaguiDialog
@@ -51,8 +54,9 @@ const Dialog = ({
           // snapPoints={snapPoints}
           defaultPosition={defaultPosition}
           dismissOnOverlayPress={dismissOnOverlayPress}
+          snapPointsMode={snapPointsMode}
         >
-          <Sheet.Frame padding="$4" space>
+          <Sheet.Frame padding="$4">
             <Adapt.Contents />
           </Sheet.Frame>
           <Sheet.Overlay />
