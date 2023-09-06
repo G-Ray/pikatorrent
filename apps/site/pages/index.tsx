@@ -75,61 +75,57 @@ export default function Home() {
             <Header theme={currentTheme} />
 
             <YStack ai="center" gap="$4">
-              <Paragraph fontWeight={'600'}>
-                Try PikaTorrent v0.5 now :
-              </Paragraph>
+              <Paragraph fontWeight={'600'}>Get PikaTorrent now :</Paragraph>
               <XStack space>
-                <Link
-                  href={
-                    'https://github.com/G-Ray/pikatorrent/releases/download/v0.5.3/pikatorrent-0.5.3.Setup.exe'
-                  }
-                  style={{ textDecoration: 'none' }}
-                >
-                  <Button
-                    theme="yellow"
-                    borderColor={'$yellow9'}
-                    icon={Download}
-                    size="$5"
-                    br={50}
-                  >
-                    Windows
-                  </Button>
-                </Link>
-                <Link
-                  href={
-                    'https://github.com/G-Ray/pikatorrent/releases/download/v0.5.3/pikatorrent-linux-x64-0.5.3.zip'
-                  }
-                  style={{ textDecoration: 'none' }}
-                >
-                  <Button
-                    theme="yellow"
-                    borderColor={'$yellow9'}
-                    icon={Download}
-                    size="$5"
-                    br={50}
-                  >
-                    Linux
-                  </Button>
-                </Link>
+                <YStack>
+                  <Paragraph textAlign="center">Windows</Paragraph>
+                  <Link href="https://apps.microsoft.com/store/detail/9N9GJQ9BDJW3?launch=true&mode=mini">
+                    <img
+                      height={48}
+                      alt="Download on Windows Store"
+                      src={
+                        isDarkThemeSwitchChecked
+                          ? 'https://get.microsoft.com/images/en-US%20light.svg'
+                          : 'https://get.microsoft.com/images/en-US%20dark.svg'
+                      }
+                    />
+                  </Link>
+                </YStack>
+                <YStack>
+                  <Paragraph textAlign="center">Linux</Paragraph>
+                  <Link href="https://flathub.org/apps/org.gimp.GIMP">
+                    <img
+                      height={48}
+                      alt="Download on Flathub"
+                      src={
+                        isDarkThemeSwitchChecked
+                          ? 'https://dl.flathub.org/assets/badges/flathub-badge-i-en.png'
+                          : 'https://dl.flathub.org/assets/badges/flathub-badge-en.png'
+                      }
+                    />
+                  </Link>
+                </YStack>
               </XStack>
-              <a href="https://play.google.com/store/apps/details?id=com.gray.pikatorrent&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1">
-                <img
-                  width={200}
-                  alt="Get it on Google Play"
-                  src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
-                />
-              </a>
+              <YStack>
+                <Paragraph textAlign="center">Android</Paragraph>
+                <Link href="https://play.google.com/store/apps/details?id=com.gray.pikatorrent&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1">
+                  <img
+                    height={72}
+                    alt="Get it on Google Play"
+                    src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
+                  />
+                </Link>
+              </YStack>
 
               <YStack ai="center">
-                <Link
-                  href={'https://github.com/G-Ray/pikatorrent/releases'}
-                  style={{ textDecoration: 'none' }}
-                  target="_blank"
-                >
-                  <Button ml="$2" mb="$6" size="$2" icon={ExternalLink}>
-                    All downloads options
-                  </Button>
-                </Link>
+                <Paragraph mb="$4">
+                  <Link
+                    href={'https://github.com/G-Ray/pikatorrent/releases'}
+                    target="_blank"
+                  >
+                    Alternative downloads (.zip, .exe, etc...)
+                  </Link>
+                </Paragraph>
 
                 <Link href="https://discord.gg/6HxCV4aGdy" target="_blank">
                   <img
