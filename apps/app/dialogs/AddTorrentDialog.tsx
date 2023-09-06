@@ -236,8 +236,11 @@ const OpenInApp = ({ node, magnet }) => {
 
   let name, xl
   try {
-    name = new URL(magnet).searchParams.get('dn')
-    xl = parseInt(new URL(magnet).searchParams.get('xl'))
+    const searchParams = new URL(magnet).searchParams
+    name = searchParams.get('dn')
+    xl = searchParams.get('xl')
+      ? parseInt(searchParams.get('xl') || '')
+      : undefined
   } catch (e) {}
 
   return (
