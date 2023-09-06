@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 import { FlatList } from 'react-native'
 import Fuse from 'fuse.js'
 
@@ -26,6 +26,11 @@ import { Filters } from '../../components/Filters'
 import { Link, Slot } from 'expo-router'
 import { Theme } from 'tamagui'
 import i18n from '../../i18n'
+import {
+  SortOptions,
+  SortingOptionsDialog,
+} from '../../components/SortingOptionsDialog'
+import { SettingsContext } from '../../contexts/SettingsContext'
 
 const SearchBarWithAddButton = () => {
   const media = useMedia()
@@ -63,10 +68,17 @@ const SearchBarWithAddButton = () => {
 }
 
 export default function Torrents() {
+  const { settings, updateSettings, isLoaded } = useContext(SettingsContext)
   const [filter, setFilter] = useState('')
   const [filters, setFilters] = useState([])
   const media = useMedia()
   const theme = useThemeName()
+
+  const handleChangeSort = (sortOptions: SortOptions) => {
+    updateSettings({ sortOptions })
+  }
+
+  if (!isLoaded) return null
 
   return (
     <YStack f={1}>
@@ -83,6 +95,13 @@ export default function Torrents() {
         >
           <XStack jc="space-between">
             <StartOrPauseAllTorrents />
+            <Separator vertical />
+            <Theme reset>
+              <SortingOptionsDialog
+                sortOptions={settings.sortOptions}
+                onChangeSort={handleChangeSort}
+              />
+            </Theme>
             <Separator vertical />
             <Theme reset>
               <Filters onChangeFilters={setFilters} />
@@ -103,7 +122,11 @@ export default function Torrents() {
           </XStack>
         </Card>
       </YStack>
-      <TorrentsList filter={filter} filters={filters} />
+      <TorrentsList
+        filter={filter}
+        filters={filters}
+        sortOptions={settings.sortOptions}
+      />
       <Slot />
       {!media.gtXs && (
         <XStack py="$2" mx="$2" mt="auto">
@@ -145,13 +168,23 @@ const StartOrPauseAllTorrents = () => {
 }
 
 type TorrentsListProp = {
+  sortOptions: SortOptions
   filter: string
   filters: string[] // only labels for now
 }
 
-const TorrentsList = ({ filter, filters }: TorrentsListProp) => {
+const TorrentsList = ({ sortOptions, filter, filters }: TorrentsListProp) => {
   const { torrents } = useTorrents()
   const media = useMedia()
+
+  // toSorted is not devined on native
+  torrents.sort((a, b) => {
+    if (a[sortOptions.property] < b[sortOptions.property])
+      return sortOptions.isReversed ? 1 : -1
+    if (a[sortOptions.property] > b[sortOptions.property])
+      return sortOptions.isReversed ? -1 : 1
+    return 0
+  })
 
   const filteredTorrents =
     filters.length > 0

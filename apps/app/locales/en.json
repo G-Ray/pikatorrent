@@ -118,5 +118,12 @@
     "linkCopied": "Link copied",
     "torrentDownloaded": "Torrent downloaded",
     "noAppCanOpenFile": "No application can handle this file"
+  },
+  "sortingOptionsDialog": {
+    "title": "Sort by",
+    "name": "Name",
+    "totalSize": "Size ",
+    "percentDone": "Progress",
+    "reverseOrder": "Reverse order"
   }
 }

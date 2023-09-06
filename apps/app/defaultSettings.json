@@ -6,5 +6,9 @@
     "https://archive.org/search?query="
   ],
   "selectedNodeId": "local",
-  "nodes": []
+  "nodes": [],
+  "sortOptions": {
+    "property": "percentDone",
+    "isReversed": false
+  }
 }

@@ -19,6 +19,7 @@ export const SETTINGS_KEYS = [
   'selectedNodeId',
   'searchEnginesUrls',
   'isTermsOfUseAccepted',
+  'sortOptions',
 ]
 
 interface ISettings {
