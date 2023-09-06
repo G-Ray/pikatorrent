@@ -18,6 +18,7 @@ export default function About() {
     <XStack f={1} jc="center" w="100%" px={media.gtXs ? '$8' : '$2'}>
       <YStack
         flexShrink={1}
+        gap="$4"
         {...(media.gtXs && { w: DESKTOP_MAX_CONTENT_WIDTH })}
       >
         <SettingLayout>
