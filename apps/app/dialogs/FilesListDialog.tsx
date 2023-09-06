@@ -24,14 +24,18 @@ const buildFilePath = (torrent, file) => {
 
 const handleOpenFile = async (torrent, file) => {
   if (Platform.OS === 'android') {
-    const contentUri = await FileSystem.getContentUriAsync(
-      'file://' + buildFilePath(torrent, file)
-    )
+    try {
+      const contentUri = await FileSystem.getContentUriAsync(
+        'file://' + buildFilePath(torrent, file)
+      )
 
-    await IntentLauncher.startActivityAsync('android.intent.action.VIEW', {
-      data: contentUri,
-      flags: 1,
-    })
+      await IntentLauncher.startActivityAsync('android.intent.action.VIEW', {
+        data: contentUri,
+        flags: 1,
+      })
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   if (isElectron()) {
