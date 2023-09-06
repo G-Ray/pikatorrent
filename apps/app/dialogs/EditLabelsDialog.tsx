@@ -66,7 +66,9 @@ export const EditLabelsDialog = ({ torrentsFunctions, torrent }) => {
             <Input flex={1} id="label" onChangeText={setLabel} value={label} />
 
             <Form.Trigger asChild>
-              <Button theme="yellow">Add</Button>
+              <Button theme="yellow" borderColor={'$yellow9'}>
+                Add
+              </Button>
             </Form.Trigger>
           </XStack>
         </Form>

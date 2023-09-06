@@ -47,7 +47,7 @@ export const AddNodeDialog = ({ settingsContext }) => {
       title={i18n.t('addNodeDialog.title')}
       defaultOpen={defaultOpen}
       trigger={
-        <Button theme="yellow" icon={PlusCircle}>
+        <Button theme="yellow" icon={PlusCircle} borderColor={'$yellow9'}>
           {i18n.t('addNodeDialog.triggerLabel')}
         </Button>
       }
@@ -85,7 +85,11 @@ export const AddNodeDialog = ({ settingsContext }) => {
         <YStack ai="flex-end" mt="$2">
           <Dialog.Close displayWhenAdapted asChild>
             <Form.Trigger asChild>
-              <Button theme="yellow" aria-label="Submit">
+              <Button
+                theme="yellow"
+                borderColor={'$yellow9'}
+                aria-label="Submit"
+              >
                 {i18n.t('addNodeDialog.add')}
               </Button>
             </Form.Trigger>

@@ -45,7 +45,7 @@ export function ConfirmNodeDeleteAlertDialog({ onConfirm }) {
             </AlertDialog.Description>
 
             <XStack space="$3" justifyContent="flex-end">
-              <AlertDialog.Cancel theme="yellow" asChild>
+              <AlertDialog.Cancel asChild>
                 <Button>Cancel</Button>
               </AlertDialog.Cancel>
               <AlertDialog.Action asChild onPress={onConfirm}>

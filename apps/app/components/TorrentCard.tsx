@@ -93,6 +93,7 @@ export const TorrentCard = ({ torrent }) => {
             mb="$2"
             value={Math.floor(torrent.percentDone * 100)}
             theme="yellow"
+            borderColor={'$yellow9'}
             bordered
             size="$2"
           >

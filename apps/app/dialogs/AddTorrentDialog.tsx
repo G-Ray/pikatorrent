@@ -172,8 +172,8 @@ export const AddTorrentDialog = () => {
           <Fieldset gap="$4">
             <Button
               theme="yellow"
-              onPress={handleSelectTorrentFile}
               borderColor={'$yellow9'}
+              onPress={handleSelectTorrentFile}
             >
               {i18n.t('addTorrentDialog.selectFile')}
             </Button>
@@ -185,6 +185,7 @@ export const AddTorrentDialog = () => {
             <Dialog.Close displayWhenAdapted asChild>
               <Button
                 theme="yellow"
+                borderColor={'$yellow9'}
                 aria-label="Close"
                 disabled={
                   magnet === '' &&
@@ -198,7 +199,6 @@ export const AddTorrentDialog = () => {
                     ? 0.5
                     : 1
                 }
-                borderColor={'$yellow9'}
                 onPress={handleAddTorrent}
               >
                 {i18n.t('addTorrentDialog.add')}
@@ -248,9 +248,9 @@ const OpenInApp = ({ node, magnet }) => {
       <Button
         onPress={handleOpenInApp}
         theme="yellow"
+        borderColor={'$yellow9'}
         mb="$4"
         icon={ExternalLink}
-        borderColor={'$yellow9'}
       >
         Open in app
       </Button>
@@ -263,7 +263,7 @@ const OpenInApp = ({ node, magnet }) => {
           }
           style={{ textDecoration: 'none' }}
         >
-          <Button theme="yellow" icon={Download} borderColor={'$yellow9'}>
+          <Button theme="yellow" borderColor={'$yellow9'} icon={Download}>
             Windows
           </Button>
         </Link>
@@ -273,7 +273,7 @@ const OpenInApp = ({ node, magnet }) => {
           }
           style={{ textDecoration: 'none' }}
         >
-          <Button theme="yellow" icon={Download} borderColor={'$yellow9'}>
+          <Button theme="yellow" borderColor={'$yellow9'} icon={Download}>
             Linux
           </Button>
         </Link>

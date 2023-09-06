@@ -125,6 +125,7 @@ export const Nodes = () => {
           <Button
             size="$4"
             theme="yellow"
+            borderColor={'$yellow9'}
             icon={Camera}
             onPress={() => setIsScanOpen(true)}
             f={1}

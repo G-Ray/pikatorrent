@@ -181,6 +181,7 @@ export const Torrents = () => {
       <Button
         ml="auto"
         theme="yellow"
+        borderColor={'$yellow9'}
         o={!hasChanged ? 0.5 : 1}
         disabled={!hasChanged}
         onPress={handleSubmit}

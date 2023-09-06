@@ -48,7 +48,9 @@ export const TermsOfUseDialog = () => {
       <XStack jc="flex-end" mt="$2" gap="$2">
         <Button onPress={quitApp}>{i18n.t('termsOfUseDialog.cancel')}</Button>
         <Dialog.Close displayWhenAdapted asChild onPress={handleAccept}>
-          <Button theme="yellow">{i18n.t('termsOfUseDialog.accept')}</Button>
+          <Button theme="yellow" borderColor={'$yellow9'}>
+            {i18n.t('termsOfUseDialog.accept')}
+          </Button>
         </Dialog.Close>
       </XStack>
     </Dialog>
