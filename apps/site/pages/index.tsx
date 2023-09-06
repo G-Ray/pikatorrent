@@ -144,18 +144,6 @@ export default function Home() {
           <Screenshots theme={currentTheme} />
 
           <YStack ai="center" space>
-            <XStack>
-              <a
-                href="https://www.producthunt.com/posts/pikatorrent?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-pikatorrent"
-                target="_blank"
-              >
-                <img
-                  src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=403326&theme=light"
-                  alt="PikaTorrent - A&#0032;modern&#0044;&#0032;simple&#0044;&#0032;connected&#0044;&#0032;and&#0032;electric&#0032;BitTorrent&#0032;app&#0032;⚡ | Product Hunt"
-                  style={{ width: 240 }}
-                />
-              </a>
-            </XStack>
             <Paragraph>Prefer to manage your torrents on a server ?</Paragraph>
             <Theme inverse>
               <Card bordered px="$4" py="$2" elevate size="$4">
