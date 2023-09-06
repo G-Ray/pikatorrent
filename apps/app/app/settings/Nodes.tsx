@@ -41,8 +41,6 @@ export const Nodes = () => {
   const nodeId = node?.settings?.nodeId
   const linkURL = `${APP_URL}/settings?nodeId=${nodeId}&name=${getDeviceName()}`
 
-  console.log('linkURL', linkURL)
-
   useEffect(() => {
     if (!isElectron()) return
 
