@@ -1,0 +1,129 @@
+{
+  "menu": {
+    "about": "Sobre",
+    "settings": "Configurações"
+  },
+  "torrents": {
+    "add": "Adicionar",
+    "startAll": "Iniciar todos",
+    "pauseAll": "Pausar todos",
+    "searchPlaceholder": "Escolha um torrent online...",
+    "filterListPlaceholder": "Filtrar a lista...",
+    "searchEngineSelectorLabel": "Mecanismos de busca",
+    "addYourFirstTorrentTitle": "Adicione seu primeiro torrent",
+    "addYourFirstTorrentDescription": "Seus torrents serão exibidos aqui",
+    "filteredLabels": "Filtrar etiquetas"
+  },
+  "settings": {
+    "nodes": {
+      "title": "Nodes",
+      "listLabel": "Nodes local & remoto",
+      "qrCodeLabel": "Código QR para vincular o aplicativo móvel",
+      "secretLinkLabel": "URL secreto para vincular app.pikatorrent.com",
+      "copyLink": "Copiar link",
+      "qrCodeScanButtonLabel": "Ler o código QR",
+      "acceptedPeersLabel": "Conexões aceitas",
+      "rejectedPeersLabel": "Conexões rejeitadas",
+      "acceptedOrRejectedPeers": {
+        "none": "Nenhum",
+        "delete": "Excluir"
+      }
+    },
+    "app": {
+      "title": "Configurações do aplicativo",
+      "theme": "Tema",
+      "language": "Idioma",
+      "searchEngines": "URLs de mecanismos de busca (um por linha)",
+      "invalidUrls": "Urls inválidos",
+      "save": "Salvar",
+      "reset": "Resetar"
+    },
+    "torrents": {
+      "title": "Configurações de torrents",
+      "downloadDirectory": "Diretório de download",
+      "encryption": "Encriptação",
+      "encryptionModes": {
+        "required": "Requerido",
+        "preferred": "Preferido",
+        "tolerated": "Tolerado"
+      },
+      "save": "Salvar",
+      "enableUTP": "Habilitar uTP",
+      "enableDHT": "Habilitar DHT",
+      "enableLPD": "Habilitar LPD",
+      "enablePEX": "Habilitar PEX",
+      "enablePortForwarding": "Habilitar encaminhamento de porta",
+      "peerPort": "Porta"
+    }
+  },
+  "about": {
+    "pikatorrentVersion": "Versão do PikaTorrent",
+    "transmissionVersion": "Versão do Transmission",
+    "reportBugOrFeature": "Encontrou um bug ou quer sugerir um recurso?",
+    "githubLinkDescription": "Abrir um problema no Github",
+    "discordLinkDescription": "Junte-se ao nosso Discord"
+  },
+  "addNodeDialog": {
+    "title": "Adicionar um novo node",
+    "description": "Adicione um novo node para controlá-lo de qualquer lugar.",
+    "triggerLabel": "Adicionar node",
+    "nameLabel": "Nome",
+    "idLabel": "Id",
+    "namePlaceholder": "Nome",
+    "idPlaceholder": "Id",
+    "add": "Adicionar"
+  },
+  "addTorrentDialog": {
+    "title": "Adicionar um torrent",
+    "add": "Adicionar",
+    "selectFile": "Selecionar um arquivo .torrent",
+    "torrentOrMagnetLinkPlaceholder": "Link torrent ou magnet://"
+  },
+  "sessionInfoDialog": {
+    "title": "Informação da sessão"
+  },
+  "acceptOrRejectPeerDialog": {
+    "title": "Autorizar nova conexão",
+    "description": "Um novo dispositivo gostaria de controlar o PikaTorrent:",
+    "warningIfNotRecognize": "Se você não reconhece este dispositivo, clique em rejeitar.",
+    "reject": "Rejeitar",
+    "accept": "Aceitar"
+  },
+  "torrentDialog": {
+    "copyLink": "Copiar link",
+    "share": "Compartilhar",
+    "editLabels": "Editar etiquetas",
+    "openFolder": "Abrir pasta",
+    "remove": "Remover",
+    "files": "Arquivos"
+  },
+  "removeTorrentDialog": {
+    "title": "Remover torrent",
+    "warningMessage": "Você tem certeza que deseja excluir",
+    "remove": "Remover"
+  },
+  "filesListDialog": {
+    "title": "Arquivos",
+    "open": "Abrir"
+  },
+  "termsOfUseDialog": {
+    "title": "Termos de uso",
+    "termsOfUseMessage": "Ao usar o PikaTorrent, você aceita que o conteúdo baixado ou compartilhado é de sua exclusiva responsabilidade.",
+    "privacyPolicyMessage": "Você também aceita o",
+    "privacyPolicy": "política de privacidade",
+    "cancel": "Cancelar",
+    "accept": "Aceitar"
+  },
+  "toasts": {
+    "linkCopied": "Link copiado",
+    "torrentDownloaded": "Torrent concluído",
+    "noAppCanOpenFile": "Nenhum aplicativo pode lidar com este arquivo"
+  },
+  "sortingOptionsDialog": {
+    "title": "Ordenar por",
+    "name": "Nome",
+    "totalSize": "Tamanho ",
+    "percentDone": "Progresso",
+    "reverseOrder": "Ordem inversa"
+  }
+}
