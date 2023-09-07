@@ -27,6 +27,7 @@ import { SettingLayout } from '../../components/SettingLayout'
 import { APP_URL } from '../../config'
 import i18n from '../../i18n'
 import { useToastController } from '@tamagui/toast'
+import { useLocalNode } from '../../hooks/useLocalNode'
 
 export const Nodes = () => {
   const settingsContext = useContext(SettingsContext)
@@ -35,11 +36,11 @@ export const Nodes = () => {
   const [isScanOpen, setIsScanOpen] = useState(false)
   const node = useContext(NodeContext)
   const toast = useToastController()
+  const localNode = useLocalNode()
 
   const nodes = settings.nodes || []
 
-  const nodeId = node?.settings?.nodeId
-  const linkURL = `${APP_URL}/settings?nodeId=${nodeId}&name=${getDeviceName()}`
+  const linkURL = `${APP_URL}/settings?nodeId=${localNode?.settings?.nodeId}&name=${getDeviceName()}`
 
   useEffect(() => {
     if (!isElectron()) return
