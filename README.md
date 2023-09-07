@@ -32,7 +32,7 @@ The recommended way to install PikaTorrent is from the app stores. You will rece
     </a>
     </td>
     <td>
-    <a href="https://flathub.org/apps/org.gimp.GIMP">
+    <a href="https://flathub.org/apps/com.pikatorrent.PikaTorrent">
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="https://dl.flathub.org/assets/badges/flathub-badge-i-en.png" />
         <img

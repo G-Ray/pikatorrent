@@ -1,6 +1,6 @@
 import React from 'react'
 import { H2, Paragraph, XStack, YStack, useMedia } from 'tamagui'
-import isElectron from 'is-electron'
+import { Platform } from 'react-native'
 
 import { SearchEngines } from './AppSettings/SearchEngines'
 import { SettingLayout } from '../../components/SettingLayout'
@@ -21,7 +21,7 @@ export const Preferences = () => {
           <ThemeSelector />
         </XStack>
       </SettingLayout>
-      {isElectron() && (
+      {Platform.OS === 'web' && (
         <SettingLayout>
           <Paragraph>{i18n.t('settings.app.language')}</Paragraph>
           <XStack w={media.gtXs ? 180 : '100%'}>

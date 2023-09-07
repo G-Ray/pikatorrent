@@ -93,7 +93,7 @@ export default function Home() {
                 </YStack>
                 <YStack>
                   <Paragraph textAlign="center">Linux</Paragraph>
-                  <Link href="https://flathub.org/apps/org.gimp.GIMP">
+                  <Link href="https://flathub.org/apps/com.pikatorrent.PikaTorrent">
                     <img
                       height={48}
                       alt="Download on Flathub"
