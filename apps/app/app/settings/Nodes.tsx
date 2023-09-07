@@ -6,6 +6,7 @@ import {
   ListItem,
   Paragraph,
   RadioGroup,
+  Theme,
   XStack,
   YGroup,
   YStack,
@@ -21,7 +22,6 @@ import { ScanQRCodeDialog } from '../../dialogs/ScanQRCodeDialog'
 import { getDeviceName } from '../../lib/device'
 import { Camera, Clipboard } from '@tamagui/lucide-icons'
 import { AcceptedOrRejectedPeers } from '../../components/AcceptedOrRejectPeers'
-import { NodeContext } from '../../contexts/NodeContext'
 import { AddNodeDialog } from '../../dialogs/AddNodeDialog'
 import { SettingLayout } from '../../components/SettingLayout'
 import { APP_URL } from '../../config'
@@ -32,29 +32,9 @@ import { useLocalNode } from '../../hooks/useLocalNode'
 export const Nodes = () => {
   const settingsContext = useContext(SettingsContext)
   const { settings, updateSettings } = settingsContext
-  const [qrCodeXML, setQrCodeXML] = useState(null)
   const [isScanOpen, setIsScanOpen] = useState(false)
-  const node = useContext(NodeContext)
-  const toast = useToastController()
-  const localNode = useLocalNode()
 
   const nodes = settings.nodes || []
-
-  const linkURL = `${APP_URL}/settings?nodeId=${localNode?.settings?.nodeId}&name=${getDeviceName()}`
-
-  useEffect(() => {
-    if (!isElectron()) return
-
-    const buildQrCode = async () => {
-      if (!node.settings) return
-
-      QRCodeGenerator.toString(encodeURI(linkURL), { type: 'svg' }).then(
-        setQrCodeXML
-      )
-    }
-
-    buildQrCode()
-  }, [node.settings, linkURL])
 
   const handleDeleteNode = async (id: string) => {
     updateSettings({
@@ -95,29 +75,7 @@ export const Nodes = () => {
         </YStack>
       </SettingLayout>
 
-      {isElectron() && (
-        <>
-          <SettingLayout>
-            <Paragraph>{i18n.t('settings.nodes.qrCodeLabel')}</Paragraph>
-            <Card ai="center" jc="center" bordered p="$1" bg="white">
-              <QRCode xml={qrCodeXML} />
-            </Card>
-          </SettingLayout>
-          <SettingLayout>
-            <Paragraph>{i18n.t('settings.nodes.secretLinkLabel')}</Paragraph>
-            <Button
-              icon={Clipboard}
-              onPress={async () => {
-                navigator.clipboard.writeText(linkURL)
-                toast.show(i18n.t('toasts.linkCopied'))
-              }}
-            >
-              {i18n.t('settings.nodes.copyLink')}
-            </Button>
-          </SettingLayout>
-        </>
-      )}
-      {isElectron() && <AcceptedOrRejectedPeers />}
+      {isElectron() && <LocalNodeQrcode />}
 
       {Platform.OS !== 'web' && (
         <XStack>
@@ -191,5 +149,55 @@ const NodesList = ({
         </YGroup.Item>
       ))}
     </YGroup>
+  )
+}
+
+const LocalNodeQrcode = () => {
+  const toast = useToastController()
+  const localNode = useLocalNode()
+
+  const linkURL = localNode?.settings?.nodeId
+    ? `${APP_URL}/settings?nodeId=${
+        localNode?.settings?.nodeId
+      }&name=${getDeviceName()}`
+    : null
+
+  const [qrCodeXML, setQrCodeXML] = useState(null)
+
+  if (linkURL) {
+    QRCodeGenerator.toString(encodeURI(linkURL), { type: 'svg' }).then(
+      setQrCodeXML
+    )
+  }
+
+  if (!qrCodeXML) {
+    return null
+  }
+
+  return (
+    <>
+      <>
+        <SettingLayout>
+          <Paragraph>{i18n.t('settings.nodes.qrCodeLabel')}</Paragraph>
+          <Card ai="center" jc="center" bordered p="$1" bg="white">
+            <QRCode xml={qrCodeXML} />
+          </Card>
+        </SettingLayout>
+        <SettingLayout>
+          <Paragraph>{i18n.t('settings.nodes.secretLinkLabel')}</Paragraph>
+          <Button
+            icon={Clipboard}
+            onPress={async () => {
+              navigator.clipboard.writeText(linkURL)
+              toast.show(i18n.t('toasts.linkCopied'))
+            }}
+          >
+            {i18n.t('settings.nodes.copyLink')}
+          </Button>
+        </SettingLayout>
+      </>
+
+      <AcceptedOrRejectedPeers />
+    </>
   )
 }
