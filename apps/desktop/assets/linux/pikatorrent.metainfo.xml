@@ -52,6 +52,19 @@
   </screenshots>
 
   <releases>
+    <release version="0.6.0" date="2023-09-07">
+      <description>
+        <ul>
+          <li>Sort your torrents by name, progress or size ⬇️ ⬆️</li>
+          <li>Better performances when editing or removing a torrent 🚀</li>
+          <li>Add advanced settings: uTP, DHT, LPD, PEX, port forwarding, and incoming peer port 🧲</li>
+          <li>Initial translations into russian 🇷🇺 , Brazilian portuguese 🇧🇷 , and french 🇫🇷</li>
+          <li>Added archive.org to the default search engines 🗃️</li>
+          <li>Minor UI improvements 💅</li>
+          <li>Bug fixes 🪱</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.5.3" date="2023-08-23" />
   </releases>
 </component>
