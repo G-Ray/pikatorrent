@@ -169,11 +169,13 @@ const NodesList = ({
           <ListItem
             gap="$4"
             iconAfter={
-              <ConfirmNodeDeleteAlertDialog
-                onConfirm={() => {
-                  handleDeleteNode(node.id)
-                }}
-              />
+              <Theme reset>
+                <ConfirmNodeDeleteAlertDialog
+                  onConfirm={() => {
+                    handleDeleteNode(node.id)
+                  }}
+                />
+              </Theme>
             }
           >
             <RadioGroup
