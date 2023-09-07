@@ -21,50 +21,17 @@ module.exports = {
         publisherDisplayName: 'G_Ray',
         packageName: 'pikatorrent',
         assets: 'assets/appx',
-        manifestTemplate: 'assets/appx/template/appxmanifest.xml'
+        manifestTemplate: 'assets/appx/template/appxmanifest.xml',
         // protocol: 'pikatorrent' // electron forge is not up to date with latest electron-windows-store
-      }
+      },
     },
     {
       name: '@electron-forge/maker-squirrel',
       config: {
         setupIcon: 'assets/icon.ico',
-        iconUrl: 'https://raw.githubusercontent.com/G-Ray/pikatorrent/main/apps/desktop/assets/icon.ico' ,
+        iconUrl:
+          'https://raw.githubusercontent.com/G-Ray/pikatorrent/main/apps/desktop/assets/icon.ico',
         name: 'pikatorrent',
-      },
-    },
-    // Linux
-    {
-      name: '@electron-forge/maker-flatpak',
-      config: {
-        options: {
-          id: 'com.github.G_Ray.pikatorrent',
-          productName: 'PikaTorrent',
-          genericName: 'Bittorrent client',
-          icon: 'assets/icon.png',
-          bin: 'pikatorrent',
-          categories: ['Utility'],
-          mimeType: [
-            'x-scheme-handler/magnet',
-            'x-scheme-handler/pikatorrent',
-            'application/x-bittorrent',
-          ],
-          base: 'org.electronjs.Electron2.BaseApp',
-          runtimeVersion: '22.08',
-          baseVersion: '22.08',
-          modules: [
-            {
-              name: 'zypak',
-              sources: [
-                {
-                  type: 'git',
-                  url: 'https://github.com/refi64/zypak',
-                  tag: 'v2022.04',
-                },
-              ],
-            },
-          ],
-        },
       },
     },
   ],
