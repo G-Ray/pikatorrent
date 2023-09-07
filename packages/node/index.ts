@@ -57,7 +57,7 @@ let onUpdateSettings
 const peers = new Map<string, InstanceType<Peer.SimplePeer>>() // clientId -> SimplePeer
 
 const defaultSettings = {
-  nodeId: null,
+  nodeId: crypto.randomUUID(),
   acceptedPeers: [],
   rejectedPeers: [],
 }
@@ -68,9 +68,11 @@ const loadSettings = () => {
   if (fs.existsSync(settingsFilePath)) {
     const settingsFileData = fs.readFileSync(settingsFilePath)
     if (settingsFileData) {
+      const loadedSaveSettings =  JSON.parse(settingsFileData.toString())
       settings = {
         ...settings,
-        ...JSON.parse(settingsFileData.toString()),
+        ...loadedSaveSettings,
+        nodeId: loadedSaveSettings.nodeId || settings.nodeId
       }
     }
   }
@@ -78,10 +80,7 @@ const loadSettings = () => {
 
 loadSettings()
 
-const nodeId =
-  settings && settings.nodeId ? settings.nodeId : crypto.randomUUID()
-
-const updateSettings = (update) => {
+const updateSettings = (update = {}) => {
   settings = { ...settings, ...update }
   if (onUpdateSettings) {
     onUpdateSettings(settings)
@@ -93,14 +92,9 @@ const saveSettings = () => {
   fs.writeFileSync(settingsFilePath, JSON.stringify(settings))
 }
 
-if (!settings) {
-  // Save nodeId to settings.json
-  updateSettings({ nodeId })
-}
-
 const printNodeInfo = async () => {
   const linkUrl = encodeURI(
-    `${APP_URL}/settings?nodeId=${nodeId}&name=PikaTorrent cli on ${getOSName()}`
+    `${APP_URL}/settings?nodeId=${settings.nodeId}&name=PikaTorrent cli on ${getOSName()}`
   )
 
   const qrcode = await QRCode.toString(linkUrl)
@@ -186,7 +180,7 @@ const initWebSocket = ({ onAcceptOrRejectPeer }) => {
     ws.send(
       JSON.stringify({
         type: 'subscribe',
-        id: nodeId,
+        id: settings.nodeId,
       })
     )
   })
@@ -299,7 +293,7 @@ const initPeer = (id, offer) => {
     ws.send(
       JSON.stringify({
         type: 'signal',
-        fromId: nodeId,
+        fromId: settings.nodeId,
         toId: id,
         signal,
       })
@@ -378,7 +372,7 @@ const startNode = (
     })
   }
 
-  return nodeId
+  return settings.nodeId
 }
 
 const saveAcceptedPeer = (peerId, name) => {
@@ -406,11 +400,15 @@ const transmission = {
     saveSettingsIfNeeded(args[0])
   },
   saveSettings: () => tr.saveSettings(),
-  close: () => tr.close(),
+  close: () => {
+    saveSettings()
+    tr.close()
+  },
 }
 
 // Handle exit gracefully : TODO: expose close/destroy function
 process.on('SIGINT', () => {
+  saveSettings()
   tr.close()
   process.exit()
 })
