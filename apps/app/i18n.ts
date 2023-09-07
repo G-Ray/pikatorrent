@@ -6,12 +6,14 @@ export const translations = {
   en: require('./locales/en.json'),
   fr: require('./locales/fr.json'),
   ru: require('./locales/ru.json'),
+  pt_br: require('./locales/pt_br.json'),
 }
 
 export const translationsLanguages = {
   en: 'English',
   fr: 'Français',
   ru: 'Русский',
+  pt_br: 'Português brasileiro',
 }
 
 const i18n = new I18n(translations)
