@@ -6,8 +6,8 @@ const runCommand = async (command, args = []) => {
   spawnSync(command, args, { stdio: 'inherit' })
 }
 
-const setPkgVersionToWildcard = async (pkg) => {
-  runCommand('npm', ['-w', 'pikatorrent', 'pkg', 'set', `${pkg}=*`])
+const setPkgVersionToWildcard = async (workspace, pkg) => {
+  runCommand('npm', ['-w', workspace, 'pkg', 'set', `${pkg}=*`])
 }
 
 const updateVersion = async (version) => {
@@ -19,8 +19,12 @@ const updateVersion = async (version) => {
 
   // Npm does not update workspace packages in package pikatorrent.
   // It works for packages under a scoped name like @pikatorrent/desktop though
-  await setPkgVersionToWildcard('dependencies.@pikatorrent/node')
-  await setPkgVersionToWildcard('dependencies.@pikatorrent/hub')
+  await setPkgVersionToWildcard('pikatorrent', 'dependencies.@pikatorrent/node')
+  await setPkgVersionToWildcard('pikatorrent', 'dependencies.@pikatorrent/hub')
+  await setPkgVersionToWildcard(
+    '@pikatorrent/desktop',
+    'dependencies.@pikatorrent/node'
+  )
 
   // npm does not commit or tag when using --ws
   runCommand('npm', ['version', '--ws', '--save', '--save-exact', version])
