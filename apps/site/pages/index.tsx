@@ -140,6 +140,16 @@ export default function Home() {
           <Screenshots theme={currentTheme} />
 
           <YStack ai="center" space>
+            <XStack ai="center" jc="center" w="100%">
+              <iframe
+                src="https://ghbtns.com/github-btn.html?user=G-Ray&repo=pikatorrent&type=star&count=true&size=large"
+                frameborder="0"
+                scrolling="0"
+                width="170"
+                height="30"
+                title="GitHub"
+              ></iframe>
+            </XStack>
             <Paragraph>Prefer to manage your torrents on a server ?</Paragraph>
             <Theme inverse>
               <Card bordered px="$4" py="$2" elevate size="$4">
