@@ -50,7 +50,6 @@ export const FilesListDialog = ({ torrent, toast }) => {
     <Dialog
       title={i18n.t('filesListDialog.title')}
       trigger={<Button icon={List}>{i18n.t('torrentDialog.files')}</Button>}
-      snapPointsMode="fit"
     >
       <ScrollView horizontal>
         <YGroup bordered size="$2" f={1}>
