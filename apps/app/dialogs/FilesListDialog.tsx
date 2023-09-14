@@ -1,5 +1,5 @@
 import React from 'react'
-import { ExternalLink, List } from '@tamagui/lucide-icons'
+import { ExternalLink, FolderOpen, List } from '@tamagui/lucide-icons'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as FileSystem from 'expo-file-system'
 
@@ -7,16 +7,18 @@ import {
   Button,
   ListItem,
   Paragraph,
+  Progress,
   ScrollView,
   XStack,
   YGroup,
   YStack,
+  useThemeName,
 } from 'tamagui'
 import { Dialog } from './Dialog'
 import { Platform } from 'react-native'
-import prettyBytes from 'pretty-bytes'
 import isElectron from 'is-electron'
 import i18n from '../i18n'
+import { TorrentFieldFormatter } from '../components/TorrentFieldFormatter'
 
 const buildFilePath = (torrent, file) => {
   return `${torrent.downloadDir}/${file.name}`
@@ -44,44 +46,68 @@ const handleOpenFile = async (torrent, file) => {
 }
 
 export const FilesListDialog = ({ torrent, toast }) => {
-  const isTorrentFinished = torrent.percentDone === 1
-
   return (
     <Dialog
       title={i18n.t('filesListDialog.title')}
       trigger={<Button icon={List}>{i18n.t('torrentDialog.files')}</Button>}
     >
-      <ScrollView horizontal>
-        <YGroup bordered size="$2" f={1}>
-          <ScrollView>
-            {torrent.files.map((file) => (
-              <FileRow
-                key={file.name}
-                torrent={torrent}
-                isTorrentFinished={isTorrentFinished}
-                file={file}
-                toast={toast}
-              />
-            ))}
-          </ScrollView>
-        </YGroup>
-      </ScrollView>
+      {/* <ScrollView horizontal contentContainerStyle={{ flexGrow: 1 }}> */}
+      <YGroup bordered size="$2">
+        <ScrollView>
+          {torrent.files.map((file) => (
+            <FileRow
+              key={file.name}
+              torrent={torrent}
+              file={file}
+              toast={toast}
+            />
+          ))}
+        </ScrollView>
+      </YGroup>
+      {/* </ScrollView> */}
     </Dialog>
   )
 }
 
-const FileRow = ({ isTorrentFinished, torrent, file, toast }) => {
+const FileRow = ({ torrent, file, toast }) => {
+  const theme = useThemeName()
+
   return (
     <ListItem key={file.name} hoverTheme>
-      <XStack ai="center" jc="space-between" gap="$4" f={1}>
-        <YStack>
-          <Paragraph>{file.name}</Paragraph>
-          <Paragraph color="$gray11">{prettyBytes(file.length)}</Paragraph>
-        </YStack>
-
-        {isTorrentFinished && (
-          <XStack>
+      <YStack gap="$1" f={1}>
+        <Paragraph f={1} flexWrap="wrap">
+          {file.name}
+        </Paragraph>
+        {/* <Paragraph color="$gray11">{prettyBytes(file.length)}</Paragraph> */}
+        <XStack columnGap="$2">
+          <TorrentFieldFormatter
+            name="percentDone"
+            value={file.bytesCompleted / file.length}
+          />
+          <Paragraph>•</Paragraph>
+          <TorrentFieldFormatter name="totalSize" value={file.length} />
+        </XStack>
+        <XStack mb="$2">
+          <Progress
+            value={Math.floor((file.bytesCompleted / file.length) * 100)}
+            theme="yellow"
+            borderColor={'$yellow9'}
+            bordered
+            size="$2"
+            w="100%"
+          >
+            <Progress.Indicator animation="lazy" bc={'$yellow9'} w={'100%'} />
+          </Progress>
+        </XStack>
+        {file.bytesCompleted / file.length === 1 && (
+          <XStack gap="$4">
             <Button
+              bc={theme.startsWith('light') ? 'white' : 'black'}
+              theme="yellow"
+              hoverTheme
+              borderColor={'$yellow9'}
+              f={1}
+              size="$3"
               icon={ExternalLink}
               onPress={async () => {
                 try {
@@ -96,9 +122,25 @@ const FileRow = ({ isTorrentFinished, torrent, file, toast }) => {
             >
               {i18n.t('filesListDialog.open')}
             </Button>
+            {isElectron() && (
+              <Button
+                bc={theme.startsWith('light') ? 'white' : 'black'}
+                theme="yellow"
+                hoverTheme
+                borderColor={'$yellow9'}
+                f={1}
+                size="$3"
+                icon={FolderOpen}
+                onPress={async () => {
+                  window.electronAPI.openFolder(torrent.downloadDir, file.name)
+                }}
+              >
+                {i18n.t('filesListDialog.openFolder')}
+              </Button>
+            )}
           </XStack>
         )}
-      </XStack>
+      </YStack>
     </ListItem>
   )
 }

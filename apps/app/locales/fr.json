@@ -104,7 +104,8 @@
   },
   "filesListDialog": {
     "title": "Fichiers",
-    "open": "Ouvrir"
+    "open": "Ouvrir",
+    "openFolder": "Ouvrir le dossier"
   },
   "termsOfUseDialog": {
     "title": "Conditions d'utilisation",
