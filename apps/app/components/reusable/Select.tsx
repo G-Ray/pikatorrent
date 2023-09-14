@@ -26,7 +26,7 @@ export const Select = ({
       </SelectTamagui.Trigger>
 
       <Adapt when="sm" platform="touch">
-        <Sheet modal dismissOnSnapToBottom>
+        <Sheet modal dismissOnSnapToBottom snapPointsMode="fit">
           <Sheet.Frame>
             <Adapt.Contents />
           </Sheet.Frame>
