@@ -63,7 +63,7 @@ export const SearchEngineSelector = ({
       </Select.Trigger>
 
       <Adapt when="sm" platform="touch">
-        <Sheet native modal dismissOnSnapToBottom>
+        <Sheet native modal dismissOnSnapToBottom snapPointsMode="fit">
           <Sheet.Frame>
             <Sheet.ScrollView>
               <Adapt.Contents />
