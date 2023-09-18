@@ -105,7 +105,8 @@
   "filesListDialog": {
     "title": "Files",
     "open": "Open",
-    "openFolder": "Open Folder"
+    "openFolder": "Open Folder",
+    "share": "Share"
   },
   "termsOfUseDialog": {
     "title": "Terms of use",

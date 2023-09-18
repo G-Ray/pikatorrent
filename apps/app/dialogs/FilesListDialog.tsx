@@ -1,7 +1,9 @@
 import React from 'react'
-import { ExternalLink, FolderOpen, List } from '@tamagui/lucide-icons'
+import { ExternalLink, FolderOpen, List, Share2 } from '@tamagui/lucide-icons'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as FileSystem from 'expo-file-system'
+import * as Sharing from 'expo-sharing'
+// import * as Linking from 'expo-linking'
 
 import {
   Button,
@@ -15,7 +17,7 @@ import {
   useThemeName,
 } from 'tamagui'
 import { Dialog } from './Dialog'
-import { Platform } from 'react-native'
+import { Platform, Linking } from 'react-native'
 import isElectron from 'is-electron'
 import i18n from '../i18n'
 import { TorrentFieldFormatter } from '../components/TorrentFieldFormatter'
@@ -132,6 +134,31 @@ const FileRow = ({ torrent, file, toast }) => {
             >
               {i18n.t('filesListDialog.open')}
             </Button>
+            {Platform.OS !== 'web' && (
+              <Button
+                bc={theme.startsWith('light') ? 'white' : 'black'}
+                theme="yellow"
+                hoverTheme
+                borderColor={'$yellow7'}
+                f={1}
+                size="$3"
+                icon={Share2}
+                onPress={async () => {
+                  try {
+                    await Sharing.shareAsync(
+                      'file://' + buildFilePath(torrent, file)
+                    )
+                  } catch (e) {
+                    console.error(e)
+                    toast.show(i18n.t('toasts.cannotShareFile'), {
+                      native: true,
+                    })
+                  }
+                }}
+              >
+                {i18n.t('filesListDialog.share')}
+              </Button>
+            )}
             {isElectron() && (
               <Button
                 bc={theme.startsWith('light') ? 'white' : 'black'}

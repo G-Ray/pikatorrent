@@ -64,7 +64,8 @@
     "react-native-web": "~0.19.6",
     "react-native-webrtc": "111.0.3",
     "simple-peer": "^9.11.1",
-    "tamagui": "1.68.1"
+    "tamagui": "1.68.1",
+    "expo-sharing": "~11.5.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
