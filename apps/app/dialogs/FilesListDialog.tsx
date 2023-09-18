@@ -63,9 +63,8 @@ export const FilesListDialog = ({ torrent, toast }) => {
         </Button>
       }
     >
-      {/* <ScrollView horizontal contentContainerStyle={{ flexGrow: 1 }}> */}
-      <YGroup bordered size="$2">
-        <ScrollView>
+      <ScrollView>
+        <YGroup bordered size="$2">
           {torrent.files.map((file) => (
             <FileRow
               key={file.name}
@@ -74,9 +73,8 @@ export const FilesListDialog = ({ torrent, toast }) => {
               toast={toast}
             />
           ))}
-        </ScrollView>
-      </YGroup>
-      {/* </ScrollView> */}
+        </YGroup>
+      </ScrollView>
     </Dialog>
   )
 }
