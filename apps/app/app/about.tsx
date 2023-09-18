@@ -1,5 +1,13 @@
 import React from 'react'
-import { Button, Label, Paragraph, XStack, YStack, useMedia } from 'tamagui'
+import {
+  Button,
+  Label,
+  Paragraph,
+  XStack,
+  YStack,
+  useMedia,
+  useThemeName,
+} from 'tamagui'
 import { SessionsInfoDialog } from '../dialogs/SessionInfoDialog'
 import { useSession } from '../hooks/useSession'
 
@@ -13,6 +21,7 @@ import i18n from '../i18n'
 export default function About() {
   const { session } = useSession()
   const media = useMedia()
+  const theme = useThemeName()
 
   return (
     <XStack f={1} jc="center" w="100%" px={media.gtXs ? '$8' : '$2'}>
@@ -41,8 +50,12 @@ export default function About() {
           <Paragraph>{i18n.t('about.reportBugOrFeature')}</Paragraph>
           <Heart color="$red9" />
         </XStack>
-        <XStack mx="auto" mt="$4">
+        <XStack mx="auto">
           <Button
+            bc={theme.startsWith('light') ? 'white' : 'black'}
+            theme="yellow"
+            hoverTheme
+            borderColor={'$yellow7'}
             icon={ExternalLink}
             iconAfter={Github}
             onPress={() =>
@@ -54,8 +67,12 @@ export default function About() {
             <Paragraph>{i18n.t('about.githubLinkDescription')}</Paragraph>
           </Button>
         </XStack>
-        <XStack mx="auto" mt="$4">
+        <XStack mx="auto">
           <Button
+            bc={theme.startsWith('light') ? 'white' : 'black'}
+            theme="yellow"
+            hoverTheme
+            borderColor={'$yellow7'}
             icon={ExternalLink}
             onPress={() => openExternalLink('https://discord.gg/6HxCV4aGdy')}
           >
