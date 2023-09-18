@@ -52,6 +52,7 @@ export const AddTorrentDialog = () => {
   const router = useRouter()
   const url = useURL()
   const node = useContext(NodeContext)
+  const theme = useThemeName()
 
   useEffect(() => {
     if (!url) return
@@ -165,6 +166,8 @@ export const AddTorrentDialog = () => {
               )}
               value={magnet}
               onChangeText={setMagnet}
+              bc={theme.startsWith('light') ? 'white' : 'black'}
+              borderColor={'$yellow7'}
             />
           </Fieldset>
           <Paragraph fontWeight="bold" mx="auto">
@@ -174,7 +177,7 @@ export const AddTorrentDialog = () => {
           <Fieldset gap="$4">
             <Button
               theme="yellow"
-              borderColor={'$yellow9'}
+              borderColor={'$yellow7'}
               onPress={handleSelectTorrentFile}
             >
               {i18n.t('addTorrentDialog.selectFile')}
@@ -187,7 +190,7 @@ export const AddTorrentDialog = () => {
             <Dialog.Close displayWhenAdapted asChild>
               <Button
                 theme="yellow"
-                borderColor={'$yellow9'}
+                borderColor={'$yellow7'}
                 aria-label="Close"
                 disabled={
                   magnet === '' &&
@@ -260,7 +263,7 @@ const OpenInApp = ({ node, magnet }) => {
       <Button
         onPress={handleOpenInApp}
         theme="yellow"
-        borderColor={'$yellow9'}
+        borderColor={'$yellow7'}
         mb="$4"
         icon={ExternalLink}
       >

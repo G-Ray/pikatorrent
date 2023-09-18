@@ -47,7 +47,7 @@ export const AddNodeDialog = ({ settingsContext }) => {
       title={i18n.t('addNodeDialog.title')}
       defaultOpen={defaultOpen}
       trigger={
-        <Button theme="yellow" icon={PlusCircle} borderColor={'$yellow9'}>
+        <Button theme="yellow" icon={PlusCircle} borderColor={'$yellow7'}>
           {i18n.t('addNodeDialog.triggerLabel')}
         </Button>
       }
@@ -87,7 +87,7 @@ export const AddNodeDialog = ({ settingsContext }) => {
             <Form.Trigger asChild>
               <Button
                 theme="yellow"
-                borderColor={'$yellow9'}
+                borderColor={'$yellow7'}
                 aria-label="Submit"
               >
                 {i18n.t('addNodeDialog.add')}

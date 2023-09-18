@@ -82,7 +82,7 @@ export const Nodes = () => {
           <Button
             size="$4"
             theme="yellow"
-            borderColor={'$yellow9'}
+            borderColor={'$yellow7'}
             icon={Camera}
             onPress={() => setIsScanOpen(true)}
             f={1}

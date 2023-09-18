@@ -93,7 +93,7 @@ export const TorrentCard = ({ torrent }) => {
             mb="$2"
             value={Math.floor(torrent.percentDone * 100)}
             theme="yellow"
-            borderColor={'$yellow9'}
+            borderColor={'$yellow7'}
             bordered
             size="$2"
           >
@@ -144,7 +144,14 @@ const TorrentActions = ({ theme = 'light', torrent, handleOpenFolder }) => {
           <YStack gap="$4" pt="$8" pb="$2">
             <ShareButtons torrent={torrent} toast={toast} />
             {isElectron() && torrent.percentDone === 1 && (
-              <Button icon={FolderOpen} onPress={handleOpenFolder}>
+              <Button
+                icon={FolderOpen}
+                onPress={handleOpenFolder}
+                bc={theme.startsWith('light') ? 'white' : 'black'}
+                theme="yellow"
+                hoverTheme
+                borderColor={'$yellow7'}
+              >
                 {i18n.t('torrentDialog.openFolder')}
               </Button>
             )}
@@ -166,9 +173,15 @@ const TorrentActions = ({ theme = 'light', torrent, handleOpenFolder }) => {
 }
 
 const ShareButtons = ({ toast, torrent }) => {
+  const theme = useThemeName()
+
   if (Platform.OS === 'web') {
     return (
       <Button
+        bc={theme.startsWith('light') ? 'white' : 'black'}
+        theme="yellow"
+        hoverTheme
+        borderColor={'$yellow7'}
         icon={Share2}
         onPress={async () => {
           const shareLink = APP_URL + '/add#' + torrent.magnetLink
@@ -186,6 +199,10 @@ const ShareButtons = ({ toast, torrent }) => {
   // Native
   return (
     <Button
+      bc={theme.startsWith('light') ? 'white' : 'black'}
+      theme="yellow"
+      hoverTheme
+      borderColor={'$yellow7'}
       icon={Share2}
       onPress={async () => {
         const shareLink = APP_URL + '/add#' + torrent.magnetLink

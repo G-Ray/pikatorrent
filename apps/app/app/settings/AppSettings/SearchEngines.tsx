@@ -75,7 +75,7 @@ export const SearchEngines = () => {
         </Button>
         <Button
           theme="yellow"
-          borderColor={'$yellow9'}
+          borderColor={'$yellow7'}
           onPress={handleSave}
           disabled={!isValid || !hasChanged}
           o={!isValid || !hasChanged ? 0.5 : 1}

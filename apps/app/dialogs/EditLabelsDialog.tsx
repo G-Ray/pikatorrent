@@ -10,6 +10,7 @@ import {
   Separator,
   H6,
   Paragraph,
+  useThemeName,
 } from 'tamagui'
 import { Dialog } from './Dialog'
 import { Label } from '../components/Label'
@@ -17,6 +18,7 @@ import { YStack } from 'tamagui'
 import i18n from '../i18n'
 
 export const EditLabelsDialog = ({ torrentsFunctions, torrent }) => {
+  const theme = useThemeName()
   const [label, setLabel] = useState('')
   const [labels, setLabels] = useState<string[]>(torrent.labels)
 
@@ -40,7 +42,17 @@ export const EditLabelsDialog = ({ torrentsFunctions, torrent }) => {
   return (
     <Dialog
       title="Labels"
-      trigger={<Button icon={Tag}>{i18n.t('torrentDialog.editLabels')}</Button>}
+      trigger={
+        <Button
+          icon={Tag}
+          bc={theme.startsWith('light') ? 'white' : 'black'}
+          theme="yellow"
+          hoverTheme
+          borderColor={'$yellow7'}
+        >
+          {i18n.t('torrentDialog.editLabels')}
+        </Button>
+      }
       snapPointsMode="fit"
     >
       <YStack gap="$4" w={360}>
@@ -66,7 +78,7 @@ export const EditLabelsDialog = ({ torrentsFunctions, torrent }) => {
             <Input flex={1} id="label" onChangeText={setLabel} value={label} />
 
             <Form.Trigger asChild>
-              <Button theme="yellow" borderColor={'$yellow9'}>
+              <Button theme="yellow" borderColor={'$yellow7'}>
                 Add
               </Button>
             </Form.Trigger>

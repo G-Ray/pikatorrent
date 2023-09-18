@@ -46,10 +46,22 @@ const handleOpenFile = async (torrent, file) => {
 }
 
 export const FilesListDialog = ({ torrent, toast }) => {
+  const theme = useThemeName()
+
   return (
     <Dialog
       title={i18n.t('filesListDialog.title')}
-      trigger={<Button icon={List}>{i18n.t('torrentDialog.files')}</Button>}
+      trigger={
+        <Button
+          icon={List}
+          bc={theme.startsWith('light') ? 'white' : 'black'}
+          theme="yellow"
+          hoverTheme
+          borderColor={'$yellow7'}
+        >
+          {i18n.t('torrentDialog.files')}
+        </Button>
+      }
     >
       {/* <ScrollView horizontal contentContainerStyle={{ flexGrow: 1 }}> */}
       <YGroup bordered size="$2">
@@ -91,7 +103,7 @@ const FileRow = ({ torrent, file, toast }) => {
           <Progress
             value={Math.floor((file.bytesCompleted / file.length) * 100)}
             theme="yellow"
-            borderColor={'$yellow9'}
+            borderColor={'$yellow7'}
             bordered
             size="$2"
             w="100%"
@@ -105,7 +117,7 @@ const FileRow = ({ torrent, file, toast }) => {
               bc={theme.startsWith('light') ? 'white' : 'black'}
               theme="yellow"
               hoverTheme
-              borderColor={'$yellow9'}
+              borderColor={'$yellow7'}
               f={1}
               size="$3"
               icon={ExternalLink}
@@ -127,7 +139,7 @@ const FileRow = ({ torrent, file, toast }) => {
                 bc={theme.startsWith('light') ? 'white' : 'black'}
                 theme="yellow"
                 hoverTheme
-                borderColor={'$yellow9'}
+                borderColor={'$yellow7'}
                 f={1}
                 size="$3"
                 icon={FolderOpen}
