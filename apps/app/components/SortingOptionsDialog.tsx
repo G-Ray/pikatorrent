@@ -49,7 +49,7 @@ export const SortingOptionsDialog = ({
       }
       snapPointsMode="fit"
     >
-      <YStack w={360} gap="$4">
+      <YStack minWidth={media.gtXs ? 280 : 0} gap="$4">
         <XStack gap="$4">
           <Label
             paddingRight="$0"
