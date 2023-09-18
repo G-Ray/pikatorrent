@@ -19,6 +19,7 @@ import { SettingLayout } from '../../components/SettingLayout'
 import isElectron from 'is-electron'
 import i18n from '../../i18n'
 import { Select } from '../../components/reusable/Select'
+import { Platform } from 'react-native'
 
 export const Torrents = () => {
   const { sendRPCMessage, isConnected } = useContext(NodeContext)
@@ -59,12 +60,14 @@ export const Torrents = () => {
   return (
     <YStack space ai="flex-start" w="100%">
       <H2>{i18n.t('settings.torrents.title')}</H2>
-      <SettingLayout>
-        <Paragraph>{i18n.t('settings.torrents.downloadDirectory')}</Paragraph>
-        <XStack>
-          <DownloadDirectoryInput session={session} setSession={setSession} />
-        </XStack>
-      </SettingLayout>
+      {Platform.OS === 'web' && (
+        <SettingLayout>
+          <Paragraph>{i18n.t('settings.torrents.downloadDirectory')}</Paragraph>
+          <XStack>
+            <DownloadDirectoryInput session={session} setSession={setSession} />
+          </XStack>
+        </SettingLayout>
+      )}
 
       <SettingLayout>
         <Paragraph>Encryption</Paragraph>
