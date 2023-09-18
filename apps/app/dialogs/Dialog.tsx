@@ -56,6 +56,7 @@ const Dialog = ({
           dismissOnOverlayPress={dismissOnOverlayPress}
           snapPointsMode={snapPointsMode}
         >
+          <Sheet.Handle />
           <Sheet.Frame padding="$4">
             <Adapt.Contents />
           </Sheet.Frame>
