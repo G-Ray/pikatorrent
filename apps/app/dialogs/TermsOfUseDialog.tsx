@@ -25,6 +25,7 @@ export const TermsOfUseDialog = () => {
       snapPoints={[30]}
       dismissOnOverlayPress={false}
       dismissOnSnapToBottom={false}
+      snapPointsMode="fit"
     >
       <YStack maxWidth={500}>
         <Paragraph>{i18n.t('termsOfUseDialog.termsOfUseMessage')}</Paragraph>
@@ -48,7 +49,7 @@ export const TermsOfUseDialog = () => {
       <XStack jc="flex-end" mt="$2" gap="$2">
         <Button onPress={quitApp}>{i18n.t('termsOfUseDialog.cancel')}</Button>
         <Dialog.Close displayWhenAdapted asChild onPress={handleAccept}>
-          <Button theme="yellow" borderColor={'$yellow9'}>
+          <Button theme="yellow" borderColor={'$yellow7'}>
             {i18n.t('termsOfUseDialog.accept')}
           </Button>
         </Dialog.Close>
