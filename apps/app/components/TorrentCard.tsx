@@ -225,6 +225,16 @@ const TorrentInfo = ({ torrent }) => {
         <TorrentFieldFormatter name="percentDone" value={torrent.percentDone} />
         <Paragraph>•</Paragraph>
         <TorrentFieldFormatter name="totalSize" value={torrent.totalSize} />
+        <Paragraph>•</Paragraph>
+        <Paragraph
+          fontSize={'$2'}
+        >{`${torrent.peersConnected} peers`}</Paragraph>
+        {torrent.eta >= 0 && (
+          <>
+            <Paragraph>•</Paragraph>
+            <TorrentFieldFormatter name="eta" value={torrent.eta} />
+          </>
+        )}
       </XStack>
       <XStack columnGap="$2">
         <TorrentFieldFormatter name="status" value={torrent.status} />
