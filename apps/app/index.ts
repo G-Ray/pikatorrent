@@ -5,9 +5,11 @@ import { Platform } from 'react-native'
 
 import './i18n'
 import * as transmission from './lib/transmission.native'
+import { createPersistentNotification } from './lib/persistentNotification'
 
 if (Platform.OS !== 'web') {
   transmission.init()
+  createPersistentNotification()
 }
 
 polyfillWebCrypto()

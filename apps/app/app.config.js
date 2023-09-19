@@ -75,6 +75,15 @@ module.exports = () => {
             },
           },
         ],
+        // We use notifee, but expo-notification allows us
+        // to generate 'notification_icon'
+        [
+          'expo-notifications',
+          {
+            icon: './assets/icon.png',
+            color: '#ffffff',
+          },
+        ],
       ],
     },
   }
