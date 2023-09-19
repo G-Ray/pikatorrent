@@ -51,7 +51,7 @@ const Dialog = ({
           zIndex={200000}
           modal
           dismissOnSnapToBottom={dismissOnSnapToBottom}
-          // snapPoints={snapPoints}
+          {...(snapPointsMode !== 'fit' && { snapPoints })}
           defaultPosition={defaultPosition}
           dismissOnOverlayPress={dismissOnOverlayPress}
           snapPointsMode={snapPointsMode}

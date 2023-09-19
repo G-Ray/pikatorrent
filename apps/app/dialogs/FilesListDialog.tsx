@@ -53,6 +53,7 @@ export const FilesListDialog = ({ torrent, toast }) => {
   return (
     <Dialog
       title={i18n.t('filesListDialog.title')}
+      snapPoints={[90]}
       trigger={
         <Button
           icon={List}

@@ -139,9 +139,11 @@ const TorrentActions = ({ theme = 'light', torrent, handleOpenFolder }) => {
               bc={theme === 'light' ? 'white' : 'black'}
             ></Button>
           }
-          snapPointsMode="fit"
+          // Fit has a glitch when a nested sheets is rendered
+          // snapPointsMode="fit"
+          snapPoints={[70]}
         >
-          <YStack gap="$4" pt="$8" pb="$2">
+          <YStack gap="$4" py="$4">
             <ShareButtons torrent={torrent} toast={toast} />
             {isElectron() && torrent.percentDone === 1 && (
               <Button
