@@ -156,19 +156,20 @@ const LocalNodeQrcode = () => {
   const toast = useToastController()
   const localNode = useLocalNode()
 
+  const [qrCodeXML, setQrCodeXML] = useState(null)
   const linkURL = localNode?.settings?.nodeId
     ? `${APP_URL}/settings?nodeId=${
         localNode?.settings?.nodeId
       }&name=${getDeviceName()}`
     : null
 
-  const [qrCodeXML, setQrCodeXML] = useState(null)
-
-  if (linkURL) {
-    QRCodeGenerator.toString(encodeURI(linkURL), { type: 'svg' }).then(
-      setQrCodeXML
-    )
-  }
+  useEffect(() => {
+    if (linkURL) {
+      QRCodeGenerator.toString(encodeURI(linkURL), { type: 'svg' }).then(
+        setQrCodeXML
+      )
+    }
+  }, [linkURL])
 
   if (!qrCodeXML) {
     return null
