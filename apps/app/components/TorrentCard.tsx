@@ -127,6 +127,7 @@ const TorrentActions = ({ theme = 'light', torrent, handleOpenFolder }) => {
   /* Bug: we can't access contexts inside nested dialogs, see https://github.com/tamagui/tamagui/issues/1481 */
   const torrentsFunctions = useTorrents()
   const toast = useToastController()
+  const media = useMedia()
 
   return (
     <Theme name={theme}>
@@ -143,7 +144,7 @@ const TorrentActions = ({ theme = 'light', torrent, handleOpenFolder }) => {
           // snapPointsMode="fit"
           snapPoints={[70]}
         >
-          <YStack gap="$4" py="$4">
+          <YStack gap="$4" py="$4" pt={media.gtXs ? '$8' : '$4'}>
             <ShareButtons torrent={torrent} toast={toast} />
             {isElectron() && torrent.percentDone === 1 && (
               <Button
