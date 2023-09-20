@@ -21,14 +21,12 @@ export const Preferences = () => {
           <ThemeSelector />
         </XStack>
       </SettingLayout>
-      {Platform.OS === 'web' && (
-        <SettingLayout>
-          <Paragraph>{i18n.t('settings.app.language')}</Paragraph>
-          <XStack w={media.gtXs ? 180 : '100%'}>
-            <LanguageSelector />
-          </XStack>
-        </SettingLayout>
-      )}
+      <SettingLayout>
+        <Paragraph>{i18n.t('settings.app.language')}</Paragraph>
+        <XStack w={media.gtXs ? 180 : '100%'}>
+          <LanguageSelector />
+        </XStack>
+      </SettingLayout>
 
       <SearchEngines />
     </YStack>

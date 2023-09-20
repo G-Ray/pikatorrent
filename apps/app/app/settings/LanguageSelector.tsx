@@ -7,7 +7,8 @@ import i18n, { translationsLanguages } from '../../i18n'
 import { getLocales } from 'expo-localization'
 import { Select } from '../../components/reusable/Select'
 
-// On Android/iOS, the language should be set in the OS settings
+// TODO: On Android/iOS, the language should be set in the OS settings, but
+// How can we define the supported languages with expo ?
 export const LanguageSelector = () => {
   const { settings, updateSettings, isLoaded } = useContext(SettingsContext)
 
