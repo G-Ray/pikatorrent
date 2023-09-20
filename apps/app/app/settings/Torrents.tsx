@@ -46,6 +46,7 @@ export const Torrents = () => {
           'lpd-enabled': session['lpd-enabled'],
           'pex-enabled': session['pex-enabled'],
           'port-forwarding-enabled': session['port-forwarding-enabled'],
+          'peer-port': session['peer-port'],
         },
       })
 
@@ -179,7 +180,9 @@ export const Torrents = () => {
             try {
               const parsedNumber = parseInt(text)
               setSession((s) => ({ ...s, ['peer-port']: parsedNumber }))
-            } catch (e) {}
+            } catch (e) {
+              console.error(e)
+            }
           }}
         />
       </SettingLayout>
