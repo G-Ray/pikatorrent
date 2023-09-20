@@ -19,7 +19,6 @@ import {
 } from 'tamagui'
 import { SearchBar } from '../../components/SearchBar'
 import { DESKTOP_MAX_CONTENT_WIDTH } from '../../constants/layout'
-import { GlobalStats } from '../../components/GlobalStats'
 import { PauseCircle, PlayCircle, PlusCircle } from '@tamagui/lucide-icons'
 import { TorrentsContext } from '../../contexts/TorrentsContext'
 import { Filters } from '../../components/Filters'
@@ -113,10 +112,9 @@ export default function Torrents() {
               onChangeText={setFilter}
               bc={/^light/.test(theme) ? 'white' : 'black'}
               borderWidth={0}
-              borderRadius={0}
+              borderTopLeftRadius={0}
+              borderBottomLeftRadius={0}
             />
-            <Separator vertical />
-            <GlobalStats />
           </XStack>
         </Card>
       </YStack>

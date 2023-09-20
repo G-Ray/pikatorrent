@@ -120,8 +120,8 @@ const ThemedLayout = () => {
             {...(Platform.OS === 'web' ? { h: '100vh' } : {})}
             bc="$background"
           >
-            <Header />
             <TorrentsProvider>
+              <Header />
               {media.gtMd ? <Desktop /> : <Mobile />}
             </TorrentsProvider>
           </Stack>

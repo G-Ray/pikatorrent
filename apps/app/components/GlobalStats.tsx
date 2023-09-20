@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { XStack, useMedia, useThemeName } from 'tamagui'
+import { Card, XStack, useMedia, useThemeName } from 'tamagui'
 import { TorrentFieldFormatter } from './TorrentFieldFormatter'
 import { TorrentsContext } from '../contexts/TorrentsContext'
 
@@ -9,26 +9,27 @@ export const GlobalStats = () => {
   const theme = useThemeName()
 
   return (
-    <XStack
-      jc="center"
-      px="$2"
+    <Card
+      br={50}
+      bordered
       bc={/^light/.test(theme) ? 'white' : 'black'}
-      br="$4"
-      borderTopLeftRadius={0}
-      borderBottomLeftRadius={0}
+      py="$2"
+      px="$3"
+      mr="$2"
     >
-      <XStack gap={media.gtXs ? '$4' : '$1'}>
+      <XStack gap={media.gtXs ? '$4' : '$4'}>
         <TorrentFieldFormatter
-          fontSize={media.gtXs ? '$3' : '$1'}
+          fontSize={'$3'}
           name="rateDownload"
           value={sessionStats.downloadSpeed || 0}
         />
         <TorrentFieldFormatter
-          fontSize={media.gtXs ? '$3' : '$1'}
+          fontSize={'$3'}
           name="rateUpload"
           value={sessionStats.uploadSpeed || 0}
         />
       </XStack>
-    </XStack>
+      {/* </XStack> */}
+    </Card>
   )
 }

@@ -2,12 +2,13 @@ import React from 'react'
 import { H1, H3, useMedia, useThemeName, XStack, YStack } from 'tamagui'
 import { ConnectionStatus } from './ConnectionStatus'
 import { Logo } from './Logo'
+import { GlobalStats } from './GlobalStats'
 
 export const Header = () => {
   const media = useMedia()
 
   return (
-    <YStack>
+    <YStack mb={media.gtXs ? '$4' : '$0'}>
       <XStack
         pt={'$4'}
         px={media.gtXs ? '$8' : '$0'}
@@ -21,8 +22,9 @@ export const Header = () => {
             <XStack>{media.gtXs ? <DesktopTitle /> : <MobileTitle />}</XStack>
           </XStack>
         </XStack>
-        <XStack gap="$8" f={1} jc="flex-end">
+        <XStack jc="flex-end" gap="$4">
           <ConnectionStatus />
+          <GlobalStats />
         </XStack>
       </XStack>
     </YStack>
