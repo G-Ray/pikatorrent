@@ -117,7 +117,7 @@ export const createPersistentNotification = async () => {
     name: 'Persistent notification',
     lights: false,
     vibration: false,
-    importance: AndroidImportance.DEFAULT,
+    importance: AndroidImportance.LOW,
   })
 
   notifee.onBackgroundEvent(handleEvents)
