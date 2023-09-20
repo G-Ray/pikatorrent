@@ -108,6 +108,9 @@ const handleEvents = async ({ type, detail }) => {
 
 export const createPersistentNotification = async () => {
   await checkNotificationPermission()
+  // Be sure to clear any existing notifications or foreground service
+  await notifee.cancelAllNotifications()
+  await notifee.stopForegroundService()
 
   await notifee.createChannel({
     id: CHANNEL_ID,
