@@ -174,9 +174,12 @@ export const Torrents = () => {
         <Paragraph>{i18n.t('settings.torrents.peerPort')}</Paragraph>
         <Input
           borderWidth={2}
-          value={session['peer-port']}
+          value={(session['peer-port'] || 0).toString()}
           onChangeText={(text) => {
-            setSession((s) => ({ ...s, ['peer-port']: text }))
+            try {
+              const parsedNumber = parseInt(text)
+              setSession((s) => ({ ...s, ['peer-port']: parsedNumber }))
+            } catch (e) {}
           }}
         />
       </SettingLayout>
