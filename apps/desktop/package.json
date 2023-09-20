@@ -1,7 +1,7 @@
 {
   "name": "@pikatorrent/desktop",
   "productName": "pikatorrent",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "description": "A modern, simple, connected, and electric BitTorrent app",
   "main": "src/index.js",
   "scripts": {
@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@ca9io/electron-webrtc-relay": "^0.2.0",
-    "@pikatorrent/node": "0.6.1",
+    "@pikatorrent/node": "0.7.0",
     "electron-serve": "^1.1.0",
     "electron-squirrel-startup": "^1.0.0",
     "minimist": "^1.2.8",
