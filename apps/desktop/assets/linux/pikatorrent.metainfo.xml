@@ -52,6 +52,17 @@
   </screenshots>
 
   <releases>
+    <release version="0.7.1" date="2023-09-20">
+      <description>
+        <ul>
+          <li>Display peers and ETA ✈️</li>
+          <li>Reworked files list, with progress status 🗄️</li>
+          <li>Moved speed stats to the top 🔝</li>
+          <li>Fix port number input, elements going offscreen, session info on desktop, ... 🐛</li>
+          <li>Minor UI improvements 💄</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.6.0" date="2023-09-07">
       <description>
         <ul>
