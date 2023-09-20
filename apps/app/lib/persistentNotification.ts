@@ -54,6 +54,7 @@ const updateNotification = async (notification?: any) => {
           }
         : undefined,
       autoCancel: false,
+      onlyAlertOnce: true,
       pressAction: {
         id: 'default',
       },
