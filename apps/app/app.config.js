@@ -23,7 +23,7 @@ module.exports = () => {
       },
       android: {
         package: IS_DEV ? 'com.gray.pikatorrent.dev' : 'com.gray.pikatorrent',
-        versionCode: 11,
+        versionCode: 12,
         adaptiveIcon: {
           foregroundImage: './assets/adaptive-icon.png',
           backgroundColor: '#ffffff',
