@@ -203,19 +203,19 @@ const Features = () => {
         Features
       </H2>
       <XStack gap="$2">
-        <MonitorSmartphone color="$green9" />
+        <MonitorSmartphone color="$green9" style={{ flexShrink: 0 }} />
         <Paragraph>
           Available on Windows, Linux, Android, Node.js & the Web!
         </Paragraph>
       </XStack>
       <Separator />
       <XStack gap="$2">
-        <Moon />
+        <Moon style={{ flexShrink: 0 }} />
         <Paragraph>A modern, simple UI, with dark mode support</Paragraph>
       </XStack>
       <Separator />
       <XStack gap="$2">
-        <Share2 color="$blue9" />
+        <Share2 color="$blue9" style={{ flexShrink: 0 }} />
         <Paragraph>
           Share your torrents with your contacts, or the world, with a direct
           link
@@ -223,33 +223,33 @@ const Features = () => {
       </XStack>
       <Separator />
       <XStack gap="$2">
-        <Zap color="$yellow9" />
+        <Zap color="$yellow9" style={{ flexShrink: 0 }} />
         <Paragraph>
           Blazing fast download speeds, with low cpu & memory usage
         </Paragraph>
       </XStack>
       <Separator />
       <XStack gap="$2">
-        <Tags color="$orange9" />
+        <Tags color="$orange9" style={{ flexShrink: 0 }} />
         <Paragraph>Categorize your torrents with labels</Paragraph>
       </XStack>
       <Separator />
       <XStack gap="$2">
-        <Filter color="$purple9" />
+        <Filter color="$purple9" style={{ flexShrink: 0 }} />
         <Paragraph>
           Quickly filter your torrents with a fuzzy search & labels
         </Paragraph>
       </XStack>
       <Separator />
       <XStack gap="$2">
-        <Search color="$blue9" />
+        <Search color="$blue9" style={{ flexShrink: 0 }} />
         <Paragraph>
           Edit your favorite search engines to quickly find torrents online
         </Paragraph>
       </XStack>
       <Separator />
       <XStack gap="$2">
-        <LinkIcon color="$pink9" />
+        <LinkIcon color="$pink9" style={{ flexShrink: 0 }} />
         <Paragraph>
           Link the Android app with the desktop app to control your torrents
           remotely. No need to setup a server or register an account!
