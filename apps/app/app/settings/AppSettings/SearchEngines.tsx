@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { XStack, YStack, Button, TextArea, Paragraph } from 'tamagui'
 import { SettingsContext } from '../../../contexts/SettingsContext'
 
@@ -10,8 +10,13 @@ import i18n from '../../../i18n'
 export const SearchEngines = () => {
   const { settings, updateSettings } = useContext(SettingsContext)
   const [searchEnginesUrls, setSearchEnginesUrls] = useState(
-    settings.searchEnginesUrls || defaultSettings.searchEnginesUrls
+    settings.searchEnginesUrls
   )
+
+  useEffect(() => {
+    setSearchEnginesUrls(settings.searchEnginesUrls)
+  }, [settings.searchEnginesUrls])
+
   const hasChanged =
     JSON.stringify(searchEnginesUrls) !==
     JSON.stringify(settings.searchEnginesUrls)
