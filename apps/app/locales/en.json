@@ -34,6 +34,7 @@
       "theme": "Theme",
       "language": "Language",
       "searchEngines": "Search engines urls (one per line)",
+      "searchEnginesInstructions": "%s will be replace by the query",
       "invalidUrls": "Invalid urls",
       "save": "Save",
       "reset": "Reset"

@@ -19,6 +19,7 @@ export const SearchEngines = () => {
   // Check every url is valid
   const isValid = searchEnginesUrls.every((url: string) => {
     try {
+      if (!url.includes('%s')) return false
       new URL(url)
       return true
     } catch (e) {
@@ -40,21 +41,28 @@ export const SearchEngines = () => {
   return (
     <YStack w="100%" gap="$4">
       <SettingLayout>
-        <Paragraph minWidth={260}>
-          {i18n.t('settings.app.searchEngines')}
-        </Paragraph>
-        <TextArea
-          theme="yellow"
-          w="100%"
-          height={200}
-          onChangeText={(text) => setSearchEnginesUrls(text.split('\n'))}
-          value={searchEnginesUrls.join('\n')}
-        />
-        {!isValid && (
-          <Paragraph color="$red9">
-            {i18n.t('settings.app.invalidUrls')}
+        <YStack maxWidth={'40%'}>
+          <Paragraph minWidth={260}>
+            {i18n.t('settings.app.searchEngines')}
           </Paragraph>
-        )}
+          <Paragraph>
+            {i18n.t('settings.app.searchEnginesInstructions')}
+          </Paragraph>
+        </YStack>
+        <YStack f={1}>
+          <TextArea
+            theme="yellow"
+            w="100%"
+            height={200}
+            onChangeText={(text) => setSearchEnginesUrls(text.split('\n'))}
+            value={searchEnginesUrls.join('\n')}
+          />
+          {!isValid && (
+            <Paragraph color="$red9">
+              {i18n.t('settings.app.invalidUrls')}
+            </Paragraph>
+          )}
+        </YStack>
       </SettingLayout>
       <XStack gap="$2" alignSelf="flex-end">
         <Button

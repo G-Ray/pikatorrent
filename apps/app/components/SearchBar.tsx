@@ -42,7 +42,7 @@ export const SearchBar = () => {
   }
 
   const handleSubmit = () => {
-    const link = `${selectedSearchEngineUrl}${query}`
+    const link = `${selectedSearchEngineUrl.replace('%s', query)}`
     openExternalLink(link)
   }
 

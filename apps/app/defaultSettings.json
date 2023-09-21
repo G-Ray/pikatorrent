@@ -1,9 +1,9 @@
 {
   "theme": "light",
   "searchEnginesUrls": [
-    "https://www.google.com/search?q=torrent+",
-    "https://duckduckgo.com/?q=torrent+",
-    "https://archive.org/search?query="
+    "https://www.google.com/search?q=%s+torrent",
+    "https://duckduckgo.com/?q=%s+torrent",
+    "https://archive.org/search?query=%s"
   ],
   "selectedNodeId": "local",
   "nodes": [],
