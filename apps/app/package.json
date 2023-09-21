@@ -41,6 +41,7 @@
     "expo-intent-launcher": "~10.7.0",
     "expo-linking": "~5.0.2",
     "expo-localization": "~14.3.0",
+    "expo-notifications": "~0.20.1",
     "expo-router": "2.0.0",
     "expo-sharing": "~11.5.0",
     "expo-splash-screen": "~0.20.5",
@@ -65,9 +66,9 @@
     "react-native-url-polyfill": "^2.0.0",
     "react-native-web": "~0.19.6",
     "react-native-webrtc": "111.0.3",
+    "semver": "^7.5.4",
     "simple-peer": "^9.11.1",
-    "tamagui": "1.68.1",
-    "expo-notifications": "~0.20.1"
+    "tamagui": "1.68.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

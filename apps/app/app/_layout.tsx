@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
   Separator,
   Stack,
@@ -26,6 +26,7 @@ import { PeerRequest } from '../components/PeerRequest'
 import { SettingsContext, SettingsProvider } from '../contexts/SettingsContext'
 import { TermsOfUseDialog } from '../dialogs/TermsOfUseDialog'
 import isElectron from 'is-electron'
+import { migrate } from '../lib/migrations'
 
 const screenOptions = {
   title: 'PikaTorrent',
@@ -33,10 +34,23 @@ const screenOptions = {
 }
 
 export default function Layout() {
-  const [loaded] = useFonts({
+  const [loadedFonts] = useFonts({
     Inter: require('@tamagui/font-inter/otf/Inter-Medium.otf'),
     InterBold: require('@tamagui/font-inter/otf/Inter-Bold.otf'),
   })
+
+  const [isMigrationExecuted, setIsMigrationExecuted] = useState()
+
+  useEffect(() => {
+    const executeMigrations = async () => {
+      await migrate()
+      setIsMigrationExecuted(true)
+    }
+
+    executeMigrations()
+  }, [])
+
+  const loaded = loadedFonts && isMigrationExecuted
 
   if (!loaded) {
     // Note: Deprecated, but status bar has issues if we migrate to the new api
