@@ -75,7 +75,7 @@ export const EditLabelsDialog = ({ torrentsFunctions, torrent }) => {
             <TamaguiLabel width={90} htmlFor="label" numberOfLines={1}>
               New label
             </TamaguiLabel>
-            <Input flex={1} id="label" onChangeText={setLabel} value={label} />
+            <Input flex={1} id="label" onChangeText={setLabel} />
 
             <Form.Trigger asChild>
               <Button theme="yellow" borderColor={'$yellow7'}>
