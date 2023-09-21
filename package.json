@@ -4,7 +4,7 @@
   "repository": "https://github.com/G-Ray/pikatorrent",
   "scripts": {
     "version": "node ./scripts/version.js",
-    "native": "npm run native --workspace=@pikatorrent/app",
+    "start": "npm run start --workspace=@pikatorrent/app",
     "android": "npm run android --workspace=@pikatorrent/app",
     "ios": "npm run ios --workspace=@pikatorrent/app",
     "web": "npm run web --workspace=@pikatorrent/app",
