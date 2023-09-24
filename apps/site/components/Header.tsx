@@ -36,7 +36,7 @@ const LogoWithText = () => {
 export const Header = () => {
   const media = useMedia()
 
-  if (!media.gtXs) {
+  if (media.xs) {
     return (
       <YStack my="$4" mx="$2">
         <XStack ai="center" jc={'space-between'}>
