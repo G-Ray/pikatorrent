@@ -51,7 +51,7 @@ export default function Docs() {
             href="https://github.com/G-Ray/pikatorrent/blob/main/docs/localization.md"
             target="_blank"
           >
-            help use supporting more languages.
+            help us supporting more languages.
           </Link>
         </Paragraph>
         <H3 fontWeight="bold">Edit all Transmission settings</H3>
