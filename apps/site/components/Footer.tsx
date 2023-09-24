@@ -1,14 +1,22 @@
 import Link from 'next/link'
-import { Paragraph, XStack } from 'tamagui'
+import { Paragraph, Separator, XStack } from 'tamagui'
 
 export const Footer = () => {
   return (
     <footer>
+      <Separator />
       <XStack jc="center" py="$4" gap="$8">
         <Paragraph>
-          <Link href={'/privacy-policy'} target="_blank">
-            Privacy Policy
-          </Link>
+          <Link href={'/'}>Home</Link>
+        </Paragraph>
+        <Paragraph>
+          <Link href={'/docs'}>Docs</Link>
+        </Paragraph>
+        <Paragraph>
+          <Link href={'/faq'}>FAQ</Link>
+        </Paragraph>
+        <Paragraph>
+          <Link href={'/privacy-policy'}>Privacy Policy</Link>
         </Paragraph>
         <Paragraph>
           <Link href={'https://github.com/G-Ray/pikatorrent'} target="_blank">

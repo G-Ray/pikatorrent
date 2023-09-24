@@ -30,86 +30,33 @@ import { useThemeSetting } from '@tamagui/next-theme'
 import { useEffect, useState } from 'react'
 
 import { Screenshots } from '../components/Screenshots'
-import { Header } from '@/components/Header'
+import { Hero } from '@/components/Hero'
 import Link from 'next/link'
-import { Footer } from '@/components/Footer'
 
 export default function Home() {
-  const [isDarkThemeSwitchChecked, setIsDarkThemeSwitchChecked] =
-    useState(false)
-  const { set: setTheme, resolvedTheme: currentTheme } = useThemeSetting()
-
-  useEffect(() => {
-    setIsDarkThemeSwitchChecked(currentTheme === 'dark')
-  }, [currentTheme])
+  const { resolvedTheme: currentTheme } = useThemeSetting()
 
   return (
-    <>
-      <Head>
-        <title>PikaTorrent</title>
-        <meta
-          name="description"
-          content="A modern, simple, connected, and electric BitTorrent app ⚡"
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <main>
-        <XStack>
-          <DarkModeToggle
-            isDarkThemeSwitchChecked={isDarkThemeSwitchChecked}
-            setTheme={setTheme}
-            currentTheme={currentTheme}
-          />
+    <YStack ai="center" space px="$8" pb="$16">
+      <YStack gap="$8" ai="center">
+        <Hero theme={currentTheme} />
+
+        <DownloadLinks isDarkThemeSwitchChecked={currentTheme === 'dark'} />
+      </YStack>
+
+      <Screenshots theme={currentTheme} />
+
+      <YStack ai="center" space>
+        <XStack ai="center" jc="center" w="100%">
+          <GithubStars />
         </XStack>
+        <CLIInstall />
+      </YStack>
 
-        <YStack ai="center" space px="$8" pb="$16">
-          <YStack gap="$8" ai="center">
-            <Header theme={currentTheme} />
+      <Features />
 
-            <DownloadLinks
-              isDarkThemeSwitchChecked={isDarkThemeSwitchChecked}
-            />
-          </YStack>
-
-          <Screenshots theme={currentTheme} />
-
-          <YStack ai="center" space>
-            <XStack ai="center" jc="center" w="100%">
-              <GithubStars />
-            </XStack>
-            <CLIInstall />
-          </YStack>
-
-          <Features />
-
-          <DirectLinksExample />
-        </YStack>
-      </main>
-      <Footer />
-    </>
-  )
-}
-
-const DarkModeToggle = ({
-  isDarkThemeSwitchChecked,
-  setTheme,
-  currentTheme,
-}) => {
-  return (
-    <XStack ai="center" space="$4" marginLeft="auto" pt={'$4'} pr={'$4'}>
-      {isDarkThemeSwitchChecked ? <Moon /> : <Sun />}
-      <Separator minHeight={20} vertical />
-      <Switch
-        id="dark-theme-switch"
-        checked={isDarkThemeSwitchChecked}
-        onCheckedChange={() =>
-          setTheme(currentTheme === 'light' ? 'dark' : 'light')
-        }
-      >
-        <Switch.Thumb animation="quick" />
-      </Switch>
-    </XStack>
+      <DirectLinksExample />
+    </YStack>
   )
 }
 
@@ -176,20 +123,14 @@ const DownloadLinks = ({ isDarkThemeSwitchChecked }) => {
       </YStack>
 
       <YStack ai="center">
-        <Paragraph mb="$4">
-          <Link
-            href={'https://github.com/G-Ray/pikatorrent/releases'}
-            target="_blank"
-          >
+        <Link
+          href={'https://github.com/G-Ray/pikatorrent/releases'}
+          target="_blank"
+          style={{ textDecoration: 'none' }}
+        >
+          <Button size="$2" icon={ExternalLink} bc="$backgroundTransparent">
             Alternative downloads (.zip, .exe, etc...)
-          </Link>
-        </Paragraph>
-
-        <Link href="https://discord.gg/6HxCV4aGdy" target="_blank">
-          <img
-            height={24}
-            src="https://img.shields.io/badge/Join_us_on_discord-gray?logo=discord"
-          />
+          </Button>
         </Link>
       </YStack>
     </YStack>

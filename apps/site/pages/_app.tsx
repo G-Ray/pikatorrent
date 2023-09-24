@@ -3,11 +3,14 @@ import { AppProps } from 'next/app'
 // import Head from 'next/head'
 import Script from 'next/script'
 import React, { useMemo } from 'react'
-import { Stack, TamaguiProvider, Theme } from 'tamagui'
+import { Separator, Stack, TamaguiProvider, Theme } from 'tamagui'
 import '@tamagui/font-inter/css/400.css'
 import '@tamagui/font-inter/css/700.css'
 
 import config from '../tamagui.config'
+import { Footer } from '@/components/Footer'
+import Head from 'next/head'
+import { Header } from '@/components/Header'
 
 export default function App({ Component, pageProps }: AppProps) {
   const [theme, setTheme] = useRootTheme({ fallback: 'light' })
@@ -36,8 +39,23 @@ export default function App({ Component, pageProps }: AppProps) {
           defaultTheme={theme}
         >
           <Theme name={theme}>
-            <Stack bc="$background" minHeight="100%" minWidth="100%">
-              {contents}
+            <Stack bc="$background" minHeight="100vh" minWidth="100%">
+              <Head>
+                <title>PikaTorrent</title>
+                <meta
+                  name="description"
+                  content="A modern, simple, connected, and electric BitTorrent app ⚡"
+                />
+                <meta
+                  name="viewport"
+                  content="width=device-width, initial-scale=1"
+                />
+                <link rel="icon" href="/favicon.ico" />
+              </Head>
+              <Header />
+              <Separator />
+              <main style={{ flex: 1, flexGrow: 1 }}>{contents}</main>
+              <Footer />
             </Stack>
           </Theme>
         </TamaguiProvider>
