@@ -47,9 +47,7 @@ export default function Home() {
       <Screenshots theme={currentTheme} />
 
       <YStack ai="center" space>
-        <XStack ai="center" jc="center" w="100%">
-          <GithubStars />
-        </XStack>
+        <XStack ai="center" jc="center" w="100%"></XStack>
         <CLIInstall />
       </YStack>
 
@@ -197,19 +195,6 @@ const Features = () => {
         </Paragraph>
       </XStack>
     </YStack>
-  )
-}
-
-const GithubStars = () => {
-  return (
-    <iframe
-      src="https://ghbtns.com/github-btn.html?user=G-Ray&repo=pikatorrent&type=star&count=true&size=large"
-      frameBorder="0"
-      scrolling="0"
-      width="170"
-      height="30"
-      title="GitHub"
-    />
   )
 }
 
