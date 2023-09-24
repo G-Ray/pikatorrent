@@ -75,7 +75,11 @@ const CLIInstall = () => {
   )
 }
 
-const DownloadLinks = ({ isDarkThemeSwitchChecked }) => {
+type DownloadLinksProps = {
+  isDarkThemeSwitchChecked: boolean
+}
+
+const DownloadLinks = ({ isDarkThemeSwitchChecked }: DownloadLinksProps) => {
   return (
     <YStack ai="center" gap="$4">
       <Paragraph fontWeight={'600'}>Get PikaTorrent now :</Paragraph>
