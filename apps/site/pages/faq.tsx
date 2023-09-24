@@ -97,7 +97,7 @@ export default function FAQ() {
       <Paragraph>
         PikaTorrent allows to customize a list of preferred torrent search
         engines. This feature is a time-saving shortcut that opens your browser, opens a new tab, and types your query.
-      </Paragraph>{' '}
+      </Paragraph>
       <H3 fontWeight="bold">
         Where can I find my downloaded files on Android ?
       </H3>
