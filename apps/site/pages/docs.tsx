@@ -3,8 +3,8 @@ import { Button, H2, H3, Paragraph, Separator, XStack, YStack } from 'tamagui'
 
 export default function Docs() {
   return (
-    <YStack ai="center">
-      <YStack space mt="$8" px="$8" maxWidth={800}>
+    <YStack ai="center" style={{ wordBreak: 'break-all' }}>
+      <YStack space mt="$8" px="$8" pb="$16" maxWidth={800}>
         <H2 fontWeight="bold" textAlign="center" mb="$8">
           Documentation
         </H2>

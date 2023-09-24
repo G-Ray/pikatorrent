@@ -3,7 +3,7 @@ import { H2, H3, Paragraph, Separator, YStack } from 'tamagui'
 
 export default function FAQ() {
   return (
-    <YStack ai="center">
+    <YStack ai="center" style={{ wordBreak: 'break-all' }}>
       <YStack space mt="$8" px="$8" pb="$16" maxWidth={800}>
         <H2 fontWeight="bold" textAlign="center" mb="$8">
           Frequently Asked Questions
