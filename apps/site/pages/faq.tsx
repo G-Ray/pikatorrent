@@ -87,12 +87,12 @@ export default function FAQ() {
         </H3>
         <Paragraph>
           {`The desktop application displays a qrcode in the settings section. You
-        can flash it from the native mobile app, from Nodes -> scan QRCode`}
+        can flash it from the native mobile app, from Nodes -> scan QRCode
           . Once you confirm the connection from the desktop app, you should be
           able to control your desktop app from the mobile app. You don't need
           to register for an account, and the connection is secured with
           end-to-end encryption, thanks to WebRTC. Please note this might not
-          work behind some restricted networks.
+          work behind some restricted networks.`}
         </Paragraph>
         <H3 fontWeight="bold">Can I search for torrents with PikaTorrent ?</H3>
         <Paragraph>
@@ -104,10 +104,10 @@ export default function FAQ() {
           Where can I find my downloaded files on Android ?
         </H3>
         <Paragraph>
-          For security reasons, Android restricts accessible folders to
+          {`For security reasons, Android restricts accessible folders to
           applications. For now, downloaded files are saved in a private app
           folder. You can still open your files directly from PikaTorrent, with
-          the "Files" entry of a torrent.
+          the "Files" entry of a torrent.`}
         </Paragraph>
         <H3 fontWeight="bold">Can I use PikaTorrent on the web ?</H3>
         <Paragraph>
