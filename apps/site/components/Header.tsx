@@ -65,7 +65,7 @@ export const Header = () => {
 
 const Links = () => {
   return (
-    <XStack gap="$2" f="1" flexWrap="wrap">
+    <XStack gap="$2" f={1} flexWrap="wrap">
       <Link href="/docs" style={{ textDecoration: 'none' }}>
         <Button fontWeight={'bold'} bc="$backgroundTransparent">
           Docs
