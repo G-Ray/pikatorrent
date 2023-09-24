@@ -76,6 +76,7 @@ const Links = () => {
           FAQ
         </Button>
       </Link>
+      <Separator vertical />
       <Link
         href="https://discord.gg/6HxCV4aGdy"
         style={{ textDecoration: 'none' }}
