@@ -5,7 +5,7 @@ export const Footer = () => {
   return (
     <footer>
       <Separator />
-      <XStack jc="center" py="$4" gap="$8">
+      <XStack jc="center" py="$4" gap="$8" f={1} flexWrap="wrap">
         <Paragraph>
           <Link href={'/'}>Home</Link>
         </Paragraph>
