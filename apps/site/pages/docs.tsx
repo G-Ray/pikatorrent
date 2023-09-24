@@ -27,7 +27,7 @@ export default function Docs() {
           </Link>
           , by expanding the "Assets" section.
         </Paragraph>
-        <H3 mb="$4" fontWeight="bold">
+        <H3 fontWeight="bold">
           Casting media files from the PikaTorrent mobile app
         </H3>
         <Paragraph>
