@@ -10,11 +10,12 @@ export default function Docs() {
         </H2>
         <H3 fontWeight="bold">Installation</H3>
         <Paragraph>
-          The recommended way to install PikaTorrent is from the app stores. You
+          {`The recommended way to install PikaTorrent is from the app stores. You
           will receive automatic updates, and the app will be associated with
           "magnet:" and "pikatorrent:" links, as well as .torrent files on the
           desktop. You can find the store links for Android, Linux, and Windows
-          on the <Link href="/">home page</Link>.
+          on the`}{' '}
+          <Link href="/">home page</Link>.
         </Paragraph>
         <Paragraph>
           If you prefer, you can access alternative downloads (setup.exe,
@@ -25,7 +26,7 @@ export default function Docs() {
           >
             Github release page
           </Link>
-          , by expanding the "Assets" section.
+          {`, by expanding the "Assets" section.`}
         </Paragraph>
         <H3 fontWeight="bold">
           Casting media files from the PikaTorrent mobile app
@@ -36,8 +37,8 @@ export default function Docs() {
           <Link target="_blank" href="https://www.videolan.org">
             VLC
           </Link>
-          . Open the file you want to stream from the "Files" menu with VLC, and
-          VLC will display a cast icon to stream to your available devices.
+          {`. Open the file you want to stream from the "Files" menu with VLC, and
+          VLC will display a cast icon to stream to your available devices.`}
         </Paragraph>
         <H3 fontWeight="bold">Supported languages</H3>
         <Paragraph>
@@ -63,9 +64,9 @@ export default function Docs() {
           uses.
         </Paragraph>
         <Paragraph>
-          You can edit all Transmission settings by modifying the
+          {`You can edit all Transmission settings by modifying the
           "settings.json" file in PikaTorrent's config folder. Make sure to
-          close PikaTorrent before saving your changes.
+          close PikaTorrent before saving your changes.`}
         </Paragraph>
         <Paragraph>
           <ul>
