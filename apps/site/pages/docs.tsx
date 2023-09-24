@@ -68,20 +68,23 @@ export default function Docs() {
           "settings.json" file in PikaTorrent's config folder. Make sure to
           close PikaTorrent before saving your changes.`}
         </Paragraph>
-        <Paragraph>
-          <ul>
-            <li>
+
+        <ul>
+          <li>
+            <Paragraph>
               Windows: %APPDATA%\pikatorrent\Config\transmission (for example,
               C:\Users\USERNAME\AppData\Roaming\pikatorrent\Config)
-            </li>
-            <li>
+            </Paragraph>
+          </li>
+          <li>
+            <Paragraph>
               Linux: ~/.config/pikatorrent/transmission (or
               $XDG_CONFIG_HOME/pikatorrent/transmission). If you installed
               PikaTorrent from flathub.org it should be
               ~/.var/app/com.pikatorrent.PikaTorrent/config/pikatorrent/transmission/
-            </li>
-          </ul>
-        </Paragraph>
+            </Paragraph>
+          </li>
+        </ul>
         <Link
           href="https://github.com/G-Ray/pikatorrent/edit/main/apps/site/pages/docs.tsx"
           target="_blank"
