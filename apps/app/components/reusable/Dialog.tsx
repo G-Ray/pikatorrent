@@ -20,7 +20,7 @@ type DialogProps = {
   open?: boolean
   dismissOnOverlayPress?: boolean
   dismissOnSnapToBottom?: boolean
-  onOpenChange?: () => {}
+  onOpenChange?: (open: boolean) => {}
   snapPointsMode?: SnapPointsMode
 }
 

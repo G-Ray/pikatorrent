@@ -141,8 +141,8 @@ const TorrentActions = ({ theme = 'light', torrent, handleOpenFolder }) => {
             ></Button>
           }
           // Fit has a glitch when a nested sheets is rendered
-          // snapPointsMode="fit"
-          snapPoints={[70]}
+          snapPointsMode="fit"
+          // snapPoints={[70]}
         >
           <YStack gap="$4" py="$4" pt={media.gtXs ? '$8' : '$4'}>
             <ShareButtons torrent={torrent} toast={toast} />

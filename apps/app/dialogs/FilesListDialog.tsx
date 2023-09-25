@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ExternalLink, FolderOpen, List, Share2 } from '@tamagui/lucide-icons'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as FileSystem from 'expo-file-system'
@@ -49,36 +49,42 @@ const handleOpenFile = async (torrent, file) => {
 
 export const FilesListDialog = ({ torrent, toast }) => {
   const theme = useThemeName()
+  const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <Dialog
-      title={i18n.t('filesListDialog.title')}
-      snapPoints={[90]}
-      trigger={
-        <Button
-          icon={List}
-          bc={theme.startsWith('light') ? 'white' : 'black'}
-          theme="yellow"
-          hoverTheme
-          borderColor={'$yellow7'}
+    <>
+      <Button
+        icon={List}
+        bc={theme.startsWith('light') ? 'white' : 'black'}
+        theme="yellow"
+        hoverTheme
+        borderColor={'$yellow7'}
+        onPress={() => setIsOpen(true)}
+      >
+        {i18n.t('torrentDialog.files')}
+      </Button>
+      {isOpen && (
+        <Dialog
+          title={i18n.t('filesListDialog.title')}
+          snapPoints={[90]}
+          open={isOpen}
+          onOpenChange={setIsOpen}
         >
-          {i18n.t('torrentDialog.files')}
-        </Button>
-      }
-    >
-      <ScrollView>
-        <YGroup bordered size="$2">
-          {torrent.files.map((file) => (
-            <FileRow
-              key={file.name}
-              torrent={torrent}
-              file={file}
-              toast={toast}
-            />
-          ))}
-        </YGroup>
-      </ScrollView>
-    </Dialog>
+          <ScrollView>
+            <YGroup bordered size="$2">
+              {torrent.files.map((file) => (
+                <FileRow
+                  key={file.name}
+                  torrent={torrent}
+                  file={file}
+                  toast={toast}
+                />
+              ))}
+            </YGroup>
+          </ScrollView>
+        </Dialog>
+      )}
+    </>
   )
 }
 

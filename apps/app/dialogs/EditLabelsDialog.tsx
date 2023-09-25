@@ -21,6 +21,7 @@ export const EditLabelsDialog = ({ torrentsFunctions, torrent }) => {
   const theme = useThemeName()
   const [label, setLabel] = useState('')
   const [labels, setLabels] = useState<string[]>(torrent.labels)
+  const [isOpen, setIsOpen] = useState(false)
 
   const handleAddLabelSubmit = () => {
     handleAddLabel(label)
@@ -40,58 +41,64 @@ export const EditLabelsDialog = ({ torrentsFunctions, torrent }) => {
   }
 
   return (
-    <Dialog
-      title="Labels"
-      trigger={
-        <Button
-          icon={Tag}
-          bc={theme.startsWith('light') ? 'white' : 'black'}
-          theme="yellow"
-          hoverTheme
-          borderColor={'$yellow7'}
+    <>
+      <Button
+        icon={Tag}
+        bc={theme.startsWith('light') ? 'white' : 'black'}
+        theme="yellow"
+        hoverTheme
+        borderColor={'$yellow7'}
+        onPress={() => setIsOpen(true)}
+      >
+        {i18n.t('torrentDialog.editLabels')}
+      </Button>
+
+      {isOpen && (
+        <Dialog
+          title="Labels"
+          snapPointsMode="fit"
+          onOpenChange={setIsOpen}
+          open
         >
-          {i18n.t('torrentDialog.editLabels')}
-        </Button>
-      }
-      snapPointsMode="fit"
-    >
-      <YStack gap="$4" w={360}>
-        <LabelsSelector
-          labels={torrentsFunctions.labels}
-          labelsToExlude={labels}
-          onLabelPress={handleAddLabel}
-        />
-
-        <Separator />
-
-        <SelectedLabels
-          labels={labels}
-          onRemoveLabel={handleRemoveLabel}
-          onRemoveAll={() => setLabels([])}
-        />
-
-        <Form onSubmit={handleAddLabelSubmit}>
-          <XStack alignItems="center" space="$4">
-            <TamaguiLabel width={90} htmlFor="label" numberOfLines={1}>
-              New label
-            </TamaguiLabel>
-            <Input
-              borderColor="$yellow7"
-              flex={1}
-              bc={theme.startsWith('light') ? 'white' : 'black'}
-              id="label"
-              onChangeText={setLabel}
+          <YStack gap="$4" w={360}>
+            <LabelsSelector
+              labels={torrentsFunctions.labels}
+              labelsToExlude={labels}
+              onLabelPress={handleAddLabel}
             />
 
-            <Form.Trigger asChild>
-              <Button theme="yellow" borderColor={'$yellow7'}>
-                Add
-              </Button>
-            </Form.Trigger>
-          </XStack>
-        </Form>
-      </YStack>
-    </Dialog>
+            <Separator />
+
+            <SelectedLabels
+              labels={labels}
+              onRemoveLabel={handleRemoveLabel}
+              onRemoveAll={() => setLabels([])}
+            />
+
+            <Form onSubmit={handleAddLabelSubmit}>
+              <XStack alignItems="center" space="$4">
+                <TamaguiLabel width={90} htmlFor="label" numberOfLines={1}>
+                  New label
+                </TamaguiLabel>
+                <Input
+                  borderColor="$yellow7"
+                  flex={1}
+                  bc={theme.startsWith('light') ? 'white' : 'black'}
+                  id="label"
+                  onChangeText={setLabel}
+                />
+
+                <Form.Trigger asChild>
+                  <Button theme="yellow" borderColor={'$yellow7'}>
+                    Add
+                  </Button>
+                </Form.Trigger>
+              </XStack>
+            </Form>
+          </YStack>
+        </Dialog>
+      )}
+    </>
   )
 }
 
