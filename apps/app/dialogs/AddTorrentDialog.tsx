@@ -20,9 +20,10 @@ import { Dialog } from '../components/reusable/Dialog'
 import { Link, useLocalSearchParams, usePathname, useRouter } from 'expo-router'
 import { useURL } from 'expo-linking'
 import isElectron from 'is-electron'
-import { ExternalLink } from '@tamagui/lucide-icons'
+import { ExternalLink, File } from '@tamagui/lucide-icons'
 import { openExternalLink } from '../lib/links'
 import i18n from '../i18n'
+import { H5 } from 'tamagui'
 
 function readFileToBase64(document: DocumentPicker.DocumentResult) {
   return new Promise((resolve, reject) => {
@@ -154,6 +155,7 @@ export const AddTorrentDialog = () => {
 
       {node?.isConnected && (
         <YStack gap="$2">
+          <Separator />
           {Platform.OS === 'web' && !isElectron() && (
             <Paragraph>Send this torrent to {node.name}:</Paragraph>
           )}
@@ -179,6 +181,7 @@ export const AddTorrentDialog = () => {
               theme="yellow"
               borderColor={'$yellow7'}
               onPress={handleSelectTorrentFile}
+              icon={File}
             >
               {i18n.t('addTorrentDialog.selectFile')}
             </Button>
@@ -251,9 +254,9 @@ const OpenInApp = ({ node, magnet }) => {
   return (
     <YStack>
       {name && (
-        <H6 textAlign="center" numberOfLines={1} mb="$4">
+        <H5 textAlign="center" numberOfLines={1} mb="$4">
           {name}
-        </H6>
+        </H5>
       )}
       {xl && (
         <Paragraph textAlign="center" numberOfLines={1} mb="$4">
@@ -270,10 +273,7 @@ const OpenInApp = ({ node, magnet }) => {
         Open in app
       </Button>
       <Separator />
-      <Paragraph
-        my="$4"
-        textAlign="center"
-      >{`Don't have the app yet ?`}</Paragraph>
+      <H6 my="$4" textAlign="center">{`Don't have the app yet ?`}</H6>
       <YStack ai="center" gap="$4">
         <XStack space>
           <YStack>
