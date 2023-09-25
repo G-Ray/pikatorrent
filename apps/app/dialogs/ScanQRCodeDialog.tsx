@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Paragraph } from 'tamagui'
-import { Dialog } from './Dialog'
+import { Dialog } from '../components/reusable/Dialog'
 import { BarCodeScanner } from 'expo-barcode-scanner'
 
 export const ScanQRCodeDialog = ({ onScannedNode, onClose }) => {

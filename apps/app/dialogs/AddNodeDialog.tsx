@@ -5,7 +5,7 @@ import { Fieldset } from 'tamagui'
 import { Label } from 'tamagui'
 import { Form } from 'tamagui'
 import { Platform } from 'react-native'
-import { Dialog } from './Dialog'
+import { Dialog } from '../components/reusable/Dialog'
 import i18n from '../i18n'
 
 export const AddNodeDialog = ({ settingsContext }) => {

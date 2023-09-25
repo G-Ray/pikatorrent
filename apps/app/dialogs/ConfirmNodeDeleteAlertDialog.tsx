@@ -1,7 +1,7 @@
 import { Delete } from '@tamagui/lucide-icons'
 import React from 'react'
 import { Button, Paragraph, XStack } from 'tamagui'
-import { Dialog } from './Dialog'
+import { Dialog } from '../components/reusable/Dialog'
 
 // TODO: i18n
 export function ConfirmNodeDeleteAlertDialog({ onConfirm }) {

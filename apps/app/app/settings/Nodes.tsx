@@ -15,7 +15,7 @@ import * as QRCodeGenerator from 'qrcode'
 
 import { SettingsContext } from '../../contexts/SettingsContext'
 import { ConfirmNodeDeleteAlertDialog } from '../../dialogs/ConfirmNodeDeleteAlertDialog'
-import { QRCode } from '../../components/QRCode'
+import { QRCode } from '../../components/reusable/QRCode'
 import { Platform } from 'react-native'
 import isElectron from 'is-electron'
 import { ScanQRCodeDialog } from '../../dialogs/ScanQRCodeDialog'

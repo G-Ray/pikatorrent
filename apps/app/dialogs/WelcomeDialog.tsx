@@ -3,7 +3,7 @@ import { Card, Text, XStack, YStack } from 'tamagui'
 import { AddNodeDialog } from './AddNodeDialog'
 import { Rocket } from '@tamagui/lucide-icons'
 import { SettingsContext } from '../contexts/SettingsContext'
-import { Dialog } from './Dialog'
+import { Dialog } from '../components/reusable/Dialog'
 
 export const WelcomeDialog = () => {
   const settingsContext = useContext(SettingsContext)

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Dialog } from './Dialog'
+import { Dialog } from '../components/reusable/Dialog'
 
 export const UnsupportedBrowserDialog = () => {
   return (

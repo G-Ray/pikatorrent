@@ -9,7 +9,7 @@ import {
   useMedia,
   useThemeName,
 } from 'tamagui'
-import { Dialog } from '../dialogs/Dialog'
+import { Dialog } from './reusable/Dialog'
 import i18n from '../i18n'
 import { Select } from './reusable/Select'
 

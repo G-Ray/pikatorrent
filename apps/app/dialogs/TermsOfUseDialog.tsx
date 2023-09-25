@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Button, Paragraph, XStack, YStack } from 'tamagui'
-import { Dialog } from './Dialog'
+import { Dialog } from '../components/reusable/Dialog'
 import { ExternalLink } from '@tamagui/lucide-icons'
 import { openExternalLink } from '../lib/links'
 import { quitApp } from '../lib/lifecycle'

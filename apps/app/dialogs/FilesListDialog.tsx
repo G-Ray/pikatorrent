@@ -16,7 +16,7 @@ import {
   YStack,
   useThemeName,
 } from 'tamagui'
-import { Dialog } from './Dialog'
+import { Dialog } from '../components/reusable/Dialog'
 import { Platform, Linking } from 'react-native'
 import isElectron from 'is-electron'
 import i18n from '../i18n'

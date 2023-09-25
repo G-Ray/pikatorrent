@@ -12,8 +12,8 @@ import {
   Paragraph,
   useThemeName,
 } from 'tamagui'
-import { Dialog } from './Dialog'
-import { Label } from '../components/Label'
+import { Dialog } from '../components/reusable/Dialog'
+import { Label } from '../components/reusable/Label'
 import { YStack } from 'tamagui'
 import i18n from '../i18n'
 

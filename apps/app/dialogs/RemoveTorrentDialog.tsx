@@ -1,7 +1,7 @@
 import React from 'react'
 import { Trash } from '@tamagui/lucide-icons'
 import { Button, Paragraph, YStack, useThemeName } from 'tamagui'
-import { Dialog } from './Dialog'
+import { Dialog } from '../components/reusable/Dialog'
 import i18n from '../i18n'
 
 export const RemoveTorrentDialog = ({ id, name, torrentsFunctions }) => {
