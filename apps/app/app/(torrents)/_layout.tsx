@@ -141,10 +141,6 @@ const StartOrPauseAllTorrents = () => {
 
   const isAllTorrentsActive = sessionStats.pausedTorrentCount === 0
 
-  if (sessionStats.torrentCount === 0) {
-    return null
-  }
-
   return (
     <Button
       icon={isAllTorrentsActive ? PauseCircle : PlayCircle}
