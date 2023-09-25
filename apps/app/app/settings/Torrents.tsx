@@ -174,7 +174,7 @@ export const Torrents = () => {
       <SettingLayout>
         <Paragraph>{i18n.t('settings.torrents.peerPort')}</Paragraph>
         <Input
-          borderWidth={2}
+          bc={theme.startsWith('light') ? 'white' : 'black'}
           value={(session['peer-port'] || 0).toString()}
           onChangeText={(text) => {
             try {
@@ -209,6 +209,7 @@ const encryptionModesTexts = encryptionModes.map((mode) =>
 
 const DownloadDirectoryInput = ({ session, setSession }) => {
   const node = useContext(NodeContext)
+  const theme = useThemeName()
 
   if (!isElectron() || !node.isLocal) {
     return (
@@ -216,9 +217,8 @@ const DownloadDirectoryInput = ({ session, setSession }) => {
         editable={false}
         o={0.5}
         flex={1}
-        size="$4"
-        borderWidth={2}
         value={session['download-dir'] || ''}
+        bc={theme.startsWith('light') ? 'white' : 'black'}
       />
     )
   }
@@ -228,8 +228,7 @@ const DownloadDirectoryInput = ({ session, setSession }) => {
       <Input
         mr="$2"
         flex={1}
-        size="$4"
-        borderWidth={2}
+        bc={theme.startsWith('light') ? 'white' : 'black'}
         value={session['download-dir'] || ''}
         onChangeText={(text) => {
           setSession((s) => ({ ...s, ['download-dir']: text }))
