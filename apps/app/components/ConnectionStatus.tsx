@@ -1,9 +1,10 @@
 import React, { useContext } from 'react'
-import { Circle, Paragraph, XStack } from 'tamagui'
+import { Circle, Paragraph, XStack, useMedia } from 'tamagui'
 import { NodeContext } from '../contexts/NodeContext'
 
 export const ConnectionStatus = () => {
   const node = useContext(NodeContext)
+  const media = useMedia()
 
   if (node && node.isLocal) {
     return null
@@ -12,9 +13,11 @@ export const ConnectionStatus = () => {
   return (
     <XStack ai="center" gap="$2">
       <Circle bc={node.isConnected ? '$green9' : '$red9'} size={12} />
-      <Paragraph numberOfLines={1}>
-        {node && node.name ? node.name : 'No node connected'}
-      </Paragraph>
+      {media.gtXs && (
+        <Paragraph numberOfLines={1}>
+          {node && node.name ? node.name : 'No node connected'}
+        </Paragraph>
+      )}
     </XStack>
   )
 }

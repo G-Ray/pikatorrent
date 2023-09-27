@@ -15,7 +15,8 @@ export const Header = () => {
         jc="space-between"
         ai="center"
         bc="$background"
-        gap="$8"
+        gap="$2"
+        mr="$2"
       >
         <XStack ai="center" gap="$8">
           <XStack ai="center" gap={media.gtXs ? '$8' : '$2'}>

@@ -15,7 +15,6 @@ export const GlobalStats = () => {
       bc={/^light/.test(theme) ? 'white' : 'black'}
       py="$2"
       px="$3"
-      mr="$2"
     >
       <XStack gap={media.gtXs ? '$4' : '$4'}>
         <TorrentFieldFormatter
