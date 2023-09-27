@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import {
   Separator,
   Stack,
@@ -9,11 +9,12 @@ import {
   YStack,
 } from 'tamagui'
 import { useFonts } from 'expo-font'
-import { SplashScreen, Tabs, usePathname, useRouter } from 'expo-router'
+import { Tabs, useRouter } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import { ToastProvider, ToastViewport } from '@tamagui/toast'
-import { useColorScheme } from 'react-native'
+import { View, useColorScheme } from 'react-native'
 import * as Linking from 'expo-linking'
+import * as SplashScreen from 'expo-splash-screen'
 
 import config from '../tamagui.config'
 import { Header, BottomTabs, Sidebar } from '../components'
@@ -32,6 +33,8 @@ const screenOptions = {
   title: 'PikaTorrent',
   headerShown: false,
 }
+
+SplashScreen.preventAutoHideAsync()
 
 export default function Layout() {
   const [loadedFonts] = useFonts({
@@ -52,19 +55,30 @@ export default function Layout() {
 
   const loaded = loadedFonts && isMigrationExecuted
 
+  const onLayoutRootView = useCallback(async () => {
+    if (loaded) {
+      // This tells the splash screen to hide immediately! If we call this after
+      // `setAppIsReady`, then we may see a blank screen while the app is
+      // loading its initial state and rendering its first pixels. So instead,
+      // we hide the splash screen once we know the root view has already
+      // performed layout.
+      await SplashScreen.hideAsync()
+    }
+  }, [loaded])
+
   if (!loaded) {
-    // Note: Deprecated, but status bar has issues if we migrate to the new api
-    // https://github.com/expo/expo/issues/23450
-    return <SplashScreen />
+    return null
   }
 
   return (
-    <TamaguiProvider config={config}>
-      <NativeURLHandlers />
-      <SettingsProvider>
-        <ThemedLayout />
-      </SettingsProvider>
-    </TamaguiProvider>
+    <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
+      <TamaguiProvider config={config}>
+        <NativeURLHandlers />
+        <SettingsProvider>
+          <ThemedLayout />
+        </SettingsProvider>
+      </TamaguiProvider>
+    </View>
   )
 }
 
