@@ -48,14 +48,11 @@ export const SearchBar = () => {
 
   return (
     <Form onSubmit={handleSubmit} f={1}>
-      <XStack>
+      <XStack bc="$backgroundTransparent" gap="$2">
         <Input
           f={1}
-          borderWidth={0}
-          borderTopLeftRadius={0}
-          borderBottomLeftRadius={0}
-          borderTopRightRadius={0}
-          borderBottomRightRadius={0}
+          // br={50}
+          outlineStyle="none"
           bc={/^light/.test(theme) ? 'white' : 'black'}
           placeholder={i18n.t('torrents.searchPlaceholder')}
           value={query}
@@ -74,8 +71,6 @@ export const SearchBar = () => {
                 <Search size={16} />
               </XStack>
             )}
-            borderTopLeftRadius={0}
-            borderBottomLeftRadius={0}
           />
         </Form.Trigger>
       </XStack>

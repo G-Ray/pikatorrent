@@ -14,7 +14,7 @@ import { useSession } from '../hooks/useSession'
 import { version } from '../package.json'
 import { DESKTOP_MAX_CONTENT_WIDTH } from '../constants/layout'
 import { SettingLayout } from '../components/SettingLayout'
-import { ExternalLink, Github, Heart } from '@tamagui/lucide-icons'
+import { ExternalLink, Github, MessageSquare } from '@tamagui/lucide-icons'
 import { openExternalLink } from '../lib/links'
 import i18n from '../i18n'
 
@@ -48,37 +48,32 @@ export default function About() {
         <SessionsInfoDialog session={session} />
       </XStack>
       <XStack mx="auto" mt="$8" gap="$2">
-        <Heart color="$red9" />
         <Paragraph>{i18n.t('about.reportBugOrFeature')}</Paragraph>
-        <Heart color="$red9" />
       </XStack>
-      <XStack mx="auto">
-        <Button
-          bc={theme.startsWith('light') ? 'white' : 'black'}
-          theme="yellow"
-          hoverTheme
-          borderColor={'$yellow7'}
-          icon={ExternalLink}
-          iconAfter={Github}
-          onPress={() =>
-            openExternalLink('https://www.github.com/G-Ray/pikatorrent/issues')
-          }
-        >
-          <Paragraph>{i18n.t('about.githubLinkDescription')}</Paragraph>
-        </Button>
-      </XStack>
-      <XStack mx="auto">
-        <Button
-          bc={theme.startsWith('light') ? 'white' : 'black'}
-          theme="yellow"
-          hoverTheme
-          borderColor={'$yellow7'}
-          icon={ExternalLink}
-          onPress={() => openExternalLink('https://discord.gg/6HxCV4aGdy')}
-        >
-          <Paragraph>{i18n.t('about.discordLinkDescription')}</Paragraph>
-        </Button>
-      </XStack>
+      <Button
+        bc={theme.startsWith('light') ? 'white' : 'black'}
+        theme="yellow"
+        hoverTheme
+        borderColor={'$yellow7'}
+        icon={ExternalLink}
+        iconAfter={Github}
+        onPress={() =>
+          openExternalLink('https://www.github.com/G-Ray/pikatorrent/issues')
+        }
+      >
+        <Paragraph>{i18n.t('about.githubLinkDescription')}</Paragraph>
+      </Button>
+      <Button
+        bc={theme.startsWith('light') ? 'white' : 'black'}
+        theme="yellow"
+        hoverTheme
+        borderColor={'$yellow7'}
+        icon={ExternalLink}
+        iconAfter={MessageSquare}
+        onPress={() => openExternalLink('https://discord.gg/6HxCV4aGdy')}
+      >
+        <Paragraph>{i18n.t('about.discordLinkDescription')}</Paragraph>
+      </Button>
     </YStack>
   )
 }

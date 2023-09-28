@@ -134,7 +134,7 @@ const ThemedLayout = () => {
       <StatusBar
         translucent={false}
         style={theme === 'light' ? 'dark' : 'light'}
-        backgroundColor={theme === 'dark' ? '#151515' : '#f9f9f9'}
+        backgroundColor={theme === 'dark' ? '#000' : '#fff'}
       />
       <PeerRequest />
       <TermsOfUseDialog />
@@ -146,7 +146,7 @@ const ThemedLayout = () => {
           <Stack
             f={1}
             {...(Platform.OS === 'web' ? { h: '100vh' } : {})}
-            bc="$background"
+            bc="$backgroundStrong"
           >
             <TorrentsProvider>
               <Header />
@@ -177,7 +177,7 @@ const Desktop = () => {
 
 const Mobile = () => {
   return (
-    <YStack pt="$2" f={1}>
+    <YStack f={1}>
       <Tabs
         screenOptions={screenOptions}
         sceneContainerStyle={{ backgroundColor: 'transparent' }}

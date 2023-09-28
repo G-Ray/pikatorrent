@@ -57,7 +57,7 @@ const Dialog = ({
           snapPointsMode={snapPointsMode}
         >
           <Sheet.Handle />
-          <Sheet.Frame padding="$4">
+          <Sheet.Frame padding="$4" bc="$backgroundStrong">
             <Adapt.Contents />
           </Sheet.Frame>
           <Sheet.Overlay />

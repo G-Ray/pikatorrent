@@ -1,9 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   ArrowBigDown,
   ArrowBigUp,
   FolderOpen,
-  Menu,
   PauseCircle,
   PlayCircle,
   Share2,
@@ -16,6 +15,7 @@ import {
   Paragraph,
   Progress,
   ScrollView,
+  Stack,
   Theme,
   XStack,
   YStack,
@@ -32,13 +32,14 @@ import { Dialog } from './reusable/Dialog'
 import { Label } from './reusable/Label'
 import { EditLabelsDialog } from '../dialogs/EditLabelsDialog'
 import { APP_URL } from '../config'
-import { Platform, Share } from 'react-native'
+import { Platform, Pressable, Share } from 'react-native'
 import { useToastController } from '@tamagui/toast'
 import i18n from '../i18n'
 
 export const TorrentCard = ({ torrent }) => {
   const media = useMedia()
   const theme = useThemeName()
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const { start, pause } = useTorrents()
 
@@ -49,100 +50,124 @@ export const TorrentCard = ({ torrent }) => {
   }
 
   return (
-    <Card
-      key={torrent.id}
-      size="$4"
-      p="$2"
-      pt="$0"
-      elevation={media.gtXs ? '$1' : '$0.5'}
-      mb={media.gtXs ? '$4' : '$2'}
-      bc={theme === 'light' ? 'white' : 'black'}
-    >
-      <XStack ai="center">
-        <XStack mr="$2">
-          {TORRENT_STATUSES[torrent.status] === TORRENT_STATUSES[0] ? (
-            <Button
-              onPress={() => start(torrent.id)}
-              bc={theme === 'light' ? 'white' : 'black'}
-              icon={PlayCircle}
-              circular
-              scaleIcon={2}
-            />
-          ) : (
-            <Button
-              onPress={() => pause(torrent.id)}
-              bc={theme === 'light' ? 'white' : 'black'}
-              icon={PauseCircle}
-              circular
-              scaleIcon={2}
-            />
-          )}
-        </XStack>
-        <YStack f={1} alignSelf="flex-start">
+    <>
+      <Card
+        key={torrent.id}
+        size="$4"
+        pr="$2"
+        py="$2"
+        bc={theme === 'light' ? 'white' : 'black'}
+      >
+        <XStack ai="center">
           <XStack>
-            <XStack alignSelf="center" f={1}>
-              <H6 numberOfLines={1}>{torrent.name}</H6>
-            </XStack>
+            {TORRENT_STATUSES[torrent.status] === TORRENT_STATUSES[0] ? (
+              <Button
+                onPress={() => start(torrent.id)}
+                bc={theme === 'light' ? 'white' : 'black'}
+                icon={PlayCircle}
+                size="$5"
+                circular
+                scaleIcon={2}
+              />
+            ) : (
+              <Button
+                onPress={() => pause(torrent.id)}
+                bc={theme === 'light' ? 'white' : 'black'}
+                icon={PauseCircle}
+                size="$5"
+                circular
+                scaleIcon={2}
+              />
+            )}
+          </XStack>
+          <Stack
+            f={1}
+            p="$2"
+            br="$2"
+            hoverStyle={{ bc: '$gray4', cursor: 'pointer' }}
+            pressStyle={{ bc: '$gray4' }}
+            onPress={() => {
+              setIsMenuOpen(true)
+            }}
+          >
             <TorrentActions
               theme={theme}
               torrent={torrent}
               handleOpenFolder={handleOpenFolder}
+              open={isMenuOpen}
+              onOpenChange={setIsMenuOpen}
             />
-          </XStack>
-          <Progress
-            mb="$2"
-            value={Math.floor(torrent.percentDone * 100)}
-            theme="yellow"
-            borderColor={'$yellow7'}
-            bordered
-            size="$2"
-          >
-            <Progress.Indicator animation="lazy" bc={'$yellow9'} />
-          </Progress>
-          <XStack jc="space-between">
-            <TorrentInfo torrent={torrent} />
-            <ScrollView
-              ml="$2"
-              horizontal
-              contentContainerStyle={{
-                flexGrow: 1,
-                alignItems: 'flex-end',
-                justifyContent: 'flex-end',
-              }}
+            <XStack>
+              <H6 numberOfLines={1}>{torrent.name}</H6>
+            </XStack>
+            <Progress
+              mb="$2"
+              value={Math.floor(torrent.percentDone * 100)}
+              theme="yellow"
+              borderColor={'$yellow7'}
+              bordered
+              size="$2"
             >
-              <XStack gap={media.gtXs ? '$2' : '$1'}>
-                {torrent.labels.map((label, index) => (
-                  <Label key={index} name={label} color={'$gray12'}></Label>
-                ))}
-              </XStack>
-            </ScrollView>
-          </XStack>
-        </YStack>
-      </XStack>
-    </Card>
+              <Progress.Indicator animation="lazy" bc={'$yellow9'} />
+            </Progress>
+            <XStack jc="space-between">
+              <TorrentInfo torrent={torrent} />
+              <ScrollView
+                ml="$2"
+                horizontal
+                contentContainerStyle={{
+                  flexGrow: 1,
+                  alignItems: 'flex-end',
+                  justifyContent: 'flex-end',
+                }}
+              >
+                <XStack gap={media.gtXs ? '$2' : '$1'}>
+                  {torrent.labels.map((label, index) => (
+                    <Label key={index} name={label} color={'$gray12'}></Label>
+                  ))}
+                </XStack>
+              </ScrollView>
+            </XStack>
+          </Stack>
+        </XStack>
+      </Card>
+      {/* <Separator /> */}
+    </>
   )
 }
 
-const TorrentActions = ({ theme = 'light', torrent, handleOpenFolder }) => {
+const TorrentActions = ({
+  theme = 'light',
+  torrent,
+  handleOpenFolder,
+  open,
+  onOpenChange,
+}) => {
   /* Bug: we can't access contexts inside nested dialogs, see https://github.com/tamagui/tamagui/issues/1481 */
   const torrentsFunctions = useTorrents()
   const toast = useToastController()
   const media = useMedia()
 
+  if (!open) {
+    return null
+  }
+
   return (
     <Theme name={theme}>
       <XStack ml="auto">
         <Dialog
-          trigger={
-            <Button
-              circular
-              icon={Menu}
-              bc={theme === 'light' ? 'white' : 'black'}
-            ></Button>
-          }
+          // trigger={
+          //   <Button
+          //     circular
+          //     icon={Menu}
+          //     bc={theme === 'light' ? 'white' : 'black'}
+          //   ></Button>
+          // }
           // Fit has a glitch when a nested sheets is rendered
           snapPointsMode="fit"
           // snapPoints={[70]}
+          open={open}
+          onOpenChange={onOpenChange}
         >
           <YStack gap="$4" py="$4" pt={media.gtXs ? '$8' : '$4'}>
             <ShareButtons torrent={torrent} toast={toast} />

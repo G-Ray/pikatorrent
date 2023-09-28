@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react'
+import React, { useContext, useMemo, useState } from 'react'
 import { FlatList } from 'react-native'
 import Fuse from 'fuse.js'
 
@@ -12,6 +12,7 @@ import {
   Card,
   Input,
   Separator,
+  Stack,
   XStack,
   YStack,
   useMedia,
@@ -33,33 +34,27 @@ import { SettingsContext } from '../../contexts/SettingsContext'
 
 const SearchBarWithAddButton = () => {
   const media = useMedia()
-  const theme = useThemeName()
 
   return (
-    <Card
-      mx="auto"
-      w="100%"
-      br={'$4'}
-      bordered
-      maxWidth={DESKTOP_MAX_CONTENT_WIDTH}
-    >
-      <XStack>
+    <Card mx="auto" w="100%" maxWidth={DESKTOP_MAX_CONTENT_WIDTH}>
+      <XStack bc="$backgroundTransparent" gap="$2">
         <Link asChild href="/add" style={{ textDecorationLine: 'none' }}>
           <Button
-            bc={theme === 'light' ? 'white' : 'black'}
-            color="$blue9"
-            icon={() => (
-              <XStack alignSelf="center">
-                <PlusCircle size={18} color="$blue9" />
-              </XStack>
-            )}
-            borderTopRightRadius={0}
-            borderBottomRightRadius={0}
+            theme="yellow"
+            icon={PlusCircle}
+            bordered
+            borderColor={'$yellow7'}
+            {...(!media.gtXs && {
+              position: 'absolute',
+              bottom: '$10',
+              right: '$1',
+              size: '$5',
+              br: 50,
+            })}
           >
-            {media.gtXs ? i18n.t('torrents.add') : ''}
+            {i18n.t('torrents.add')}
           </Button>
         </Link>
-        <Separator vertical />
         <SearchBar />
       </XStack>
     </Card>
@@ -79,31 +74,34 @@ export default function Torrents() {
 
   return (
     <YStack f={1}>
-      <YStack px={media.gtXs ? '$8' : '$2'}>
-        {media.gtXs && <SearchBarWithAddButton />}
+      <YStack>
+        {media.gtXs && (
+          <Stack>
+            <YStack mb="$4">
+              <SearchBarWithAddButton />
+            </YStack>
+            <Separator />
+          </Stack>
+        )}
 
         <Card
           mx="auto"
+          my="$2"
           w="100%"
-          my={media.gtXs ? '$4' : '$2'}
-          br={'$4'}
-          bordered
           maxWidth={DESKTOP_MAX_CONTENT_WIDTH}
+          bc="$backgroundTransparent"
         >
-          <XStack jc="space-between">
+          <XStack jc="space-between" bc="$backgroundTransparent">
             <StartOrPauseAllTorrents />
-            <Separator vertical />
             <Theme reset>
               <SortingOptionsDialog
                 sortOptions={settings.sortOptions}
                 onChangeSort={handleChangeSort}
               />
             </Theme>
-            <Separator vertical />
             <Theme reset>
               <Filters onChangeFilters={setFilters} />
             </Theme>
-            <Separator vertical />
             <Input
               minWidth={120}
               f={1}
@@ -111,9 +109,7 @@ export default function Torrents() {
               value={filter}
               onChangeText={setFilter}
               bc={/^light/.test(theme) ? 'white' : 'black'}
-              borderWidth={0}
-              borderTopLeftRadius={0}
-              borderBottomLeftRadius={0}
+              mr="$2"
             />
           </XStack>
         </Card>
@@ -124,6 +120,7 @@ export default function Torrents() {
         sortOptions={settings.sortOptions}
       />
       <Slot />
+      <Separator />
       {!media.gtXs && (
         <XStack py="$2" mx="$2" mt="auto">
           <SearchBarWithAddButton />
@@ -145,10 +142,8 @@ const StartOrPauseAllTorrents = () => {
     <Button
       icon={isAllTorrentsActive ? PauseCircle : PlayCircle}
       onPress={isAllTorrentsActive ? pauseAll : startAll}
-      borderTopRightRadius={0}
-      borderBottomRightRadius={0}
       bc={/^light/.test(theme) ? 'white' : 'black'}
-      // {...(!isAllTorrentsActive && { color: '$blue9' })}
+      scaleIcon={1.5}
     >
       {media.gtXs
         ? isAllTorrentsActive
@@ -217,8 +212,8 @@ const TorrentsList = ({ sortOptions, filter, filters }: TorrentsListProp) => {
         width: '100%',
         marginLeft: 'auto',
         marginRight: 'auto',
-        paddingLeft: media.gtXs ? 46 : 7, // $8 $2
-        paddingRight: media.gtXs ? 46 : 7, // $8 $2
+        // paddingLeft: media.gtXs ? 46 : 7, // $8 $2
+        // paddingRight: media.gtXs ? 46 : 7, // $8 $2
         paddingTop: 4,
         paddingBottom: 4,
         maxWidth: DESKTOP_MAX_CONTENT_WIDTH + (media.gtXs ? 46 * 2 : 7 * 2),

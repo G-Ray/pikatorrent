@@ -41,8 +41,7 @@ export const SortingOptionsDialog = ({
             sortOptions.isReversed ? ArrowDownWideNarrow : ArrowDownNarrowWide
           }
           bc={theme.startsWith('light') ? 'white' : 'black'}
-          // {...(filteredLabels.length > 0 && { color: '$blue9' })}
-          borderRadius={0}
+          scaleIcon={1.5}
         >
           {media.gtXs && i18n.t('sortingOptionsDialog.' + sortOptions.property)}
         </Button>

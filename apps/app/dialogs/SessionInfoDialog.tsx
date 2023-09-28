@@ -22,6 +22,7 @@ export const SessionsInfoDialog = ({ session }) => {
           bc={theme.startsWith('light') ? 'white' : 'black'}
           theme="yellow"
           hoverTheme
+          borderColor={'$yellow7'}
         >
           {i18n.t('sessionInfoDialog.title')}
         </Button>

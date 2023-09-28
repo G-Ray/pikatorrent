@@ -6,9 +6,9 @@ import { buttons, footerButtons } from './buttons'
 
 export const BottomTabs = () => {
   return (
-    <YStack w="100%" bc="$background">
+    <YStack w="100%">
       <Separator />
-      <XStack jc="space-around" p="$2" gap="$4">
+      <XStack jc="space-around" p="$2" gap="$4" bc="$backgroundStrong">
         {[...buttons, ...footerButtons].map((button, index) => (
           <ButtonLink key={index} {...button} />
         ))}

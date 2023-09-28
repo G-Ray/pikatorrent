@@ -20,7 +20,7 @@ export const Filters = ({ onChangeFilters }) => {
           icon={Tags}
           bc={/^light/.test(theme) ? 'white' : 'black'}
           {...(filteredLabels.length > 0 && { color: '$blue9' })}
-          borderRadius={0}
+          scaleIcon={1.5}
         >
           {media.gtXs
             ? `${filteredLabels.length} ${i18n.t('torrents.filteredLabels')}`
