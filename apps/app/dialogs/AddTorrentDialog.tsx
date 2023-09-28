@@ -155,9 +155,11 @@ export const AddTorrentDialog = () => {
 
       {node?.isConnected && (
         <YStack gap="$2">
-          <Separator />
           {Platform.OS === 'web' && !isElectron() && (
-            <Paragraph>Send this torrent to {node.name}:</Paragraph>
+            <>
+              <Separator />
+              <Paragraph>Send this torrent to {node.name}:</Paragraph>
+            </>
           )}
           <Fieldset horizontal gap="$4">
             <Input
