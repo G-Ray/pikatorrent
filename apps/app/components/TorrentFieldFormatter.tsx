@@ -19,7 +19,10 @@ export const TorrentFieldFormatter = ({
   let formattedValue: string | React.ReactNode
   let color
 
-  if (name === 'status') {
+  if (name === 'errorString') {
+    formattedValue = value
+    color = '$red9'
+  } else if (name === 'status') {
     formattedValue = TORRENT_STATUSES[value]
     if (formattedValue === 'Seeding') {
       color = '$green9'

@@ -27,6 +27,7 @@ export const TorrentsProvider = ({ children }) => {
           fields: [
             'id',
             'eta',
+            'errorString',
             'peersConnected',
             'name',
             'files',

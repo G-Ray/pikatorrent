@@ -32,7 +32,7 @@ import { Dialog } from './reusable/Dialog'
 import { Label } from './reusable/Label'
 import { EditLabelsDialog } from '../dialogs/EditLabelsDialog'
 import { APP_URL } from '../config'
-import { Platform, Pressable, Share } from 'react-native'
+import { Platform, Share } from 'react-native'
 import { useToastController } from '@tamagui/toast'
 import i18n from '../i18n'
 
@@ -250,7 +250,7 @@ const ShareButtons = ({ toast, torrent }) => {
 
 const TorrentInfo = ({ torrent }) => {
   return (
-    <YStack>
+    <YStack w={'100%'}>
       <XStack columnGap="$2">
         <TorrentFieldFormatter name="percentDone" value={torrent.percentDone} />
         <Paragraph>•</Paragraph>
@@ -277,6 +277,14 @@ const TorrentInfo = ({ torrent }) => {
           <TorrentFieldFormatter name="rateUpload" value={torrent.rateUpload} />
         </XStack>
       </XStack>
+      {torrent.errorString.length > 0 && (
+        <TorrentFieldFormatter
+          name="errorString"
+          value={torrent.errorString}
+          f={1}
+          flexShrink={1}
+        />
+      )}
     </YStack>
   )
 }
