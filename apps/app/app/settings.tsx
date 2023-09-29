@@ -16,7 +16,7 @@ export default function Settings() {
         w="100%"
         alignSelf="center"
         flexShrink={1}
-        gap="$16"
+        gap="$8"
         pb="$4"
         px={media.gtXs ? '$8' : '$2'}
         {...(media.gtXs && { w: DESKTOP_MAX_CONTENT_WIDTH })}

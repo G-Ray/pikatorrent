@@ -62,17 +62,17 @@ export const Torrents = () => {
     <YStack space ai="flex-start" w="100%">
       <H2>{i18n.t('settings.torrents.title')}</H2>
       {Platform.OS === 'web' && (
-        <SettingLayout>
+        <XStack jc="space-between" w="100%">
           <Paragraph>{i18n.t('settings.torrents.downloadDirectory')}</Paragraph>
           <XStack>
             <DownloadDirectoryInput session={session} setSession={setSession} />
           </XStack>
-        </SettingLayout>
+        </XStack>
       )}
 
-      <SettingLayout>
+      <XStack jc="space-between" w="100%">
         <Paragraph>Encryption</Paragraph>
-        <XStack w={media.gtXs ? 180 : '100%'}>
+        <XStack minWidth={180}>
           {session.encryption && (
             <Select
               label={i18n.t('settings.torrents.encryption')}
@@ -87,9 +87,9 @@ export const Torrents = () => {
             ></Select>
           )}
         </XStack>
-      </SettingLayout>
+      </XStack>
 
-      <SettingLayout>
+      <XStack jc="space-between" w="100%">
         <Paragraph>{i18n.t('settings.torrents.enableUTP')}</Paragraph>
         <Switch
           id={'utp-enabled'}
@@ -103,9 +103,9 @@ export const Torrents = () => {
             bc={theme === 'light' ? 'black' : 'white'}
           />
         </Switch>
-      </SettingLayout>
+      </XStack>
 
-      <SettingLayout>
+      <XStack jc="space-between" w="100%">
         <Paragraph>{i18n.t('settings.torrents.enableDHT')}</Paragraph>
         <Switch
           id={'dht-enabled'}
@@ -119,9 +119,9 @@ export const Torrents = () => {
             bc={theme === 'light' ? 'black' : 'white'}
           />
         </Switch>
-      </SettingLayout>
+      </XStack>
 
-      <SettingLayout>
+      <XStack jc="space-between" w="100%">
         <Paragraph>{i18n.t('settings.torrents.enableLPD')}</Paragraph>
         <Switch
           id={'lpd-enabled'}
@@ -135,9 +135,9 @@ export const Torrents = () => {
             bc={theme === 'light' ? 'black' : 'white'}
           />
         </Switch>
-      </SettingLayout>
+      </XStack>
 
-      <SettingLayout>
+      <XStack jc="space-between" w="100%">
         <Paragraph>{i18n.t('settings.torrents.enablePEX')}</Paragraph>
         <Switch
           id={'pex-enabled'}
@@ -151,9 +151,9 @@ export const Torrents = () => {
             bc={theme === 'light' ? 'black' : 'white'}
           />
         </Switch>
-      </SettingLayout>
+      </XStack>
 
-      <SettingLayout>
+      <XStack jc="space-between" w="100%">
         <Paragraph>
           {i18n.t('settings.torrents.enablePortForwarding')}
         </Paragraph>
@@ -169,11 +169,12 @@ export const Torrents = () => {
             bc={theme === 'light' ? 'black' : 'white'}
           />
         </Switch>
-      </SettingLayout>
+      </XStack>
 
-      <SettingLayout>
+      <XStack jc="space-between" w="100%">
         <Paragraph>{i18n.t('settings.torrents.peerPort')}</Paragraph>
         <Input
+          minWidth={180}
           bc={theme.startsWith('light') ? 'white' : 'black'}
           value={(session['peer-port'] || 0).toString()}
           onChangeText={(text) => {
@@ -185,7 +186,7 @@ export const Torrents = () => {
             }
           }}
         />
-      </SettingLayout>
+      </XStack>
 
       <Button
         ml="auto"

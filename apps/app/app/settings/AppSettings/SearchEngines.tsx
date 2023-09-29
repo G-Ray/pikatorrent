@@ -46,11 +46,11 @@ export const SearchEngines = () => {
   return (
     <YStack w="100%" gap="$4">
       <SettingLayout>
-        <YStack maxWidth={'40%'}>
+        <YStack>
           <Paragraph minWidth={260}>
             {i18n.t('settings.app.searchEngines')}
           </Paragraph>
-          <Paragraph>
+          <Paragraph fontSize={'$2'} color="$gray10">
             {i18n.t('settings.app.searchEnginesInstructions')}
           </Paragraph>
         </YStack>
