@@ -3,7 +3,8 @@
   "searchEnginesUrls": [
     "https://www.google.com/search?q=%s+torrent",
     "https://duckduckgo.com/?q=%s+torrent",
-    "https://archive.org/search?query=%s"
+    "https://archive.org/search?query=%s",
+    "https://fosstorrents.com/search/?query=%s"
   ],
   "selectedNodeId": "local",
   "nodes": [],
