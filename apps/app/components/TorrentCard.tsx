@@ -250,7 +250,7 @@ const ShareButtons = ({ toast, torrent }) => {
 
 const TorrentInfo = ({ torrent }) => {
   return (
-    <YStack w={'100%'}>
+    <YStack>
       <XStack columnGap="$2">
         <TorrentFieldFormatter name="percentDone" value={torrent.percentDone} />
         <Paragraph>•</Paragraph>
