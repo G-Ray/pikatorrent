@@ -52,6 +52,17 @@
   </screenshots>
 
   <releases>
+  <release version="0.8.1" date="2023-09-30">
+      <description>
+        <ul>
+          <li>A refreshed interface, with true dark theme support (save battery on OLED screens) 🕶️</li>
+          <li>Improve modals responsiveness 🚀</li>
+          <li>Support for any search engines urls using a placeholder %s 🔍</li>
+          <li>Initial support to display errors strings when a torrent has an issue 🔴</li>
+          <li>Bug fixes: new label input could have erratic behavior, ... 🐛</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.7.1" date="2023-09-20">
       <description>
         <ul>
