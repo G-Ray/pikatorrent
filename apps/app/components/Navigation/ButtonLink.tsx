@@ -11,20 +11,18 @@ export const ButtonLink = ({ title, href, segment, icon }) => {
 
   return (
     <Link href={href} asChild>
-      <XStack>
-        <Button
-          size="$5"
-          br={50}
-          icon={icon}
-          scaleIcon={1.4}
-          bc={theme.startsWith('light') ? 'white' : 'black'}
-          {...(isActive && {
-            color: '$yellow8',
-          })}
-        >
-          {media.gtXs && title}
-        </Button>
-      </XStack>
+      <Button
+        size="$5"
+        br={50}
+        icon={icon}
+        scaleIcon={1.4}
+        bc={theme.startsWith('light') ? 'white' : 'black'}
+        {...(isActive && {
+          color: '$yellow8',
+        })}
+      >
+        {media.gtXs && title}
+      </Button>
     </Link>
   )
 }

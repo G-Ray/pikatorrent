@@ -39,27 +39,21 @@ const SearchBarWithAddButton = () => {
     <Card mx="auto" w="100%" maxWidth={DESKTOP_MAX_CONTENT_WIDTH}>
       <XStack bc="$backgroundTransparent" gap="$2">
         <Link asChild href="/add">
-          <XStack
+          <Button
+            theme="yellow"
+            icon={PlusCircle}
+            bordered
+            borderColor={'$yellow7'}
             {...(!media.gtXs && {
               position: 'absolute',
               bottom: '$10',
               right: '$1',
               size: '$5',
+              br: 50,
             })}
           >
-            <Button
-              theme="yellow"
-              icon={PlusCircle}
-              bordered
-              borderColor={'$yellow7'}
-              {...(!media.gtXs && {
-                size: '$5',
-                br: 50,
-              })}
-            >
-              {i18n.t('torrents.add')}
-            </Button>
-          </XStack>
+            {i18n.t('torrents.add')}
+          </Button>
         </Link>
         <SearchBar />
       </XStack>
