@@ -1,14 +1,14 @@
 {
   "name": "pikatorrent",
-  "version": "0.7.2",
+  "version": "0.8.0",
   "scripts": {
     "start": "NODE_ENV=development ./cli.js"
   },
   "bin": "./cli.js",
   "license": "GPL-3.0",
   "dependencies": {
-    "@pikatorrent/hub": "0.7.2",
-    "@pikatorrent/node": "0.7.2",
+    "@pikatorrent/hub": "0.8.0",
+    "@pikatorrent/node": "0.8.0",
     "commander": "^10.0.1"
   }
 }
