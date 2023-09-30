@@ -141,7 +141,7 @@ const DownloadLinks = ({ isDarkThemeSwitchChecked }: DownloadLinksProps) => {
 
 const Features = () => {
   return (
-    <YStack mt="$14" gap="$4">
+    <YStack mt="$16" gap="$4">
       <H2 fontWeight="bold" mb="$4" textAlign="center">
         Features
       </H2>
