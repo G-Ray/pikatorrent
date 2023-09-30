@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, useSegments } from 'expo-router'
-import { Button, useMedia, useThemeName } from 'tamagui'
+import { Button, XStack, useMedia, useThemeName } from 'tamagui'
 
 export const ButtonLink = ({ title, href, segment, icon }) => {
   const media = useMedia()
@@ -10,19 +10,21 @@ export const ButtonLink = ({ title, href, segment, icon }) => {
   const isActive = segments[0] === segment
 
   return (
-    <Link href={href} asChild style={{ textDecorationLine: 'none' }}>
-      <Button
-        size="$5"
-        br={50}
-        icon={icon}
-        scaleIcon={1.4}
-        bc={theme.startsWith('light') ? 'white' : 'black'}
-        {...(isActive && {
-          color: '$yellow8',
-        })}
-      >
-        {media.gtXs && title}
-      </Button>
+    <Link href={href} asChild>
+      <XStack>
+        <Button
+          size="$5"
+          br={50}
+          icon={icon}
+          scaleIcon={1.4}
+          bc={theme.startsWith('light') ? 'white' : 'black'}
+          {...(isActive && {
+            color: '$yellow8',
+          })}
+        >
+          {media.gtXs && title}
+        </Button>
+      </XStack>
     </Link>
   )
 }
