@@ -8,7 +8,7 @@ import i18n from '../../i18n'
 
 export const Preferences = () => {
   return (
-    <YStack ai="flex-start" space="$8">
+    <YStack ai="flex-start" space="$4">
       <H2>{i18n.t('settings.app.title')}</H2>
 
       <XStack jc="space-between" w="100%">
