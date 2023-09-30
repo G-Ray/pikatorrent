@@ -43,6 +43,7 @@ export const SearchEngineSelector = ({
         size={media.gtXs ? '$4' : '$2'}
         iconAfter={ChevronDown}
         bc={theme.startsWith('light') ? 'white' : 'black'}
+        borderWidth={0}
       >
         <XStack f={1} ai="center" jc="space-between">
           <XStack f={1} gap="$2">

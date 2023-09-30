@@ -51,26 +51,31 @@ export const SearchBar = () => {
       <XStack bc="$backgroundTransparent" gap="$2">
         <Input
           f={1}
-          // br={50}
-          outlineStyle="none"
           bc={/^light/.test(theme) ? 'white' : 'black'}
           placeholder={i18n.t('torrents.searchPlaceholder')}
           value={query}
           onChangeText={setQuery}
+          m={'$1'}
+          borderTopWidth={0}
+          borderRightWidth={0}
+          borderLeftWidth={0}
+          br={0}
         />
         <SearchEngineSelector
           engines={engines}
           value={selectedSearchEngineUrl}
           onValueChange={handleEngineChange}
         />
-        <Form.Trigger asChild disabled={query.length === 0}>
+        <Form.Trigger
+          asChild
+          disabled={query.length === 0}
+          o={query.length === 0 ? 0.5 : 1}
+        >
           <Button
+            icon={Search}
+            scaleIcon={1.3}
+            borderColor={'$gray7'}
             bc={/^light/.test(theme) ? 'white' : 'black'}
-            icon={() => (
-              <XStack alignSelf="center">
-                <Search size={16} />
-              </XStack>
-            )}
           />
         </Form.Trigger>
       </XStack>

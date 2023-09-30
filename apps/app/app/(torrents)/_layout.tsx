@@ -105,11 +105,16 @@ export default function Torrents() {
             <Input
               minWidth={120}
               f={1}
+              m={'$1'}
+              mr="$2"
               placeholder={i18n.t('torrents.filterListPlaceholder')}
               value={filter}
               onChangeText={setFilter}
               bc={/^light/.test(theme) ? 'white' : 'black'}
-              mr="$2"
+              borderTopWidth={0}
+              borderRightWidth={0}
+              borderLeftWidth={0}
+              br={0}
             />
           </XStack>
         </Card>
