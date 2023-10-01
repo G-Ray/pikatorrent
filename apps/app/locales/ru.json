@@ -34,6 +34,7 @@
       "theme": "Тема",
       "language": "Язык",
       "searchEngines": "URL-адреса поисковых систем (один адрес на строку)",
+      "searchEnginesInstructions": "%s будет заменено запросом",
       "invalidUrls": "Недопустимые URL-адреса",
       "save": "Сохранить",
       "reset": "Сбросить"
@@ -105,6 +106,8 @@
   "filesListDialog": {
     "title": "Файлы",
     "open": "Открыть"
+    "openFolder": "Открыть Папку",
+    "share": "Поделиться"
   },
   "termsOfUseDialog": {
     "title": "Условия использования",
