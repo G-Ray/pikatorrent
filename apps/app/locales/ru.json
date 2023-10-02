@@ -105,7 +105,7 @@
   },
   "filesListDialog": {
     "title": "Файлы",
-    "open": "Открыть"
+    "open": "Открыть",
     "openFolder": "Открыть Папку",
     "share": "Поделиться"
   },
