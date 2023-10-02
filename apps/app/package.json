@@ -1,6 +1,6 @@
 {
   "name": "@pikatorrent/app",
-  "version": "0.8.2",
+  "version": "0.8.3",
   "scripts": {
     "build:android:development": "cross-env eas build --profile development --platform android --local",
     "build:android:preview": "cross-enveas build --profile preview --platform android --local",
