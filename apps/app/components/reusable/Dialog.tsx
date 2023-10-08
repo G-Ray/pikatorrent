@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { X } from '@tamagui/lucide-icons'
 import {
   Adapt,
@@ -8,7 +8,7 @@ import {
   Unspaced,
   useThemeName,
 } from 'tamagui'
-import { Platform } from 'react-native'
+import { BackHandler, Platform } from 'react-native'
 import { SnapPointsMode } from 'tamagui'
 
 type DialogProps = {
@@ -39,13 +39,50 @@ const Dialog = ({
   snapPointsMode,
 }: DialogProps) => {
   const theme = useThemeName()
+  const [localOpen, setLocalOpen] = useState(defaultOpen)
+
+  useEffect(() => {
+    if (Platform.OS === 'web') {
+      return
+    }
+
+    const backAction = () => {
+      if (onOpenChange) {
+        // Dialog is controlled
+        onOpenChange(false)
+        return true
+      }
+
+      if (open == undefined) {
+        // Dialog is locally controlled
+        setLocalOpen(false)
+        return true
+      }
+
+      return false
+    }
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction
+    )
+
+    return () => backHandler.remove()
+  }, [onOpenChange, open])
+
+  const handleOpenChange = (isOpen: boolean) => {
+    setLocalOpen(isOpen)
+    if (onOpenChange) {
+      onOpenChange(isOpen)
+    }
+  }
 
   return (
     <TamaguiDialog
       modal
       defaultOpen={defaultOpen}
-      open={open}
-      onOpenChange={onOpenChange}
+      open={open === undefined ? localOpen : open}
+      onOpenChange={handleOpenChange}
     >
       <Dialog.Trigger asChild>{trigger}</Dialog.Trigger>
 
