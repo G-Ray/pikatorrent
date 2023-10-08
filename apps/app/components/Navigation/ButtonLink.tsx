@@ -18,7 +18,7 @@ export const ButtonLink = ({ title, href, segment, icon }) => {
         scaleIcon={1.4}
         bc={theme.startsWith('light') ? 'white' : 'black'}
         {...(isActive && {
-          color: '$yellow8',
+          color: '$yellow9',
         })}
       >
         {media.gtXs && title}
