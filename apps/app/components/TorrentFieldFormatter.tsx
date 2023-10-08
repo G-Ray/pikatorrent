@@ -9,11 +9,13 @@ type TorrentFieldFormatterProps = {
   name: string
   value: any
   props: any
+  iconSize: string
 }
 
 export const TorrentFieldFormatter = ({
   name,
   value,
+  iconSize,
   ...props
 }: TorrentFieldFormatterProps) => {
   let formattedValue: string | React.ReactNode
@@ -44,9 +46,9 @@ export const TorrentFieldFormatter = ({
     return (
       <XStack ai="center">
         {name.includes('Download') ? (
-          <ChevronDown color="$blue9" size={'$1'} />
+          <ChevronDown color="$blue9" size={iconSize || '$1'} />
         ) : (
-          <ChevronUp color="$green9" size={'$1'} />
+          <ChevronUp color="$green9" size={iconSize || '$1'} />
         )}
         <Paragraph fontSize={'$2'} {...props}>
           {prettyBytes(value)}/s

@@ -1,4 +1,4 @@
-import { Zap, Settings, HelpCircle } from '@tamagui/lucide-icons'
+import { Zap, Settings, HelpCircle, Activity } from '@tamagui/lucide-icons'
 
 import i18n from '../../i18n'
 
@@ -8,6 +8,12 @@ export const buttons = [
     title: 'Torrents',
     href: '/',
     segment: '(torrents)',
+  },
+  {
+    icon: Activity,
+    title: 'Statistics', //i18n.t('menu.stats'),
+    href: '/stats',
+    segment: 'stats',
   },
   {
     icon: Settings,

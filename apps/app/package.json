@@ -68,7 +68,9 @@
     "react-native-webrtc": "111.0.3",
     "semver": "^7.5.4",
     "simple-peer": "^9.11.1",
-    "tamagui": "1.74.7"
+    "tamagui": "1.74.7",
+    "victory": "^36.6.11",
+    "victory-native": "^36.6.11"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
