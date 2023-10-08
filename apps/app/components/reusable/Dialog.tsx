@@ -6,6 +6,7 @@ import {
   Dialog as TamaguiDialog,
   Sheet,
   Unspaced,
+  useThemeName,
 } from 'tamagui'
 import { Platform } from 'react-native'
 import { SnapPointsMode } from 'tamagui'
@@ -37,6 +38,8 @@ const Dialog = ({
   onOpenChange,
   snapPointsMode,
 }: DialogProps) => {
+  const theme = useThemeName()
+
   return (
     <TamaguiDialog
       modal
@@ -56,7 +59,7 @@ const Dialog = ({
           dismissOnOverlayPress={dismissOnOverlayPress}
           snapPointsMode={snapPointsMode}
         >
-          <Sheet.Handle />
+          <Sheet.Handle bc={theme.startsWith('light') ? 'black' : 'white'} />
           <Sheet.Frame padding="$4" bc="$backgroundStrong">
             <Adapt.Contents />
           </Sheet.Frame>
