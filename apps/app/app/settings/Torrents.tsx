@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import { useContext, useEffect, useState } from 'react'
 import {
   Button,
@@ -8,24 +8,19 @@ import {
   Switch,
   XStack,
   YStack,
-  useMedia,
   useThemeName,
 } from 'tamagui'
 
 import { NodeContext } from '../../contexts/NodeContext'
 import { useSession } from '../../hooks/useSession'
-import { Folder } from '@tamagui/lucide-icons'
-import { SettingLayout } from '../../components/SettingLayout'
-import isElectron from 'is-electron'
 import i18n from '../../i18n'
 import { Select } from '../../components/reusable/Select'
-import { Platform } from 'react-native'
+import { DirectoryPickerDialog } from '../../dialogs/DirectoryPickerDialog'
 
 export const Torrents = () => {
   const { sendRPCMessage, isConnected } = useContext(NodeContext)
   const { session: initialSession, fetchSession } = useSession()
   const [session, setSession] = useState({})
-  const media = useMedia()
   const theme = useThemeName()
 
   useEffect(() => {
@@ -61,14 +56,10 @@ export const Torrents = () => {
   return (
     <YStack space ai="flex-start" w="100%">
       <H2>{i18n.t('settings.torrents.title')}</H2>
-      {Platform.OS === 'web' && (
-        <XStack jc="space-between" w="100%">
-          <Paragraph>{i18n.t('settings.torrents.downloadDirectory')}</Paragraph>
-          <XStack>
-            <DownloadDirectoryInput session={session} setSession={setSession} />
-          </XStack>
-        </XStack>
-      )}
+      <XStack jc="space-between" w="100%">
+        <Paragraph>{i18n.t('settings.torrents.downloadDirectory')}</Paragraph>
+        <DownloadDirectoryInput session={session} setSession={setSession} />
+      </XStack>
 
       <XStack jc="space-between" w="100%">
         <Paragraph>Encryption</Paragraph>
@@ -212,10 +203,11 @@ const DownloadDirectoryInput = ({ session, setSession }) => {
   const node = useContext(NodeContext)
   const theme = useThemeName()
 
-  if (!isElectron() || !node.isLocal) {
+  if (!node.isLocal) {
     return (
       <Input
         editable={false}
+        minWidth={180}
         o={0.5}
         flex={1}
         value={session['download-dir'] || ''}
@@ -225,29 +217,24 @@ const DownloadDirectoryInput = ({ session, setSession }) => {
   }
 
   return (
-    <XStack>
+    <XStack f={1} ml="auto">
       <Input
-        mr="$2"
-        flex={1}
+        f={1}
+        mx="$2"
+        minWidth={180}
+        editable={false}
         bc={theme.startsWith('light') ? 'white' : 'black'}
         value={session['download-dir'] || ''}
         onChangeText={(text) => {
           setSession((s) => ({ ...s, ['download-dir']: text }))
         }}
       />
-      <Button
-        circular
-        icon={Folder}
-        onPress={async () => {
-          const selectedFolders = await window.electronAPI.selectFolder(
-            session['download-dir']
-          )
-          if (selectedFolders && selectedFolders.length > 0) {
-            const path = selectedFolders[0]
-            setSession((s) => ({ ...s, ['download-dir']: path }))
-          }
+      <DirectoryPickerDialog
+        selectedPath={session['download-dir']}
+        onSelect={(path) => {
+          setSession((s) => ({ ...s, ['download-dir']: path }))
         }}
-      ></Button>
+      />
     </XStack>
   )
 }

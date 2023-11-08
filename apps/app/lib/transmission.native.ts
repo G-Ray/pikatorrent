@@ -1,5 +1,6 @@
 import Transmission from 'react-native-transmission'
 import * as FileSystem from 'expo-file-system'
+import RNFS from 'react-native-fs'
 
 const documentDirectory = FileSystem.documentDirectory?.substring(
   'file://'.length
@@ -7,7 +8,11 @@ const documentDirectory = FileSystem.documentDirectory?.substring(
 
 const ANDROID_TRANSMISSION_CONFIG_DIR = `${documentDirectory}transmission`
 const ANDROID_TRANSMISSION_APP_NAME = 'transmission'
-const ANDROID_TRANSMISSION_DOWNLOAD_DIR = `${documentDirectory}downloads`
+export const PRIVATE_DOWNLOAD_DIR = `${documentDirectory}downloads`
+export const PUBLIC_DOWNLOAD_DIR =
+  RNFS.ExternalStorageDirectoryPath + '/Download'
+export const PUBLIC_DOCUMENTS_DIR =
+  RNFS.ExternalStorageDirectoryPath + '/Documents'
 
 let transmission: Transmission
 
@@ -17,14 +22,29 @@ export const init = async () => {
     ANDROID_TRANSMISSION_APP_NAME
   )
 
-  // Beware to correctly set the download dir when the app load,
-  // as default location is not correct by default on android yet.
-  await transmission.request({
-    method: 'session-set',
+  const res = await transmission.request({
+    method: 'session-get',
     arguments: {
-      'download-dir': ANDROID_TRANSMISSION_DOWNLOAD_DIR,
+      fields: ['download-dir'],
     },
   })
+
+  const downloadDir = res.arguments['download-dir']
+
+  if (
+    downloadDir !== PRIVATE_DOWNLOAD_DIR &&
+    !downloadDir.startsWith(PUBLIC_DOWNLOAD_DIR) &&
+    !downloadDir.startsWith(PUBLIC_DOCUMENTS_DIR)
+  ) {
+    // Beware to correctly set the download dir when the app load,
+    // as default location is not correct by default on android yet.
+    await transmission.request({
+      method: 'session-set',
+      arguments: {
+        'download-dir': PUBLIC_DOWNLOAD_DIR,
+      },
+    })
+  }
 
   // Save settings as they have been updated
   transmission.saveSettings()
