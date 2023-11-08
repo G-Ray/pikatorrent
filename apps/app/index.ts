@@ -4,7 +4,7 @@ import 'react-native-url-polyfill/auto'
 import { Platform } from 'react-native'
 
 import './i18n'
-import * as transmission from './lib/transmission.native'
+import * as transmission from './lib/transmission'
 import { createPersistentNotification } from './lib/persistentNotification'
 
 if (Platform.OS === 'web') {

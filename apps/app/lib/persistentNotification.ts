@@ -5,7 +5,7 @@ import notifee, {
   AuthorizationStatus,
 } from '@notifee/react-native'
 
-import * as transmission from './transmission.native'
+import * as transmission from './transmission'
 import { quitApp } from './lifecycle'
 
 const CHANNEL_ID = 'foregroundServiceId'

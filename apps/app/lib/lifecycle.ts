@@ -1,6 +1,6 @@
 import isElectron from 'is-electron'
 import { BackHandler, Platform } from 'react-native'
-import * as transmission from '../lib/transmission.native'
+import * as transmission from '../lib/transmission'
 
 export const quitApp = () => {
   if (Platform.OS !== 'web') {
