@@ -35,6 +35,7 @@ import { APP_URL } from '../config'
 import { Platform, Share } from 'react-native'
 import { useToastController } from '@tamagui/toast'
 import i18n from '../i18n'
+import { PRIVATE_DOWNLOAD_DIR } from '../lib/transmission'
 
 export const TorrentCard = ({ torrent }) => {
   const media = useMedia()
@@ -152,6 +153,10 @@ const TorrentActions = ({
     return null
   }
 
+  const isRemovableWithoutData =
+    Platform.OS === 'web' ||
+    !torrent.downloadDir.startsWith(PRIVATE_DOWNLOAD_DIR)
+
   return (
     <Theme name={theme}>
       <XStack ml="auto">
@@ -194,6 +199,7 @@ const TorrentActions = ({
               id={torrent.id}
               name={torrent.name}
               torrentsFunctions={torrentsFunctions}
+              isRemovableWithoutData={isRemovableWithoutData}
             />
           </YStack>
         </Dialog>

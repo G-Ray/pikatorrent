@@ -4,7 +4,12 @@ import { Button, Paragraph, YStack, useThemeName } from 'tamagui'
 import { Dialog } from '../components/reusable/Dialog'
 import i18n from '../i18n'
 
-export const RemoveTorrentDialog = ({ id, name, torrentsFunctions }) => {
+export const RemoveTorrentDialog = ({
+  id,
+  name,
+  torrentsFunctions,
+  isRemovableWithoutData,
+}) => {
   const theme = useThemeName()
   const [isOpen, setIsOpen] = useState(false)
 
@@ -31,13 +36,27 @@ export const RemoveTorrentDialog = ({ id, name, torrentsFunctions }) => {
           <Paragraph>
             {i18n.t('removeTorrentDialog.warningMessage')} {name} ?
           </Paragraph>
-          <YStack space="$4" ai="center" minWidth={300}>
+          <YStack space="$4" ai="center" f={1}>
+            {isRemovableWithoutData && (
+              <Dialog.Close displayWhenAdapted asChild>
+                <Button
+                  onPress={() => torrentsFunctions.remove(id, true)}
+                  borderColor={'$red7'}
+                  bc="$backgroundStrong"
+                >
+                  {i18n.t('removeTorrentDialog.remove')}
+                </Button>
+              </Dialog.Close>
+            )}
+            {isRemovableWithoutData && (
+              <Paragraph fontWeight={'bold'}>OR</Paragraph>
+            )}
             <Dialog.Close displayWhenAdapted asChild>
               <Button
                 onPress={() => torrentsFunctions.remove(id, true)}
                 theme="red"
               >
-                {i18n.t('removeTorrentDialog.remove')}
+                {i18n.t('removeTorrentDialog.removeWithData')}
               </Button>
             </Dialog.Close>
           </YStack>
