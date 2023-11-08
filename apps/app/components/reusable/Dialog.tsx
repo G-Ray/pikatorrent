@@ -96,7 +96,7 @@ const Dialog = ({
           dismissOnOverlayPress={dismissOnOverlayPress}
           snapPointsMode={snapPointsMode}
         >
-          <Sheet.Handle bc={theme.startsWith('light') ? 'black' : 'white'} />
+          <Sheet.Handle bc={'white'} />
           <Sheet.Frame padding="$4" bc="$backgroundStrong">
             <Adapt.Contents />
           </Sheet.Frame>
