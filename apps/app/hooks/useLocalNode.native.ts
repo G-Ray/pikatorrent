@@ -6,9 +6,21 @@ export const useLocalNode = () => {
 
     return new Promise((resolve, reject) => {
       transmission.transmission?.request(json, (err, res) => {
-        return err ? reject(err) : resolve(res) // FIXME do no parse anymore
+        if (err) {
+          return reject(err)
+        }
+
+        saveTransmissionSettingsIfNeeded(json)
+        resolve(res)
       })
     })
+  }
+
+  const saveTransmissionSettingsIfNeeded = (request) => {
+    if (request.method === 'session-set') {
+      // session have been updated, so save settings
+      transmission.transmission.saveSettings()
+    }
   }
 
   return {
