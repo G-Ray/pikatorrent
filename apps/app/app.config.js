@@ -5,7 +5,7 @@ const IS_DEV = process.env.APP_VARIANT === 'development'
 module.exports = () => {
   return {
     expo: {
-      name: 'pikatorrent',
+      name: IS_DEV ? 'pikatorrent-dev' : 'pikatorrent',
       slug: 'pikatorrent',
       scheme: 'pikatorrent',
       version: packageProperties.version,
