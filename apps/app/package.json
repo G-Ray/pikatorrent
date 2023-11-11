@@ -10,7 +10,8 @@
     "ios": "cross-env APP_VARIANT=development expo start --ios --dev-client",
     "web": "cross-env expo start --web",
     "build:web": "cross-env expo export --platform web",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "sync-i18n": "./scripts/sync-i18n.mjs"
   },
   "dependencies": {
     "@config-plugins/react-native-webrtc": "^7.0.0",
@@ -47,10 +48,12 @@
     "expo-splash-screen": "~0.20.5",
     "expo-standard-web-crypto": "^1.5.0",
     "expo-status-bar": "~1.6.0",
+    "flat": "^6.0.1",
     "fuse.js": "^6.6.2",
     "i18n-js": "^4.2.3",
     "install-expo-modules": "^0.6.2",
     "is-electron": "^2.2.2",
+    "lodash": "^4.17.21",
     "pretty-bytes": "^6.1.0",
     "pretty-ms": "^8.0.0",
     "qrcode": "^1.5.3",
