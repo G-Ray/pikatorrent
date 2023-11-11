@@ -34,6 +34,7 @@
       "theme": "Tema",
       "language": "Idioma",
       "searchEngines": "URLs de mecanismos de busca (um por linha)",
+      "searchEnginesInstructions": "%s will be replaced by the query",
       "invalidUrls": "Urls inválidos",
       "save": "Salvar",
       "reset": "Resetar"
@@ -100,11 +101,14 @@
   "removeTorrentDialog": {
     "title": "Remover torrent",
     "warningMessage": "Você tem certeza que deseja excluir",
-    "remove": "Remover"
+    "remove": "Remover",
+    "removeWithData": "Remove with data"
   },
   "filesListDialog": {
     "title": "Arquivos",
-    "open": "Abrir"
+    "open": "Abrir",
+    "openFolder": "Open Folder",
+    "share": "Share"
   },
   "termsOfUseDialog": {
     "title": "Termos de uso",

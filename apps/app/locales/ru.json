@@ -101,7 +101,8 @@
   "removeTorrentDialog": {
     "title": "Подтверждение удаления",
     "warningMessage": "Вы уверены, что хотите удалить",
-    "remove": "Удалить"
+    "remove": "Удалить",
+    "removeWithData": "Remove with data"
   },
   "filesListDialog": {
     "title": "Файлы",
