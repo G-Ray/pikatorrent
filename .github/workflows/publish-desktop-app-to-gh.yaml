@@ -25,17 +25,19 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
-      - name: Install linux deps
-        run: |
-          sudo apt update && sudo apt install -y flatpak flatpak-builder elfutils
-          sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-          sudo flatpak install -y flathub runtime/org.freedesktop.Sdk/x86_64/22.08
-          sudo flatpak install -y flathub org.electronjs.Electron2.BaseApp//22.08
-        if: ${{ matrix.os == 'ubuntu-latest' }}
+      # - name: Install linux deps
+      #   run: |
+      #     sudo apt update && sudo apt install -y flatpak flatpak-builder elfutils
+      #     sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+      #     sudo flatpak install -y flathub runtime/org.freedesktop.Sdk/x86_64/22.08
+      #     sudo flatpak install -y flathub org.electronjs.Electron2.BaseApp//22.08
+      #   if: ${{ matrix.os == 'ubuntu-latest' }}
       - name: Install
         run: npm ci
-      - name: Release
-        run: DEBUG=@malept/flatpak-bundler npm run publish:desktop -- --arch=${{ matrix.arch }}
-        if: ${{ matrix.os == 'ubuntu-latest' }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: build
+        run: npm -w @pikatorrent/desktop run make
+      # - name: Release
+      #   run: DEBUG=@malept/flatpak-bundler npm run publish:desktop -- --arch=${{ matrix.arch }}
+      #   if: ${{ matrix.os == 'ubuntu-latest' }}
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
