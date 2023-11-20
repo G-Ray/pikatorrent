@@ -137,17 +137,12 @@ export const TorrentCard = ({ torrent }) => {
   )
 }
 
-const TorrentActions = ({
-  theme = 'light',
-  torrent,
-  handleOpenFolder,
-  open,
-  onOpenChange,
-}) => {
+const TorrentActions = ({ torrent, handleOpenFolder, open, onOpenChange }) => {
   /* Bug: we can't access contexts inside nested dialogs, see https://github.com/tamagui/tamagui/issues/1481 */
   const torrentsFunctions = useTorrents()
   const toast = useToastController()
   const media = useMedia()
+  const theme = useThemeName()
 
   if (!open) {
     return null
@@ -158,53 +153,49 @@ const TorrentActions = ({
     !torrent.downloadDir.startsWith(PRIVATE_DOWNLOAD_DIR)
 
   return (
-    <Theme name={theme}>
-      <XStack ml="auto">
-        <Dialog
-          // trigger={
-          //   <Button
-          //     circular
-          //     icon={Menu}
-          //     bc={theme === 'light' ? 'white' : 'black'}
-          //   ></Button>
-          // }
-          // Fit has a glitch when a nested sheets is rendered
-          snapPointsMode="fit"
-          // snapPoints={[70]}
-          open={open}
-          onOpenChange={onOpenChange}
-        >
-          <YStack gap="$4" py="$4" pt={media.gtXs ? '$8' : '$4'}>
-            <ShareButtons torrent={torrent} toast={toast} />
-            {isElectron() && torrent.percentDone === 1 && (
-              <Button
-                icon={FolderOpen}
-                onPress={handleOpenFolder}
-                bc={theme.startsWith('light') ? 'white' : 'black'}
-                theme="yellow"
-                hoverTheme
-                borderColor={'$yellow7'}
-              >
-                {i18n.t('torrentDialog.openFolder')}
-              </Button>
-            )}
-            {(isElectron() || Platform.OS !== 'web') && (
-              <FilesListDialog torrent={torrent} toast={toast} />
-            )}
-            <EditLabelsDialog
-              torrent={torrent}
-              torrentsFunctions={torrentsFunctions}
-            />
-            <RemoveTorrentDialog
-              id={torrent.id}
-              name={torrent.name}
-              torrentsFunctions={torrentsFunctions}
-              isRemovableWithoutData={isRemovableWithoutData}
-            />
-          </YStack>
-        </Dialog>
-      </XStack>
-    </Theme>
+    <Dialog
+      // trigger={
+      //   <Button
+      //     circular
+      //     icon={Menu}
+      //     bc={theme === 'light' ? 'white' : 'black'}
+      //   ></Button>
+      // }
+      // Fit has a glitch when a nested sheets is rendered
+      snapPointsMode="fit"
+      // snapPoints={[70]}
+      open={open}
+      onOpenChange={onOpenChange}
+    >
+      <YStack gap="$4" py="$4" pt={media.gtXs ? '$8' : '$4'}>
+        <ShareButtons torrent={torrent} toast={toast} />
+        {isElectron() && torrent.percentDone === 1 && (
+          <Button
+            icon={FolderOpen}
+            onPress={handleOpenFolder}
+            bc={theme.startsWith('light') ? 'white' : 'black'}
+            theme="yellow"
+            hoverTheme
+            borderColor={'$yellow7'}
+          >
+            {i18n.t('torrentDialog.openFolder')}
+          </Button>
+        )}
+        {(isElectron() || Platform.OS !== 'web') && (
+          <FilesListDialog torrent={torrent} toast={toast} />
+        )}
+        <EditLabelsDialog
+          torrent={torrent}
+          torrentsFunctions={torrentsFunctions}
+        />
+        <RemoveTorrentDialog
+          id={torrent.id}
+          name={torrent.name}
+          torrentsFunctions={torrentsFunctions}
+          isRemovableWithoutData={isRemovableWithoutData}
+        />
+      </YStack>
+    </Dialog>
   )
 }
 

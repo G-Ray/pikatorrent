@@ -7,6 +7,7 @@ import {
   Sheet,
   Unspaced,
   useThemeName,
+  Theme,
 } from 'tamagui'
 import { BackHandler, Platform } from 'react-native'
 import { SnapPointsMode } from 'tamagui'
@@ -38,8 +39,10 @@ const Dialog = ({
   onOpenChange,
   snapPointsMode,
 }: DialogProps) => {
-  const theme = useThemeName()
   const [localOpen, setLocalOpen] = useState(defaultOpen)
+  const theme = useThemeName()
+
+  console.log('theme', theme)
 
   useEffect(() => {
     if (Platform.OS === 'web') {
@@ -87,21 +90,27 @@ const Dialog = ({
       <Dialog.Trigger asChild>{trigger}</Dialog.Trigger>
 
       <Adapt when="sm">
-        <Sheet
-          zIndex={200000}
-          modal
-          dismissOnSnapToBottom={dismissOnSnapToBottom}
-          {...(snapPointsMode !== 'fit' && { snapPoints })}
-          defaultPosition={defaultPosition}
-          dismissOnOverlayPress={dismissOnOverlayPress}
-          snapPointsMode={snapPointsMode}
-        >
-          <Sheet.Handle bc={'white'} />
-          <Sheet.Frame padding="$4" bc="$backgroundStrong">
-            <Adapt.Contents />
-          </Sheet.Frame>
-          <Sheet.Overlay />
-        </Sheet>
+        {/* Workaround for web */}
+        <Theme name={theme.startsWith('dark') ? 'dark' : 'light'}>
+          <Sheet
+            zIndex={200000}
+            modal
+            dismissOnSnapToBottom={dismissOnSnapToBottom}
+            {...(snapPointsMode !== 'fit' && { snapPoints })}
+            defaultPosition={defaultPosition}
+            dismissOnOverlayPress={dismissOnOverlayPress}
+            snapPointsMode={snapPointsMode}
+          >
+            <Sheet.Handle bc={'white'} />
+            <Sheet.Frame
+              padding="$4"
+              bc={theme.startsWith('dark') ? 'black' : 'white'}
+            >
+              <Adapt.Contents />
+            </Sheet.Frame>
+            <Sheet.Overlay />
+          </Sheet>
+        </Theme>
       </Adapt>
 
       <TamaguiDialog.Portal>
@@ -122,6 +131,7 @@ const Dialog = ({
           bordered
           elevate
           key="content"
+          bc={theme.startsWith('dark') ? 'black' : 'white'}
           animation={[
             'quick',
             {
