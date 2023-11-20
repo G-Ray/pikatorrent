@@ -1,6 +1,6 @@
 {
   "menu": {
-    "statistics": "Statistics",
+    "statistics": "Statistiques",
     "about": "À propos",
     "settings": "Paramètres"
   },
@@ -17,7 +17,7 @@
   },
   "settings": {
     "nodes": {
-      "loading": "Loading",
+      "loading": "Chargement",
       "title": "Nœuds",
       "listLabel": "Nœuds local et à distance",
       "qrCodeLabel": "QR code pour lier l'application mobile",
@@ -33,10 +33,10 @@
     },
     "app": {
       "title": "Paramètres de l'application",
-      "theme": "Théme",
+      "theme": "Thème",
       "language": "Langue",
       "searchEngines": "Urls de moteurs de recherches (un par ligne)",
-      "searchEnginesInstructions": "%s will be replaced by the query",
+      "searchEnginesInstructions": "%s sera remplacé par la recherche",
       "invalidUrls": "Urls invalides",
       "save": "Sauvegarder",
       "reset": "Réinitialiser"
@@ -81,13 +81,13 @@
     "add": "Ajouter",
     "selectFile": "Selectionner un fichier .torrent",
     "torrentOrMagnetLinkPlaceholder": "Lien torrent ou magnet://",
-    "sendToNode": "Send this torrent to"
+    "sendToNode": "Envoyer ce torrent vers"
   },
   "confirmNodeDeleteAlertDialog": {
-    "title": "Confirm node removal",
-    "confirmMessage": "Are you sure you want to delete this node ?",
-    "cancel": "Cancel",
-    "delete": "Delete"
+    "title": "Confirmer la suppression du nœud",
+    "confirmMessage": "Êtes-vous certain de supprimer ce nœud ?",
+    "cancel": "Annuler",
+    "delete": "Supprimer"
   },
   "sessionInfoDialog": {
     "title": "Info de session"
@@ -100,14 +100,14 @@
     "accept": "Accepter"
   },
   "directoryPickerDialog": {
-    "title": "Directory picker",
-    "privateAppSwitchLabel": "Use private app directory",
-    "privateAppDescription1": "Using private app directory might prevent other app to access your downloaded content.",
-    "privateAppDescription2": "All your downloads will be deleted if you uninstall PikaTorrent."
+    "title": "Choix d'un dossier",
+    "privateAppSwitchLabel": "Utiliser le dossier privé de l'application",
+    "privateAppDescription1": "Utiliser le dossier privé de l'application peut empêcher d'autres application d'accéder à vos contenus téléchargés.",
+    "privateAppDescription2": "Tous vos téléchargements seront supprimés lorsque vous désinstallerez PikaTorrent."
   },
   "unsupportedBrowserDialog": {
-    "title": "Unsupported browser",
-    "description": "This browser is not supported. Please try pikatorrent in another browser."
+    "title": "Navigateur non supporté",
+    "description": "Ce navigateur n'est pas supporté. Merci d'essayer PikaTorrent dans un autre navigateur."
   },
   "torrentDialog": {
     "copyLink": "Copier le lien",
@@ -116,23 +116,23 @@
     "openFolder": "Ouvrir le dossier",
     "remove": "Supprimer",
     "files": "Fichiers",
-    "newLabel": "New label",
-    "add": "Add",
-    "clearAll": "Clear all",
-    "selectedLabels": "Selected labels",
-    "allLabels": "All labels",
-    "noLabels": "There is no labels yet.",
-    "addLabelInstruction": "Add labels by editing a torrent."
+    "newLabel": "Nouvelle étiquette",
+    "add": "Ajouter",
+    "clearAll": "Tout effacer",
+    "selectedLabels": "Étiquettes sélectionnées",
+    "allLabels": "Toutes les étiquettes",
+    "noLabels": "Il n'y a pas encore d'étiquettes.",
+    "addLabelInstruction": "Ajoutez une étiquette en éditant un torrent."
   },
   "scanQRCodeDialog": {
-    "title": "Scan QRCode",
-    "cameraPermissionDenied": "Camera permission denied"
+    "title": "Scanner un QRCode",
+    "cameraPermissionDenied": "Permission de l'appareil photo refusé"
   },
   "removeTorrentDialog": {
     "title": "Confirmation de suppression",
     "warningMessage": "Êtes vous certain de supprimer",
     "remove": "Supprimer",
-    "removeWithData": "Remove with data"
+    "removeWithData": "Supprimer avec les données"
   },
   "filesListDialog": {
     "title": "Fichiers",
@@ -145,8 +145,8 @@
     "termsOfUseMessage": "En utilisant PikaTorrent, vous acceptez que le contenu que vous téléchargez ou partagez est de votre entière responsabilité.",
     "privacyPolicyMessage": "Vous acceptez également la",
     "privacyPolicy": "politique de vie privée",
-    "cancel": "Cancel",
-    "accept": "Accept"
+    "cancel": "Annuler",
+    "accept": "Accepter"
   },
   "toasts": {
     "linkCopied": "Lien copié",
@@ -154,10 +154,10 @@
     "noAppCanOpenFile": "Aucune application ne peut ouvrir ce fichier"
   },
   "sortingOptionsDialog": {
-    "title": "Sort by",
-    "name": "Name",
-    "totalSize": "Size ",
-    "percentDone": "Progress",
-    "reverseOrder": "Reverse order"
+    "title": "Filtrer par",
+    "name": "Nom",
+    "totalSize": "Taille",
+    "percentDone": "Progression",
+    "reverseOrder": "Ordre inversé"
   }
 }
