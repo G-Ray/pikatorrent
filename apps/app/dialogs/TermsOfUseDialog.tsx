@@ -1,7 +1,8 @@
 import React, { useContext } from 'react'
 import { Button, Paragraph, XStack, YStack } from 'tamagui'
-import { Dialog } from '../components/reusable/Dialog'
 import { ExternalLink } from '@tamagui/lucide-icons'
+
+import { Dialog } from '../components/reusable/Dialog'
 import { openExternalLink } from '../lib/links'
 import { quitApp } from '../lib/lifecycle'
 import { SettingsContext } from '../contexts/SettingsContext'

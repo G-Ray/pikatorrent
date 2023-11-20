@@ -11,7 +11,7 @@ export const buttons = [
   },
   {
     icon: Activity,
-    title: 'Statistics', //i18n.t('menu.stats'),
+    title: i18n.t('menu.statistics'),
     href: '/stats',
     segment: 'stats',
   },

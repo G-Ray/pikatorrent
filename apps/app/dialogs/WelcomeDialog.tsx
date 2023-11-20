@@ -1,10 +1,12 @@
 import React, { useContext } from 'react'
 import { Card, Text, XStack, YStack } from 'tamagui'
-import { AddNodeDialog } from './AddNodeDialog'
 import { Rocket } from '@tamagui/lucide-icons'
+
+import { AddNodeDialog } from './AddNodeDialog'
 import { SettingsContext } from '../contexts/SettingsContext'
 import { Dialog } from '../components/reusable/Dialog'
 
+// TODO: Remove
 export const WelcomeDialog = () => {
   const settingsContext = useContext(SettingsContext)
 

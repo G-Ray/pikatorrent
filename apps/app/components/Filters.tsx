@@ -1,6 +1,7 @@
 import { Tags } from '@tamagui/lucide-icons'
 import React, { useState } from 'react'
 import { Button, Separator, YStack, useMedia, useThemeName } from 'tamagui'
+
 import { Dialog } from './reusable/Dialog'
 import { useTorrents } from '../hooks/useTorrents'
 import { LabelsSelector, SelectedLabels } from '../dialogs/EditLabelsDialog'

@@ -12,12 +12,14 @@ import {
   Switch,
   useThemeName,
 } from 'tamagui'
-import { Dialog } from '../components/reusable/Dialog'
 import { YGroup } from 'tamagui'
 import RNFS from 'react-native-fs'
 import * as FileSystem from 'expo-file-system'
 import { Separator } from 'tamagui'
+
+import { Dialog } from '../components/reusable/Dialog'
 import { PRIVATE_DOWNLOAD_DIR } from '../lib/transmission.native'
+import i18n from '../i18n'
 
 const PRIVATE_DOWNLOAD_DIR_FILE_URI = 'file://' + PRIVATE_DOWNLOAD_DIR
 const ROOT_FILE_URI = 'file://' + RNFS.ExternalStorageDirectoryPath
@@ -74,7 +76,7 @@ export const DirectoryPickerDialog = ({ onSelect }) => {
 
   return (
     <Dialog
-      title={'Directory picker'}
+      title={i18n.t('directoryPickerDialog.title')}
       snapPoints={[90]}
       trigger={<Button icon={FolderEdit} />}
     >
@@ -102,7 +104,7 @@ export const DirectoryPickerDialog = ({ onSelect }) => {
             justifyContent="flex-end"
             htmlFor={'use-private-dir-switch'}
           >
-            Use private app directory
+            {i18n.t('directoryPickerDialog.privateAppSwitchLabel')}
           </Label>
         </XStack>
 
@@ -133,11 +135,10 @@ export const DirectoryPickerDialog = ({ onSelect }) => {
           ) : (
             <>
               <Paragraph>
-                Using private app directory might prevent other app to access
-                your downloaded content.
+                {i18n.t('directoryPickerDialog.privateAppDescription1')}
               </Paragraph>
               <Paragraph>
-                All your downloads will be deleted if you uninstall PikaTorrent.
+                {i18n.t('directoryPickerDialog.privateAppDescription2')}
               </Paragraph>
             </>
           )}
@@ -151,7 +152,7 @@ export const DirectoryPickerDialog = ({ onSelect }) => {
             disabled={currentFileUri === ROOT_FILE_URI}
             o={currentFileUri === ROOT_FILE_URI ? 0.5 : 1}
           >
-            Select
+            {i18n.t('directoryPickerDialog.select')}
           </Button>
         </Dialog.Close>
       </YStack>

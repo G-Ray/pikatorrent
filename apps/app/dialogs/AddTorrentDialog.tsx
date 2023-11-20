@@ -12,18 +12,19 @@ import {
   useThemeName,
 } from 'tamagui'
 import prettyBytes from 'pretty-bytes'
-import { NodeContext } from '../contexts/NodeContext'
 import { Platform } from 'react-native'
 import * as DocumentPicker from 'expo-document-picker'
 import * as FileSystem from 'expo-file-system'
-import { Dialog } from '../components/reusable/Dialog'
 import { Link, useLocalSearchParams, usePathname, useRouter } from 'expo-router'
 import { useURL } from 'expo-linking'
 import isElectron from 'is-electron'
 import { ExternalLink, File } from '@tamagui/lucide-icons'
+import { H5 } from 'tamagui'
+
+import { NodeContext } from '../contexts/NodeContext'
+import { Dialog } from '../components/reusable/Dialog'
 import { openExternalLink } from '../lib/links'
 import i18n from '../i18n'
-import { H5 } from 'tamagui'
 
 function readFileToBase64(document: DocumentPicker.DocumentResult) {
   return new Promise((resolve, reject) => {
@@ -158,7 +159,9 @@ export const AddTorrentDialog = () => {
           {Platform.OS === 'web' && !isElectron() && (
             <>
               <Separator />
-              <Paragraph>Send this torrent to {node.name}:</Paragraph>
+              <Paragraph>
+                {i18n.t('addTorrentDialog.sendToNode')} {node.name}:
+              </Paragraph>
             </>
           )}
           <Fieldset horizontal gap="$4">

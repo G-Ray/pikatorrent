@@ -1,12 +1,13 @@
 import React from 'react'
+
 import { Dialog } from '../components/reusable/Dialog'
+import i18n from '../i18n'
 
 export const UnsupportedBrowserDialog = () => {
   return (
-    <Dialog open title="Unsupported browser">
+    <Dialog open title={i18n.t('unsupportedBrowserDialog.title')}>
       <Dialog.Description>
-        This browser is not supported. Please try pikatorrent in another
-        browser.
+        {i18n.t('unsupportedBrowserDialog.description')}
       </Dialog.Description>
     </Dialog>
   )

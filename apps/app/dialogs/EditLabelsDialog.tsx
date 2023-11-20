@@ -12,9 +12,10 @@ import {
   Paragraph,
   useThemeName,
 } from 'tamagui'
+import { YStack } from 'tamagui'
+
 import { Dialog } from '../components/reusable/Dialog'
 import { Label } from '../components/reusable/Label'
-import { YStack } from 'tamagui'
 import i18n from '../i18n'
 
 export const EditLabelsDialog = ({ torrentsFunctions, torrent }) => {
@@ -78,7 +79,7 @@ export const EditLabelsDialog = ({ torrentsFunctions, torrent }) => {
             <Form onSubmit={handleAddLabelSubmit}>
               <XStack alignItems="center" space="$4">
                 <TamaguiLabel width={90} htmlFor="label" numberOfLines={1}>
-                  New label
+                  {i18n.t('torrentDialog.newLabel')}
                 </TamaguiLabel>
                 <Input
                   borderColor="$yellow7"
@@ -90,7 +91,7 @@ export const EditLabelsDialog = ({ torrentsFunctions, torrent }) => {
 
                 <Form.Trigger asChild>
                   <Button theme="yellow" borderColor={'$yellow7'}>
-                    Add
+                    {i18n.t('torrentDialog.add')}
                   </Button>
                 </Form.Trigger>
               </XStack>
@@ -106,10 +107,12 @@ export const SelectedLabels = ({ labels, onRemoveLabel, onRemoveAll }) => {
   return (
     <YStack>
       <XStack ai="center" gap="$4" mb="$2">
-        <H6>Selected labels</H6>
+        <H6>{i18n.t('torrentDialog.selectedLabels')}</H6>
         {labels.length > 0 && (
           <XStack>
-            <Button onPress={onRemoveAll}>Clear all</Button>
+            <Button onPress={onRemoveAll}>
+              {i18n.t('torrentDialog.clearAll')}
+            </Button>
           </XStack>
         )}
       </XStack>
@@ -127,11 +130,11 @@ export const LabelsSelector = ({
 }) => {
   return (
     <YStack>
-      <H6 mb="$2">All labels</H6>
+      <H6 mb="$2">{i18n.t('torrentDialog.allLabels')}</H6>
       {labels.length === 0 && (
         <>
-          <Paragraph>There is no labels yet.</Paragraph>
-          <Paragraph>Add labels by editing a torrent.</Paragraph>
+          <Paragraph>{i18n.t('torrentDialog.noLabels')}</Paragraph>
+          <Paragraph>{i18n.t('torrentDialog.addLabelInstruction')}</Paragraph>
         </>
       )}
       <ScrollView maxHeight={200}>

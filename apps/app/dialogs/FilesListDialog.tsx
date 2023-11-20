@@ -3,8 +3,6 @@ import { ExternalLink, FolderOpen, List, Share2 } from '@tamagui/lucide-icons'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as FileSystem from 'expo-file-system'
 import * as Sharing from 'expo-sharing'
-// import * as Linking from 'expo-linking'
-
 import {
   Button,
   ListItem,
@@ -16,11 +14,12 @@ import {
   YStack,
   useThemeName,
 } from 'tamagui'
-import { Dialog } from '../components/reusable/Dialog'
-import { Platform, Linking } from 'react-native'
+import { Platform } from 'react-native'
 import isElectron from 'is-electron'
-import i18n from '../i18n'
+
+import { Dialog } from '../components/reusable/Dialog'
 import { TorrentFieldFormatter } from '../components/TorrentFieldFormatter'
+import i18n from '../i18n'
 
 const buildFilePath = (torrent, file) => {
   return `${torrent.downloadDir}/${file.name}`

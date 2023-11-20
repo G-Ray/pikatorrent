@@ -1,9 +1,10 @@
 import React from 'react'
 import { useContext } from 'react'
 import { Button, ListItem, Paragraph, YGroup, YStack } from 'tamagui'
-import { NodeContext } from '../contexts/NodeContext'
 import { Delete } from '@tamagui/lucide-icons'
 import { SettingLayout } from './SettingLayout'
+
+import { NodeContext } from '../contexts/NodeContext'
 import i18n from '../i18n'
 
 export const AcceptedOrRejectedPeers = () => {
@@ -17,7 +18,7 @@ export const AcceptedOrRejectedPeers = () => {
   }
 
   if (!settings) {
-    return <Paragraph>Loading</Paragraph>
+    return <Paragraph>{i18n.t('settings.nodes.loading')}</Paragraph>
   }
 
   return (

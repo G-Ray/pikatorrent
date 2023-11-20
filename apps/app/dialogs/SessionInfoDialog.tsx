@@ -7,16 +7,17 @@ import {
   TextArea,
   useThemeName,
 } from 'tamagui'
+import { Platform } from 'react-native'
+
 import { Dialog } from '../components/reusable/Dialog'
 import i18n from '../i18n'
-import { Platform } from 'react-native'
 
 export const SessionsInfoDialog = ({ session }) => {
   const theme = useThemeName()
 
   return (
     <Dialog
-      title="Session info"
+      title={i18n.t('sessionInfoDialog.title')}
       trigger={
         <Button
           bc={theme.startsWith('light') ? 'white' : 'black'}

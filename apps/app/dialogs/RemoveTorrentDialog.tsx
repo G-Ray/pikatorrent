@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Trash } from '@tamagui/lucide-icons'
 import { Button, Paragraph, YStack, useThemeName } from 'tamagui'
+
 import { Dialog } from '../components/reusable/Dialog'
 import i18n from '../i18n'
 

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Paragraph } from 'tamagui'
-import { Dialog } from '../components/reusable/Dialog'
 import { BarCodeScanner } from 'expo-barcode-scanner'
+
+import { Dialog } from '../components/reusable/Dialog'
+import i18n from '../i18n'
 
 export const ScanQRCodeDialog = ({ onScannedNode, onClose }) => {
   const [hasPermission, setHasPermission] = useState<boolean>(false)
@@ -29,8 +31,16 @@ export const ScanQRCodeDialog = ({ onScannedNode, onClose }) => {
   }
 
   return (
-    <Dialog defaultOpen onOpenChange={onClose} title="Scan">
-      {!hasPermission && <Paragraph>Camera permission denied</Paragraph>}
+    <Dialog
+      defaultOpen
+      onOpenChange={onClose}
+      title={i18n.t('scanQRCodeDialog.title')}
+    >
+      {!hasPermission && (
+        <Paragraph>
+          {i18n.t('scanQRCodeDialog.cameraPermissionDenied')}
+        </Paragraph>
+      )}
       {hasPermission && (
         <BarCodeScanner
           barCodeTypes={[BarCodeScanner.Constants.BarCodeType.qr]}

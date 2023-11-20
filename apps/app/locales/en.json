@@ -1,5 +1,6 @@
 {
   "menu": {
+    "statistics": "Statistics",
     "about": "About",
     "settings": "Settings"
   },
@@ -16,6 +17,7 @@
   },
   "settings": {
     "nodes": {
+      "loading": "Loading",
       "title": "Nodes",
       "listLabel": "Local & remote nodes",
       "qrCodeLabel": "QR code to link the mobile app",
@@ -78,7 +80,14 @@
     "title": "Add a torrent",
     "add": "Add",
     "selectFile": "Select a .torrent file",
-    "torrentOrMagnetLinkPlaceholder": "Torrent or magnet:// links"
+    "torrentOrMagnetLinkPlaceholder": "Torrent or magnet:// links",
+    "sendToNode": "Send this torrent to"
+  },
+  "confirmNodeDeleteAlertDialog": {
+    "title": "Confirm node removal",
+    "confirmMessage": "Are you sure you want to delete this node ?",
+    "cancel": "Cancel",
+    "delete": "Delete"
   },
   "sessionInfoDialog": {
     "title": "Session info"
@@ -90,13 +99,34 @@
     "reject": "Reject",
     "accept": "Accept"
   },
+  "directoryPickerDialog": {
+    "title": "Directory picker",
+    "privateAppSwitchLabel": "Use private app directory",
+    "privateAppDescription1": "Using private app directory might prevent other app to access your downloaded content.",
+    "privateAppDescription2": "All your downloads will be deleted if you uninstall PikaTorrent."
+  },
+  "unsupportedBrowserDialog": {
+    "title": "Unsupported browser",
+    "description": "This browser is not supported. Please try pikatorrent in another browser."
+  },
   "torrentDialog": {
     "copyLink": "Copy Link",
     "share": "Share",
     "editLabels": "Edit Labels",
     "openFolder": "Open Folder",
     "remove": "Remove",
-    "files": "Files"
+    "files": "Files",
+    "newLabel": "New label",
+    "add": "Add",
+    "clearAll": "Clear all",
+    "selectedLabels": "Selected labels",
+    "allLabels": "All labels",
+    "noLabels": "There is no labels yet.",
+    "addLabelInstruction": "Add labels by editing a torrent."
+  },
+  "scanQRCodeDialog": {
+    "title": "Scan QRCode",
+    "cameraPermissionDenied": "Camera permission denied"
   },
   "removeTorrentDialog": {
     "title": "Remove confirmation",
