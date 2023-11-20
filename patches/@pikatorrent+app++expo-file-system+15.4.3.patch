@@ -1,0 +1,11 @@
+diff --git a/node_modules/@pikatorrent/app/node_modules/expo-file-system/android/src/main/res/xml/file_system_provider_paths.xml b/node_modules/@pikatorrent/app/node_modules/expo-file-system/android/src/main/res/xml/file_system_provider_paths.xml
+index 959ed95..0f03b42 100644
+--- a/node_modules/@pikatorrent/app/node_modules/expo-file-system/android/src/main/res/xml/file_system_provider_paths.xml
++++ b/node_modules/@pikatorrent/app/node_modules/expo-file-system/android/src/main/res/xml/file_system_provider_paths.xml
+@@ -1,5 +1,6 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <paths>
++    <external-path name="expo_external_files" path="." />
+     <files-path name="expo_files" path="." />
+     <cache-path name="cached_expo_files" path="." />
+ </paths>
