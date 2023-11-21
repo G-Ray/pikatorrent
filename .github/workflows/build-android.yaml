@@ -1,0 +1,37 @@
+name: Build Android
+
+on:
+  workflow_dispatch:
+  push:
+  # push:
+  #   tags:
+  #     - v*
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build android
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+      - name: Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+      - name: Install
+        run: npm ci
+      - name: Build
+        run: npm -w @pikatorrent/app run build:android:production
