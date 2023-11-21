@@ -1,9 +1,8 @@
 name: Build desktop app & publish it to github release
 on:
-  workflow_dispatch:
-  # push:
-  #   tags:
-  #     - v*
+  push:
+    tags:
+      - v*
 
 jobs:
   publish:
@@ -34,7 +33,7 @@ jobs:
         if: ${{ matrix.os == 'windows-latest' }}
       - name: Install
         run: npm ci
-      - name: build
+      - name: build & publish
         run: npm -w @pikatorrent/desktop run publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
