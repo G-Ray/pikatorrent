@@ -22,6 +22,8 @@ module.exports = {
         packageName: 'pikatorrent',
         assets: 'assets/appx',
         manifestTemplate: 'assets/appx/template/appxmanifest.xml',
+        devCert: './assets/appx/cert.pfx',
+        certPass: 'password'
         // protocol: 'pikatorrent' // electron forge is not up to date with latest electron-windows-store
       },
     },
