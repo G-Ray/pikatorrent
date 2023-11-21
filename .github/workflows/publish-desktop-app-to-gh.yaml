@@ -35,4 +35,6 @@ jobs:
       - name: Install
         run: npm ci
       - name: build
-        run: npm -w @pikatorrent/desktop run make
+        run: npm -w @pikatorrent/desktop run publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
