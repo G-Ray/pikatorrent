@@ -1,0 +1,105 @@
+name: Build
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  desktop:
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        arch: [x64]
+
+    # permissions:
+    #   contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+
+      # Windows:  Create dev cert for .appx package
+      - name: Create dev cert
+        if: ${{ matrix.os == 'windows-latest' }}
+        run: |
+          $cert = New-SelfSignedCertificate -Subject "CN=9FB02A40-50B6-49F9-92D4-AA9DC9AC1AAB" -TextExtension "2.5.29.37={text}1.3.6.1.5.5.7.3.3" -CertStoreLocation cert:\CurrentUser\My
+          $pwd = ConvertTo-SecureString -String "password" -Force -AsPlainText
+          Export-PfxCertificate -Cert $cert -FilePath apps/desktop/assets/appx/cert.pfx -Password $pwd
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: npm run build:desktop
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: pikatorrent-${{ matrix.os }}
+          path: apps/desktop/out/make/**/*
+
+      # Publish on tags starting with 'v'
+      - name: Publish
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: npm -w @pikatorrent/desktop run publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  android:
+    name: android
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: "17"
+          distribution: "temurin"
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Install
+        run: npm ci
+
+      - name: Build preview (.apk)
+        run: npm -w @pikatorrent/app run build:android:preview
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: pikatorrent.apk
+          path: apps/app/*.apk
+
+      # Build production (.aab) on tags starting with 'v'
+      - name: Build production
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: npm -w @pikatorrent/app run build:android:production
+
+      # Upload production (.aab) on tags starting with 'v'
+      - name: Upload artifacts
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: actions/upload-artifact@v3
+        with:
+          name: pikatorrent.aab
+          path: apps/app/*.aab
