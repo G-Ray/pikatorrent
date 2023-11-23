@@ -1,4 +1,4 @@
-name: Build
+name: Build apps
 
 on:
   push:
@@ -103,3 +103,27 @@ jobs:
         with:
           name: pikatorrent.aab
           path: apps/app/*.aab
+
+  web:
+    name: web
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: npm run build:web
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: pikatorrent-web
+          path: apps/app/dist/
