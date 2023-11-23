@@ -13,8 +13,8 @@ jobs:
         os: [ubuntu-latest, windows-latest]
         arch: [x64]
 
-    # permissions:
-    #   contents: write
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout
