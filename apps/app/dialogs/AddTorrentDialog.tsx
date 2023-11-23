@@ -167,7 +167,6 @@ export const AddTorrentDialog = () => {
           <Fieldset horizontal gap="$4">
             <Input
               f={1}
-              id="torrent-uri"
               placeholder={i18n.t(
                 'addTorrentDialog.torrentOrMagnetLinkPlaceholder'
               )}
