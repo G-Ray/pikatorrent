@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import {
-  VictoryArea,
-  VictoryChart,
-  VictoryTooltip,
-  VictoryAxis,
-} from '../lib/victory'
+import { VictoryArea, VictoryChart, VictoryAxis } from '../lib/victory'
 import { Defs, LinearGradient, Stop } from 'react-native-svg'
 import prettyBytes from 'pretty-bytes'
 import { XStack, YStack, useMedia, useThemeName } from 'tamagui'
-import { Platform } from 'react-native'
 import { useSessionStats } from '../hooks/useSessionStats'
 import { TorrentFieldFormatter } from './TorrentFieldFormatter'
 
@@ -19,16 +13,14 @@ const numberOfPoints = measuredPoints / (refreshInterval / 1000) + 1 // + 1 for 
 export const SpeedCharts = () => {
   const media = useMedia()
   const { sessionStats } = useSessionStats({ interval: refreshInterval })
-  const [downloadSpeedPoints, setDownloadSpeedPoints] = useState(
-    Array(numberOfPoints)
+  const [speedPoints, setSpeedPoints] = useState({
+    download: Array(numberOfPoints)
       .fill({})
-      .map((v, i) => ({ x: i, y: 0 }))
-  )
-  const [uploadSpeedPoints, setUploadSpeedPoints] = useState(
-    Array(numberOfPoints)
+      .map((v, i) => ({ x: i, y: 0 })),
+    upload: Array(numberOfPoints)
       .fill({})
-      .map((v, i) => ({ x: i, y: 0 }))
-  )
+      .map((v, i) => ({ x: i, y: 0 })),
+  })
 
   useEffect(() => {
     const addNewPoints = (key, points) => {
@@ -42,12 +34,11 @@ export const SpeedCharts = () => {
       ]
     }
 
-    setDownloadSpeedPoints((points: any[]) => {
-      return addNewPoints('downloadSpeed', points)
-    })
-
-    setUploadSpeedPoints((points: any[]) => {
-      return addNewPoints('uploadSpeed', points)
+    setSpeedPoints((points: any) => {
+      return {
+        download: addNewPoints('downloadSpeed', points.download),
+        upload: addNewPoints('uploadSpeed', points.upload),
+      }
     })
   }, [sessionStats])
 
@@ -58,7 +49,7 @@ export const SpeedCharts = () => {
       <YStack ai="center" f={1}>
         <SpeedChart
           name="downloadSpeed"
-          data={downloadSpeedPoints}
+          data={speedPoints.download}
           color={'#0081f1'}
         />
         <TorrentFieldFormatter
@@ -71,13 +62,12 @@ export const SpeedCharts = () => {
       <YStack ai="center" f={1}>
         <SpeedChart
           name="uploadSpeed"
-          data={uploadSpeedPoints}
+          data={speedPoints.upload}
           color={'#299764'}
         />
         <TorrentFieldFormatter
           fontSize={'$6'}
           iconSize="$2"
-          // fontWeight="bold"
           name="rateUpload"
           value={sessionStats.uploadSpeed || 0}
         />
@@ -138,7 +128,6 @@ const SpeedChart = ({ name, data, color }) => {
       />
       <VictoryArea
         data={data}
-        labels={({ datum }) => `${prettyBytes(datum.y)}/s`}
         style={{
           data: {
             fill: `url(#${name}-gradient)`,
@@ -148,18 +137,6 @@ const SpeedChart = ({ name, data, color }) => {
           },
         }}
         interpolation={'monotoneX'}
-        labelComponent={
-          <VictoryTooltip
-            constrainToVisibleArea
-            renderInPortal={Platform.OS === 'web'}
-            style={{ fontSize: 18, fill: 'white' }}
-            flyoutStyle={{
-              stroke: color,
-              fill: color,
-              fontFamily: 'Inter',
-            }}
-          />
-        }
       />
     </VictoryChart>
   )
