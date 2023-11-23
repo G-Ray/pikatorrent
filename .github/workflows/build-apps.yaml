@@ -52,6 +52,38 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  desktop-aarch64:
+    # The host should always be Linux
+    runs-on: ubuntu-latest
+    name: Build on aarch64
+    steps:
+      - uses: actions/checkout@v3
+      - uses: uraimo/run-on-arch-action@v2
+        name: Run commands
+        with:
+          arch: aarch64
+          distro: ubuntu_latest
+          run: |
+            # install deps
+            apt update
+            apt install -y libcurl4-openssl-dev git cmake build-essential libssl-dev
+            # Install nodejs
+            apt install -y ca-certificates curl gnupg
+            mkdir -p /etc/apt/keyrings
+            curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+            echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_18.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
+            apt update
+            apt install -y nodejs
+            # Build
+            # git config --global --add safe.directory '*'
+            npm ci
+            npm run build:desktop
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: pikatorrent-${{ matrix.os }}-aarch64
+          path: apps/desktop/out/make/**/*
+
   android:
     # EAS will not be able to use expo token in pull request
     if: ${{ github.event_name != 'pull_request' }}
