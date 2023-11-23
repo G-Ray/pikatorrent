@@ -11,12 +11,11 @@ import { SpeedCharts } from '../components/SpeedCharts'
 export default function Stats() {
   const media = useMedia()
   const { sessionStats } = useContext(TorrentsContext)
-  const [isScrollEnabled, setIsScrollEnabled] = useState(true)
 
   if (!sessionStats || Object.keys(sessionStats).length === 0) return null
 
   return (
-    <ScrollView scrollEnabled={isScrollEnabled}>
+    <ScrollView>
       <YStack
         w="100%"
         alignSelf="center"
