@@ -79,6 +79,7 @@
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@tamagui/babel-plugin": "1.79.1",
+    "@types/lodash": "^4.14.202",
     "@types/react": "~18.2.14",
     "@types/simple-peer": "^9.11.5",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
