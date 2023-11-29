@@ -60,19 +60,17 @@ export const SearchBar = () => {
           borderRightWidth={0}
           borderLeftWidth={0}
           br={0}
+          placeholderTextColor={'$color'}
         />
         <SearchEngineSelector
           engines={engines}
           value={selectedSearchEngineUrl}
           onValueChange={handleEngineChange}
         />
-        <Form.Trigger
-          asChild
-          disabled={query.length === 0}
-          o={query.length === 0 ? 0.5 : 1}
-        >
+        <Form.Trigger asChild>
           <Button
             icon={Search}
+            disabled={query.length === 0}
             scaleIcon={1.3}
             borderColor={'$gray7'}
             bc={/^light/.test(theme) ? 'white' : 'black'}

@@ -32,6 +32,7 @@ import { migrate } from '../lib/migrations'
 const screenOptions = {
   title: 'PikaTorrent',
   headerShown: false,
+  // lazy: false FIXME: Status bar becomes transparent
 }
 
 SplashScreen.preventAutoHideAsync()
@@ -146,7 +147,7 @@ const ThemedLayout = () => {
           <Stack
             f={1}
             {...(Platform.OS === 'web' ? { h: '100vh' } : {})}
-            bc="$backgroundStrong"
+            backgroundColor={theme === 'dark' ? 'black' : 'white'}
           >
             <TorrentsProvider>
               <Header />

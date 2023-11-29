@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, useSegments } from 'expo-router'
-import { Button, XStack, useMedia, useThemeName } from 'tamagui'
+import { Button, useMedia, useThemeName } from 'tamagui'
 
 export const ButtonLink = ({ title, href, segment, icon }) => {
   const media = useMedia()
