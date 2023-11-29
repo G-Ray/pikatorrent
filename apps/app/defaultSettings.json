@@ -1,5 +1,5 @@
 {
-  "theme": "light",
+  "theme": "system",
   "searchEnginesUrls": [
     "https://www.google.com/search?q=%s+torrent",
     "https://duckduckgo.com/?q=%s+torrent",
