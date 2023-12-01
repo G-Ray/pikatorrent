@@ -67,7 +67,7 @@ export const Torrents = () => {
       </XStack>
 
       <XStack jc="space-between" w="100%">
-        <Paragraph>Encryption {session.encryption}</Paragraph>
+        <Paragraph>Encryption</Paragraph>
         <XStack minWidth={180}>
           {session.encryption && (
             <Select
