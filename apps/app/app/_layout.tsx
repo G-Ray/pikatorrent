@@ -28,6 +28,7 @@ import { SettingsContext, SettingsProvider } from '../contexts/SettingsContext'
 import { TermsOfUseDialog } from '../dialogs/TermsOfUseDialog'
 import isElectron from 'is-electron'
 import { migrate } from '../lib/migrations'
+import { Portal } from 'tamagui'
 
 const screenOptions = {
   title: 'PikaTorrent',
@@ -149,7 +150,14 @@ const ThemedLayout = () => {
       <TermsOfUseDialog />
       <NodeProvider>
         <ToastProvider>
-          <ToastViewport flexDirection="column" top={'$4'} left={0} right={0} />
+          <Portal>
+            <ToastViewport
+              flexDirection="column"
+              top={'$4'}
+              left={0}
+              right={0}
+            />
+          </Portal>
           <ToastController />
 
           <Stack
