@@ -130,6 +130,14 @@ const ThemedLayout = () => {
   const theme = settings.theme === 'system' ? colorSheme : settings.theme
   const media = useMedia()
 
+  // Update colorScheme (for scrollbar)
+  useEffect(() => {
+    const rootElem = document.getElementById('root')
+    if (rootElem) {
+      rootElem.style.colorScheme = theme
+    }
+  }, [theme])
+
   return (
     <Theme name={theme}>
       <StatusBar
