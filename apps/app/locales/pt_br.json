@@ -103,7 +103,8 @@
     "title": "Directory picker",
     "privateAppSwitchLabel": "Use private app directory",
     "privateAppDescription1": "Using private app directory might prevent other app to access your downloaded content.",
-    "privateAppDescription2": "All your downloads will be deleted if you uninstall PikaTorrent."
+    "privateAppDescription2": "All your downloads will be deleted if you uninstall PikaTorrent.",
+    "select": "Select"
   },
   "unsupportedBrowserDialog": {
     "title": "Unsupported browser",
