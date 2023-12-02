@@ -42,8 +42,6 @@ const Dialog = ({
   const [localOpen, setLocalOpen] = useState(defaultOpen)
   const theme = useThemeName()
 
-  console.log('theme', theme)
-
   useEffect(() => {
     if (Platform.OS === 'web') {
       return

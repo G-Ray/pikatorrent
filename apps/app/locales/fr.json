@@ -103,7 +103,8 @@
     "title": "Choix d'un dossier",
     "privateAppSwitchLabel": "Utiliser le dossier privé de l'application",
     "privateAppDescription1": "Utiliser le dossier privé de l'application peut empêcher d'autres application d'accéder à vos contenus téléchargés.",
-    "privateAppDescription2": "Tous vos téléchargements seront supprimés lorsque vous désinstallerez PikaTorrent."
+    "privateAppDescription2": "Tous vos téléchargements seront supprimés lorsque vous désinstallerez PikaTorrent.",
+    "select": "Selectionner"
   },
   "unsupportedBrowserDialog": {
     "title": "Navigateur non supporté",

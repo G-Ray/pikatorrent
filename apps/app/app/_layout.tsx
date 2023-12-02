@@ -28,10 +28,12 @@ import { SettingsContext, SettingsProvider } from '../contexts/SettingsContext'
 import { TermsOfUseDialog } from '../dialogs/TermsOfUseDialog'
 import isElectron from 'is-electron'
 import { migrate } from '../lib/migrations'
+import { Portal } from 'tamagui'
 
 const screenOptions = {
   title: 'PikaTorrent',
   headerShown: false,
+  // lazy: false FIXME: Status bar becomes transparent
 }
 
 SplashScreen.preventAutoHideAsync()
@@ -129,6 +131,14 @@ const ThemedLayout = () => {
   const theme = settings.theme === 'system' ? colorSheme : settings.theme
   const media = useMedia()
 
+  // Update colorScheme (for scrollbar)
+  useEffect(() => {
+    const rootElem = document.getElementById('root')
+    if (rootElem) {
+      rootElem.style.colorScheme = theme
+    }
+  }, [theme])
+
   return (
     <Theme name={theme}>
       <StatusBar
@@ -140,13 +150,20 @@ const ThemedLayout = () => {
       <TermsOfUseDialog />
       <NodeProvider>
         <ToastProvider>
-          <ToastViewport flexDirection="column" top={'$4'} left={0} right={0} />
+          <Portal>
+            <ToastViewport
+              flexDirection="column"
+              top={'$4'}
+              left={0}
+              right={0}
+            />
+          </Portal>
           <ToastController />
 
           <Stack
             f={1}
             {...(Platform.OS === 'web' ? { h: '100vh' } : {})}
-            bc="$backgroundStrong"
+            backgroundColor={theme === 'dark' ? 'black' : 'white'}
           >
             <TorrentsProvider>
               <Header />

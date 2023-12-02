@@ -3,9 +3,11 @@ import { H3, useMedia, useThemeName, XStack, YStack } from 'tamagui'
 import { ConnectionStatus } from './ConnectionStatus'
 import { Logo } from './Logo'
 import { GlobalStats } from './GlobalStats'
+import { useSegments } from 'expo-router'
 
 export const Header = () => {
   const media = useMedia()
+  const segments = useSegments()
 
   return (
     <YStack>
@@ -22,7 +24,7 @@ export const Header = () => {
         </XStack>
         <XStack jc="flex-end" gap="$4" mr="$2">
           <ConnectionStatus />
-          <GlobalStats />
+          {segments[0] === '(torrents)' && <GlobalStats />}
         </XStack>
       </XStack>
     </YStack>

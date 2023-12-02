@@ -110,11 +110,12 @@ export default function Torrents() {
               placeholder={i18n.t('torrents.filterListPlaceholder')}
               value={filter}
               onChangeText={setFilter}
-              bc={/^light/.test(theme) ? 'white' : 'black'}
               borderTopWidth={0}
               borderRightWidth={0}
               borderLeftWidth={0}
               br={0}
+              bc={/^light/.test(theme) ? 'white' : 'black'}
+              placeholderTextColor={'$color'}
             />
           </XStack>
         </Card>

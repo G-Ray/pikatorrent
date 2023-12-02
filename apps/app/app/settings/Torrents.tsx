@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useContext, useEffect, useState } from 'react'
 import {
-  Button,
   H2,
   Input,
   Paragraph,
@@ -10,6 +9,7 @@ import {
   YStack,
   useThemeName,
 } from 'tamagui'
+import debounce from 'lodash/debounce'
 
 import { NodeContext } from '../../contexts/NodeContext'
 import { useSession } from '../../hooks/useSession'
@@ -27,21 +27,12 @@ export const Torrents = () => {
     setSession(initialSession)
   }, [initialSession])
 
-  const hasChanged = JSON.stringify(session) !== JSON.stringify(initialSession)
-
-  const handleSubmit = async () => {
+  const saveSessionValue = async ({ key, value }) => {
     try {
       await sendRPCMessage({
         method: 'session-set',
         arguments: {
-          'download-dir': session['download-dir'],
-          encryption: session.encryption,
-          'utp-enabled': session['utp-enabled'],
-          'dht-enabled': session['dht-enabled'],
-          'lpd-enabled': session['lpd-enabled'],
-          'pex-enabled': session['pex-enabled'],
-          'port-forwarding-enabled': session['port-forwarding-enabled'],
-          'peer-port': session['peer-port'],
+          [key]: value,
         },
       })
 
@@ -51,6 +42,15 @@ export const Torrents = () => {
     }
   }
 
+  // Save port with debounce
+  const saveSessionPort = useMemo(
+    () =>
+      debounce((number) => {
+        console.log('debounce', number)
+      }, 500),
+    []
+  )
+
   if (!session || !isConnected) return null
 
   return (
@@ -58,7 +58,12 @@ export const Torrents = () => {
       <H2>{i18n.t('settings.torrents.title')}</H2>
       <XStack jc="space-between" w="100%">
         <Paragraph>{i18n.t('settings.torrents.downloadDirectory')}</Paragraph>
-        <DownloadDirectoryInput session={session} setSession={setSession} />
+        <DownloadDirectoryInput
+          session={session}
+          onSelect={(path) =>
+            saveSessionValue({ key: 'download-dir', value: path })
+          }
+        />
       </XStack>
 
       <XStack jc="space-between" w="100%">
@@ -71,7 +76,7 @@ export const Torrents = () => {
               placeholder={i18n.t('settings.torrents.encryption')}
               value={session.encryption}
               onValueChange={(mode) => {
-                setSession((s) => ({ ...s, encryption: mode }))
+                saveSessionValue({ key: 'encryption', value: mode })
               }}
               options={encryptionModes}
               optionsTexts={encryptionModesTexts}
@@ -86,7 +91,7 @@ export const Torrents = () => {
           id={'utp-enabled'}
           checked={session['utp-enabled']}
           onCheckedChange={(isEnabled) => {
-            setSession((s) => ({ ...s, 'utp-enabled': isEnabled }))
+            saveSessionValue({ key: 'utp-enabled', value: isEnabled })
           }}
         >
           <Switch.Thumb
@@ -102,7 +107,7 @@ export const Torrents = () => {
           id={'dht-enabled'}
           checked={session['dht-enabled']}
           onCheckedChange={(isEnabled) => {
-            setSession((s) => ({ ...s, 'dht-enabled': isEnabled }))
+            saveSessionValue({ key: 'dht-enabled', value: isEnabled })
           }}
         >
           <Switch.Thumb
@@ -118,7 +123,7 @@ export const Torrents = () => {
           id={'lpd-enabled'}
           checked={session['lpd-enabled']}
           onCheckedChange={(isEnabled) => {
-            setSession((s) => ({ ...s, 'lpd-enabled': isEnabled }))
+            saveSessionValue({ key: 'lpd-enabled', value: isEnabled })
           }}
         >
           <Switch.Thumb
@@ -134,7 +139,7 @@ export const Torrents = () => {
           id={'pex-enabled'}
           checked={session['pex-enabled']}
           onCheckedChange={(isEnabled) => {
-            setSession((s) => ({ ...s, 'pex-enabled': isEnabled }))
+            saveSessionValue({ key: 'pex-enabled', value: isEnabled })
           }}
         >
           <Switch.Thumb
@@ -152,7 +157,10 @@ export const Torrents = () => {
           id={'nabled'}
           checked={session['port-forwarding-enabled']}
           onCheckedChange={(isEnabled) => {
-            setSession((s) => ({ ...s, 'port-forwarding-enabled': isEnabled }))
+            saveSessionValue({
+              key: 'port-forwarding-enabled',
+              value: isEnabled,
+            })
           }}
         >
           <Switch.Thumb
@@ -171,24 +179,14 @@ export const Torrents = () => {
           onChangeText={(text) => {
             try {
               const parsedNumber = parseInt(text)
-              setSession((s) => ({ ...s, ['peer-port']: parsedNumber }))
+              setSession((s) => ({ ...s, 'peer-port': parsedNumber }))
+              saveSessionPort(parsedNumber)
             } catch (e) {
               console.error(e)
             }
           }}
         />
       </XStack>
-
-      <Button
-        ml="auto"
-        theme="yellow"
-        borderColor={'$yellow7'}
-        o={!hasChanged ? 0.5 : 1}
-        disabled={!hasChanged}
-        onPress={handleSubmit}
-      >
-        {i18n.t('settings.torrents.save')}
-      </Button>
     </YStack>
   )
 }
@@ -199,7 +197,7 @@ const encryptionModesTexts = encryptionModes.map((mode) =>
   i18n.t('settings.torrents.encryptionModes.' + mode)
 )
 
-const DownloadDirectoryInput = ({ session, setSession }) => {
+const DownloadDirectoryInput = ({ session, onSelect }) => {
   const node = useContext(NodeContext)
   const theme = useThemeName()
 
@@ -226,13 +224,13 @@ const DownloadDirectoryInput = ({ session, setSession }) => {
         bc={theme.startsWith('light') ? 'white' : 'black'}
         value={session['download-dir'] || ''}
         onChangeText={(text) => {
-          setSession((s) => ({ ...s, ['download-dir']: text }))
+          onSelect(text)
         }}
       />
       <DirectoryPickerDialog
         selectedPath={session['download-dir']}
         onSelect={(path) => {
-          setSession((s) => ({ ...s, ['download-dir']: path }))
+          onSelect(path)
         }}
       />
     </XStack>
