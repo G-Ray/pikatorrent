@@ -16,7 +16,6 @@ import {
   Progress,
   ScrollView,
   Stack,
-  Theme,
   XStack,
   YStack,
   useMedia,
