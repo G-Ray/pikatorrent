@@ -16,6 +16,7 @@ import { SpeedCharts } from '../components/SpeedCharts'
 import { Dialog } from '../components/reusable/Dialog'
 import i18n from '../i18n'
 import { useSessionStats } from '../hooks/useSessionStats'
+import { Activity } from '@tamagui/lucide-icons'
 
 const refreshInterval = 1000
 
@@ -31,6 +32,7 @@ export const StatsDialog = () => {
       title={i18n.t('statsDialog.title')}
       trigger={
         <Button
+          icon={Activity}
           bc={theme.startsWith('light') ? 'white' : 'black'}
           theme="yellow"
           hoverTheme
