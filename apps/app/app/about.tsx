@@ -17,6 +17,7 @@ import { SettingLayout } from '../components/SettingLayout'
 import { ExternalLink, Github, MessageSquare } from '@tamagui/lucide-icons'
 import { openExternalLink } from '../lib/links'
 import i18n from '../i18n'
+import { StatsDialog } from '../dialogs/StatsDialogs'
 
 export default function About() {
   const { session } = useSession()
@@ -46,6 +47,9 @@ export default function About() {
       </SettingLayout>
       <XStack ml="auto">
         <SessionsInfoDialog session={session} />
+      </XStack>
+      <XStack ml="auto">
+        <StatsDialog />
       </XStack>
       <XStack mx="auto" mt="$8" gap="$2">
         <Paragraph>{i18n.t('about.reportBugOrFeature')}</Paragraph>
