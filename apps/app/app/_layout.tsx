@@ -5,6 +5,7 @@ import {
   TamaguiProvider,
   Theme,
   useMedia,
+  useThemeName,
   XStack,
   YStack,
 } from 'tamagui'
@@ -125,6 +126,17 @@ const NativeURLHandlers = () => {
   return null
 }
 
+const ToastContainer = ({ children }) => {
+  const theme = useThemeName()
+  return Platform.OS === 'web' ? (
+    <Portal>
+      <Theme name={theme}>{children}</Theme>
+    </Portal>
+  ) : (
+    <>{children}</>
+  )
+}
+
 const ThemedLayout = () => {
   const { settings } = useContext(SettingsContext)
   const colorSheme = useColorScheme()
@@ -133,6 +145,10 @@ const ThemedLayout = () => {
 
   // Update colorScheme (for scrollbar)
   useEffect(() => {
+    if (Platform.OS !== 'web') {
+      return
+    }
+
     const rootElem = document.getElementById('root')
     if (rootElem) {
       rootElem.style.colorScheme = theme
@@ -150,14 +166,14 @@ const ThemedLayout = () => {
       <TermsOfUseDialog />
       <NodeProvider>
         <ToastProvider>
-          <Portal>
+          <ToastContainer>
             <ToastViewport
               flexDirection="column"
               top={'$4'}
               left={0}
               right={0}
             />
-          </Portal>
+          </ToastContainer>
           <ToastController />
 
           <Stack

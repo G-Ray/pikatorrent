@@ -3,16 +3,13 @@ import { VictoryArea, VictoryChart, VictoryAxis } from '../lib/victory'
 import { Defs, LinearGradient, Stop } from 'react-native-svg'
 import prettyBytes from 'pretty-bytes'
 import { XStack, YStack, useMedia, useThemeName } from 'tamagui'
-import { useSessionStats } from '../hooks/useSessionStats'
 import { TorrentFieldFormatter } from './TorrentFieldFormatter'
 
-const measuredPoints = 60 // We keep 60 seconds of data
-const refreshInterval = 1000
-const numberOfPoints = measuredPoints / (refreshInterval / 1000) + 1 // + 1 for zero
+const measuredPoints = 60 // We keep 60 points of data
 
-export const SpeedCharts = () => {
+export const SpeedCharts = ({ sessionStats, refreshInterval }) => {
+  const numberOfPoints = measuredPoints / (refreshInterval / 1000) + 1 // + 1 for zero
   const media = useMedia()
-  const { sessionStats } = useSessionStats({ interval: refreshInterval })
   const [speedPoints, setSpeedPoints] = useState({
     download: Array(numberOfPoints)
       .fill({})
@@ -51,6 +48,7 @@ export const SpeedCharts = () => {
           name="downloadSpeed"
           data={speedPoints.download}
           color={'#0081f1'}
+          refreshInterva={refreshInterval}
         />
         <TorrentFieldFormatter
           fontSize={'$6'}
@@ -64,6 +62,7 @@ export const SpeedCharts = () => {
           name="uploadSpeed"
           data={speedPoints.upload}
           color={'#299764'}
+          refreshInterval={refreshInterval}
         />
         <TorrentFieldFormatter
           fontSize={'$6'}
@@ -76,7 +75,7 @@ export const SpeedCharts = () => {
   )
 }
 
-const SpeedChart = ({ name, data, color }) => {
+const SpeedChart = ({ name, data, color, refreshInterval }) => {
   const theme = useThemeName()
 
   return (

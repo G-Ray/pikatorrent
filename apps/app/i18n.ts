@@ -6,6 +6,7 @@ export const translations = {
   en: require('./locales/en.json'),
   fr: require('./locales/fr.json'),
   ru: require('./locales/ru.json'),
+  de: require('./locales/de.json'),
   pt_br: require('./locales/pt_br.json'),
 }
 
@@ -13,6 +14,7 @@ export const translationsLanguages = {
   en: 'English',
   fr: 'Français',
   ru: 'Русский',
+  de: 'Deutsch',
   pt_br: 'Português brasileiro',
 }
 
