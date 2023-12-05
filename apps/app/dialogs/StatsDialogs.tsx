@@ -1,6 +1,14 @@
 import React from 'react'
 
-import { Button, H2, Paragraph, XStack, YStack, useThemeName } from 'tamagui'
+import {
+  Button,
+  H2,
+  Paragraph,
+  XStack,
+  YStack,
+  useMedia,
+  useThemeName,
+} from 'tamagui'
 import { ScrollView } from 'react-native'
 import prettyBytes from 'pretty-bytes'
 import prettyMilliseconds from 'pretty-ms'
@@ -13,6 +21,7 @@ const refreshInterval = 1000
 
 export const StatsDialog = () => {
   const theme = useThemeName()
+  const media = useMedia()
   const { sessionStats } = useSessionStats({ interval: refreshInterval })
 
   if (!sessionStats || Object.keys(sessionStats).length === 0) return null
@@ -33,7 +42,12 @@ export const StatsDialog = () => {
       snapPoints={[90]}
     >
       <ScrollView>
-        <YStack w="100%" alignSelf="center" flexShrink={1} gap="$8" pb="$4">
+        <YStack
+          w="100%"
+          alignSelf="center"
+          flexShrink={1}
+          pr={media.gtXs ? '$2' : 0}
+        >
           <SpeedCharts
             sessionStats={sessionStats}
             refreshInterval={refreshInterval}
