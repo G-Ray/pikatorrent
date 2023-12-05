@@ -133,6 +133,10 @@ const ThemedLayout = () => {
 
   // Update colorScheme (for scrollbar)
   useEffect(() => {
+    if (Platform.OS !== 'web') {
+      return
+    }
+
     const rootElem = document.getElementById('root')
     if (rootElem) {
       rootElem.style.colorScheme = theme
