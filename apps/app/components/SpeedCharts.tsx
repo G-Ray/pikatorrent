@@ -48,7 +48,7 @@ export const SpeedCharts = ({ sessionStats, refreshInterval }) => {
           name="downloadSpeed"
           data={speedPoints.download}
           color={'#0081f1'}
-          refreshInterva={refreshInterval}
+          refreshInterval={refreshInterval}
         />
         <TorrentFieldFormatter
           fontSize={'$6'}
