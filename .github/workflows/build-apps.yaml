@@ -63,7 +63,7 @@ jobs:
         with:
           arch: aarch64
           distro: ubuntu_latest
-          run: |
+          install: |
             # install deps
             apt update
             apt install -y libcurl4-openssl-dev git cmake build-essential libssl-dev
@@ -74,6 +74,7 @@ jobs:
             echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_18.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
             apt update
             apt install -y nodejs
+          run: |
             # Build
             # git config --global --add safe.directory '*'
             npm ci
