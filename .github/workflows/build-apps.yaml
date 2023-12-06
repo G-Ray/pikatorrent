@@ -77,7 +77,7 @@ jobs:
           run: |
             # Build
             # git config --global --add safe.directory '*'
-            npm ci --no-audit
+            npm ci
             npm run build:desktop
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
