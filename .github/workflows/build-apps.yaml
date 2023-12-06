@@ -63,6 +63,8 @@ jobs:
         with:
           arch: aarch64
           distro: ubuntu_latest
+          env: |
+            NODE_OPTIONS: "--max-old-space-size=5120"
           install: |
             # install deps
             apt update
@@ -75,6 +77,10 @@ jobs:
             apt update
             apt install -y nodejs
           run: |
+            npm -v
+            echo $NODE_OPTIONS
+            echo $(free -m)
+            df -h
             # Build
             # git config --global --add safe.directory '*'
             npm ci
