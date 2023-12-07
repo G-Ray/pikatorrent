@@ -126,7 +126,7 @@ export default function Torrents() {
         sortOptions={settings.sortOptions}
       />
       <Slot />
-      <Separator />
+      {!media.gtXs && <Separator />}
       {!media.gtXs && (
         <XStack py="$2" mx="$2" mt="auto">
           <SearchBarWithAddButton />
@@ -170,7 +170,7 @@ const TorrentsList = ({ sortOptions, filter, filters }: TorrentsListProp) => {
   const { torrents } = useTorrents()
   const media = useMedia()
 
-  // toSorted is not devined on native
+  // toSorted is not defined on native
   torrents.sort((a, b) => {
     if (a[sortOptions.property] < b[sortOptions.property])
       return sortOptions.isReversed ? 1 : -1
@@ -218,8 +218,6 @@ const TorrentsList = ({ sortOptions, filter, filters }: TorrentsListProp) => {
         width: '100%',
         marginLeft: 'auto',
         marginRight: 'auto',
-        // paddingLeft: media.gtXs ? 46 : 7, // $8 $2
-        // paddingRight: media.gtXs ? 46 : 7, // $8 $2
         paddingTop: 4,
         paddingBottom: 4,
         maxWidth: DESKTOP_MAX_CONTENT_WIDTH + (media.gtXs ? 46 * 2 : 7 * 2),
