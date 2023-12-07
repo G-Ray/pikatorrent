@@ -1,0 +1,82 @@
+{
+  "menu": {
+    "statistics": "Στατιστικά",
+    "about": "Σχετικά",
+    "settings": "Ρυθμίσεις"
+  },
+  "torrents": {
+    "add": "Προσθήκη",
+    "startAll": "Ξεκινήστε όλα",
+    "pauseAll": "Παύση όλων",
+    "searchPlaceholder": "Επιλέξτε ένα torrent στο Διαδίκτυο...",
+    "filterListPlaceholder": "Λίστα φίλτρων...",
+    "searchEngineSelectorLabel": "Μηχανές αναζήτησης",
+    "addYourFirstTorrentTitle": "Προσθήκη του πρώτου σας torrent",
+    "addYourFirstTorrentDescription": "Τα torrents σας θα εμφανίζονται εδώ",
+    "filteredLabels": "Φιλτραρισμένες ετικέτες"
+  },
+  "settings": {
+    "nodes": {
+      "loading": "Φόρτωση",
+      "title": "Κόμβοι",
+      "listLabel": "Τοπικοί και απομακρυσμένοι κόμβοι",
+      "qrCodeLabel": "Κωδικός QR για σύνδεση με την κινητή εφαρμογή",
+      "secretLinkLabel": "Μυστικός σύνδεσμος για σύνδεση με το app.pikatorrent.com",
+      "copyLink": "Αντιγραφή συνδέσμου",
+      "qrCodeScanButtonLabel": "Σάρωση κωδικού QR",
+      "acceptedPeersLabel": "Αποδεκτές συνδέσεις",
+      "rejectedPeersLabel": "Απορριφθείσες συνδέσεις",
+      "acceptedOrRejectedPeers": {
+        "none": "Κανένα",
+        "delete": "Διαγραφή"
+      }
+    },
+    "app": {
+      "title": "Ρυθμίσεις εφαρμογής",
+      "theme": "Θέμα",
+      "language": "Γλώσσα",
+      "searchEngines": "Διευθύνσεις μηχανών αναζήτησης (μία ανά γραμμή)",
+      "searchEnginesInstructions": "Το %s θα αντικατασταθεί από το ερώτημα",
+      "invalidUrls": "Μη έγκυρες διευθύνσεις URL",
+      "save": "Αποθήκευση",
+      "reset": "Επαναφορά"
+    },
+    "torrents": {
+      "title": "Ρυθμίσεις torrents",
+      "downloadDirectory": "Κατάλογος λήψης",
+      "encryption": "Κρυπτογράφηση",
+      "encryptionModes": {
+        "required": "Απαιτείται",
+        "preferred": "Προτιμάται",
+        "tolerated": "Ανεκτή"
+      },
+      "save": "Αποθήκευση",
+      "enableUTP": "Ενεργοποίηση uTP",
+      "enableDHT": "Ενεργοποίηση DHT",
+      "enableLPD": "Ενεργοποίηση LPD",
+      "enablePEX": "Ενεργοποίηση PEX",
+      "enablePortForwarding": "Ενεργοποίηση προωθούμενης θύρας",
+      "peerPort": "Θύρα χρήστη"
+    }
+  },
+  "about": {
+    "pikatorrentVersion": "Έκδοση PikaTorrent",
+    "transmissionVersion": "Έκδοση Transmission",
+    "reportBugOrFeature": "Βρήκατε ένα σφάλμα ή θέλετε να προτείνετε μια λειτουργία;",
+    "githubLinkDescription": "Ανοίξτε ένα θέμα στο Github",
+    "discordLinkDescription": "Ελάτε μαζί μας στο Discord"
+  },
+  "addNodeDialog": {
+    "title": "Προσθήκη νέου κόμβου",
+    "description": "Προσθέστε ένα νέο κόμβο για να τον ελέγχετε από οπουδήποτε.",
+    "triggerLabel": "Προσθήκη κόμβου",
+    "nameLabel": "Όνομα",
+    "idLabel": "Ταυτότητα",
+    "namePlaceholder": "Όνομα",
+    "idPlaceholder": "Ταυτότητα",
+    "add": "Προσθήκη"
+  },
+  "addTorrentDialog": {
+    "title": "Προσθήκη torrent",
+    "add": "Προσθήκη",
+    "selectFile": "
