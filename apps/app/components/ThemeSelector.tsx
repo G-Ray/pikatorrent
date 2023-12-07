@@ -24,7 +24,7 @@ export const ThemeSelector = () => {
       options={options}
       placeholder={'theme'}
       label={'Theme'}
-      optionsTexts={['System', 'light', 'dark']}
+      optionsTexts={['System', 'Light', 'Dark']}
     />
   )
 }
