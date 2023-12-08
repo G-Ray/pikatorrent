@@ -1,7 +1,6 @@
-{
   "menu": {
-    "statistics": "Στατιστικά",
-    "about": "Σχετικά",
+    "statistics": "Στατιστική",
+    "about": "Σχετικά με",
     "settings": "Ρυθμίσεις"
   },
   "torrents": {
@@ -11,7 +10,7 @@
     "searchPlaceholder": "Επιλέξτε ένα torrent στο Διαδίκτυο...",
     "filterListPlaceholder": "Λίστα φίλτρων...",
     "searchEngineSelectorLabel": "Μηχανές αναζήτησης",
-    "addYourFirstTorrentTitle": "Προσθήκη του πρώτου σας torrent",
+    "addYourFirstTorrentTitle": "Προσθέστε το πρώτο σας torrent",
     "addYourFirstTorrentDescription": "Τα torrents σας θα εμφανίζονται εδώ",
     "filteredLabels": "Φιλτραρισμένες ετικέτες"
   },
@@ -19,64 +18,146 @@
     "nodes": {
       "loading": "Φόρτωση",
       "title": "Κόμβοι",
-      "listLabel": "Τοπικοί και απομακρυσμένοι κόμβοι",
-      "qrCodeLabel": "Κωδικός QR για σύνδεση με την κινητή εφαρμογή",
-      "secretLinkLabel": "Μυστικός σύνδεσμος για σύνδεση με το app.pikatorrent.com",
+      "listLabel": "Τοπικός",
+      "qrCodeLabel": "Κωδικός QR για τη σύνδεση της εφαρμογής για κινητά",
+      "secretLinkLabel": "Μυστική διεύθυνση url για τη σύνδεση του app.pikatorrent.com",
       "copyLink": "Αντιγραφή συνδέσμου",
       "qrCodeScanButtonLabel": "Σάρωση κωδικού QR",
       "acceptedPeersLabel": "Αποδεκτές συνδέσεις",
       "rejectedPeersLabel": "Απορριφθείσες συνδέσεις",
       "acceptedOrRejectedPeers": {
-        "none": "Κανένα",
-        "delete": "Διαγραφή"
+        "none": "Κανένας",
+        "delete": "Διαγράφω"
       }
     },
     "app": {
       "title": "Ρυθμίσεις εφαρμογής",
       "theme": "Θέμα",
       "language": "Γλώσσα",
-      "searchEngines": "Διευθύνσεις μηχανών αναζήτησης (μία ανά γραμμή)",
+      "searchEngines": "URL μηχανών αναζήτησης (ένα ανά γραμμή)",
       "searchEnginesInstructions": "Το %s θα αντικατασταθεί από το ερώτημα",
       "invalidUrls": "Μη έγκυρες διευθύνσεις URL",
-      "save": "Αποθήκευση",
+      "save": "Αποθηκεύσετε",
       "reset": "Επαναφορά"
     },
     "torrents": {
       "title": "Ρυθμίσεις torrents",
-      "downloadDirectory": "Κατάλογος λήψης",
+      "downloadDirectory": "Λήψη καταλόγου",
       "encryption": "Κρυπτογράφηση",
       "encryptionModes": {
         "required": "Απαιτείται",
-        "preferred": "Προτιμάται",
-        "tolerated": "Ανεκτή"
+        "preferred": "Προνομιούχος",
+        "tolerated": "Ανεκτό"
       },
-      "save": "Αποθήκευση",
-      "enableUTP": "Ενεργοποίηση uTP",
+      "save": "Αποθηκεύσετε",
+      "enableUTP": "Ενεργοποιήστε το uTP",
       "enableDHT": "Ενεργοποίηση DHT",
       "enableLPD": "Ενεργοποίηση LPD",
       "enablePEX": "Ενεργοποίηση PEX",
-      "enablePortForwarding": "Ενεργοποίηση προωθούμενης θύρας",
-      "peerPort": "Θύρα χρήστη"
+      "enablePortForwarding": "Ενεργοποίηση προώθησης θύρας",
+      "peerPort": "Ομότιμη θύρα"
     }
   },
   "about": {
     "pikatorrentVersion": "Έκδοση PikaTorrent",
-    "transmissionVersion": "Έκδοση Transmission",
-    "reportBugOrFeature": "Βρήκατε ένα σφάλμα ή θέλετε να προτείνετε μια λειτουργία;",
+    "transmissionVersion": "Έκδοση μετάδοσης",
+    "reportBugOrFeature": "Βρήκατε ένα σφάλμα ή θέλετε να προτείνετε ένα χαρακτηριστικό;",
     "githubLinkDescription": "Ανοίξτε ένα θέμα στο Github",
     "discordLinkDescription": "Ελάτε μαζί μας στο Discord"
   },
   "addNodeDialog": {
     "title": "Προσθήκη νέου κόμβου",
-    "description": "Προσθέστε ένα νέο κόμβο για να τον ελέγχετε από οπουδήποτε.",
+    "description": "Προσθέστε έναν νέο κόμβο για να τον ελέγχετε από οπουδήποτε.",
     "triggerLabel": "Προσθήκη κόμβου",
-    "nameLabel": "Όνομα",
+    "nameLabel": "Ονομα",
     "idLabel": "Ταυτότητα",
-    "namePlaceholder": "Όνομα",
+    "namePlaceholder": "Ονομα",
     "idPlaceholder": "Ταυτότητα",
     "add": "Προσθήκη"
   },
   "addTorrentDialog": {
-    "title": "Προσθήκη torrent",
+    "title": "Προσθέστε ένα torrent",
     "add": "Προσθήκη",
-    "selectFile": "
+    "selectFile": "Επιλέξτε ένα αρχείο .torrent",
+    "torrentOrMagnetLinkPlaceholder": "Σύνδεσμοι torrent ή magnet://",
+    "sendToNode": "Στείλτε αυτό το torrent στο"
+  },
+  "confirmNodeDeleteAlertDialog": {
+    "title": "Επιβεβαιώστε την αφαίρεση κόμβου",
+    "confirmMessage": "Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτόν τον κόμβο;",
+    "cancel": "Ματαίωση",
+    "delete": "Διαγράφω"
+  },
+  "sessionInfoDialog": {
+    "title": "Πληροφορίες συνεδρίας"
+  },
+  "acceptOrRejectPeerDialog": {
+    "title": "Εξουσιοδότηση νέας σύνδεσης",
+    "description": "Μια νέα συσκευή θα ήθελε να ελέγχει το pikatorrent:",
+    "warningIfNotRecognize": "Εάν δεν αναγνωρίζετε αυτήν τη συσκευή, κάντε κλικ στο απόρριψη.",
+    "reject": "Απορρίπτω",
+    "accept": "Αποδέχομαι"
+  },
+  "directoryPickerDialog": {
+    "title": "Επιλογέας καταλόγου",
+    "privateAppSwitchLabel": "Χρησιμοποιήστε τον ιδιωτικό κατάλογο εφαρμογών",
+    "privateAppDescription1": "Η χρήση ιδιωτικού καταλόγου εφαρμογών ενδέχεται να εμποδίσει άλλες εφαρμογές να έχουν πρόσβαση στο περιεχόμενο που έχετε λάβει.",
+    "privateAppDescription2": "Όλες οι λήψεις σας θα διαγραφούν εάν απεγκαταστήσετε το PikaTorrent.",
+    "select": "Επιλέγω"
+  },
+  "unsupportedBrowserDialog": {
+    "title": "Μη υποστηριζόμενος φυλλομετρητής",
+    "description": "Αυτό το πρόγραμμα περιήγησης δεν υποστηρίζεται. "
+  },
+  "torrentDialog": {
+    "copyLink": "Αντιγραφή συνδέσμου",
+    "share": "Μερίδιο",
+    "editLabels": "Επεξεργασία ετικετών",
+    "openFolder": "Ανοιχτός φάκελος",
+    "remove": "Αφαιρώ",
+    "files": "Αρχεία",
+    "newLabel": "Νέα ετικέτα",
+    "add": "Προσθήκη",
+    "clearAll": "Τα καθαρίζω όλα",
+    "selectedLabels": "Επιλεγμένες ετικέτες",
+    "allLabels": "Όλες οι ετικέτες",
+    "noLabels": "Δεν υπάρχουν ακόμη ετικέτες.",
+    "addLabelInstruction": "Προσθέστε ετικέτες επεξεργάζοντας ένα torrent."
+  },
+  "scanQRCodeDialog": {
+    "title": "Σάρωση QRCode",
+    "cameraPermissionDenied": "Η άδεια κάμερας απορρίφθηκε"
+  },
+  "removeTorrentDialog": {
+    "title": "Κατάργηση επιβεβαίωσης",
+    "warningMessage": "Είστε σίγουροι ότι θα διαγράψετε",
+    "remove": "Αφαιρώ",
+    "removeWithData": "Αφαίρεση με δεδομένα"
+  },
+  "filesListDialog": {
+    "title": "Αρχεία",
+    "open": "Ανοιξε",
+    "openFolder": "Ανοιχτός φάκελος",
+    "share": "Μερίδιο"
+  },
+  "termsOfUseDialog": {
+    "title": "Οροι χρήσης",
+    "termsOfUseMessage": "Χρησιμοποιώντας το PikaTorrent, αποδέχεστε ότι το περιεχόμενο που κατεβάζετε ή κοινοποιείτε αποτελεί αποκλειστική σας ευθύνη.",
+    "privacyPolicyMessage": "Δέχεσαι επίσης το",
+    "privacyPolicy": "πολιτική απορρήτου",
+    "cancel": "Ματαίωση",
+    "accept": "Αποδέχομαι"
+  },
+  "toasts": {
+    "linkCopied": "Ο σύνδεσμος αντιγράφηκε",
+    "torrentDownloaded": "Λήψη torrent",
+    "noAppCanOpenFile": "Καμία εφαρμογή δεν μπορεί να χειριστεί αυτό το αρχείο"
+  },
+  "sortingOptionsDialog": {
+    "title": "Ταξινόμηση κατά",
+    "name": "Ονομα",
+    "totalSize": "Μέγεθος ",
+    "percentDone": "Πρόοδος",
+    "reverseOrder": "Αντίστροφη σειρά"
+  }
+}
