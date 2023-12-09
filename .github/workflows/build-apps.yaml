@@ -41,7 +41,9 @@ jobs:
 
       - name: Build for arm64
         if: ${{ matrix.os == 'ubuntu-latest' }}
-        run: npm run build:desktop -- -- --arch=arm64
+        run: |
+          TARGET_ARCH=arm64 npm ci
+          npm run build:desktop -- -- --arch=arm64
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
