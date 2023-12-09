@@ -1,8 +1,8 @@
 {
   "menu": {
-    "statistics": "Statistiques",
     "about": "À propos",
-    "settings": "Paramètres"
+    "settings": "Paramètres",
+    "library": "Bibliothèque"
   },
   "torrents": {
     "add": "Ajouter",
@@ -160,5 +160,22 @@
     "totalSize": "Taille",
     "percentDone": "Progression",
     "reverseOrder": "Ordre inversé"
+  },
+  "statsDialog": {
+    "title": "Statistics",
+    "torrentsCount": "Torrents count",
+    "allTorrents": "All torrents",
+    "activeTorrents": "Active torrents",
+    "pauseTorrents": "Paused torrents",
+    "sinceAppStart": "Since app start",
+    "downloaded": "Downloaded",
+    "uploaded": "Uploaded",
+    "filesAdded": "Files added",
+    "timeActive": "Time active",
+    "sinceBeginning": "Since the beginning"
+  },
+  "library": {
+    "download": "Télécharger",
+    "moreToCome": "Plus à venir..."
   }
 }

@@ -17,6 +17,7 @@ import { SettingLayout } from '../components/SettingLayout'
 import { ExternalLink, Github, MessageSquare } from '@tamagui/lucide-icons'
 import { openExternalLink } from '../lib/links'
 import i18n from '../i18n'
+import { StatsDialog } from '../dialogs/StatsDialogs'
 
 export default function About() {
   const { session } = useSession()
@@ -32,21 +33,16 @@ export default function About() {
       alignSelf="center"
       {...(media.gtXs && { w: DESKTOP_MAX_CONTENT_WIDTH })}
     >
-      <SettingLayout>
-        <Label htmlFor="pikaTorrentVersion">
-          {i18n.t('about.pikatorrentVersion')}
-        </Label>
+      <XStack jc="space-between">
+        <Paragraph>{i18n.t('about.pikatorrentVersion')}</Paragraph>
         <Paragraph id="pikaTorrentVersion">{version}</Paragraph>
-      </SettingLayout>
-      <SettingLayout>
-        <Label htmlFor="transmissionVersion">
-          {i18n.t('about.transmissionVersion')}
-        </Label>
-        <Paragraph id="transmissionVersion">{session['version']}</Paragraph>
-      </SettingLayout>
-      <XStack ml="auto">
-        <SessionsInfoDialog session={session} />
       </XStack>
+      <XStack jc="space-between">
+        <Paragraph>{i18n.t('about.transmissionVersion')}</Paragraph>
+        <Paragraph id="transmissionVersion">{session['version']}</Paragraph>
+      </XStack>
+      <SessionsInfoDialog session={session} />
+      <StatsDialog />
       <XStack mx="auto" mt="$8" gap="$2">
         <Paragraph>{i18n.t('about.reportBugOrFeature')}</Paragraph>
       </XStack>

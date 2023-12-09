@@ -16,7 +16,6 @@ import {
   Progress,
   ScrollView,
   Stack,
-  Theme,
   XStack,
   YStack,
   useMedia,
@@ -290,15 +289,7 @@ export const TorrentCardPlaceHolder = () => {
   const media = useMedia()
 
   return (
-    <Card
-      w="100%"
-      size="$4"
-      bordered
-      br="$6"
-      height={160}
-      borderStyle="dashed"
-      borderWidth="$1"
-    >
+    <Card w="100%" bordered height={160} borderStyle="dashed" borderWidth="$1">
       <Card.Header w="100%">
         <YStack ai="center" jc="center">
           {media.gtXs ? (

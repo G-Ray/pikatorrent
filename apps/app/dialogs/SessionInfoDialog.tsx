@@ -11,6 +11,7 @@ import { Platform } from 'react-native'
 
 import { Dialog } from '../components/reusable/Dialog'
 import i18n from '../i18n'
+import { Info } from '@tamagui/lucide-icons'
 
 export const SessionsInfoDialog = ({ session }) => {
   const theme = useThemeName()
@@ -20,6 +21,7 @@ export const SessionsInfoDialog = ({ session }) => {
       title={i18n.t('sessionInfoDialog.title')}
       trigger={
         <Button
+          icon={Info}
           bc={theme.startsWith('light') ? 'white' : 'black'}
           theme="yellow"
           hoverTheme

@@ -53,6 +53,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   android:
+    # EAS will not be able to use expo token in pull request
+    if: ${{ github.event_name != 'pull_request' }}
     name: android
     runs-on: ubuntu-latest
     steps:

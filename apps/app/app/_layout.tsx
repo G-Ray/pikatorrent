@@ -5,6 +5,7 @@ import {
   TamaguiProvider,
   Theme,
   useMedia,
+  useThemeName,
   XStack,
   YStack,
 } from 'tamagui'
@@ -28,6 +29,7 @@ import { SettingsContext, SettingsProvider } from '../contexts/SettingsContext'
 import { TermsOfUseDialog } from '../dialogs/TermsOfUseDialog'
 import isElectron from 'is-electron'
 import { migrate } from '../lib/migrations'
+import { Portal } from 'tamagui'
 
 const screenOptions = {
   title: 'PikaTorrent',
@@ -124,6 +126,17 @@ const NativeURLHandlers = () => {
   return null
 }
 
+const ToastContainer = ({ children }) => {
+  const theme = useThemeName()
+  return Platform.OS === 'web' ? (
+    <Portal>
+      <Theme name={theme}>{children}</Theme>
+    </Portal>
+  ) : (
+    <>{children}</>
+  )
+}
+
 const ThemedLayout = () => {
   const { settings } = useContext(SettingsContext)
   const colorSheme = useColorScheme()
@@ -132,6 +145,10 @@ const ThemedLayout = () => {
 
   // Update colorScheme (for scrollbar)
   useEffect(() => {
+    if (Platform.OS !== 'web') {
+      return
+    }
+
     const rootElem = document.getElementById('root')
     if (rootElem) {
       rootElem.style.colorScheme = theme
@@ -149,7 +166,14 @@ const ThemedLayout = () => {
       <TermsOfUseDialog />
       <NodeProvider>
         <ToastProvider>
-          <ToastViewport flexDirection="column" top={'$4'} left={0} right={0} />
+          <ToastContainer>
+            <ToastViewport
+              flexDirection="column"
+              top={'$4'}
+              left={0}
+              right={0}
+            />
+          </ToastContainer>
           <ToastController />
 
           <Stack

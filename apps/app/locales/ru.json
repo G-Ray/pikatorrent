@@ -1,8 +1,8 @@
 {
   "menu": {
-    "statistics": "Statistics",
     "about": "Подробнее",
-    "settings": "Настройки"
+    "settings": "Настройки",
+    "library": "Library"
   },
   "torrents": {
     "add": "Добавить",
@@ -17,7 +17,7 @@
   },
   "settings": {
     "nodes": {
-      "loading": "Loading",
+      "loading": "Загрузка",
       "title": "Узлы",
       "listLabel": "Локальные & удалённые узлы",
       "qrCodeLabel": "QR-код для перехода к мобильному приложению",
@@ -84,10 +84,10 @@
     "sendToNode": "Send this torrent to"
   },
   "confirmNodeDeleteAlertDialog": {
-    "title": "Confirm node removal",
-    "confirmMessage": "Are you sure you want to delete this node ?",
-    "cancel": "Cancel",
-    "delete": "Delete"
+    "title": "Подтвердите удаление узла",
+    "confirmMessage": "Вы уверены, что хотите удалить этот узел?",
+    "cancel": "Отмена",
+    "delete": "Удалить"
   },
   "sessionInfoDialog": {
     "title": "Информация о сессии"
@@ -100,15 +100,15 @@
     "accept": "Разрешить"
   },
   "directoryPickerDialog": {
-    "title": "Directory picker",
-    "privateAppSwitchLabel": "Use private app directory",
-    "privateAppDescription1": "Using private app directory might prevent other app to access your downloaded content.",
-    "privateAppDescription2": "All your downloads will be deleted if you uninstall PikaTorrent.",
-    "select": "Select"
+    "title": "Выбор каталога",
+    "privateAppSwitchLabel": "Использование приватного каталога приложений",
+    "privateAppDescription1": "Использование приватного каталога приложения может не дать другим приложениям получить доступ к загружаемым файлам.",
+    "privateAppDescription2": "Все ваши загрузки будут уничтожены, если вы удалите PikaTorrent.",
+    "select": "Выбрать"
   },
   "unsupportedBrowserDialog": {
-    "title": "Unsupported browser",
-    "description": "This browser is not supported. Please try pikatorrent in another browser."
+    "title": "Неподдерживаемый браузер",
+    "description": "Этот браузер не поддерживается. Пожалуйста, попробуйте использовать для pikatorrent другой браузер."
   },
   "torrentDialog": {
     "copyLink": "Копировать Ссылку",
@@ -117,23 +117,23 @@
     "openFolder": "Открыть Папку",
     "remove": "Удалить",
     "files": "Файлы",
-    "newLabel": "New label",
-    "add": "Add",
-    "clearAll": "Clear all",
-    "selectedLabels": "Selected labels",
-    "allLabels": "All labels",
-    "noLabels": "There is no labels yet.",
-    "addLabelInstruction": "Add labels by editing a torrent."
+    "newLabel": "Новая метка",
+    "add": "Добавить",
+    "clearAll": "Очистить всё",
+    "selectedLabels": "Выбранные метки",
+    "allLabels": "Все метки",
+    "noLabels": "Пока что нет меток.",
+    "addLabelInstruction": "Чтобы добавить метку, измените торрент."
   },
   "scanQRCodeDialog": {
-    "title": "Scan QRCode",
-    "cameraPermissionDenied": "Camera permission denied"
+    "title": "Сканировать QRCode",
+    "cameraPermissionDenied": "Доступ к камере запрещён"
   },
   "removeTorrentDialog": {
     "title": "Подтверждение удаления",
     "warningMessage": "Вы уверены, что хотите удалить",
     "remove": "Удалить",
-    "removeWithData": "Remove with data"
+    "removeWithData": "Удалить с файлами"
   },
   "filesListDialog": {
     "title": "Файлы",
@@ -160,5 +160,22 @@
     "totalSize": "Размеру ",
     "percentDone": "Прогрессу",
     "reverseOrder": "В обратном порядке"
+  },
+  "statsDialog": {
+    "title": "Statistics",
+    "torrentsCount": "Torrents count",
+    "allTorrents": "All torrents",
+    "activeTorrents": "Active torrents",
+    "pauseTorrents": "Paused torrents",
+    "sinceAppStart": "Since app start",
+    "downloaded": "Downloaded",
+    "uploaded": "Uploaded",
+    "filesAdded": "Files added",
+    "timeActive": "Time active",
+    "sinceBeginning": "Since the beginning"
+  },
+  "library": {
+    "download": "Download",
+    "moreToCome": "More to come..."
   }
 }
