@@ -2,7 +2,7 @@
   "menu": {
     "about": "Подробнее",
     "settings": "Настройки",
-    "library": "Library"
+    "library": "Библиотека"
   },
   "torrents": {
     "add": "Добавить",
@@ -81,7 +81,7 @@
     "add": "Добавить",
     "selectFile": "Выбрать файл .torrent",
     "torrentOrMagnetLinkPlaceholder": "Торренты или magnet:// ссылки",
-    "sendToNode": "Send this torrent to"
+    "sendToNode": "Отправить этот торрент в"
   },
   "confirmNodeDeleteAlertDialog": {
     "title": "Подтвердите удаление узла",
@@ -94,14 +94,14 @@
   },
   "acceptOrRejectPeerDialog": {
     "title": "Авторизовать новое подлючение",
-    "description": "Новый запрос на управление picktorrent от устройства:",
+    "description": "Новый запрос на управление pikatorrent от устройства:",
     "warningIfNotRecognize": "Если вы не узнаёте данное устройство, нажмите на кнопку отклонения.",
     "reject": "Отклонить",
     "accept": "Разрешить"
   },
   "directoryPickerDialog": {
     "title": "Выбор каталога",
-    "privateAppSwitchLabel": "Использование приватного каталога приложений",
+    "privateAppSwitchLabel": "Использование приватного каталога приложения",
     "privateAppDescription1": "Использование приватного каталога приложения может не дать другим приложениям получить доступ к загружаемым файлам.",
     "privateAppDescription2": "Все ваши загрузки будут уничтожены, если вы удалите PikaTorrent.",
     "select": "Выбрать"
@@ -143,7 +143,7 @@
   },
   "termsOfUseDialog": {
     "title": "Условия использования",
-    "termsOfUseMessage": "Используя Pika Torrent, вы соглашаетесь с тем, что контент, который вы загружаете или которым делитесь, является исключительно вашей ответственностью.",
+    "termsOfUseMessage": "Используя PikaTorrent, вы соглашаетесь с тем, что контент, который вы загружаете или которым делитесь, является исключительно вашей ответственностью.",
     "privacyPolicyMessage": "Вы также соглашаетесь с",
     "privacyPolicy": "политикой конфиденциальности",
     "cancel": "Отмена",
@@ -162,20 +162,20 @@
     "reverseOrder": "В обратном порядке"
   },
   "statsDialog": {
-    "title": "Statistics",
-    "torrentsCount": "Torrents count",
-    "allTorrents": "All torrents",
-    "activeTorrents": "Active torrents",
-    "pauseTorrents": "Paused torrents",
-    "sinceAppStart": "Since app start",
-    "downloaded": "Downloaded",
-    "uploaded": "Uploaded",
-    "filesAdded": "Files added",
-    "timeActive": "Time active",
-    "sinceBeginning": "Since the beginning"
+    "title": "Статистика",
+    "torrentsCount": "Количество торрентов",
+    "allTorrents": "Все торренты",
+    "activeTorrents": "Возобновить торрент",
+    "pauseTorrents": "Остановить торрент",
+    "sinceAppStart": "С момента запуска приложения",
+    "downloaded": "Загружено",
+    "uploaded": "Отдано",
+    "filesAdded": "Добавленные файлы",
+    "timeActive": "Активное время",
+    "sinceBeginning": "С самого начала"
   },
   "library": {
-    "download": "Download",
-    "moreToCome": "More to come..."
+    "download": "Загрузить",
+    "moreToCome": "Дальше будет больше..."
   }
 }
