@@ -20,6 +20,9 @@ export const ButtonLink = ({ title, href, segment, icon }) => {
         {...(isActive && {
           color: '$yellow9',
         })}
+        style={{
+          textDecoration: 'none',
+        }}
       >
         {media.gtXs && title}
       </Button>

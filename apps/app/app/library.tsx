@@ -65,6 +65,9 @@ export default function Library() {
                 hoverTheme
                 borderColor={'$yellow7'}
                 icon={Download}
+                style={{
+                  textDecoration: 'none',
+                }}
               >
                 {i18n.t('library.download')}
               </Button>
