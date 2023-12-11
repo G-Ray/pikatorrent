@@ -13,15 +13,16 @@ import debounce from 'lodash/debounce'
 
 import { NodeContext } from '../../contexts/NodeContext'
 import { useSession } from '../../hooks/useSession'
-import i18n from '../../i18n'
 import { Select } from '../../components/reusable/Select'
 import { DirectoryPickerDialog } from '../../dialogs/DirectoryPickerDialog'
+import { useI18n } from '../../hooks/use18n'
 
 export const Torrents = () => {
   const { sendRPCMessage, isConnected } = useContext(NodeContext)
   const { session: initialSession, fetchSession } = useSession()
   const [session, setSession] = useState({})
   const theme = useThemeName()
+  const i18n = useI18n()
 
   useEffect(() => {
     setSession(initialSession)
@@ -51,6 +52,9 @@ export const Torrents = () => {
     []
   )
 
+  const encryptionModesTexts = encryptionModes.map((mode) =>
+    i18n.t('settings.torrents.encryptionModes.' + mode)
+  )
   if (!session || !isConnected) return null
 
   return (
@@ -192,10 +196,6 @@ export const Torrents = () => {
 }
 
 const encryptionModes = ['required', 'preferred', 'tolerated']
-
-const encryptionModesTexts = encryptionModes.map((mode) =>
-  i18n.t('settings.torrents.encryptionModes.' + mode)
-)
 
 const DownloadDirectoryInput = ({ session, onSelect }) => {
   const node = useContext(NodeContext)

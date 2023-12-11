@@ -6,7 +6,7 @@ import { SettingsContext } from '../contexts/SettingsContext'
 
 import defaultSettings from '../defaultSettings.json'
 import { openExternalLink } from '../lib/links'
-import i18n from '../i18n'
+import { useI18n } from '../hooks/use18n'
 
 export type Engine = {
   name: string
@@ -15,6 +15,7 @@ export type Engine = {
 }
 
 export const SearchBar = () => {
+  const i18n = useI18n()
   const [query, setQuery] = useState('')
   const { settings, updateSettings } = useContext(SettingsContext)
   const selectedSearchEngineUrl =

@@ -19,7 +19,7 @@ import isElectron from 'is-electron'
 
 import { Dialog } from '../components/reusable/Dialog'
 import { TorrentFieldFormatter } from '../components/TorrentFieldFormatter'
-import i18n from '../i18n'
+import { useI18n } from '../hooks/use18n'
 
 const buildFilePath = (torrent, file) => {
   return `${torrent.downloadDir}/${file.name}`
@@ -47,6 +47,7 @@ const handleOpenFile = async (torrent, file) => {
 }
 
 export const FilesListDialog = ({ torrent, toast }) => {
+  const i18n = useI18n()
   const theme = useThemeName()
   const [isOpen, setIsOpen] = useState(false)
 
@@ -88,6 +89,7 @@ export const FilesListDialog = ({ torrent, toast }) => {
 }
 
 const FileRow = ({ torrent, file, toast }) => {
+  const i18n = useI18n()
   const theme = useThemeName()
 
   return (

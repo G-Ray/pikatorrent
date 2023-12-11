@@ -2,10 +2,14 @@ import { YStack } from 'tamagui'
 import React from 'react'
 
 import { ButtonLink } from './ButtonLink'
-import { buttons, footerButtons } from './buttons'
+import { getButtons } from './buttons'
 import { ScrollView } from 'react-native'
+import { useI18n } from '../../hooks/use18n'
 
 export const Sidebar = () => {
+  const i18n = useI18n()
+  const { buttons, footerButtons } = getButtons({ i18n })
+
   return (
     <YStack p="$8">
       <ScrollView

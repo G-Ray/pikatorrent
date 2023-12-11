@@ -22,9 +22,4 @@ const i18n = new I18n(translations)
 
 i18n.enableFallback = true
 
-// Set the locale once at the beginning of your app.
-AsyncStorage.getItem('language').then((language) => {
-  i18n.locale = language || getLocales()[0].languageCode
-})
-
 export default i18n

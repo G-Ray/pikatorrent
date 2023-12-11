@@ -24,9 +24,11 @@ import { H5 } from 'tamagui'
 import { NodeContext } from '../contexts/NodeContext'
 import { Dialog } from '../components/reusable/Dialog'
 import { openExternalLink } from '../lib/links'
-import i18n from '../i18n'
+import { useI18n } from '../hooks/use18n'
 
 function readFileToBase64(document: DocumentPicker.DocumentResult) {
+  const i18n = useI18n()
+
   return new Promise((resolve, reject) => {
     if (Platform.OS === 'web') {
       const reader = new FileReader()
@@ -45,6 +47,7 @@ function readFileToBase64(document: DocumentPicker.DocumentResult) {
 }
 
 export const AddTorrentDialog = () => {
+  const i18n = useI18n()
   const [magnet, setMagnet] = useState<string>('')
   const [torrentFilePath, setTorrentFilePath] = useState<string | null>(null)
   const [documentResult, setDocumentResult] =

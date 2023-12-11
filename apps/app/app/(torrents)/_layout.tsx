@@ -25,15 +25,16 @@ import { TorrentsContext } from '../../contexts/TorrentsContext'
 import { Filters } from '../../components/Filters'
 import { Link, Slot } from 'expo-router'
 import { Theme } from 'tamagui'
-import i18n from '../../i18n'
 import {
   SortOptions,
   SortingOptionsDialog,
 } from '../../components/SortingOptionsDialog'
 import { SettingsContext } from '../../contexts/SettingsContext'
+import { useI18n } from '../../hooks/use18n'
 
 const SearchBarWithAddButton = () => {
   const media = useMedia()
+  const i18n = useI18n()
 
   return (
     <Card mx="auto" w="100%" maxWidth={DESKTOP_MAX_CONTENT_WIDTH}>
@@ -62,7 +63,8 @@ const SearchBarWithAddButton = () => {
 }
 
 export default function Torrents() {
-  const { settings, updateSettings, isLoaded } = useContext(SettingsContext)
+  const i18n = useI18n()
+  const { settings, updateSettings } = useContext(SettingsContext)
   const [filter, setFilter] = useState('')
   const [filters, setFilters] = useState([])
   const media = useMedia()
@@ -137,6 +139,7 @@ export default function Torrents() {
 }
 
 const StartOrPauseAllTorrents = () => {
+  const i18n = useI18n()
   const { startAll, pauseAll } = useTorrents()
   const { sessionStats } = useContext(TorrentsContext)
   const media = useMedia()

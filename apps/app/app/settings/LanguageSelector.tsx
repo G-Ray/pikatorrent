@@ -1,23 +1,21 @@
 import React from 'react'
 import { useContext } from 'react'
 import { SettingsContext } from '../../contexts/SettingsContext'
-import isElectron from 'is-electron'
 
-import i18n, { translationsLanguages } from '../../i18n'
+import { translationsLanguages } from '../../i18n'
 import { getLocales } from 'expo-localization'
 import { Select } from '../../components/reusable/Select'
+import { useI18n } from '../../hooks/use18n'
 
 // TODO: On Android/iOS, the language should be set in the OS settings, but
 // How can we define the supported languages with expo ?
 export const LanguageSelector = () => {
   const { settings, updateSettings, isLoaded } = useContext(SettingsContext)
+  const i18n = useI18n()
 
   const handleCheckedChange = async (language: string) => {
-    updateSettings({ language })
     i18n.locale = language
-    if (isElectron()) {
-      window.location.reload()
-    }
+    updateSettings({ language })
   }
 
   if (!isLoaded) return null

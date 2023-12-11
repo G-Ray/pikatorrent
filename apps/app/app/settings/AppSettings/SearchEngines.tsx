@@ -5,9 +5,10 @@ import { SettingsContext } from '../../../contexts/SettingsContext'
 import defaultSettings from '../../../defaultSettings.json'
 import { Undo } from '@tamagui/lucide-icons'
 import { SettingLayout } from '../../../components/SettingLayout'
-import i18n from '../../../i18n'
+import { useI18n } from '../../../hooks/use18n'
 
 export const SearchEngines = () => {
+  const i18n = useI18n()
   const { settings, updateSettings } = useContext(SettingsContext)
   const [searchEnginesUrls, setSearchEnginesUrls] = useState(
     settings.searchEnginesUrls

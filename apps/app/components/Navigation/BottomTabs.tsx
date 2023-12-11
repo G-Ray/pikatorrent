@@ -2,9 +2,13 @@ import React from 'react'
 import { Separator, XStack, YStack } from 'tamagui'
 import { ButtonLink } from './ButtonLink'
 
-import { buttons, footerButtons } from './buttons'
+import { getButtons } from './buttons'
+import { useI18n } from '../../hooks/use18n'
 
 export const BottomTabs = () => {
+  const i18n = useI18n()
+  const { buttons, footerButtons } = getButtons({ i18n })
+
   return (
     <YStack w="100%">
       <Separator />

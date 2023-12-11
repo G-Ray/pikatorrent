@@ -16,11 +16,12 @@ import { Download } from '@tamagui/lucide-icons'
 import { Link } from 'expo-router'
 import { TorrentFieldFormatter } from '../components/TorrentFieldFormatter'
 import { library } from '../lib/library'
-import i18n from '../i18n'
+import { useI18n } from '../hooks/use18n'
 
 export default function Library() {
   const media = useMedia()
   const theme = useThemeName()
+  const i18n = useI18n()
 
   return (
     <ScrollView>

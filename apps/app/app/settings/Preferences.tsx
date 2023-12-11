@@ -4,9 +4,11 @@ import { H2, Paragraph, XStack, YStack, useMedia } from 'tamagui'
 import { SearchEngines } from './AppSettings/SearchEngines'
 import { ThemeSelector } from '../../components/ThemeSelector'
 import { LanguageSelector } from './LanguageSelector'
-import i18n from '../../i18n'
+import { useI18n } from '../../hooks/use18n'
 
 export const Preferences = () => {
+  const i18n = useI18n()
+
   return (
     <YStack ai="flex-start" space="$4">
       <H2>{i18n.t('settings.app.title')}</H2>

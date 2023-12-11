@@ -16,7 +16,7 @@ import {
 import { Engine } from './SearchBar'
 
 import defaultSettings from '../defaultSettings.json'
-import i18n from '../i18n'
+import { useI18n } from '../hooks/use18n'
 
 type SearchEngineSelectorProps = {
   engines: Array<Engine>
@@ -33,7 +33,7 @@ export const SearchEngineSelector = ({
   const selectedEngine =
     engines.find((e) => e.searchUrl === value) ||
     defaultSettings.searchEnginesUrls[0]
-
+  const i18n = useI18n()
   const media = useMedia()
   const theme = useThemeName()
 

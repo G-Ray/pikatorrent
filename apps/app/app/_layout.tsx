@@ -214,7 +214,7 @@ const Mobile = () => {
       <Tabs
         screenOptions={screenOptions}
         sceneContainerStyle={{ backgroundColor: 'transparent' }}
-        tabBar={BottomTabs}
+        tabBar={() => <BottomTabs />}
       ></Tabs>
     </YStack>
   )

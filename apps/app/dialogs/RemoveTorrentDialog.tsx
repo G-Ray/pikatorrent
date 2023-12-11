@@ -3,7 +3,7 @@ import { Trash } from '@tamagui/lucide-icons'
 import { Button, Paragraph, YStack, useThemeName } from 'tamagui'
 
 import { Dialog } from '../components/reusable/Dialog'
-import i18n from '../i18n'
+import { useI18n } from '../hooks/use18n'
 
 export const RemoveTorrentDialog = ({
   id,
@@ -11,6 +11,7 @@ export const RemoveTorrentDialog = ({
   torrentsFunctions,
   isRemovableWithoutData,
 }) => {
+  const i18n = useI18n()
   const theme = useThemeName()
   const [isOpen, setIsOpen] = useState(false)
 

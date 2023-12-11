@@ -16,9 +16,11 @@ import { YStack } from 'tamagui'
 
 import { Dialog } from '../components/reusable/Dialog'
 import { Label } from '../components/reusable/Label'
-import i18n from '../i18n'
+import { useI18n } from '../hooks/use18n'
 
 export const EditLabelsDialog = ({ torrentsFunctions, torrent }) => {
+  const i18n = useI18n()
+
   const theme = useThemeName()
   const [label, setLabel] = useState('')
   const [labels, setLabels] = useState<string[]>(torrent.labels)
@@ -104,6 +106,8 @@ export const EditLabelsDialog = ({ torrentsFunctions, torrent }) => {
 }
 
 export const SelectedLabels = ({ labels, onRemoveLabel, onRemoveAll }) => {
+  const i18n = useI18n()
+
   return (
     <YStack>
       <XStack ai="center" gap="$4" mb="$2">
@@ -128,6 +132,7 @@ export const LabelsSelector = ({
   labelsToExlude = [],
   onLabelPress,
 }) => {
+  const i18n = useI18n()
   return (
     <YStack>
       <H6 mb="$2">{i18n.t('torrentDialog.allLabels')}</H6>

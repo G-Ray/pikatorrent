@@ -1,9 +1,11 @@
 import React from 'react'
 
 import { Dialog } from '../components/reusable/Dialog'
-import i18n from '../i18n'
+import { useI18n } from '../hooks/use18n'
 
 export const UnsupportedBrowserDialog = () => {
+  const i18n = useI18n()
+
   return (
     <Dialog open title={i18n.t('unsupportedBrowserDialog.title')}>
       <Dialog.Description>

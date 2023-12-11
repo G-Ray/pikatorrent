@@ -13,13 +13,13 @@ import { useSession } from '../hooks/useSession'
 
 import { version } from '../package.json'
 import { DESKTOP_MAX_CONTENT_WIDTH } from '../constants/layout'
-import { SettingLayout } from '../components/SettingLayout'
 import { ExternalLink, Github, MessageSquare } from '@tamagui/lucide-icons'
 import { openExternalLink } from '../lib/links'
-import i18n from '../i18n'
 import { StatsDialog } from '../dialogs/StatsDialogs'
+import { useI18n } from '../hooks/use18n'
 
 export default function About() {
+  const i18n = useI18n()
   const { session } = useSession()
   const media = useMedia()
   const theme = useThemeName()

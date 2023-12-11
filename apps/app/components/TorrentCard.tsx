@@ -33,8 +33,8 @@ import { EditLabelsDialog } from '../dialogs/EditLabelsDialog'
 import { APP_URL } from '../config'
 import { Platform, Share } from 'react-native'
 import { useToastController } from '@tamagui/toast'
-import i18n from '../i18n'
 import { PRIVATE_DOWNLOAD_DIR } from '../lib/transmission'
+import { useI18n } from '../hooks/use18n'
 
 export const TorrentCard = ({ torrent }) => {
   const media = useMedia()
@@ -142,6 +142,7 @@ const TorrentActions = ({ torrent, handleOpenFolder, open, onOpenChange }) => {
   const toast = useToastController()
   const media = useMedia()
   const theme = useThemeName()
+  const i18n = useI18n()
 
   if (!open) {
     return null
@@ -200,6 +201,7 @@ const TorrentActions = ({ torrent, handleOpenFolder, open, onOpenChange }) => {
 
 const ShareButtons = ({ toast, torrent }) => {
   const theme = useThemeName()
+  const i18n = useI18n()
 
   if (Platform.OS === 'web') {
     return (
@@ -286,6 +288,7 @@ const TorrentInfo = ({ torrent }) => {
 }
 
 export const TorrentCardPlaceHolder = () => {
+  const i18n = useI18n()
   const media = useMedia()
 
   return (

@@ -17,7 +17,6 @@ import { SettingsContext } from '../../contexts/SettingsContext'
 import { ConfirmNodeDeleteAlertDialog } from '../../dialogs/ConfirmNodeDeleteAlertDialog'
 import { QRCode } from '../../components/reusable/QRCode'
 import { Platform } from 'react-native'
-import isElectron from 'is-electron'
 import { ScanQRCodeDialog } from '../../dialogs/ScanQRCodeDialog'
 import { getDeviceName } from '../../lib/device'
 import { Camera, Clipboard } from '@tamagui/lucide-icons'
@@ -25,14 +24,16 @@ import { AcceptedOrRejectedPeers } from '../../components/AcceptedOrRejectPeers'
 import { AddNodeDialog } from '../../dialogs/AddNodeDialog'
 import { SettingLayout } from '../../components/SettingLayout'
 import { APP_URL } from '../../config'
-import i18n from '../../i18n'
 import { useToastController } from '@tamagui/toast'
 import { useLocalNode } from '../../hooks/useLocalNode'
+import { useI18n } from '../../hooks/use18n'
+import isElectron = require('is-electron')
 
 export const Nodes = () => {
   const settingsContext = useContext(SettingsContext)
   const { settings, updateSettings } = settingsContext
   const [isScanOpen, setIsScanOpen] = useState(false)
+  const i18n = useI18n()
 
   const nodes = settings.nodes || []
 
@@ -153,6 +154,7 @@ const NodesList = ({
 }
 
 const LocalNodeQrcode = () => {
+  const i18n = useI18n()
   const toast = useToastController()
   const localNode = useLocalNode()
 

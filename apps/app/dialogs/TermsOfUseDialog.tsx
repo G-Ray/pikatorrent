@@ -6,9 +6,10 @@ import { Dialog } from '../components/reusable/Dialog'
 import { openExternalLink } from '../lib/links'
 import { quitApp } from '../lib/lifecycle'
 import { SettingsContext } from '../contexts/SettingsContext'
-import i18n from '../i18n'
+import { useI18n } from '../hooks/use18n'
 
 export const TermsOfUseDialog = () => {
+  const i18n = useI18n()
   const { settings, updateSettings } = useContext(SettingsContext)
 
   const handleAccept = async () => {

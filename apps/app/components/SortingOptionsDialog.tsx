@@ -10,8 +10,8 @@ import {
   useThemeName,
 } from 'tamagui'
 import { Dialog } from './reusable/Dialog'
-import i18n from '../i18n'
 import { Select } from './reusable/Select'
+import { useI18n } from '../hooks/use18n'
 
 export type SortOptions = {
   property: 'name' | 'size' | 'percentDone'
@@ -29,6 +29,7 @@ export const SortingOptionsDialog = ({
 }: SortingOptionsDialogProps) => {
   const media = useMedia()
   const theme = useThemeName()
+  const i18n = useI18n()
 
   if (!sortOptions) return null
 

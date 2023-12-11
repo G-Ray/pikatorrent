@@ -5,9 +5,10 @@ import { Button, Separator, YStack, useMedia, useThemeName } from 'tamagui'
 import { Dialog } from './reusable/Dialog'
 import { useTorrents } from '../hooks/useTorrents'
 import { LabelsSelector, SelectedLabels } from '../dialogs/EditLabelsDialog'
-import i18n from '../i18n'
+import { useI18n } from '../hooks/use18n'
 
 export const Filters = ({ onChangeFilters }) => {
+  const i18n = useI18n()
   const media = useMedia()
   const { labels } = useTorrents()
   const [filteredLabels, setFilteredLabels] = useState<string[]>([])

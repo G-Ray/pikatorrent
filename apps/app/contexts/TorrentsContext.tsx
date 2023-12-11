@@ -7,13 +7,14 @@ import React, {
 } from 'react'
 import { NodeContext } from './NodeContext'
 import { useToastController } from '@tamagui/toast'
-import i18n from '../i18n'
+import { useI18n } from '../hooks/use18n'
 
 export const TorrentsContext = createContext(null)
 
 const REFRESH_INTERVAL = 5_000
 
 export const TorrentsProvider = ({ children }) => {
+  const i18n = useI18n()
   const [torrents, setTorrents] = useState([])
   const [sessionStats, setSessionStats] = useState({})
   const { sendRPCMessage } = useContext(NodeContext)
@@ -59,7 +60,7 @@ export const TorrentsProvider = ({ children }) => {
     } catch (e) {
       console.log('Error fetching torrent', e)
     }
-  }, [sendRPCMessage, toast])
+  }, [sendRPCMessage, toast, i18n])
 
   const fetchSessionStats = useCallback(async () => {
     try {

@@ -5,9 +5,10 @@ import { Delete } from '@tamagui/lucide-icons'
 import { SettingLayout } from './SettingLayout'
 
 import { NodeContext } from '../contexts/NodeContext'
-import i18n from '../i18n'
+import { useI18n } from '../hooks/use18n'
 
 export const AcceptedOrRejectedPeers = () => {
+  const i18n = useI18n()
   const node = useContext(NodeContext)
   const { settings } = node
 
@@ -45,6 +46,8 @@ export const AcceptedOrRejectedPeers = () => {
 }
 
 const PeersList = ({ type, settings, handleRemovePeer }) => {
+  const i18n = useI18n()
+
   return (
     <YGroup alignSelf="center" bordered size="$4">
       {settings[type + 'Peers'].length === 0 && (

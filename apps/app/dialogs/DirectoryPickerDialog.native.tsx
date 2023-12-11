@@ -19,12 +19,13 @@ import { Separator } from 'tamagui'
 
 import { Dialog } from '../components/reusable/Dialog'
 import { PRIVATE_DOWNLOAD_DIR } from '../lib/transmission.native'
-import i18n from '../i18n'
+import { useI18n } from '../hooks/use18n'
 
 const PRIVATE_DOWNLOAD_DIR_FILE_URI = 'file://' + PRIVATE_DOWNLOAD_DIR
 const ROOT_FILE_URI = 'file://' + RNFS.ExternalStorageDirectoryPath
 
 export const DirectoryPickerDialog = ({ onSelect }) => {
+  const i18n = useI18n()
   const [directories, setDirectories] = useState<string[]>([])
   const [currentFileUri, setCurrentFileUri] = useState(ROOT_FILE_URI)
   const theme = useThemeName()

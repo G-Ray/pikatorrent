@@ -3,9 +3,10 @@ import { Paragraph } from 'tamagui'
 import { BarCodeScanner } from 'expo-barcode-scanner'
 
 import { Dialog } from '../components/reusable/Dialog'
-import i18n from '../i18n'
+import { useI18n } from '../hooks/use18n'
 
 export const ScanQRCodeDialog = ({ onScannedNode, onClose }) => {
+  const i18n = useI18n()
   const [hasPermission, setHasPermission] = useState<boolean>(false)
 
   useEffect(() => {

@@ -2,9 +2,11 @@ import React from 'react'
 import { Button, Paragraph, XStack } from 'tamagui'
 import { Dialog } from '../components/reusable/Dialog'
 
-import i18n from '../i18n'
+import { useI18n } from '../hooks/use18n'
 
 export const AcceptOrRejectPeerDialog = ({ name, onResponse }) => {
+  const i18n = useI18n()
+
   return (
     <Dialog
       open

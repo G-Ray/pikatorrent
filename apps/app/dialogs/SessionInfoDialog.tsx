@@ -10,10 +10,11 @@ import {
 import { Platform } from 'react-native'
 
 import { Dialog } from '../components/reusable/Dialog'
-import i18n from '../i18n'
 import { Info } from '@tamagui/lucide-icons'
+import { useI18n } from '../hooks/use18n'
 
 export const SessionsInfoDialog = ({ session }) => {
+  const i18n = useI18n()
   const theme = useThemeName()
 
   return (

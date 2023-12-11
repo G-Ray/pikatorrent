@@ -14,13 +14,14 @@ import prettyBytes from 'pretty-bytes'
 import prettyMilliseconds from 'pretty-ms'
 import { SpeedCharts } from '../components/SpeedCharts'
 import { Dialog } from '../components/reusable/Dialog'
-import i18n from '../i18n'
 import { useSessionStats } from '../hooks/useSessionStats'
 import { Activity } from '@tamagui/lucide-icons'
+import { useI18n } from '../hooks/use18n'
 
 const refreshInterval = 1000
 
 export const StatsDialog = () => {
+  const i18n = useI18n()
   const theme = useThemeName()
   const media = useMedia()
   const { sessionStats } = useSessionStats({ interval: refreshInterval })
