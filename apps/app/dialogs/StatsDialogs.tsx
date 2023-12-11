@@ -2,7 +2,7 @@ import React from 'react'
 
 import {
   Button,
-  H2,
+  H5,
   Paragraph,
   XStack,
   YStack,
@@ -27,8 +27,6 @@ export const StatsDialog = () => {
   const media = useMedia()
   const { sessionStats } = useSessionStats({ interval: refreshInterval })
 
-  if (!sessionStats || Object.keys(sessionStats).length === 0) return null
-
   return (
     <Dialog
       title={i18n.t('statsDialog.title')}
@@ -45,106 +43,113 @@ export const StatsDialog = () => {
       }
       snapPoints={[90]}
     >
-      <ScrollView>
-        <YStack
-          w="100%"
-          alignSelf="center"
-          flexShrink={1}
-          pr={media.gtXs ? '$2' : 0}
-        >
-          {config.FEATURES_FLAGS.includes('speedCharts') && (
-            <SpeedCharts
-              sessionStats={sessionStats}
-              refreshInterval={refreshInterval}
-            />
-          )}
-          <YStack>
-            <H2>{i18n.t('statsDialog.torrentsCount')}</H2>
-            <XStack jc="space-between" w="100%">
-              <Paragraph>{i18n.t('statsDialog.allTorrents')}</Paragraph>
-              <Paragraph>{sessionStats.torrentCount}</Paragraph>
-            </XStack>
-            <XStack jc="space-between" w="100%">
-              <Paragraph>{i18n.t('statsDialog.activeTorrents')}</Paragraph>
-              <Paragraph>{sessionStats.activeTorrentCount}</Paragraph>
-            </XStack>
-            <XStack jc="space-between" w="100%">
-              <Paragraph>{i18n.t('statsDialog.pauseTorrents')}</Paragraph>
-              <Paragraph>{sessionStats.pausedTorrentCount}</Paragraph>
-            </XStack>
+      {sessionStats && Object.keys(sessionStats).length > 0 && (
+        <ScrollView>
+          <YStack
+            w="100%"
+            alignSelf="center"
+            flexShrink={1}
+            pr={media.gtXs ? '$2' : 0}
+            gap="$8"
+          >
+            {config.FEATURES_FLAGS.includes('speedCharts') && (
+              <SpeedCharts
+                sessionStats={sessionStats}
+                refreshInterval={refreshInterval}
+              />
+            )}
+            <YStack>
+              <H5>{i18n.t('statsDialog.torrentsCount')}</H5>
+              <XStack jc="space-between" w="100%">
+                <Paragraph>{i18n.t('statsDialog.allTorrents')}</Paragraph>
+                <Paragraph>{sessionStats.torrentCount}</Paragraph>
+              </XStack>
+              <XStack jc="space-between" w="100%">
+                <Paragraph>{i18n.t('statsDialog.activeTorrents')}</Paragraph>
+                <Paragraph>{sessionStats.activeTorrentCount}</Paragraph>
+              </XStack>
+              <XStack jc="space-between" w="100%">
+                <Paragraph>{i18n.t('statsDialog.pauseTorrents')}</Paragraph>
+                <Paragraph>{sessionStats.pausedTorrentCount}</Paragraph>
+              </XStack>
+            </YStack>
+
+            <YStack>
+              <H5>{i18n.t('statsDialog.sinceAppStart')}</H5>
+              <XStack jc="space-between" w="100%">
+                <Paragraph>{i18n.t('statsDialog.downloaded')}</Paragraph>
+                <Paragraph>
+                  {prettyBytes(
+                    sessionStats['current-stats'].downloadedBytes || 0
+                  )}
+                </Paragraph>
+              </XStack>
+
+              <XStack jc="space-between" w="100%">
+                <Paragraph>{i18n.t('statsDialog.uploaded')}</Paragraph>
+                <Paragraph>
+                  {prettyBytes(
+                    sessionStats['current-stats'].uploadedBytes || 0
+                  )}
+                </Paragraph>
+              </XStack>
+
+              <XStack jc="space-between" w="100%">
+                <Paragraph>{i18n.t('statsDialog.filesAdded')}</Paragraph>
+                <Paragraph>
+                  {sessionStats['current-stats'].filesAdded}
+                </Paragraph>
+              </XStack>
+              <XStack jc="space-between" w="100%">
+                <Paragraph>{i18n.t('statsDialog.timeActive')}</Paragraph>
+                <Paragraph>
+                  {prettyMilliseconds(
+                    sessionStats['current-stats'].secondsActive * 1000,
+                    { secondsDecimalDigits: 0 }
+                  )}
+                </Paragraph>
+              </XStack>
+            </YStack>
+
+            <YStack>
+              <H5>{i18n.t('statsDialog.sinceBeginning')}</H5>
+              <XStack jc="space-between" w="100%">
+                <Paragraph>{i18n.t('statsDialog.downloaded')}</Paragraph>
+                <Paragraph>
+                  {prettyBytes(
+                    sessionStats['cumulative-stats'].downloadedBytes || 0
+                  )}
+                </Paragraph>
+              </XStack>
+
+              <XStack jc="space-between" w="100%">
+                <Paragraph>{i18n.t('statsDialog.uploaded')}</Paragraph>
+                <Paragraph>
+                  {prettyBytes(
+                    sessionStats['cumulative-stats'].uploadedBytes || 0
+                  )}
+                </Paragraph>
+              </XStack>
+
+              <XStack jc="space-between" w="100%">
+                <Paragraph>{i18n.t('statsDialog.filesAdded')}</Paragraph>
+                <Paragraph>
+                  {sessionStats['cumulative-stats'].filesAdded}
+                </Paragraph>
+              </XStack>
+              <XStack jc="space-between" w="100%">
+                <Paragraph>{i18n.t('statsDialog.timeActive')}</Paragraph>
+                <Paragraph>
+                  {prettyMilliseconds(
+                    sessionStats['cumulative-stats'].secondsActive * 1000,
+                    { secondsDecimalDigits: 0 }
+                  )}
+                </Paragraph>
+              </XStack>
+            </YStack>
           </YStack>
-
-          <YStack>
-            <H2>{i18n.t('statsDialog.sinceAppStart')}</H2>
-            <XStack jc="space-between" w="100%">
-              <Paragraph>{i18n.t('statsDialog.downloaded')}</Paragraph>
-              <Paragraph>
-                {prettyBytes(
-                  sessionStats['current-stats'].downloadedBytes || 0
-                )}
-              </Paragraph>
-            </XStack>
-
-            <XStack jc="space-between" w="100%">
-              <Paragraph>{i18n.t('statsDialog.uploaded')}</Paragraph>
-              <Paragraph>
-                {prettyBytes(sessionStats['current-stats'].uploadedBytes || 0)}
-              </Paragraph>
-            </XStack>
-
-            <XStack jc="space-between" w="100%">
-              <Paragraph>{i18n.t('statsDialog.filesAdded')}</Paragraph>
-              <Paragraph>{sessionStats['current-stats'].filesAdded}</Paragraph>
-            </XStack>
-            <XStack jc="space-between" w="100%">
-              <Paragraph>{i18n.t('statsDialog.timeActive')}</Paragraph>
-              <Paragraph>
-                {prettyMilliseconds(
-                  sessionStats['current-stats'].secondsActive * 1000,
-                  { secondsDecimalDigits: 0 }
-                )}
-              </Paragraph>
-            </XStack>
-          </YStack>
-
-          <YStack>
-            <H2>{i18n.t('statsDialog.sinceBeginning')}</H2>
-            <XStack jc="space-between" w="100%">
-              <Paragraph>{i18n.t('statsDialog.downloaded')}</Paragraph>
-              <Paragraph>
-                {prettyBytes(
-                  sessionStats['cumulative-stats'].downloadedBytes || 0
-                )}
-              </Paragraph>
-            </XStack>
-
-            <XStack jc="space-between" w="100%">
-              <Paragraph>{i18n.t('statsDialog.uploaded')}</Paragraph>
-              <Paragraph>
-                {prettyBytes(
-                  sessionStats['cumulative-stats'].uploadedBytes || 0
-                )}
-              </Paragraph>
-            </XStack>
-
-            <XStack jc="space-between" w="100%">
-              <Paragraph>{i18n.t('statsDialog.filesAdded')}</Paragraph>
-              <Paragraph>
-                {sessionStats['cumulative-stats'].filesAdded}
-              </Paragraph>
-            </XStack>
-            <XStack jc="space-between" w="100%">
-              <Paragraph>{i18n.t('statsDialog.timeActive')}</Paragraph>
-              <Paragraph>
-                {prettyMilliseconds(
-                  sessionStats['cumulative-stats'].secondsActive * 1000,
-                  { secondsDecimalDigits: 0 }
-                )}
-              </Paragraph>
-            </XStack>
-          </YStack>
-        </YStack>
-      </ScrollView>
+        </ScrollView>
+      )}
     </Dialog>
   )
 }
