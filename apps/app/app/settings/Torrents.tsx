@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { useContext, useEffect, useState } from 'react'
 import {
   H2,
@@ -28,28 +28,31 @@ export const Torrents = () => {
     setSession(initialSession)
   }, [initialSession])
 
-  const saveSessionValue = async ({ key, value }) => {
-    try {
-      await sendRPCMessage({
-        method: 'session-set',
-        arguments: {
-          [key]: value,
-        },
-      })
+  const saveSessionValue = useCallback(
+    async ({ key, value }) => {
+      try {
+        await sendRPCMessage({
+          method: 'session-set',
+          arguments: {
+            [key]: value,
+          },
+        })
 
-      fetchSession()
-    } catch (e) {
-      console.log('error updating session info', e)
-    }
-  }
+        fetchSession()
+      } catch (e) {
+        console.log('error updating session info', e)
+      }
+    },
+    [fetchSession, sendRPCMessage]
+  )
 
   // Save port with debounce
   const saveSessionPort = useMemo(
     () =>
-      debounce((number) => {
-        console.log('debounce', number)
+      debounce((port: number) => {
+        saveSessionValue({ key: 'peer-port', value: port })
       }, 500),
-    []
+    [saveSessionValue]
   )
 
   const encryptionModesTexts = encryptionModes.map((mode) =>
