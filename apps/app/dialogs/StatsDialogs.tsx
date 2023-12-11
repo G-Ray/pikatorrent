@@ -17,6 +17,7 @@ import { Dialog } from '../components/reusable/Dialog'
 import { useSessionStats } from '../hooks/useSessionStats'
 import { Activity } from '@tamagui/lucide-icons'
 import { useI18n } from '../hooks/use18n'
+import { default as config } from '../config'
 
 const refreshInterval = 1000
 
@@ -51,10 +52,12 @@ export const StatsDialog = () => {
           flexShrink={1}
           pr={media.gtXs ? '$2' : 0}
         >
-          <SpeedCharts
-            sessionStats={sessionStats}
-            refreshInterval={refreshInterval}
-          />
+          {config.FEATURES_FLAGS.includes('speedCharts') && (
+            <SpeedCharts
+              sessionStats={sessionStats}
+              refreshInterval={refreshInterval}
+            />
+          )}
           <YStack>
             <H2>{i18n.t('statsDialog.torrentsCount')}</H2>
             <XStack jc="space-between" w="100%">
