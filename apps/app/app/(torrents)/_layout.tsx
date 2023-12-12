@@ -52,6 +52,9 @@ const SearchBarWithAddButton = () => {
               size: '$5',
               br: 50,
             })}
+            style={{
+              textDecoration: 'none',
+            }}
           >
             {i18n.t('torrents.add')}
           </Button>
