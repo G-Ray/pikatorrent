@@ -39,10 +39,9 @@ export const loadSettings = () => {
     const settingsFileData = fs.readFileSync(settingsFilePath)
     if (settingsFileData) {
       const loadedSaveSettings = JSON.parse(settingsFileData.toString())
-      return {
+      settings = {
         ...settings,
         ...loadedSaveSettings,
-        nodeId: loadedSaveSettings.nodeId || settings.nodeId,
       }
     }
   }
