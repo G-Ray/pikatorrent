@@ -39,7 +39,7 @@ const SearchBarWithAddButton = () => {
   return (
     <Card mx="auto" w="100%" maxWidth={DESKTOP_MAX_CONTENT_WIDTH}>
       <XStack bc="$backgroundTransparent" gap="$2">
-        <Link asChild href="/add">
+        <Link href="/add">
           <Button
             theme="yellow"
             icon={PlusCircle}
@@ -52,9 +52,6 @@ const SearchBarWithAddButton = () => {
               size: '$5',
               br: 50,
             })}
-            style={{
-              textDecoration: 'none',
-            }}
           >
             {i18n.t('torrents.add')}
           </Button>

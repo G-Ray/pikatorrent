@@ -10,7 +10,7 @@ export const ButtonLink = ({ title, href, segment, icon }) => {
   const isActive = segments[0] === segment
 
   return (
-    <Link href={href} asChild>
+    <Link href={href}>
       <Button
         size="$5"
         br={50}
@@ -20,9 +20,6 @@ export const ButtonLink = ({ title, href, segment, icon }) => {
         {...(isActive && {
           color: '$yellow9',
         })}
-        style={{
-          textDecoration: 'none',
-        }}
       >
         {media.gtXs && title}
       </Button>

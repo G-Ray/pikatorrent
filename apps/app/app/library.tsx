@@ -78,9 +78,6 @@ export default function Library() {
               hoverTheme
               borderColor={'$yellow7'}
               icon={Download}
-              style={{
-                textDecoration: 'none',
-              }}
               onPress={() => handleDownloadPress(t)}
             >
               {i18n.t('library.download')}
