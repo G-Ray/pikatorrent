@@ -27,8 +27,6 @@ import { openExternalLink } from '../lib/links'
 import { useI18n } from '../hooks/use18n'
 
 function readFileToBase64(document: DocumentPicker.DocumentResult) {
-  const i18n = useI18n()
-
   return new Promise((resolve, reject) => {
     if (Platform.OS === 'web') {
       const reader = new FileReader()
