@@ -13,7 +13,6 @@ export const Select = ({
   options,
   optionsTexts,
 }) => {
-  console.log('trad label', label)
   const theme = useThemeName()
   const valueIndex = options.findIndex((v) => v === value)
   const displayedValue = optionsTexts[valueIndex]
