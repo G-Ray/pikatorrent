@@ -1,10 +1,8 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { AcceptOrRejectPeerDialog } from '../dialogs/AcceptOrRejectPeerDialog'
 import isElectron from 'is-electron'
-import { NodeContext } from '../contexts/NodeContext'
 
 export const PeerRequest = () => {
-  const node = useContext(NodeContext)
   const [pendingPeer, setPendingPeer] = useState(null)
   const eventResponse = useRef(null)
 
