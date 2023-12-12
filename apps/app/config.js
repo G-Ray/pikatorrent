@@ -10,6 +10,7 @@ const development = {
 const production = {
   SIGNALING_URL: 'wss://hub.pikatorrent.com',
   APP_URL: 'https://app.pikatorrent.com',
+  FEATURES_FLAGS: [],
 }
 
 module.exports = NODE_ENV === 'production' ? production : development
