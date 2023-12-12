@@ -30,7 +30,7 @@
     "@tamagui/use-force-update": "1.79.10",
     "bowser": "^2.11.0",
     "burnt": "^0.10.0",
-    "expo": "^49.0.19",
+    "expo": "^49.0.21",
     "expo-barcode-scanner": "~12.5.3",
     "expo-build-properties": "~0.8.3",
     "expo-constants": "~14.4.2",
