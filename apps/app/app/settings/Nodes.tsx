@@ -6,7 +6,6 @@ import {
   ListItem,
   Paragraph,
   RadioGroup,
-  Theme,
   XStack,
   YGroup,
   YStack,
@@ -19,7 +18,7 @@ import { QRCode } from '../../components/reusable/QRCode'
 import { Platform } from 'react-native'
 import { ScanQRCodeDialog } from '../../dialogs/ScanQRCodeDialog'
 import { getDeviceName } from '../../lib/device'
-import { Camera, Clipboard } from '@tamagui/lucide-icons'
+import { Camera, Clipboard, Delete } from '@tamagui/lucide-icons'
 import { AcceptedOrRejectedPeers } from '../../components/AcceptedOrRejectPeers'
 import { AddNodeDialog } from '../../dialogs/AddNodeDialog'
 import { SettingLayout } from '../../components/SettingLayout'
@@ -108,8 +107,19 @@ const NodesList = ({
   updateSelectedNodeId,
   handleDeleteNode,
 }) => {
+  const [deletingNodeId, setDeletingNodeId] = useState(null)
+
   return (
     <YGroup bordered size="$4">
+      {deletingNodeId !== null && (
+        <ConfirmNodeDeleteAlertDialog
+          onConfirm={() => {
+            handleDeleteNode(deletingNodeId)
+            setDeletingNodeId(null)
+          }}
+          onOpenChange={() => setDeletingNodeId(null)}
+        />
+      )}
       {(Platform.OS !== 'web' || isElectron()) && (
         <ListItem gap="$4">
           <RadioGroup
@@ -123,8 +133,8 @@ const NodesList = ({
           Local node
         </ListItem>
       )}
-      {nodes.map((node) => (
-        <YGroup.Item key={node.id}>
+      {nodes.map((node, index) => (
+        <YGroup.Item key={index}>
           <ListItem gap="$4">
             <RadioGroup
               value={settings.selectedNodeId}
@@ -136,11 +146,18 @@ const NodesList = ({
             </RadioGroup>
             {node.name}
             {settings.selectedNodeId !== node.id && (
-              <ConfirmNodeDeleteAlertDialog
-                onConfirm={() => {
-                  handleDeleteNode(node.id)
-                }}
-              />
+              <>
+                <Button
+                  icon={Delete}
+                  theme="red"
+                  size="$2"
+                  onPress={() => {
+                    setDeletingNodeId(node.id)
+                  }}
+                >
+                  Delete
+                </Button>
+              </>
             )}
           </ListItem>
         </YGroup.Item>
