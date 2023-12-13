@@ -56,8 +56,13 @@ const Dialog = ({
 
       if (open == undefined) {
         // Dialog is locally controlled
-        setLocalOpen(false)
-        return true
+        if (localOpen === true) {
+          setLocalOpen(false)
+          return true
+        }
+
+        // This dialog is not concerned by this event, so bubble up the event
+        return false
       }
 
       return false
@@ -69,7 +74,7 @@ const Dialog = ({
     )
 
     return () => backHandler.remove()
-  }, [onOpenChange, open])
+  }, [onOpenChange, open, localOpen])
 
   const handleOpenChange = (isOpen: boolean) => {
     setLocalOpen(isOpen)
