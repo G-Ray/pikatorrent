@@ -15,7 +15,7 @@ export function ConfirmNodeDeleteAlertDialog({ onConfirm }) {
           Delete
         </Button>
       }
-      snapPointsMode="fit"
+      // snapPointsMode="fit"
       title={i18n.t('confirmNodeDeleteAlertDialog.title')}
     >
       <Paragraph>
