@@ -1,6 +1,6 @@
 import { Delete } from '@tamagui/lucide-icons'
 import React from 'react'
-import { Button, Paragraph, XStack } from 'tamagui'
+import { Button, Paragraph, YStack } from 'tamagui'
 
 import { Dialog } from '../components/reusable/Dialog'
 import { useI18n } from '../hooks/use18n'
@@ -15,21 +15,22 @@ export function ConfirmNodeDeleteAlertDialog({ onConfirm }) {
           Delete
         </Button>
       }
+      snapPointsMode="fit"
       title={i18n.t('confirmNodeDeleteAlertDialog.title')}
     >
       <Paragraph>
         {i18n.t('confirmNodeDeleteAlertDialog.confirmMessage')}
       </Paragraph>
-      <XStack space="$3" justifyContent="flex-end">
-        <Dialog.Close asChild>
+      <YStack space="$4" my="$4">
+        <Dialog.Close displayWhenAdapted asChild>
           <Button>{i18n.t('confirmNodeDeleteAlertDialog.cancel')}</Button>
         </Dialog.Close>
-        <Dialog.Close asChild onPress={onConfirm}>
+        <Dialog.Close displayWhenAdapted asChild onPress={onConfirm}>
           <Button theme="red">
             {i18n.t('confirmNodeDeleteAlertDialog.delete')}
           </Button>
         </Dialog.Close>
-      </XStack>
+      </YStack>
     </Dialog>
   )
 }
