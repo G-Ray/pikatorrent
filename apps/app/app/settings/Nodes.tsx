@@ -128,13 +128,11 @@ const NodesList = ({
           <ListItem
             gap="$4"
             iconAfter={
-              <Theme reset>
-                <ConfirmNodeDeleteAlertDialog
-                  onConfirm={() => {
-                    handleDeleteNode(node.id)
-                  }}
-                />
-              </Theme>
+              <ConfirmNodeDeleteAlertDialog
+                onConfirm={() => {
+                  handleDeleteNode(node.id)
+                }}
+              />
             }
           >
             <RadioGroup
