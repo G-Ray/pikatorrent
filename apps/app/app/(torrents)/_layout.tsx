@@ -1,5 +1,5 @@
 import React, { useContext, useMemo, useState } from 'react'
-import { FlatList } from 'react-native'
+import { FlatList, Platform } from 'react-native'
 import Fuse from 'fuse.js'
 
 import {
@@ -39,7 +39,8 @@ const SearchBarWithAddButton = () => {
   return (
     <Card mx="auto" w="100%" maxWidth={DESKTOP_MAX_CONTENT_WIDTH}>
       <XStack bc="$backgroundTransparent" gap="$2">
-        <Link href="/add">
+        {/* Workaround to avoid textDecoration on Firefox */}
+        <Link href="/add" asChild={Platform.OS !== 'web'}>
           <Button
             theme="yellow"
             icon={PlusCircle}
