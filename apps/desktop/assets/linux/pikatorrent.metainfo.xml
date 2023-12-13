@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
   <id>com.pikatorrent.PikaTorrent</id>
-  
+
   <name>PikaTorrent</name>
   <summary>A modern, simple, connected, and electric BitTorrent app ⚡</summary>
 
   <url type="homepage">https://www.pikatorrent.com</url>
   <url type="bugtracker">https://github.com/G-Ray/pikatorrent/issues</url>
   <url type="help">https://github.com/G-Ray/pikatorrent</url>
-  
+
   <metadata_license>CC-BY-SA-4.0</metadata_license>
   <project_license>GPL-3.0-only</project_license>
 
   <content_rating type="oars-1.0" />
-  
+
   <supports>
     <control>pointing</control>
     <control>keyboard</control>
     <control>touch</control>
   </supports>
-  
+
   <description>
     <p>Supercharge your torrents with PikaTorrent ⚡</p>
 
@@ -31,28 +31,41 @@
       <li>Categorize your torrents with labels</li>
       <li>Quickly filter your torrents with a fuzzy search &amp; labels</li>
       <li>Edit your favorite search engines to quickly find torrents online</li>
-      <li>Link the Android app with the desktop app to control your torrents remotely. No need to setup a server or register an account!</li>
+      <li>Link the Android app with the desktop app to control your torrents remotely. No need to
+        setup a server or register an account!</li>
     </ul>
   </description>
-  
+
   <launchable type="desktop-id">com.pikatorrent.PikaTorrent.desktop</launchable>
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/G-Ray/pikatorrent/df13eb2a7055dc2acf774212a09dbc72c4bfe3e5/apps/site/public/desktop-light.png</image>
+      <image>https://www.pikatorrent.com/desktop-light.png</image>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/G-Ray/pikatorrent/df13eb2a7055dc2acf774212a09dbc72c4bfe3e5/apps/site/public/desktop-dark.png</image>
+      <image>https://www.pikatorrent.com/desktop-dark.png</image>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/G-Ray/pikatorrent/df13eb2a7055dc2acf774212a09dbc72c4bfe3e5/apps/site/public/mobile-light.png</image>
+      <image>https://www.pikatorrent.com/mobile-light.png</image>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/G-Ray/pikatorrent/df13eb2a7055dc2acf774212a09dbc72c4bfe3e5/apps/site/public/mobile-dark.png</image>
+      <image>https://www.pikatorrent.com/mobile-dark.png</image>
     </screenshot>
   </screenshots>
 
   <releases>
-  <release version="0.8.1" date="2023-09-30">
+    <release version="0.9.0" date="2023-12-13">
+      <description>
+        <ul>
+          <li>Added a library to quickly download free torrents 🍿</li>
+          <li>Allow removing a torrent while keeping data</li>
+          <li>Dark theme is now applied automatically on Linux 🐧</li>
+          <li>Added statistics dialog in about page 📈</li>
+          <li>Updated translations and German 🇩🇪 language</li>
+          <li>Interface, usability improvements, + bug fixes 🐛</li>
+        </ul>
+      </description>
+    </release>
+    <release version="0.8.1" date="2023-09-30">
       <description>
         <ul>
           <li>A refreshed interface, with true dark theme support (save battery on OLED screens) 🕶️</li>
