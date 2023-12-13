@@ -29,7 +29,8 @@ export default function About() {
       w="100%"
       flexShrink={1}
       gap="$4"
-      px={media.gtXs ? '$8' : '$2'}
+      pt="$4"
+      px={media.gtXs ? '$8' : '$4'}
       alignSelf="center"
       {...(media.gtXs && { w: DESKTOP_MAX_CONTENT_WIDTH })}
     >

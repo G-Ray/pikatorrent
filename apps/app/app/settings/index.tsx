@@ -17,8 +17,9 @@ export default function Settings() {
         alignSelf="center"
         flexShrink={1}
         gap="$8"
+        pt="$4"
         pb="$4"
-        px={media.gtXs ? '$8' : '$2'}
+        px={media.gtXs ? '$8' : '$4'}
         {...(media.gtXs && { w: DESKTOP_MAX_CONTENT_WIDTH })}
       >
         <Nodes />
