@@ -40,7 +40,7 @@ const SearchBarWithAddButton = () => {
     <Card mx="auto" w="100%" maxWidth={DESKTOP_MAX_CONTENT_WIDTH}>
       <XStack bc="$backgroundTransparent" gap="$2">
         {/* Workaround to avoid textDecoration on Firefox */}
-        <Link href="/add" asChild={Platform.OS !== 'web'}>
+        <Link href="/add" asChild>
           <Button
             theme="yellow"
             icon={PlusCircle}

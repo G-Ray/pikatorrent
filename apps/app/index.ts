@@ -9,6 +9,7 @@ import { createPersistentNotification } from './lib/persistentNotification'
 
 if (Platform.OS === 'web') {
   require('@tamagui/core/reset.css')
+  require('./index.css')
 }
 
 if (Platform.OS !== 'web') {
