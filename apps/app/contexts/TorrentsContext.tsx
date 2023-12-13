@@ -59,6 +59,7 @@ export const TorrentsProvider = ({ children }) => {
       })
     } catch (e) {
       console.log('Error fetching torrent', e)
+      setTorrents([])
     }
   }, [sendRPCMessage, toast, i18n])
 
