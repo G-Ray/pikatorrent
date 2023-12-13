@@ -38,20 +38,22 @@ export const RemoveTorrentDialog = ({
           <Paragraph>
             {i18n.t('removeTorrentDialog.warningMessage')} {name} ?
           </Paragraph>
-          <YStack space="$4" ai="center" f={1}>
+          <YStack space="$4" my="$4">
             {isRemovableWithoutData && (
               <Dialog.Close displayWhenAdapted asChild>
                 <Button
                   onPress={() => torrentsFunctions.remove(id, true)}
                   borderColor={'$red7'}
-                  bc="$backgroundStrong"
+                  bc={theme.startsWith('light') ? 'white' : 'black'}
                 >
                   {i18n.t('removeTorrentDialog.remove')}
                 </Button>
               </Dialog.Close>
             )}
             {isRemovableWithoutData && (
-              <Paragraph fontWeight={'bold'}>OR</Paragraph>
+              <Paragraph textAlign="center" fontWeight={'bold'}>
+                OR
+              </Paragraph>
             )}
             <Dialog.Close displayWhenAdapted asChild>
               <Button
