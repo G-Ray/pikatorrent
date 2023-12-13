@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link, useSegments } from 'expo-router'
 import { Button, useMedia, useThemeName } from 'tamagui'
+import { Platform } from 'react-native'
 
 export const ButtonLink = ({ title, href, segment, icon }) => {
   const media = useMedia()
@@ -10,7 +11,8 @@ export const ButtonLink = ({ title, href, segment, icon }) => {
   const isActive = segments[0] === segment
 
   return (
-    <Link href={href}>
+    <Link href={href} asChild={Platform.OS !== 'web'}>
+      {/* asChild workaround to avoid textDecoration on Firefox */}
       <Button
         size="$5"
         br={50}
