@@ -125,16 +125,7 @@ const NodesList = ({
       )}
       {nodes.map((node) => (
         <YGroup.Item key={node.id}>
-          <ListItem
-            gap="$4"
-            iconAfter={
-              <ConfirmNodeDeleteAlertDialog
-                onConfirm={() => {
-                  handleDeleteNode(node.id)
-                }}
-              />
-            }
-          >
+          <ListItem gap="$4">
             <RadioGroup
               value={settings.selectedNodeId}
               onValueChange={updateSelectedNodeId}
@@ -144,6 +135,13 @@ const NodesList = ({
               </RadioGroup.Item>
             </RadioGroup>
             {node.name}
+            {settings.selectedNodeId !== node.id && (
+              <ConfirmNodeDeleteAlertDialog
+                onConfirm={() => {
+                  handleDeleteNode(node.id)
+                }}
+              />
+            )}
           </ListItem>
         </YGroup.Item>
       ))}
