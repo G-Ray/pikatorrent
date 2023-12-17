@@ -2,9 +2,9 @@
   "name": "@pikatorrent/app",
   "version": "0.9.0",
   "scripts": {
-    "build:android:development": "cross-env eas build --profile development --platform android --local",
-    "build:android:preview": "cross-env eas build --profile preview --platform android --local",
-    "build:android:production": "cross-env eas build --profile production --platform android --local",
+    "build:android:development": "eas build --profile development --platform android --local",
+    "build:android:preview": "eas build --profile preview --platform android --local",
+    "build:android:production": "eas build --profile production --platform android --local",
     "start": "cross-env APP_VARIANT=development expo start --dev-client",
     "android": "cross-env APP_VARIANT=development expo start --android --dev-client",
     "ios": "cross-env APP_VARIANT=development expo start --ios --dev-client",
