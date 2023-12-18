@@ -21,6 +21,8 @@
       "title": "Nodes",
       "listLabel": "Local & remote nodes",
       "qrCodeLabel": "QR code to link the mobile app",
+      "hideQRCode": "Hide QR Code",
+      "showQRCode": "Show QR Code",
       "secretLinkLabel": "Secret url to link app.pikatorrent.com",
       "copyLink": "Copy link",
       "qrCodeScanButtonLabel": "Scan QR code",

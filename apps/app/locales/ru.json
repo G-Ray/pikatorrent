@@ -21,6 +21,8 @@
       "title": "Узлы",
       "listLabel": "Локальные & удалённые узлы",
       "qrCodeLabel": "QR-код для перехода к мобильному приложению",
+      "hideQRCode": "Hide QR Code",
+      "showQRCode": "Show QR Code",
       "secretLinkLabel": "Секретный URL для app.pikatorrent.com",
       "copyLink": "Копировать ссылку",
       "qrCodeScanButtonLabel": "Сканировать QR-код",

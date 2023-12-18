@@ -18,7 +18,13 @@ import { QRCode } from '../../components/reusable/QRCode'
 import { Platform } from 'react-native'
 import { ScanQRCodeDialog } from '../../dialogs/ScanQRCodeDialog'
 import { getDeviceName } from '../../lib/device'
-import { Camera, Clipboard, Delete } from '@tamagui/lucide-icons'
+import {
+  Camera,
+  ChevronDown,
+  ChevronUp,
+  Clipboard,
+  Delete,
+} from '@tamagui/lucide-icons'
 import { AcceptedOrRejectedPeers } from '../../components/AcceptedOrRejectPeers'
 import { AddNodeDialog } from '../../dialogs/AddNodeDialog'
 import { SettingLayout } from '../../components/SettingLayout'
@@ -170,7 +176,7 @@ const LocalNodeQrcode = () => {
   const i18n = useI18n()
   const toast = useToastController()
   const localNode = useLocalNode()
-
+  const [isDisplayed, setIsDisplayed] = useState(false)
   const [qrCodeXML, setQrCodeXML] = useState(null)
   const linkURL = localNode?.settings?.nodeId
     ? `${APP_URL}/settings?nodeId=${
@@ -195,9 +201,25 @@ const LocalNodeQrcode = () => {
       <>
         <SettingLayout>
           <Paragraph>{i18n.t('settings.nodes.qrCodeLabel')}</Paragraph>
-          <Card ai="center" jc="center" bordered p="$1" bg="white">
-            <QRCode xml={qrCodeXML} />
-          </Card>
+          <YStack gap="$4">
+            <XStack alignSelf="flex-end">
+              <Button
+                onPress={() => setIsDisplayed(!isDisplayed)}
+                icon={isDisplayed ? ChevronUp : ChevronDown}
+              >
+                {i18n.t(
+                  isDisplayed
+                    ? 'settings.nodes.hideQRCode'
+                    : 'settings.nodes.showQRCode'
+                )}
+              </Button>
+            </XStack>
+            {isDisplayed && (
+              <Card ai="center" jc="center" bordered p="$1" bg="white">
+                <QRCode xml={qrCodeXML} />
+              </Card>
+            )}
+          </YStack>
         </SettingLayout>
         <SettingLayout>
           <Paragraph>{i18n.t('settings.nodes.secretLinkLabel')}</Paragraph>

@@ -21,6 +21,8 @@
       "title": "Nœuds",
       "listLabel": "Nœuds local et à distance",
       "qrCodeLabel": "QR code pour lier l'application mobile",
+      "hideQRCode": "Hide QR Code",
+      "showQRCode": "Show QR Code",
       "secretLinkLabel": "Url secrète pour lier app.pikatorrent.com",
       "copyLink": "Copier le lien",
       "qrCodeScanButtonLabel": "Scanner un QR code",
