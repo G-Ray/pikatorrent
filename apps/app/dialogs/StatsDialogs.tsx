@@ -33,7 +33,7 @@ export const StatsDialog = () => {
       trigger={
         <Button
           icon={Activity}
-          bc={theme.startsWith('light') ? 'white' : 'black'}
+          variant="outlined"
           theme="yellow"
           hoverTheme
           borderColor={'$yellow7'}

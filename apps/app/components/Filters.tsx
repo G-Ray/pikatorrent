@@ -12,7 +12,6 @@ export const Filters = ({ onChangeFilters }) => {
   const media = useMedia()
   const { labels } = useTorrents()
   const [filteredLabels, setFilteredLabels] = useState<string[]>([])
-  const theme = useThemeName()
 
   return (
     <Dialog
@@ -20,7 +19,8 @@ export const Filters = ({ onChangeFilters }) => {
       trigger={
         <Button
           icon={Tags}
-          bc={/^light/.test(theme) ? 'white' : 'black'}
+          themeReset
+          bc="$backgroundTransparent"
           {...(filteredLabels.length > 0 && { color: '$blue9' })}
           scaleIcon={1.5}
         >

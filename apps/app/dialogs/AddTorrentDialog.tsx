@@ -173,7 +173,7 @@ export const AddTorrentDialog = () => {
               )}
               value={magnet}
               onChangeText={setMagnet}
-              bc={theme.startsWith('light') ? 'white' : 'black'}
+              bc={'$backgroundTransparent'}
               borderColor={'$yellow7'}
             />
           </Fieldset>

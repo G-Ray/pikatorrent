@@ -117,7 +117,7 @@ export default function Torrents() {
               borderRightWidth={0}
               borderLeftWidth={0}
               br={0}
-              bc={/^light/.test(theme) ? 'white' : 'black'}
+              bc="$backgroundTransparent"
               placeholderTextColor={'$color'}
             />
           </XStack>
@@ -144,7 +144,6 @@ const StartOrPauseAllTorrents = () => {
   const { startAll, pauseAll } = useTorrents()
   const { sessionStats } = useContext(TorrentsContext)
   const media = useMedia()
-  const theme = useThemeName()
 
   const isAllTorrentsActive = sessionStats.pausedTorrentCount === 0
 
@@ -152,7 +151,8 @@ const StartOrPauseAllTorrents = () => {
     <Button
       icon={isAllTorrentsActive ? PauseCircle : PlayCircle}
       onPress={isAllTorrentsActive ? pauseAll : startAll}
-      bc={/^light/.test(theme) ? 'white' : 'black'}
+      themeReset
+      bc="$backgroundTransparent"
       scaleIcon={1.5}
     >
       {media.gtXs

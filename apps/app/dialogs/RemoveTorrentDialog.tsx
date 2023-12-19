@@ -20,7 +20,7 @@ export const RemoveTorrentDialog = ({
       <Button
         icon={Trash}
         theme="red"
-        bc={theme.startsWith('light') ? 'white' : 'black'}
+        variant="outlined"
         hoverTheme
         borderColor={'$red7'}
         color="$red9"
@@ -44,7 +44,7 @@ export const RemoveTorrentDialog = ({
                 <Button
                   onPress={() => torrentsFunctions.remove(id, true)}
                   borderColor={'$red7'}
-                  bc={theme.startsWith('light') ? 'white' : 'black'}
+                  variant="outlined"
                 >
                   {i18n.t('removeTorrentDialog.remove')}
                 </Button>

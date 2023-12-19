@@ -55,7 +55,7 @@ export const FilesListDialog = ({ torrent, toast }) => {
     <>
       <Button
         icon={List}
-        bc={theme.startsWith('light') ? 'white' : 'black'}
+        variant="outlined"
         theme="yellow"
         hoverTheme
         borderColor={'$yellow7'}
@@ -122,7 +122,7 @@ const FileRow = ({ torrent, file, toast }) => {
         {file.bytesCompleted / file.length === 1 && (
           <XStack gap="$4">
             <Button
-              bc={theme.startsWith('light') ? 'white' : 'black'}
+              variant="outlined"
               theme="yellow"
               hoverTheme
               borderColor={'$yellow7'}
@@ -144,7 +144,7 @@ const FileRow = ({ torrent, file, toast }) => {
             </Button>
             {Platform.OS !== 'web' && (
               <Button
-                bc={theme.startsWith('light') ? 'white' : 'black'}
+                variant="outlined"
                 theme="yellow"
                 hoverTheme
                 borderColor={'$yellow7'}
@@ -169,7 +169,7 @@ const FileRow = ({ torrent, file, toast }) => {
             )}
             {isElectron() && (
               <Button
-                bc={theme.startsWith('light') ? 'white' : 'black'}
+                variant="outlined"
                 theme="yellow"
                 hoverTheme
                 borderColor={'$yellow7'}

@@ -36,9 +36,9 @@ import { useToastController } from '@tamagui/toast'
 import { PRIVATE_DOWNLOAD_DIR } from '../lib/transmission'
 import { useI18n } from '../hooks/use18n'
 
-export const TorrentCard = ({ torrent }) => {
+export const TorrentCard = ({ torrent, theme = 'yellow' }) => {
   const media = useMedia()
-  const theme = useThemeName()
+  const themeName = useThemeName()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const { start, pause } = useTorrents()
@@ -51,19 +51,13 @@ export const TorrentCard = ({ torrent }) => {
 
   return (
     <>
-      <Card
-        key={torrent.id}
-        size="$4"
-        pr="$2"
-        py="$2"
-        bc={theme === 'light' ? 'white' : 'black'}
-      >
+      <Card key={torrent.id} size="$4" pr="$2" py="$2" transparent>
         <XStack ai="center">
           <XStack>
             {TORRENT_STATUSES[torrent.status] === TORRENT_STATUSES[0] ? (
               <Button
                 onPress={() => start(torrent.id)}
-                bc={theme === 'light' ? 'white' : 'black'}
+                bc={themeName === 'light' ? 'white' : 'black'}
                 icon={PlayCircle}
                 size="$5"
                 circular
@@ -72,7 +66,7 @@ export const TorrentCard = ({ torrent }) => {
             ) : (
               <Button
                 onPress={() => pause(torrent.id)}
-                bc={theme === 'light' ? 'white' : 'black'}
+                bc={themeName === 'light' ? 'white' : 'black'}
                 icon={PauseCircle}
                 size="$5"
                 circular
@@ -91,7 +85,7 @@ export const TorrentCard = ({ torrent }) => {
             }}
           >
             <TorrentActions
-              theme={theme}
+              theme={themeName}
               torrent={torrent}
               handleOpenFolder={handleOpenFolder}
               open={isMenuOpen}
@@ -103,12 +97,12 @@ export const TorrentCard = ({ torrent }) => {
             <Progress
               mb="$2"
               value={Math.floor(torrent.percentDone * 100)}
-              theme="yellow"
-              borderColor={'$yellow7'}
+              theme={theme}
+              borderColor={`$${theme}7`}
               bordered
               size="$2"
             >
-              <Progress.Indicator animation="lazy" bc={'$yellow9'} />
+              <Progress.Indicator animation="lazy" bc={`$${theme}9`} />
             </Progress>
             <XStack jc="space-between">
               <TorrentInfo torrent={torrent} />
@@ -173,7 +167,7 @@ const TorrentActions = ({ torrent, handleOpenFolder, open, onOpenChange }) => {
           <Button
             icon={FolderOpen}
             onPress={handleOpenFolder}
-            bc={theme.startsWith('light') ? 'white' : 'black'}
+            variant="outlined"
             theme="yellow"
             hoverTheme
             borderColor={'$yellow7'}
@@ -206,7 +200,7 @@ const ShareButtons = ({ toast, torrent }) => {
   if (Platform.OS === 'web') {
     return (
       <Button
-        bc={theme.startsWith('light') ? 'white' : 'black'}
+        variant="outlined"
         theme="yellow"
         hoverTheme
         borderColor={'$yellow7'}
@@ -227,7 +221,7 @@ const ShareButtons = ({ toast, torrent }) => {
   // Native
   return (
     <Button
-      bc={theme.startsWith('light') ? 'white' : 'black'}
+      variant="outlined"
       theme="yellow"
       hoverTheme
       borderColor={'$yellow7'}

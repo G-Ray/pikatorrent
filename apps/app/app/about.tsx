@@ -48,7 +48,7 @@ export default function About() {
         <Paragraph>{i18n.t('about.reportBugOrFeature')}</Paragraph>
       </XStack>
       <Button
-        bc={theme.startsWith('light') ? 'white' : 'black'}
+        variant="outlined"
         theme="yellow"
         hoverTheme
         borderColor={'$yellow7'}
@@ -61,7 +61,7 @@ export default function About() {
         <Paragraph>{i18n.t('about.githubLinkDescription')}</Paragraph>
       </Button>
       <Button
-        bc={theme.startsWith('light') ? 'white' : 'black'}
+        variant="outlined"
         theme="yellow"
         hoverTheme
         borderColor={'$yellow7'}

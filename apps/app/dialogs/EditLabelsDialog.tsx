@@ -47,7 +47,7 @@ export const EditLabelsDialog = ({ torrentsFunctions, torrent }) => {
     <>
       <Button
         icon={Tag}
-        bc={theme.startsWith('light') ? 'white' : 'black'}
+        variant="outlined"
         theme="yellow"
         hoverTheme
         borderColor={'$yellow7'}
@@ -86,7 +86,7 @@ export const EditLabelsDialog = ({ torrentsFunctions, torrent }) => {
                 <Input
                   borderColor="$yellow7"
                   flex={1}
-                  bc={theme.startsWith('light') ? 'white' : 'black'}
+                  bc="$backgroundTransparent"
                   id="label"
                   onChangeText={setLabel}
                 />

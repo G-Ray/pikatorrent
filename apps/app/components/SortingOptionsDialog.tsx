@@ -41,7 +41,7 @@ export const SortingOptionsDialog = ({
           icon={
             sortOptions.isReversed ? ArrowDownWideNarrow : ArrowDownNarrowWide
           }
-          bc={theme.startsWith('light') ? 'white' : 'black'}
+          transparent
           scaleIcon={1.5}
         >
           {media.gtXs && i18n.t('sortingOptionsDialog.' + sortOptions.property)}

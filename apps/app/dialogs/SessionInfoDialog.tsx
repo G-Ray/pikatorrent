@@ -1,12 +1,5 @@
 import React from 'react'
-import {
-  Button,
-  Paragraph,
-  ScrollView,
-  Stack,
-  TextArea,
-  useThemeName,
-} from 'tamagui'
+import { Button, Paragraph, ScrollView, Stack, TextArea } from 'tamagui'
 import { Platform } from 'react-native'
 
 import { Dialog } from '../components/reusable/Dialog'
@@ -15,7 +8,6 @@ import { useI18n } from '../hooks/use18n'
 
 export const SessionsInfoDialog = ({ session }) => {
   const i18n = useI18n()
-  const theme = useThemeName()
 
   return (
     <Dialog
@@ -23,7 +15,7 @@ export const SessionsInfoDialog = ({ session }) => {
       trigger={
         <Button
           icon={Info}
-          bc={theme.startsWith('light') ? 'white' : 'black'}
+          variant="outlined"
           theme="yellow"
           hoverTheme
           borderColor={'$yellow7'}

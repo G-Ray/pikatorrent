@@ -44,8 +44,8 @@ export const SearchEngineSelector = ({
           w={media.gtXs ? 180 : '$6'}
           size={media.gtXs ? '$4' : '$2'}
           iconAfter={ChevronDown}
-          bc={theme.startsWith('light') ? 'white' : 'black'}
           borderWidth={0}
+          transparent
         >
           <XStack f={1} ai="center" jc="space-between">
             <XStack f={1} gap="$2">
@@ -90,15 +90,13 @@ export const SearchEngineSelector = ({
           <Select.Viewport minWidth={200}>
             <XStack>
               <Select.Group space="$0">
-                <Select.Label
-                  bc={theme.startsWith('light') ? 'white' : 'black'}
-                >
+                <Select.Label bc="$backgroundTransparent">
                   {i18n.t('torrents.searchEngineSelectorLabel')}
                 </Select.Label>
                 {engines.map((engine, i) => {
                   return (
                     <Select.Item
-                      bc={theme.startsWith('light') ? 'white' : 'black'}
+                      bc="$backgroundTransparent"
                       index={i}
                       key={engine.name}
                       value={engine.name}

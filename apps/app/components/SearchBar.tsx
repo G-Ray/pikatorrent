@@ -52,7 +52,6 @@ export const SearchBar = () => {
       <XStack bc="$backgroundTransparent" gap="$2">
         <Input
           f={1}
-          bc={/^light/.test(theme) ? 'white' : 'black'}
           placeholder={i18n.t('torrents.searchPlaceholder')}
           value={query}
           onChangeText={setQuery}
@@ -62,6 +61,7 @@ export const SearchBar = () => {
           borderLeftWidth={0}
           br={0}
           placeholderTextColor={'$color'}
+          bc="$backgroundTransparent"
         />
         <SearchEngineSelector
           engines={engines}
@@ -74,7 +74,7 @@ export const SearchBar = () => {
             disabled={query.length === 0}
             scaleIcon={1.3}
             borderColor={'$gray7'}
-            bc={/^light/.test(theme) ? 'white' : 'black'}
+            variant="outlined"
           />
         </Form.Trigger>
       </XStack>

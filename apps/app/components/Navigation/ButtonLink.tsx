@@ -1,11 +1,16 @@
 import React from 'react'
 import { Link, useSegments } from 'expo-router'
-import { Button, useMedia, useThemeName } from 'tamagui'
+import { Button, useMedia } from 'tamagui'
 
-export const ButtonLink = ({ title, href, segment, icon }) => {
+export const ButtonLink = ({
+  title,
+  href,
+  segment,
+  icon,
+  theme = 'yellow',
+}) => {
   const media = useMedia()
   const segments = useSegments()
-  const theme = useThemeName()
 
   const isActive = segments[0] === segment
 
@@ -16,9 +21,18 @@ export const ButtonLink = ({ title, href, segment, icon }) => {
         br={50}
         icon={icon}
         scaleIcon={1.4}
-        bc={theme.startsWith('light') ? 'white' : 'black'}
+        variant="outlined"
+        borderWidth={0}
+        hoverStyle={{
+          borderColor: `$${theme}5`,
+        }}
+        focusStyle={{
+          outlineColor: `$${theme}5`,
+          borderWidth: 0,
+        }}
         {...(isActive && {
-          color: '$yellow9',
+          borderColor: `$${theme}5`,
+          color: `$${theme}9`,
         })}
       >
         {media.gtXs && title}

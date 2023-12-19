@@ -73,7 +73,7 @@ export default function Library() {
             <Button
               {...(!media.gtXs && { w: '100%' })}
               alignSelf="center"
-              bc={theme.startsWith('light') ? 'white' : 'black'}
+              variant="outlined"
               theme="yellow"
               hoverTheme
               borderColor={'$yellow7'}
