@@ -14,11 +14,11 @@ import {
 import { DESKTOP_MAX_CONTENT_WIDTH } from '../constants/layout'
 import { Download } from '@tamagui/lucide-icons'
 import { Link, useRouter } from 'expo-router'
-import { TorrentFieldFormatter } from '../components/TorrentFieldFormatter'
 import { library } from '../lib/library'
 import { useI18n } from '../hooks/use18n'
 import { Platform } from 'react-native'
 import isElectron from 'is-electron'
+import { TorrentFieldFormatter } from '../components/screens/torrents/TorrentFieldFormatter'
 
 export default function Library() {
   const media = useMedia()

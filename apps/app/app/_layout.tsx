@@ -18,18 +18,19 @@ import * as Linking from 'expo-linking'
 import * as SplashScreen from 'expo-splash-screen'
 
 import config from '../tamagui.config'
-import { Header, BottomTabs, Sidebar } from '../components'
 import { Platform } from 'react-native'
 
-import { ToastController } from '../components/ToastController'
 import { TorrentsProvider } from '../contexts/TorrentsContext'
 import { NodeProvider } from '../contexts/NodeContext'
-import { PeerRequest } from '../components/PeerRequest'
+import { PeerRequest } from '../components/layout/PeerRequest'
 import { SettingsContext, SettingsProvider } from '../contexts/SettingsContext'
-import { TermsOfUseDialog } from '../dialogs/TermsOfUseDialog'
+import { TermsOfUseDialog } from '../components/dialogs/TermsOfUseDialog'
 import isElectron from 'is-electron'
 import { migrate } from '../lib/migrations'
 import { Portal } from 'tamagui'
+import { Header } from '../components/layout/Header'
+import { BottomTabs, Sidebar } from '../components/layout'
+import { ToastController } from '../components/layout/ToastController'
 
 const screenOptions = {
   title: 'PikaTorrent',

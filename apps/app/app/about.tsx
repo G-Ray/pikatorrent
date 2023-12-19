@@ -1,28 +1,19 @@
 import React from 'react'
-import {
-  Button,
-  Label,
-  Paragraph,
-  XStack,
-  YStack,
-  useMedia,
-  useThemeName,
-} from 'tamagui'
-import { SessionsInfoDialog } from '../dialogs/SessionInfoDialog'
+import { Button, Paragraph, XStack, YStack, useMedia } from 'tamagui'
 import { useSession } from '../hooks/useSession'
 
 import { version } from '../package.json'
 import { DESKTOP_MAX_CONTENT_WIDTH } from '../constants/layout'
 import { ExternalLink, Github, MessageSquare } from '@tamagui/lucide-icons'
 import { openExternalLink } from '../lib/links'
-import { StatsDialog } from '../dialogs/StatsDialogs'
+import { StatsDialog } from '../components/dialogs/Stats/Stats'
 import { useI18n } from '../hooks/use18n'
+import { SessionsInfoDialog } from '../components/dialogs/SessionInfoDialog'
 
 export default function About() {
   const i18n = useI18n()
   const { session } = useSession()
   const media = useMedia()
-  const theme = useThemeName()
 
   return (
     <YStack
