@@ -179,5 +179,15 @@
   "library": {
     "download": "Download",
     "moreToCome": "More to come..."
+  },
+  "alerts": {
+    "storagePermissionRequest": {
+      "title": "Storage permission",
+      "description": "PikaTorrent needs access to storage to save downloaded data."
+    },
+    "storagePermissionDenied": {
+      "title": "Storage permission denied",
+      "description": "'You need to allow storage permission for PikaTorrent.'"
+    }
   }
 }

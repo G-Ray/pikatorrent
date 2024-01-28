@@ -1,4 +1,4 @@
-import { AppState, BackHandler } from 'react-native'
+import { Alert, AppState, BackHandler, PermissionsAndroid } from 'react-native'
 import { EventType } from '@notifee/react-native'
 
 import * as transmission from './transmission'
@@ -7,6 +7,8 @@ import {
   destroyPersistentNotification,
   registerEvents,
 } from './persistentNotification'
+import { requestStoragePermission } from './permissionsAndroid'
+import i18n from '../i18n'
 
 const handleEvents = async ({ type, detail }) => {
   // Start all
@@ -34,16 +36,29 @@ const handleEvents = async ({ type, detail }) => {
 
 let isInitialized = false
 
-const init = () => {
+const createPermissionDeniedAlert = () =>
+  Alert.alert(
+    i18n.t('alerts.storagePermissionDenied.title'),
+    i18n.t('alerts.storagePermissionDenied.description'),
+    [{ text: 'Quit', onPress: quitApp }]
+  )
+
+const init = async () => {
+  isInitialized = true
+
   // Init transmission & persistent notification
   transmission.init()
   createPersistentNotification()
-  isInitialized = true
+
+  const granted = await requestStoragePermission()
+  if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
+    createPermissionDeniedAlert()
+  }
 }
 
 export const initApp = async () => {
   // Next time the app become active, re-init if quitApp has been called
-  AppState.addEventListener('change', (nextAppState) => {
+  AppState.addEventListener('change', async (nextAppState) => {
     if (nextAppState === 'active' && !isInitialized) {
       init()
     }
@@ -52,8 +67,6 @@ export const initApp = async () => {
   // background events handler should be registered only once
   registerEvents(handleEvents)
   init()
-
-  isInitialized = true
 }
 
 export const quitApp = async () => {
