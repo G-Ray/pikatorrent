@@ -1,1 +1,193 @@
-{}
+{
+    "torrents": {
+        "filterListPlaceholder": "Listeyi filtrele...",
+        "add": "Ekle",
+        "startAll": "Tümünü başlat",
+        "pauseAll": "Tümünü duraklat",
+        "searchPlaceholder": "Çevrim içi bir torrent seçin...",
+        "searchEngineSelectorLabel": "Arama motorları",
+        "addYourFirstTorrentTitle": "İlk torrentinizi ekleyin",
+        "addYourFirstTorrentDescription": "Torrentleriniz burada görünecektir",
+        "filteredLabels": "Filtrelenen etiketler"
+    },
+    "settings": {
+        "torrents": {
+            "peerPort": "Eş bağlantı noktası",
+            "title": "Torrent ayarları",
+            "downloadDirectory": "İndirme dizini",
+            "encryption": "Şifreleme",
+            "encryptionModes": {
+                "required": "Gerekli",
+                "preferred": "Tercih edilir",
+                "tolerated": "Kabul edilebilir"
+            },
+            "save": "Kaydet",
+            "enableUTP": "uTP'yi etkinleştir",
+            "enableDHT": "DHT'yi etkinleştir",
+            "enableLPD": "LPD'yi etkinleştir",
+            "enablePEX": "PEX'i etkinleştir",
+            "enablePortForwarding": "Bağlantı noktası yönlendirmeyi etkinleştir"
+        },
+        "nodes": {
+            "loading": "Yükleniyor",
+            "title": "Düğümler",
+            "listLabel": "Yerel ve uzak düğümler",
+            "qrCodeLabel": "Mobil uygulamayı bağlamak için QR kodu",
+            "showQRCode": "QR kodunu göster",
+            "hideQRCode": "QR kodunu gizle",
+            "secretLinkLabel": "app.pikatorrent.com bağlantısı için gizli URL",
+            "acceptedOrRejectedPeers": {
+                "delete": "Sil",
+                "none": "Yok"
+            },
+            "copyLink": "Bağlantıyı kopyala",
+            "qrCodeScanButtonLabel": "QR kodunu tara",
+            "acceptedPeersLabel": "Kabul edilen bağlantılar",
+            "rejectedPeersLabel": "Reddedilen bağlantılar"
+        },
+        "app": {
+            "title": "Uygulama ayarları",
+            "theme": "Tema",
+            "language": "Dil",
+            "searchEngines": "Arama motoru URL'leri (her satırda bir tane)",
+            "reset": "Sıfırla",
+            "searchEnginesInstructions": "%s sorgu ile değiştirilecektir",
+            "invalidUrls": "Geçersiz URL'ler",
+            "save": "Kaydet"
+        }
+    },
+    "about": {
+        "pikatorrentVersion": "PikaTorrent sürümü",
+        "githubLinkDescription": "Github'da bir sorun açın",
+        "transmissionVersion": "Transmission sürümü",
+        "reportBugOrFeature": "Bir hata buldunuz veya bir özellik mi önermek istiyorsunuz?",
+        "discordLinkDescription": "Discord'da bize katılın"
+    },
+    "addNodeDialog": {
+        "title": "Yeni düğüm ekle",
+        "description": "Herhangi bir yerden yönetmek için yeni bir düğüm ekleyin.",
+        "triggerLabel": "Düğüm ekle",
+        "nameLabel": "Ad",
+        "idLabel": "Kimlik",
+        "namePlaceholder": "Ad",
+        "idPlaceholder": "Kimlik",
+        "add": "Ekle"
+    },
+    "acceptOrRejectPeerDialog": {
+        "accept": "Kabul et",
+        "title": "Yeni bağlantıyı yetkilendir",
+        "description": "Yeni bir aygıt pikatorrent'i yönetmek istiyor:",
+        "reject": "Reddet",
+        "warningIfNotRecognize": "Bu aygıtı tanımıyorsanız, reddet üzerine tıklayın."
+    },
+    "directoryPickerDialog": {
+        "title": "Dizin seçici",
+        "privateAppSwitchLabel": "Özel uygulama dizinini kullan",
+        "select": "Seç",
+        "privateAppDescription1": "Özel uygulama dizini kullanmak, diğer uygulamaların indirdiğiniz içeriğe erişmesini engelleyebilir.",
+        "privateAppDescription2": "PikaTorrent'i kaldırırsanız tüm indirmeleriniz silinecektir."
+    },
+    "unsupportedBrowserDialog": {
+        "title": "Desteklenmeyen tarayıcı",
+        "description": "Bu tarayıcı desteklenmiyor. Lütfen pikatorrent'i başka bir tarayıcıda deneyin."
+    },
+    "torrentDialog": {
+        "copyLink": "Bağlantıyı Kopyala",
+        "share": "Paylaş",
+        "editLabels": "Etiketleri Düzenle",
+        "openFolder": "Klasörü Aç",
+        "add": "Ekle",
+        "clearAll": "Tümünü temizle",
+        "remove": "Kaldır",
+        "files": "Dosyalar",
+        "newLabel": "Yeni etiket",
+        "selectedLabels": "Seçilen etiketler",
+        "allLabels": "Tüm etiketler",
+        "noLabels": "Henüz etiket yok.",
+        "addLabelInstruction": "Torrent'i düzenleyerek etiket ekleyin."
+    },
+    "scanQRCodeDialog": {
+        "title": "QR kodunu tara",
+        "cameraPermissionDenied": "Kamera izni reddedildi"
+    },
+    "removeTorrentDialog": {
+        "warningMessage": "Silmek istediğinizden emin misiniz",
+        "remove": "Kaldır",
+        "removeWithData": "Verilerle birlikte kaldır",
+        "title": "Kaldırma onayı"
+    },
+    "filesListDialog": {
+        "title": "Dosyalar",
+        "open": "Aç",
+        "openFolder": "Klasörü Aç",
+        "share": "Paylaş"
+    },
+    "termsOfUseDialog": {
+        "title": "Kullanım koşulları",
+        "termsOfUseMessage": "PikaTorrent'i kullanarak, indirdiğiniz veya paylaştığınız içeriğin tamamen sizin sorumluluğunuzda olduğunu kabul edersiniz.",
+        "privacyPolicyMessage": "Ayrıca kabul ettikleriniz",
+        "privacyPolicy": "gizlilik politikası",
+        "accept": "Kabul et",
+        "cancel": "İptal"
+    },
+    "toasts": {
+        "torrentDownloaded": "Torrent indirildi",
+        "noAppCanOpenFile": "Bu dosyayı işleyecek uygulama yok",
+        "linkCopied": "Bağlantı kopyalandı"
+    },
+    "sortingOptionsDialog": {
+        "name": "Ad",
+        "totalSize": "Boyut ",
+        "reverseOrder": "Tersine sırala",
+        "title": "Sıralama ölçütü",
+        "percentDone": "İlerleme"
+    },
+    "statsDialog": {
+        "title": "İstatistikler",
+        "torrentsCount": "Torrent sayısı",
+        "allTorrents": "Tüm torrentler",
+        "activeTorrents": "Etkin torrentler",
+        "pauseTorrents": "Duraklatılan torrentler",
+        "sinceAppStart": "Uygulama başlangıcından bu yana",
+        "downloaded": "İndirilen",
+        "uploaded": "Yüklenen",
+        "filesAdded": "Eklenen dosyalar",
+        "sinceBeginning": "Başlangıçtan bu yana",
+        "timeActive": "Etkin süre"
+    },
+    "library": {
+        "download": "İndir",
+        "moreToCome": "Daha fazlası gelecek..."
+    },
+    "alerts": {
+        "storagePermissionRequest": {
+            "title": "Depolama izni",
+            "description": "PikaTorrent indirilen verileri kaydetmek için depolama alanına erişime ihtiyaç duyar."
+        },
+        "storagePermissionDenied": {
+            "title": "Depolama izni reddedildi",
+            "description": "'PikaTorrent için depolama alanına erişime izin vermeniz gerekiyor.'"
+        }
+    },
+    "menu": {
+        "about": "Hakkında",
+        "settings": "Ayarlar",
+        "library": "Kütüphane"
+    },
+    "addTorrentDialog": {
+        "title": "Torrent ekle",
+        "add": "Ekle",
+        "selectFile": ".torrent dosyası seç",
+        "torrentOrMagnetLinkPlaceholder": "Torrent veya magnet:// bağlantıları",
+        "sendToNode": "Bu torrenti şuraya gönder"
+    },
+    "confirmNodeDeleteAlertDialog": {
+        "title": "Düğüm kaldırmayı onayla",
+        "delete": "Sil",
+        "confirmMessage": "Bu düğümü silmek istediğinizden emin misiniz?",
+        "cancel": "İptal"
+    },
+    "sessionInfoDialog": {
+        "title": "Oturum bilgileri"
+    }
+}
