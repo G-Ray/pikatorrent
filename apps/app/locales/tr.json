@@ -14,7 +14,7 @@
         "torrents": {
             "peerPort": "Eş bağlantı noktası",
             "title": "Torrent ayarları",
-            "downloadDirectory": "İndirme dizini",
+            "downloadDirectory": "İndirme klasörü",
             "encryption": "Şifreleme",
             "encryptionModes": {
                 "required": "Gerekli",
@@ -58,9 +58,9 @@
     },
     "about": {
         "pikatorrentVersion": "PikaTorrent sürümü",
-        "githubLinkDescription": "Github'da bir sorun açın",
+        "githubLinkDescription": "GitHub'da bir sorun açın",
         "transmissionVersion": "Transmission sürümü",
-        "reportBugOrFeature": "Bir hata buldunuz veya bir özellik mi önermek istiyorsunuz?",
+        "reportBugOrFeature": "Bir hata bildirmek veya bir özellik mi önermek istiyorsunuz?",
         "discordLinkDescription": "Discord'da bize katılın"
     },
     "addNodeDialog": {
@@ -76,20 +76,20 @@
     "acceptOrRejectPeerDialog": {
         "accept": "Kabul et",
         "title": "Yeni bağlantıyı yetkilendir",
-        "description": "Yeni bir aygıt pikatorrent'i yönetmek istiyor:",
+        "description": "Yeni bir aygıt PikaTorrent'i yönetmek istiyor:",
         "reject": "Reddet",
-        "warningIfNotRecognize": "Bu aygıtı tanımıyorsanız, reddet üzerine tıklayın."
+        "warningIfNotRecognize": "Bu aygıtı tanımıyorsanız reddedin."
     },
     "directoryPickerDialog": {
-        "title": "Dizin seçici",
-        "privateAppSwitchLabel": "Özel uygulama dizinini kullan",
+        "title": "Klasör seçici",
+        "privateAppSwitchLabel": "Özel uygulama klasörünü kullan",
         "select": "Seç",
-        "privateAppDescription1": "Özel uygulama dizini kullanmak, diğer uygulamaların indirdiğiniz içeriğe erişmesini engelleyebilir.",
+        "privateAppDescription1": "Özel bir uygulama klasörü kullanmak, diğer uygulamaların indirdiğiniz içeriğe erişmesini engelleyebilir.",
         "privateAppDescription2": "PikaTorrent'i kaldırırsanız tüm indirmeleriniz silinecektir."
     },
     "unsupportedBrowserDialog": {
-        "title": "Desteklenmeyen tarayıcı",
-        "description": "Bu tarayıcı desteklenmiyor. Lütfen pikatorrent'i başka bir tarayıcıda deneyin."
+        "title": "Desteklenmeyen internet tarayıcısı",
+        "description": "Bu internet tarayıcısı desteklenmiyor. Lütfen PikaTorrent'i başka bir internet tarayıcısında deneyin."
     },
     "torrentDialog": {
         "copyLink": "Bağlantıyı Kopyala",
@@ -111,7 +111,7 @@
         "cameraPermissionDenied": "Kamera izni reddedildi"
     },
     "removeTorrentDialog": {
-        "warningMessage": "Silmek istediğinizden emin misiniz",
+        "warningMessage": "Silme onayı",
         "remove": "Kaldır",
         "removeWithData": "Verilerle birlikte kaldır",
         "title": "Kaldırma onayı"
@@ -132,7 +132,7 @@
     },
     "toasts": {
         "torrentDownloaded": "Torrent indirildi",
-        "noAppCanOpenFile": "Bu dosyayı işleyecek uygulama yok",
+        "noAppCanOpenFile": "Bu dosyayı açacak kurulu uygulama yok",
         "linkCopied": "Bağlantı kopyalandı"
     },
     "sortingOptionsDialog": {
@@ -145,9 +145,9 @@
     "statsDialog": {
         "title": "İstatistikler",
         "torrentsCount": "Torrent sayısı",
-        "allTorrents": "Tüm torrentler",
-        "activeTorrents": "Etkin torrentler",
-        "pauseTorrents": "Duraklatılan torrentler",
+        "allTorrents": "Tümü",
+        "activeTorrents": "Etkin",
+        "pauseTorrents": "Duraklatılan",
         "sinceAppStart": "Uygulama başlangıcından bu yana",
         "downloaded": "İndirilen",
         "uploaded": "Yüklenen",
@@ -184,7 +184,7 @@
     "confirmNodeDeleteAlertDialog": {
         "title": "Düğüm kaldırmayı onayla",
         "delete": "Sil",
-        "confirmMessage": "Bu düğümü silmek istediğinizden emin misiniz?",
+        "confirmMessage": "Bu düğüm silinsin mi?",
         "cancel": "İptal"
     },
     "sessionInfoDialog": {
