@@ -4,7 +4,7 @@
         "add": "Ekle",
         "startAll": "Tümünü başlat",
         "pauseAll": "Tümünü duraklat",
-        "searchPlaceholder": "Çevrim içi bir torrent seçin...",
+        "searchPlaceholder": "Çevrim içi bir torrent seçin…",
         "searchEngineSelectorLabel": "Arama motorları",
         "addYourFirstTorrentTitle": "İlk torrentinizi ekleyin",
         "addYourFirstTorrentDescription": "Torrentleriniz burada görünecektir",
@@ -157,7 +157,7 @@
     },
     "library": {
         "download": "İndir",
-        "moreToCome": "Daha fazlası gelecek..."
+        "moreToCome": "Daha fazlası gelecek…"
     },
     "alerts": {
         "storagePermissionRequest": {
