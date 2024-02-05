@@ -8,7 +8,7 @@
         "add": "Ajouter",
         "startAll": "Tout reprendre",
         "pauseAll": "Tout mettre en pause",
-        "searchPlaceholder": "Choisir un torrent en ligne...",
+        "searchPlaceholder": "Choisir un torrent en ligne…",
         "filterListPlaceholder": "Filtrer la liste...",
         "searchEngineSelectorLabel": "Moteurs de recherches",
         "addYourFirstTorrentTitle": "Ajoutez votre premier torrent",
@@ -39,7 +39,7 @@
             "language": "Langue",
             "searchEngines": "Urls de moteurs de recherches (un par ligne)",
             "searchEnginesInstructions": "%s sera remplacé par la recherche",
-            "invalidUrls": "Urls invalides",
+            "invalidUrls": "URLs invalides",
             "save": "Sauvegarder",
             "reset": "Réinitialiser"
         },
@@ -178,7 +178,7 @@
     },
     "library": {
         "download": "Télécharger",
-        "moreToCome": "Plus à venir..."
+        "moreToCome": "Plus à venir…"
     },
     "alerts": {
         "storagePermissionRequest": {
