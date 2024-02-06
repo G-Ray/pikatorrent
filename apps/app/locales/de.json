@@ -57,14 +57,14 @@
             "enableDHT": "DHT aktivieren",
             "enableLPD": "LPD aktivieren",
             "enablePEX": "PEX aktivieren",
-            "enablePortForwarding": "port forwarding aktivieren",
+            "enablePortForwarding": "Portweiterleitung aktivieren",
             "peerPort": "Peer port"
         }
     },
     "about": {
         "pikatorrentVersion": "PikaTorrent version",
         "transmissionVersion": "Übertragungsversion",
-        "reportBugOrFeature": "Hast du einen Fehler gefunden oder willst eine Funktion vorschlagen?",
+        "reportBugOrFeature": "Einen Fehler melden oder eine Funktion vorschlagen?",
         "githubLinkDescription": "Ein Problem (issue) in Github öffnen",
         "discordLinkDescription": "Trete unseren Discord bei"
     },
@@ -73,9 +73,9 @@
         "description": "Fügen Sie einen neuen node hinzu, um ihn von überall aus zu steuern.",
         "triggerLabel": "Node hinzufügen",
         "nameLabel": "Name",
-        "idLabel": "Id",
+        "idLabel": "ID",
         "namePlaceholder": "Name",
-        "idPlaceholder": "Id",
+        "idPlaceholder": "ID",
         "add": "Hinzufügen"
     },
     "addTorrentDialog": {
@@ -87,7 +87,7 @@
     },
     "confirmNodeDeleteAlertDialog": {
         "title": "Bestätigen Sie die entfernung der node",
-        "confirmMessage": "Sind Sie sicher, dass Sie diesen node löschen möchten?",
+        "confirmMessage": "Diesen Knoten löschen?",
         "cancel": "Abbrechen",
         "delete": "Löschen"
     },
@@ -102,8 +102,8 @@
         "accept": "Akzeptieren"
     },
     "directoryPickerDialog": {
-        "title": "Verzeichnisauswahl",
-        "privateAppSwitchLabel": "Privates App-Verzeichnis verwenden",
+        "title": "Ordnerauswahl",
+        "privateAppSwitchLabel": "Privaten App-Ordner verwenden",
         "privateAppDescription1": "Die Verwendung eines privaten App-Verzeichnisses könnte verhindern, dass andere Apps auf Ihre heruntergeladenen Inhalte zugreifen.",
         "privateAppDescription2": "Alle deine Downloads werden gelöscht, wenn du pikatorrent deinstallierst.",
         "select": "Auswählen"
@@ -128,7 +128,7 @@
         "addLabelInstruction": "Fügen Sie Beschriftungen hinzu, indem Sie einen Torrent bearbeiten."
     },
     "scanQRCodeDialog": {
-        "title": "QRCode Scannen",
+        "title": "QR-Code scannen",
         "cameraPermissionDenied": "Kameraberechtigung verweigert"
     },
     "removeTorrentDialog": {
@@ -166,9 +166,9 @@
     "statsDialog": {
         "title": "Statistics",
         "torrentsCount": "Torrents count",
-        "allTorrents": "All torrents",
-        "activeTorrents": "Active torrents",
-        "pauseTorrents": "Paused torrents",
+        "allTorrents": "Alle",
+        "activeTorrents": "Aktiv",
+        "pauseTorrents": "Pausiert",
         "sinceAppStart": "Seit dem Start",
         "downloaded": "Heruntergeladen",
         "uploaded": "Hochgeladen",
