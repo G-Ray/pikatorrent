@@ -2,7 +2,7 @@
     "menu": {
         "about": "Über",
         "settings": "Einstellungen",
-        "library": "Library"
+        "library": "Bibliothek"
     },
     "torrents": {
         "add": "Hinzufügen",
@@ -18,12 +18,12 @@
     "settings": {
         "nodes": {
             "loading": "Laden",
-            "title": "Nodes",
-            "listLabel": "Lokale & Ferngesteuerte nodes",
-            "qrCodeLabel": "QR code um die Mobile App zu linken",
-            "hideQRCode": "Hide QR Code",
-            "showQRCode": "Show QR Code",
-            "secretLinkLabel": " Suche eine url um app.pikatorrent.com zu linken",
+            "title": "Knoten",
+            "listLabel": "Lokale und entfernte Knoten",
+            "qrCodeLabel": "QR-Code, um die Mobile-App zu linken",
+            "hideQRCode": "QR-Code ausblenden",
+            "showQRCode": "QR-Code anzeigen",
+            "secretLinkLabel": "Suche eine URL, um app.pikatorrent.com zu linken",
             "copyLink": "Link kopieren",
             "qrCodeScanButtonLabel": "QR code scannen",
             "acceptedPeersLabel": "Verbindung akzeptieren",
@@ -37,7 +37,7 @@
             "title": "App Einstellungen",
             "theme": "Thema",
             "language": "Sprache",
-            "searchEngines": "Such maschienen urls (eine pro linie)",
+            "searchEngines": "Suchmaschinen-URLs (eine pro Zeile)",
             "searchEnginesInstructions": "%s will be replaced by the query",
             "invalidUrls": "Ungültige URLs",
             "save": "Speichern",
@@ -45,7 +45,7 @@
         },
         "torrents": {
             "title": "Torrents Einstellungen",
-            "downloadDirectory": "Download Verzeichnis",
+            "downloadDirectory": "Download-Ordner",
             "encryption": "Verschlüsselung",
             "encryptionModes": {
                 "required": "Erforderlich",
@@ -169,15 +169,25 @@
         "allTorrents": "All torrents",
         "activeTorrents": "Active torrents",
         "pauseTorrents": "Paused torrents",
-        "sinceAppStart": "Since app start",
-        "downloaded": "Downloaded",
-        "uploaded": "Uploaded",
-        "filesAdded": "Files added",
-        "timeActive": "Time active",
-        "sinceBeginning": "Since the beginning"
+        "sinceAppStart": "Seit dem Start",
+        "downloaded": "Heruntergeladen",
+        "uploaded": "Hochgeladen",
+        "filesAdded": "Dateien hinzugefügt",
+        "timeActive": "Zeit aktiv",
+        "sinceBeginning": "Seit den Beginn"
     },
     "library": {
-        "download": "Download",
-        "moreToCome": "More to come…"
+        "download": "Herunterladen",
+        "moreToCome": "Mehr zu kommen …"
+    },
+    "alerts": {
+        "storagePermissionRequest": {
+            "title": "Speicherberechtigung",
+            "description": "PikaTorrent benötigt Zugriff auf die Speicherung, um heruntergeladene Daten zu speichern."
+        },
+        "storagePermissionDenied": {
+            "title": "Speicherberechtigung verweigert",
+            "description": "„Sie müssen eine Speichergenehmigung für PikaTorrent zulassen.“"
+        }
     }
 }
