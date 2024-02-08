@@ -11,15 +11,15 @@
         "addYourFirstTorrentTitle": "अपना पहला टोरेंट जोड़ें",
         "filteredLabels": "फ़िल्टर किए गए लेबल",
         "filterListPlaceholder": "फ़िल्टर सूची..।",
-        "searchPlaceholder": "ऑनलाइन एक टोरेंट चुनें…",
+        "searchPlaceholder": "ऑनलाइन एक torrent चुनें…",
         "searchEngineSelectorLabel": "सर्च इंजन",
-        "addYourFirstTorrentDescription": "आपके टोरेंट यहां प्रदर्शित होंगे"
+        "addYourFirstTorrentDescription": "आपके torrent यहां प्रदर्शित होंगे"
     },
     "settings": {
         "nodes": {
             "loading": "लोड हो रहा है",
             "title": "नोड्स",
-            "listLabel": "स्थानीय और दूरस्थ नोड्स",
+            "listLabel": "स्थानीय और रिमोट नोड्स",
             "hideQRCode": "QR कोड छिपाएँ",
             "showQRCode": "QR कोड दिखाएँ",
             "secretLinkLabel": "app.pikatorrent.com को लिंक करने का गुप्त URL",
@@ -62,9 +62,9 @@
         }
     },
     "about": {
-        "transmissionVersion": "Transmission संस्करण",
+        "transmissionVersion": "Transmission वर्शन",
         "reportBugOrFeature": "किसी बग की रिपोर्ट करें या कोई सुविधा सुझाएं?",
-        "pikatorrentVersion": "PikaTorrent संस्करण",
+        "pikatorrentVersion": "PikaTorrent वर्शन",
         "githubLinkDescription": "GitHub पर एक समस्या खोलें",
         "discordLinkDescription": "Discord पर हमसे जुड़ें"
     },
@@ -96,7 +96,7 @@
     },
     "acceptOrRejectPeerDialog": {
         "title": "नये कनेक्शन को अधिकृत करें",
-        "description": "एक नया उपकरण PikaTorrent को नियंत्रित करना चाहेगा:",
+        "description": "एक नया डिवाइस PikaTorrent को नियंत्रित करना चाहेगा:",
         "warningIfNotRecognize": "यदि आप इस डिवाइस को नहीं पहचानते हैं तो इसे अस्वीकार कर दें।",
         "reject": "अस्वीकार करें",
         "accept": "स्वीकार करें"
