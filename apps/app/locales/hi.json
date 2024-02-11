@@ -8,9 +8,9 @@
         "add": "जोड़ें",
         "startAll": "सभी प्रारंभ करें",
         "pauseAll": "सभी को रोकें",
-        "addYourFirstTorrentTitle": "अपना पहला टोरेंट जोड़ें",
-        "filteredLabels": "फ़िल्टर किए गए लेबल",
-        "filterListPlaceholder": "फ़िल्टर सूची..।",
+        "addYourFirstTorrentTitle": "अपना पहला torrent जोड़ें",
+        "filteredLabels": "फिल्टर किए गए लेबल",
+        "filterListPlaceholder": "फिल्टर सूची..।",
         "searchPlaceholder": "ऑनलाइन एक torrent चुनें…",
         "searchEngineSelectorLabel": "सर्च इंजन",
         "addYourFirstTorrentDescription": "आपके torrent यहां प्रदर्शित होंगे"
@@ -34,7 +34,7 @@
             }
         },
         "app": {
-            "title": "एप्लिकेशन सेटिंग",
+            "title": "एप्लिकेशन सेटिंग्स",
             "theme": "थीम",
             "language": "भाषा",
             "searchEngines": "खोज इंजन URL (प्रति पंक्ति एक)",
@@ -44,7 +44,7 @@
             "save": "सहेजें"
         },
         "torrents": {
-            "downloadDirectory": "डाउनलोड फ़ोल्डर",
+            "downloadDirectory": "डाउनलोड फोल्डर",
             "encryption": "एन्क्रिप्शन",
             "encryptionModes": {
                 "required": "आवश्यक",
@@ -102,11 +102,11 @@
         "accept": "स्वीकार करें"
     },
     "directoryPickerDialog": {
-        "title": "फ़ोल्डर पिकर",
-        "privateAppSwitchLabel": "निजी ऐप फ़ोल्डर का उपयोग करें",
+        "title": "फोल्डर पिकर",
+        "privateAppSwitchLabel": "निजी ऐप फोल्डर का उपयोग करें",
         "privateAppDescription2": "यदि आप PikaTorrent को अनइंस्टॉल करते हैं तो आपके सभी डाउनलोड हटा दिए जाएंगे।",
         "select": "चुनें",
-        "privateAppDescription1": "निजी ऐप फ़ोल्डर का उपयोग करने से अन्य ऐप्स को आपकी डाउनलोड की गई सामग्री तक पहुंचने से रोका जा सकता है।"
+        "privateAppDescription1": "निजी ऐप फोल्डर का उपयोग करने से अन्य ऐप्स को आपकी डाउनलोड की गई सामग्री तक पहुंचने से रोका जा सकता है।"
     },
     "unsupportedBrowserDialog": {
         "title": "असमर्थित वेब ब्राउज़र",
@@ -118,7 +118,7 @@
         "editLabels": "लेबल संपादित करें",
         "openFolder": "फोल्डर खोलें",
         "remove": "हटाएँ",
-        "files": "फ़ाइलें",
+        "files": "फाइलें",
         "newLabel": "नया लेबल",
         "add": "जोड़ें",
         "clearAll": "सभी साफ करें",
@@ -132,7 +132,7 @@
         "cameraPermissionDenied": "कैमरे की अनुमति अस्वीकृत"
     },
     "filesListDialog": {
-        "title": "फ़ाइलें",
+        "title": "फाइलें",
         "open": "खोलें",
         "openFolder": "फोल्डर खोलें",
         "share": "शेयर"
@@ -164,7 +164,7 @@
         "title": "आंकड़े",
         "torrentsCount": "Torrent गिनती",
         "downloaded": "डाउनलोड हो गया",
-        "filesAdded": "फ़ाइलें जोड़ी गईं",
+        "filesAdded": "फाइलें जोड़ी गईं",
         "sinceAppStart": "जब से ऐप शुरू हुआ है",
         "sinceBeginning": "शुरुआत से ही",
         "timeActive": "समय सक्रिय",
@@ -186,7 +186,7 @@
     },
     "toasts": {
         "linkCopied": "लिंक कॉपी किया गया",
-        "noAppCanOpenFile": "कोई भी इंस्टॉल किया गया ऐप इस फ़ाइल को नहीं खोल सकता",
+        "noAppCanOpenFile": "कोई भी इंस्टॉल किया गया ऐप इस फाइल को नहीं खोल सकता",
         "torrentDownloaded": "Torrent डाउनलोड किया गया"
     }
 }
