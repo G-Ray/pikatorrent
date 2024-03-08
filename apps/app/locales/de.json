@@ -65,7 +65,7 @@
         "pikatorrentVersion": "PikaTorrent version",
         "transmissionVersion": "Übertragungsversion",
         "reportBugOrFeature": "Einen Fehler melden oder eine Funktion vorschlagen?",
-        "githubLinkDescription": "Ein Problem (issue) in Github öffnen",
+        "githubLinkDescription": "Ein Problem (issue) in GitHub öffnen",
         "discordLinkDescription": "Trete unseren Discord bei"
     },
     "addNodeDialog": {
@@ -96,7 +96,7 @@
     },
     "acceptOrRejectPeerDialog": {
         "title": "Neue Verbindung autorisieren",
-        "description": "Ein neues Gerät möchte pikatorrent steuern:",
+        "description": "Ein neues Gerät möchte PikaTorrent steuern:",
         "warningIfNotRecognize": "Wenn Sie dieses Gerät nicht erkennen, klicken Sie auf Ablehnen.",
         "reject": "Ablehnen",
         "accept": "Akzeptieren"
