@@ -51,6 +51,12 @@ export const TorrentCard = ({ torrent, theme = 'yellow' }) => {
 
   return (
     <>
+      <TorrentActions
+        torrent={torrent}
+        handleOpenFolder={handleOpenFolder}
+        open={isMenuOpen}
+        onOpenChange={setIsMenuOpen}
+      />
       <Card key={torrent.id} size="$4" pr="$2" py="$2" transparent>
         <XStack ai="center">
           <XStack>
@@ -74,6 +80,7 @@ export const TorrentCard = ({ torrent, theme = 'yellow' }) => {
               />
             )}
           </XStack>
+
           <Stack
             f={1}
             p="$2"
@@ -84,13 +91,6 @@ export const TorrentCard = ({ torrent, theme = 'yellow' }) => {
               setIsMenuOpen(true)
             }}
           >
-            <TorrentActions
-              theme={themeName}
-              torrent={torrent}
-              handleOpenFolder={handleOpenFolder}
-              open={isMenuOpen}
-              onOpenChange={setIsMenuOpen}
-            />
             <XStack>
               <H6 numberOfLines={1}>{torrent.name}</H6>
             </XStack>
