@@ -51,7 +51,7 @@
     "flat": "^6.0.1",
     "fuse.js": "^6.6.2",
     "i18n-js": "^4.2.3",
-    "install-expo-modules": "^0.6.2",
+    "install-expo-modules": "^0.8.1",
     "is-electron": "^2.2.2",
     "lodash": "^4.17.21",
     "pretty-bytes": "^6.1.0",
