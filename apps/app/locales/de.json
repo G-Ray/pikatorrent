@@ -1,8 +1,11 @@
 {
   "menu": {
+    "statistics": "Statistisches",
     "about": "Über",
     "settings": "Einstellungen",
-    "library": "Library"
+    "about": "Über",
+    "settings": "Einstellungen",
+    "library": "Library",
   },
   "torrents": {
     "add": "Hinzufügen",
@@ -13,7 +16,7 @@
     "searchEngineSelectorLabel": "Such Maschine",
     "addYourFirstTorrentTitle": "Füge deinen ersten Torrent hinzu",
     "addYourFirstTorrentDescription": "Deine Torrents werden hir angezeigt",
-    "filteredLabels": "Gefilterte Etiketten"
+    "filteredLabels": "Gefilterte Etiketten",
   },
   "settings": {
     "nodes": {
@@ -30,7 +33,7 @@
       "rejectedPeersLabel": "Verbindung ablehnen",
       "acceptedOrRejectedPeers": {
         "none": "Keines",
-        "delete": "Löschen"
+        "delete": "Löschen",
       }
     },
     "app": {
@@ -41,7 +44,7 @@
       "searchEnginesInstructions": "%s will be replaced by the query",
       "invalidUrls": "Ungültige urls",
       "save": "Speichern",
-      "reset": "Neu setzten"
+      "reset": "Neu setzten",
     },
     "torrents": {
       "title": "Torrents Einstellungen",
@@ -50,7 +53,7 @@
       "encryptionModes": {
         "required": "Erforderlich",
         "preferred": "Bevorzugt",
-        "tolerated": "Toleriert"
+        "tolerated": "Toleriert",
       },
       "save": "Speichern",
       "enableUTP": "uTP aktivieren",
@@ -58,7 +61,7 @@
       "enableLPD": "LPD aktivieren",
       "enablePEX": "PEX aktivieren",
       "enablePortForwarding": "port forwarding aktivieren",
-      "peerPort": "Peer port"
+      "peerPort": "Peer port",
     }
   },
   "about": {
@@ -66,7 +69,7 @@
     "transmissionVersion": "Übertragungsversion",
     "reportBugOrFeature": "Hast du einen Fehler gefunden oder willst eine Funktion vorschlagen?",
     "githubLinkDescription": "Ein Problem (issue) in Github öffnen",
-    "discordLinkDescription": "Trete unseren Discord bei"
+    "discordLinkDescription": "Trete unseren Discord bei",
   },
   "addNodeDialog": {
     "title": "Füge einen neuen node hinzu",
@@ -76,20 +79,20 @@
     "idLabel": "Id",
     "namePlaceholder": "Name",
     "idPlaceholder": "Id",
-    "add": "Hinzufügen"
+    "add": "Hinzufügen",
   },
   "addTorrentDialog": {
     "title": "Ein torrent hinzufügen",
     "add": "Hinzufügen",
     "selectFile": "Wählen Sie eine .torrent Datei",
     "torrentOrMagnetLinkPlaceholder": "Torrent oder magnet:// links",
-    "sendToNode": "Sende diesen Torrent zu"
+    "sendToNode": "Sende diesen Torrent zu",
   },
   "confirmNodeDeleteAlertDialog": {
     "title": "Bestätigen Sie die entfernung der node",
     "confirmMessage": "Sind Sie sicher, dass Sie diesen node löschen möchten?",
     "cancel": "Abbrechen",
-    "delete": "Löschen"
+    "delete": "Löschen",
   },
   "sessionInfoDialog": {
     "title": "Sitzungsinformationen"
@@ -99,18 +102,18 @@
     "description": "Ein neues Gerät möchte pikatorrent steuern:",
     "warningIfNotRecognize": "Wenn Sie dieses Gerät nicht erkennen, klicken Sie auf Ablehnen.",
     "reject": "Ablehnen",
-    "accept": "Akzeptieren"
+    "accept": "Akzeptieren",
   },
   "directoryPickerDialog": {
     "title": "Verzeichnisauswahl",
     "privateAppSwitchLabel": "Privates App-Verzeichnis verwenden",
     "privateAppDescription1": "Die Verwendung eines privaten App-Verzeichnisses könnte verhindern, dass andere Apps auf Ihre heruntergeladenen Inhalte zugreifen.",
     "privateAppDescription2": "Alle deine Downloads werden gelöscht, wenn du pikatorrent deinstallierst.",
-    "select": "Auswählen"
+    "select": "Auswählen",
   },
   "unsupportedBrowserDialog": {
     "title": "Nicht unterstützter Browser",
-    "description": "Dieser Browser wird nicht unterstützt. Bitte versuche pikatorrent in einen anderen Browser zu öffnen."
+    "description": "Dieser Browser wird nicht unterstützt. Bitte versuche pikatorrent in einen anderen Browser zu öffnen.",
   },
   "torrentDialog": {
     "copyLink": "Link kopieren",
@@ -125,23 +128,23 @@
     "selectedLabels": "Wähle eine Etikette aus",
     "allLabels": "Alle Etiketten",
     "noLabels": "Es gibt noch keine Etiketten.",
-    "addLabelInstruction": "Fügen Sie Beschriftungen hinzu, indem Sie einen Torrent bearbeiten."
+    "addLabelInstruction": "Fügen Sie Beschriftungen hinzu, indem Sie einen Torrent bearbeiten.",
   },
   "scanQRCodeDialog": {
     "title": "QRCode Scannen",
-    "cameraPermissionDenied": "Kameraberechtigung verweigert"
-  },
+    "cameraPermissionDenied": "Kameraberechtigung verweigert",
+    
   "removeTorrentDialog": {
     "title": "Bestätigung entfernen",
     "warningMessage": "Sind Sie sicher, dass Sie löschen wollen",
     "remove": "Entfernen",
-    "removeWithData": "Mit Daten löschen"
+    "removeWithData": "Mit Daten löschen",
   },
   "filesListDialog": {
     "title": "Dateien",
     "open": "Öfnen",
     "openFolder": "Ordner öffnen",
-    "share": "Teilen"
+    "share": "Teilen",
   },
   "termsOfUseDialog": {
     "title": "Nutzungsbedingungen",
@@ -149,19 +152,19 @@
     "privacyPolicyMessage": "Sie akzeptieren auch die",
     "privacyPolicy": "Datenschutzerklärung",
     "cancel": "Abbrechen",
-    "accept": "Akzeptieren"
+    "accept": "Akzeptieren",
   },
   "toasts": {
     "linkCopied": "Link kopiert",
     "torrentDownloaded": "Torrent runtergeladen",
-    "noAppCanOpenFile": "Keine App kann diese Datei öffnen"
+    "noAppCanOpenFile": "Keine App kann diese Datei öffnen",
   },
   "sortingOptionsDialog": {
     "title": "Sortieren nach",
     "name": "Name",
     "totalSize": "Größe ",
     "percentDone": "Fortschritt",
-    "reverseOrder": "Umgekehrte Reihenfolge"
+    "reverseOrder": "Umgekehrte Reihenfolge",
   },
   "statsDialog": {
     "title": "Statistics",
@@ -174,10 +177,10 @@
     "uploaded": "Uploaded",
     "filesAdded": "Files added",
     "timeActive": "Time active",
-    "sinceBeginning": "Since the beginning"
+    "sinceBeginning": "Since the beginning",
   },
   "library": {
     "download": "Download",
-    "moreToCome": "More to come..."
+    "moreToCome": "More to come...",
   }
 }
