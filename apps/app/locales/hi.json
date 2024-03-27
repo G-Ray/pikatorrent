@@ -7,7 +7,7 @@
     "torrents": {
         "add": "जोड़ें",
         "startAll": "सभी प्रारंभ करें",
-        "pauseAll": "सभी को रोकें",
+        "pauseAll": "सभी रोकें",
         "addYourFirstTorrentTitle": "अपना पहला torrent जोड़ें",
         "filteredLabels": "फिल्टर किए गए लेबल",
         "filterListPlaceholder": "फिल्टर सूची..।",
@@ -88,7 +88,7 @@
     "confirmNodeDeleteAlertDialog": {
         "title": "नोड हटाने की पुष्टि करें",
         "confirmMessage": "इस नोड को हटाएँ?",
-        "cancel": "रद्द करें",
+        "cancel": "रद्द",
         "delete": "हटाएं"
     },
     "sessionInfoDialog": {
@@ -144,7 +144,7 @@
     },
     "termsOfUseDialog": {
         "title": "उपयोग की शर्तें",
-        "cancel": "रद्द करें",
+        "cancel": "रद्द",
         "privacyPolicy": "गोपनीयता नीति",
         "privacyPolicyMessage": "आप भी स्वीकार करते हैं",
         "accept": "स्वीकार करें",
