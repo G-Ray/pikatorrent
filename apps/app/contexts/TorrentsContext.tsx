@@ -13,7 +13,11 @@ export const TorrentsContext = createContext(null)
 
 const REFRESH_INTERVAL = 5_000
 
-export const TorrentsProvider = ({ children }) => {
+export const TorrentsProvider = ({
+  children,
+}: {
+  children: React.ReactNode
+}) => {
   const i18n = useI18n()
   const [torrents, setTorrents] = useState([])
   const [sessionStats, setSessionStats] = useState({})

@@ -5,15 +5,44 @@ import { SettingsContext } from './SettingsContext'
 import { Platform } from 'react-native'
 import isElectron from 'is-electron'
 
-export const NodeContext = createContext({})
+interface LocalNodeContext {
+  sendRPCMessage: (json: any) => Promise<any>
+  isConnected: boolean
+  isLocal: boolean
+  settings: null
+  updateSettings: (update: any) => Promise<any>
+}
 
-export const LocalNodeProvider = ({ children }) => {
+interface RemoteNodeContext {
+  name: string
+  isConnected: boolean
+  sendRPCMessage: (json: any) => Promise<unknown>
+  isUnsupportedBrowser: boolean
+}
+
+export const NodeContext = createContext<
+  LocalNodeContext | RemoteNodeContext | null
+>(null)
+
+export const LocalNodeProvider = ({
+  children,
+}: {
+  children: React.ReactNode
+}) => {
   const node = useLocalNode()
 
   return <NodeContext.Provider value={node}>{children}</NodeContext.Provider>
 }
 
-export const RemoteNodeProvider = ({ nodeId, children }) => {
+interface RemoteNodeProviderProps {
+  nodeId: string | undefined
+  children: React.ReactNode
+}
+
+export const RemoteNodeProvider = ({
+  nodeId,
+  children,
+}: RemoteNodeProviderProps) => {
   const { settings } = useContext(SettingsContext)
 
   const node = useRemoteNode({ clientId: settings.clientId, nodeId })
@@ -21,7 +50,7 @@ export const RemoteNodeProvider = ({ nodeId, children }) => {
   return <NodeContext.Provider value={node}>{children}</NodeContext.Provider>
 }
 
-export const NodeProvider = ({ children }) => {
+export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
   const { settings } = useContext(SettingsContext)
 
   if (

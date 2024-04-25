@@ -1,4 +1,10 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react'
+import React, {
+  ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 import {
   Separator,
   Stack,
@@ -46,7 +52,7 @@ export default function Layout() {
     InterBold: require('@tamagui/font-inter/otf/Inter-Bold.otf'),
   })
 
-  const [isMigrationExecuted, setIsMigrationExecuted] = useState()
+  const [isMigrationExecuted, setIsMigrationExecuted] = useState(false)
 
   useEffect(() => {
     const executeMigrations = async () => {
@@ -127,7 +133,7 @@ const NativeURLHandlers = () => {
   return null
 }
 
-const ToastContainer = ({ children }) => {
+const ToastContainer = ({ children }: { children: ReactNode }) => {
   const theme = useThemeName()
   return Platform.OS === 'web' ? (
     <Portal>
@@ -151,7 +157,7 @@ const ThemedLayout = () => {
     }
 
     const rootElem = document.getElementById('root')
-    if (rootElem) {
+    if (rootElem && typeof theme === 'string') {
       rootElem.style.colorScheme = theme
     }
   }, [theme])

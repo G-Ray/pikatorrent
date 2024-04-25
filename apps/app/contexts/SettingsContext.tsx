@@ -4,11 +4,24 @@ import * as Crypto from 'expo-crypto'
 
 import defaultSettings from '../defaultSettings.json'
 
-export const SettingsContext = createContext({})
+interface SettingsContext {
+  settings: Settings
+  updateSettings?: (s: Settings) => void
+  isLoaded: boolean
+}
 
 interface Node {
   id: string
   name: string
+}
+
+interface Settings {
+  clientId?: string
+  theme?: 'light' | 'dark' | 'system'
+  nodes?: Node[]
+  selectedNodeId?: string
+  searchEnginesUrls?: string[]
+  isTermsOfUseAccepted?: boolean
 }
 
 export const SETTINGS_KEYS = [
@@ -22,20 +35,16 @@ export const SETTINGS_KEYS = [
   'sortOptions',
 ]
 
-interface ISettings {
-  clientId?: string
-  theme?: 'light' | 'dark' | 'system'
-  nodes?: Node[]
-  selectedNodeId?: string
-  searchEnginesUrls?: string[]
-  isTermsOfUseAccepted?: boolean
-}
+export const SettingsContext = createContext<SettingsContext>({
+  settings: {},
+  isLoaded: false,
+})
 
-const saveSettings = async (updatedSettings: ISettings) => {
+const saveSettings = async (updatedSettings: Settings) => {
   for (const key of Object.keys(updatedSettings).filter((k) =>
     SETTINGS_KEYS.includes(k)
   )) {
-    const typedKey = key as keyof ISettings
+    const typedKey = key as keyof Settings
     const value = updatedSettings[typedKey]
 
     if (typeof value === 'string') {
@@ -52,11 +61,11 @@ export const SettingsProvider = ({
   children: React.ReactNode
 }) => {
   const [isLoaded, setIsLoaded] = useState(false)
-  const [settings, setSettings] = useState<ISettings>(
-    defaultSettings as ISettings
+  const [settings, setSettings] = useState<Settings>(
+    defaultSettings as Settings
   )
 
-  const updateSettings = (updatedSettings: ISettings) => {
+  const updateSettings = (updatedSettings: Settings) => {
     setSettings((settings) => ({ ...settings, ...updatedSettings }))
     saveSettings(updatedSettings)
   }
@@ -64,11 +73,11 @@ export const SettingsProvider = ({
   useEffect(() => {
     const fetchSettings = async () => {
       const values = await AsyncStorage.multiGet(SETTINGS_KEYS)
-      const parsedSettings: ISettings = {}
+      const parsedSettings: Settings = {}
 
       values.forEach((kv) => {
         const [key, value] = kv
-        const typedKey = key as keyof ISettings
+        const typedKey = key as keyof Settings
 
         if (typeof value !== 'string') return
 
@@ -77,7 +86,7 @@ export const SettingsProvider = ({
           parsedValue = JSON.parse(value)
         } catch (e) {
           if (value === 'undefined') {
-            parsedValue = (defaultSettings as ISettings)[typedKey]
+            parsedValue = (defaultSettings as Settings)[typedKey]
           } else {
             parsedValue = value
           }
