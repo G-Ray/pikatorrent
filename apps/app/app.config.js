@@ -52,6 +52,7 @@ module.exports = () => {
         },
       },
       plugins: [
+        'expo-router',
         '@config-plugins/react-native-webrtc',
         'expo-localization',
         [
