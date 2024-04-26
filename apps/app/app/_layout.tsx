@@ -23,7 +23,7 @@ import { View, useColorScheme } from 'react-native'
 import * as Linking from 'expo-linking'
 import * as SplashScreen from 'expo-splash-screen'
 
-import config from '../tamagui.config'
+import tamaguiConfig from '../tamagui.config'
 import { Platform } from 'react-native'
 
 import { TorrentsProvider } from '../contexts/TorrentsContext'
@@ -82,7 +82,7 @@ export default function Layout() {
 
   return (
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-      <TamaguiProvider config={config}>
+      <TamaguiProvider config={tamaguiConfig}>
         <NativeURLHandlers />
         <SettingsProvider>
           <ThemedLayout />

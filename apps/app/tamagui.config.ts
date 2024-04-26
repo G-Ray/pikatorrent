@@ -7,7 +7,7 @@ import { createInterFont } from '@tamagui/font-inter'
 
 const headingFont = createInterFont()
 const bodyFont = createInterFont()
-const appConfig = createTamagui({
+const tamaguiConfig = createTamagui({
   ...config,
   fonts: {
     heading: headingFont,
@@ -15,13 +15,10 @@ const appConfig = createTamagui({
   },
 })
 
-export type AppConfig = typeof appConfig
+export default tamaguiConfig
+
+export type Conf = typeof tamaguiConfig
 
 declare module 'tamagui' {
-  // or '@tamagui/core'
-  // overrides TamaguiCustomConfig so your custom types
-  // work everywhere you import `tamagui`
-  interface TamaguiCustomConfig extends AppConfig {}
+  interface TamaguiCustomConfig extends Conf {}
 }
-
-export default appConfig
