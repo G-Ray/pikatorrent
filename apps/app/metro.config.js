@@ -7,7 +7,11 @@ const projectRoot = __dirname
 // This can be replaced with `find-yarn-workspace-root`
 const workspaceRoot = path.resolve(projectRoot, '../..')
 
-const config = getDefaultConfig(projectRoot, { isCSSEnabled: true })
+/** @type {import('expo/metro-config').MetroConfig} */
+const config = getDefaultConfig(__dirname, {
+  // [Web-only]: Enables CSS support in Metro.
+  isCSSEnabled: true,
+})
 
 // 1. Watch all files within the monorepo
 config.watchFolders = [workspaceRoot]
@@ -21,7 +25,9 @@ config.resolver.nodeModulesPaths = [
 
 // Ignore electron out folder
 config.resolver.blockList = [/desktop/]
-// https://github.com/facebook/metro/issues/1003#issuecomment-1626398738
-config.resolver.sourceExts = [...config.resolver.sourceExts, 'mjs']
+
+// Expo 49 issue: default metro config needs to include "mjs"
+// https://github.com/expo/expo/issues/23180
+config.resolver.sourceExts.push('mjs')
 
 module.exports = config
