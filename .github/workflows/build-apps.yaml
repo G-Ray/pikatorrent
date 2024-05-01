@@ -36,21 +36,43 @@ jobs:
       - name: Install
         run: npm ci
 
+      # x64 build
       - name: Build
+        if: startsWith(github.ref, 'refs/tags/v') != true
         run: npm run build:desktop
+
+      # Publish x64 build on tags starting with 'v'
+      - name: Publish
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: npm -w @pikatorrent/desktop run publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # arm64 build
+      - name: Build for arm64
+        if: ${{ matrix.os == 'ubuntu-latest' && !startsWith(github.ref, 'refs/tags/v') != true }}
+        run: |
+          # Clean all node modules before installing arm64 compatibles deps
+          npx rimraf@5 --glob **/node_modules
+          TARGET_ARCH=arm64 npm ci
+          npm run build:desktop -- -- --arch=arm64
+
+      # Publish arm64 build on tags starting with 'v'
+      - name: Publish
+        if: ${{ matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/v') != true }}
+        run: |
+          # Clean all node modules before installing arm64 compatibles deps
+          npx rimraf@5 --glob **/node_modules
+          TARGET_ARCH=arm64 npm ci
+          npm -w @pikatorrent/desktop run publish -- -- --arch=arm64
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: pikatorrent-${{ matrix.os }}
           path: apps/desktop/out/make/**/*
-
-      # Publish on tags starting with 'v'
-      - name: Publish
-        if: startsWith(github.ref, 'refs/tags/v')
-        run: npm -w @pikatorrent/desktop run publish
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   android:
     # EAS will not be able to use expo token in pull request

@@ -1,12 +1,4 @@
-import React, { useContext, useMemo, useState } from 'react'
-import { FlatList } from 'react-native'
-import Fuse from 'fuse.js'
-
-import {
-  TorrentCard,
-  TorrentCardPlaceHolder,
-} from '../../components/TorrentCard'
-import { useTorrents } from '../../hooks/useTorrents'
+import React, { useContext, useState } from 'react'
 import {
   Button,
   Card,
@@ -16,29 +8,33 @@ import {
   XStack,
   YStack,
   useMedia,
-  useThemeName,
+  Theme,
+  Paragraph,
 } from 'tamagui'
-import { SearchBar } from '../../components/SearchBar'
-import { DESKTOP_MAX_CONTENT_WIDTH } from '../../constants/layout'
-import { PauseCircle, PlayCircle, PlusCircle } from '@tamagui/lucide-icons'
-import { TorrentsContext } from '../../contexts/TorrentsContext'
-import { Filters } from '../../components/Filters'
 import { Link, Slot } from 'expo-router'
-import { Theme } from 'tamagui'
-import i18n from '../../i18n'
+import { PlusCircle } from '@tamagui/lucide-icons'
+
+import { DESKTOP_MAX_CONTENT_WIDTH } from '../../constants/layout'
 import {
   SortOptions,
   SortingOptionsDialog,
-} from '../../components/SortingOptionsDialog'
+} from '../../components/dialogs/SortingOptionsDialog'
 import { SettingsContext } from '../../contexts/SettingsContext'
+import { useI18n } from '../../hooks/use18n'
+import { SearchBar } from '../../components/screens/torrents/SearchBar'
+import { Filters } from '../../components/screens/torrents/Filters'
+import { TorrentsList } from '../../components/screens/torrents/TorrentsList'
+import { StartPauseAllTorrentsButton } from '../../components/screens/torrents/StartPauseAllTorrentsButton'
 
 const SearchBarWithAddButton = () => {
   const media = useMedia()
+  const i18n = useI18n()
 
   return (
     <Card mx="auto" w="100%" maxWidth={DESKTOP_MAX_CONTENT_WIDTH}>
       <XStack bc="$backgroundTransparent" gap="$2">
-        <Link asChild href="/add">
+        {/* Workaround to avoid textDecoration on Firefox */}
+        <Link href="/add" asChild>
           <Button
             theme="yellow"
             icon={PlusCircle}
@@ -62,11 +58,11 @@ const SearchBarWithAddButton = () => {
 }
 
 export default function Torrents() {
-  const { settings, updateSettings, isLoaded } = useContext(SettingsContext)
+  const i18n = useI18n()
+  const { settings, updateSettings } = useContext(SettingsContext)
   const [filter, setFilter] = useState('')
   const [filters, setFilters] = useState([])
   const media = useMedia()
-  const theme = useThemeName()
 
   const handleChangeSort = (sortOptions: SortOptions) => {
     updateSettings({ sortOptions })
@@ -92,7 +88,7 @@ export default function Torrents() {
           bc="$backgroundTransparent"
         >
           <XStack jc="space-between" bc="$backgroundTransparent">
-            <StartOrPauseAllTorrents />
+            <StartPauseAllTorrentsButton />
             <Theme reset>
               <SortingOptionsDialog
                 sortOptions={settings.sortOptions}
@@ -114,7 +110,7 @@ export default function Torrents() {
               borderRightWidth={0}
               borderLeftWidth={0}
               br={0}
-              bc={/^light/.test(theme) ? 'white' : 'black'}
+              bc="$backgroundTransparent"
               placeholderTextColor={'$color'}
             />
           </XStack>
@@ -133,97 +129,5 @@ export default function Torrents() {
         </XStack>
       )}
     </YStack>
-  )
-}
-
-const StartOrPauseAllTorrents = () => {
-  const { startAll, pauseAll } = useTorrents()
-  const { sessionStats } = useContext(TorrentsContext)
-  const media = useMedia()
-  const theme = useThemeName()
-
-  const isAllTorrentsActive = sessionStats.pausedTorrentCount === 0
-
-  return (
-    <Button
-      icon={isAllTorrentsActive ? PauseCircle : PlayCircle}
-      onPress={isAllTorrentsActive ? pauseAll : startAll}
-      bc={/^light/.test(theme) ? 'white' : 'black'}
-      scaleIcon={1.5}
-    >
-      {media.gtXs
-        ? isAllTorrentsActive
-          ? i18n.t('torrents.pauseAll')
-          : i18n.t('torrents.startAll')
-        : ''}
-    </Button>
-  )
-}
-
-type TorrentsListProp = {
-  sortOptions: SortOptions
-  filter: string
-  filters: string[] // only labels for now
-}
-
-const TorrentsList = ({ sortOptions, filter, filters }: TorrentsListProp) => {
-  const { torrents } = useTorrents()
-  const media = useMedia()
-
-  // toSorted is not defined on native
-  torrents.sort((a, b) => {
-    if (a[sortOptions.property] < b[sortOptions.property])
-      return sortOptions.isReversed ? 1 : -1
-    if (a[sortOptions.property] > b[sortOptions.property])
-      return sortOptions.isReversed ? -1 : 1
-    return 0
-  })
-
-  const filteredTorrents =
-    filters.length > 0
-      ? torrents.filter((t) => filters.every((l) => t.labels.includes(l)))
-      : torrents
-
-  const fuse = useMemo(
-    () =>
-      new Fuse(filteredTorrents, {
-        keys: ['name'],
-        findAllMatches: true,
-        threshold: 0.3,
-      }),
-    [filteredTorrents]
-  )
-
-  const displayedTorrents =
-    filter === ''
-      ? filteredTorrents
-      : fuse.search(filter).map((res) => res.item)
-
-  if (torrents.length === 0) {
-    return (
-      <XStack
-        w="100%"
-        mx="auto"
-        px={media.gtXs ? 46 : 7}
-        maxWidth={DESKTOP_MAX_CONTENT_WIDTH + (media.gtXs ? 46 * 2 : 7 * 2)}
-      >
-        <TorrentCardPlaceHolder />
-      </XStack>
-    )
-  }
-
-  return (
-    <FlatList
-      contentContainerStyle={{
-        width: '100%',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        paddingTop: 4,
-        paddingBottom: 4,
-        maxWidth: DESKTOP_MAX_CONTENT_WIDTH + (media.gtXs ? 46 * 2 : 7 * 2),
-      }}
-      data={displayedTorrents || []}
-      renderItem={({ item }) => <TorrentCard key={item.id} torrent={item} />}
-    />
   )
 }

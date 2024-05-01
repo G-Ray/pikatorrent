@@ -11,9 +11,9 @@ version: '3'
 
 services:
   hub:
-    image: docker.io/library/node:18
+    image: docker.io/library/node:18-slim
     restart: unless-stopped
-    command: sh -c "npm i -g pikatorrent && pikatorrent hub"
+    command: sh -c "apt update && apt install -y git cmake && npm i -g pikatorrent && pikatorrent hub"
 
   caddy:
     image: docker.io/library/caddy:2-alpine

@@ -13,14 +13,29 @@ import {
 } from 'tamagui'
 import { DESKTOP_MAX_CONTENT_WIDTH } from '../constants/layout'
 import { Download } from '@tamagui/lucide-icons'
-import { Link } from 'expo-router'
-import { TorrentFieldFormatter } from '../components/TorrentFieldFormatter'
+import { Link, useRouter } from 'expo-router'
 import { library } from '../lib/library'
-import i18n from '../i18n'
+import { useI18n } from '../hooks/use18n'
+import { Platform } from 'react-native'
+import isElectron from 'is-electron'
+import { TorrentFieldFormatter } from '../components/screens/torrents/TorrentFieldFormatter'
 
 export default function Library() {
   const media = useMedia()
   const theme = useThemeName()
+  const i18n = useI18n()
+  const router = useRouter()
+
+  const handleDownloadPress = (content) => {
+    // NOTE: Workaround to always use a hash on web.
+    // This avoid leaking magnet/torrent link to the server
+    // Once expo-router supports hash, this should be revisited
+    if (Platform.OS === 'web' && !isElectron()) {
+      window.location.replace(`add#${content.magnet}`)
+    } else {
+      router.push(`/add?magnet=${encodeURIComponent(content.magnet)}`)
+    }
+  }
 
   return (
     <ScrollView>
@@ -55,19 +70,18 @@ export default function Library() {
                 </YStack>
               </XStack>
             </XStack>
-            <Link href={t.url} asChild>
-              <Button
-                {...(!media.gtXs && { w: '100%' })}
-                alignSelf="center"
-                bc={theme.startsWith('light') ? 'white' : 'black'}
-                theme="yellow"
-                hoverTheme
-                borderColor={'$yellow7'}
-                icon={Download}
-              >
-                {i18n.t('library.download')}
-              </Button>
-            </Link>
+            <Button
+              {...(!media.gtXs && { w: '100%' })}
+              alignSelf="center"
+              variant="outlined"
+              theme="yellow"
+              hoverTheme
+              borderColor={'$yellow7'}
+              icon={Download}
+              onPress={() => handleDownloadPress(t)}
+            >
+              {i18n.t('library.download')}
+            </Button>
           </Card>
         ))}
         <Paragraph alignSelf="center">{i18n.t('library.moreToCome')}</Paragraph>

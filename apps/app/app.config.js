@@ -23,7 +23,7 @@ module.exports = () => {
       },
       android: {
         package: IS_DEV ? 'com.gray.pikatorrent.dev' : 'com.gray.pikatorrent',
-        versionCode: 16,
+        versionCode: 17,
         adaptiveIcon: {
           foregroundImage: './assets/adaptive-icon.png',
           backgroundColor: '#ffffff',
@@ -52,6 +52,7 @@ module.exports = () => {
         },
       },
       plugins: [
+        'expo-router',
         '@config-plugins/react-native-webrtc',
         'expo-localization',
         [

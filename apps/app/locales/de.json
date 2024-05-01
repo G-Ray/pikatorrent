@@ -24,6 +24,8 @@
       "title": "Nodes",
       "listLabel": "Lokale & Ferngesteuerte nodes",
       "qrCodeLabel": "QR code um die Mobile App zu linken",
+      "hideQRCode": "Hide QR Code",
+      "showQRCode": "Show QR Code",
       "secretLinkLabel": " Suche eine url um app.pikatorrent.com zu linken",
       "copyLink": "Link kopieren",
       "qrCodeScanButtonLabel": "QR code scannen",

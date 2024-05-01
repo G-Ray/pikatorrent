@@ -39,37 +39,34 @@ export const loadSettings = () => {
     const settingsFileData = fs.readFileSync(settingsFilePath)
     if (settingsFileData) {
       const loadedSaveSettings = JSON.parse(settingsFileData.toString())
-      return {
+      settings = {
         ...settings,
         ...loadedSaveSettings,
-        nodeId: loadedSaveSettings.nodeId || settings.nodeId,
       }
     }
   }
 }
 
-export const updateSettings = (settings, update = {}) => {
-  const updatedSettings = { ...settings, ...update }
+export const updateSettings = (update = {}): void => {
+  settings = { ...settings, ...update }
   if (onUpdateSettings) {
     onUpdateSettings(settings)
   }
 
   saveSettings()
-
-  return updatedSettings
 }
 export const saveSettings = () => {
   fs.writeFileSync(settingsFilePath, JSON.stringify(settings))
 }
 
 export const saveAcceptedPeer = (peerId, name) => {
-  settings = updateSettings(settings, {
+  updateSettings({
     acceptedPeers: [...settings.acceptedPeers, { id: peerId, name }],
   })
 }
 
 export const saveRejectedPeer = (peerId, name) => {
-  settings = updateSettings(settings, {
+  updateSettings({
     rejectedPeers: [...settings.rejectedPeers, { id: peerId, name }],
   })
 }

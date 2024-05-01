@@ -1,14 +1,14 @@
 import prettyBytes from 'pretty-bytes'
 import notifee, {
   AndroidImportance,
-  EventType,
   AuthorizationStatus,
 } from '@notifee/react-native'
 
 import * as transmission from './transmission'
-import { quitApp } from './lifecycle'
 
 const CHANNEL_ID = 'foregroundServiceId'
+// reference to interval function which update the persisten notification
+let updateNotificationInterval: NodeJS.Timer
 
 async function checkNotificationPermission() {
   const settings = await notifee.getNotificationSettings()
@@ -72,7 +72,7 @@ const updateNotification = async (notification?: any) => {
           },
         },
         {
-          title: 'Exit',
+          title: 'Shutdown',
           pressAction: {
             id: 'exit',
           },
@@ -82,28 +82,9 @@ const updateNotification = async (notification?: any) => {
   })
 }
 
-const handleEvents = async ({ type, detail }) => {
-  // Start all
-  if (type === EventType.ACTION_PRESS && detail.pressAction.id === 'startAll') {
-    await transmission.request({
-      method: 'torrent-start-now',
-      arguments: {},
-    })
-  }
-
-  // Pause all
-  if (type === EventType.ACTION_PRESS && detail.pressAction.id === 'pauseAll') {
-    await transmission.request({
-      method: 'torrent-stop',
-      arguments: {},
-    })
-  }
-
-  // Exit
-  if (type === EventType.ACTION_PRESS && detail.pressAction.id === 'exit') {
-    await notifee.stopForegroundService()
-    quitApp()
-  }
+export const registerEvents = (eventsHandler) => {
+  notifee.onBackgroundEvent(eventsHandler)
+  notifee.onForegroundEvent(eventsHandler)
 }
 
 export const createPersistentNotification = async () => {
@@ -120,19 +101,23 @@ export const createPersistentNotification = async () => {
     importance: AndroidImportance.LOW,
   })
 
-  notifee.onBackgroundEvent(handleEvents)
-
   // Create foreground notification
   updateNotification()
 
   notifee.registerForegroundService((notification) => {
     return new Promise((resolve, reject) => {
-      notifee.onForegroundEvent(handleEvents)
-
       // Refresh notification every 5 seconds
-      setInterval(async () => {
+      updateNotificationInterval = setInterval(async () => {
         await updateNotification(notification)
       }, 5000)
     })
   })
+}
+
+export const destroyPersistentNotification = async () => {
+  if (updateNotificationInterval) {
+    clearInterval(updateNotificationInterval)
+  }
+  await notifee.stopForegroundService()
+  await notifee.cancelAllNotifications()
 }

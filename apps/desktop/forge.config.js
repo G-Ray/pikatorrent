@@ -23,7 +23,7 @@ module.exports = {
         assets: 'assets/appx',
         manifestTemplate: 'assets/appx/template/appxmanifest.xml',
         devCert: './assets/appx/cert.pfx',
-        certPass: 'password'
+        certPass: 'password',
         // protocol: 'pikatorrent' // electron forge is not up to date with latest electron-windows-store
       },
     },
@@ -68,7 +68,7 @@ module.exports = {
       // Build app for web
       execSync(
         `npm --prefix ${appPath} run build:web -- --clear --output-dir ${buildPath}/dist ${appPath}`,
-        { env: { ...process.env, TAMAGUI_TARGET: 'web' } }
+        { env: { ...process.env } }
       )
     },
   },

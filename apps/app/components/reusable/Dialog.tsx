@@ -40,7 +40,6 @@ const Dialog = ({
   snapPointsMode,
 }: DialogProps) => {
   const [localOpen, setLocalOpen] = useState(defaultOpen)
-  const theme = useThemeName()
 
   useEffect(() => {
     if (Platform.OS === 'web') {
@@ -56,8 +55,13 @@ const Dialog = ({
 
       if (open == undefined) {
         // Dialog is locally controlled
-        setLocalOpen(false)
-        return true
+        if (localOpen === true) {
+          setLocalOpen(false)
+          return true
+        }
+
+        // This dialog is not concerned by this event, so bubble up the event
+        return false
       }
 
       return false
@@ -69,7 +73,7 @@ const Dialog = ({
     )
 
     return () => backHandler.remove()
-  }, [onOpenChange, open])
+  }, [onOpenChange, open, localOpen])
 
   const handleOpenChange = (isOpen: boolean) => {
     setLocalOpen(isOpen)
@@ -89,26 +93,21 @@ const Dialog = ({
 
       <Adapt when="sm">
         {/* Workaround for web */}
-        <Theme name={theme.startsWith('dark') ? 'dark' : 'light'}>
-          <Sheet
-            zIndex={200000}
-            modal
-            dismissOnSnapToBottom={dismissOnSnapToBottom}
-            {...(snapPointsMode !== 'fit' && { snapPoints })}
-            defaultPosition={defaultPosition}
-            dismissOnOverlayPress={dismissOnOverlayPress}
-            snapPointsMode={snapPointsMode}
-          >
-            <Sheet.Handle bc={'white'} />
-            <Sheet.Frame
-              padding="$4"
-              bc={theme.startsWith('dark') ? 'black' : 'white'}
-            >
-              <Adapt.Contents />
-            </Sheet.Frame>
-            <Sheet.Overlay />
-          </Sheet>
-        </Theme>
+        <Sheet
+          zIndex={200000}
+          modal
+          dismissOnSnapToBottom={dismissOnSnapToBottom}
+          {...(snapPointsMode !== 'fit' && { snapPoints })}
+          defaultPosition={defaultPosition}
+          dismissOnOverlayPress={dismissOnOverlayPress}
+          snapPointsMode={snapPointsMode}
+        >
+          <Sheet.Handle bc={'white'} />
+          <Sheet.Frame padding="$4" bc={'$background'}>
+            <Adapt.Contents />
+          </Sheet.Frame>
+          <Sheet.Overlay />
+        </Sheet>
       </Adapt>
 
       <TamaguiDialog.Portal>
@@ -129,7 +128,7 @@ const Dialog = ({
           bordered
           elevate
           key="content"
-          bc={theme.startsWith('dark') ? 'black' : 'white'}
+          bc={'$background'}
           animation={[
             'quick',
             {

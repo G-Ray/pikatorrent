@@ -1,19 +1,15 @@
 import 'expo-router/entry'
 import { polyfillWebCrypto } from 'expo-standard-web-crypto'
-import 'react-native-url-polyfill/auto'
 import { Platform } from 'react-native'
 
 import './i18n'
-import * as transmission from './lib/transmission'
-import { createPersistentNotification } from './lib/persistentNotification'
+import { initApp } from './lib/lifecycle'
 
 if (Platform.OS === 'web') {
   require('@tamagui/core/reset.css')
+  require('./index.css')
 }
 
-if (Platform.OS !== 'web') {
-  transmission.init()
-  createPersistentNotification()
-}
+initApp()
 
 polyfillWebCrypto()
