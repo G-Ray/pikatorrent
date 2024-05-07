@@ -19,7 +19,6 @@ import {
   XStack,
   YStack,
   useMedia,
-  useThemeName,
 } from 'tamagui'
 import isElectron from 'is-electron'
 import { Platform, Share } from 'react-native'
@@ -38,7 +37,6 @@ import { PRIVATE_DOWNLOAD_DIR } from '../../../lib/transmission'
 
 export const TorrentCard = ({ torrent, theme = 'yellow' }) => {
   const media = useMedia()
-  const themeName = useThemeName()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const { start, pause } = useTorrents()
@@ -57,40 +55,42 @@ export const TorrentCard = ({ torrent, theme = 'yellow' }) => {
         open={isMenuOpen}
         onOpenChange={setIsMenuOpen}
       />
-      <Card key={torrent.id} size="$4" pr="$2" py="$2" transparent>
-        <XStack ai="center">
+      <Card
+        hoverTheme
+        transparent
+        {...(media.gtXs ? { bordered: true } : {})}
+        key={torrent.id}
+        p="$2"
+        hoverStyle={{ cursor: 'pointer' }}
+        onPress={() => {
+          setIsMenuOpen(true)
+        }}
+      >
+        <XStack ai="center" gap="$2">
           <XStack>
             {TORRENT_STATUSES[torrent.status] === TORRENT_STATUSES[0] ? (
               <Button
-                onPress={() => start(torrent.id)}
-                bc={themeName === 'light' ? 'white' : 'black'}
+                onPress={(e) => {
+                  e.stopPropagation()
+                  start(torrent.id)
+                }}
                 icon={PlayCircle}
-                size="$5"
                 circular
                 scaleIcon={2}
               />
             ) : (
               <Button
-                onPress={() => pause(torrent.id)}
-                bc={themeName === 'light' ? 'white' : 'black'}
+                onPress={(e) => {
+                  e.stopPropagation()
+                  pause(torrent.id)
+                }}
                 icon={PauseCircle}
-                size="$5"
                 circular
-                scaleIcon={2}
               />
             )}
           </XStack>
 
-          <Stack
-            f={1}
-            p="$2"
-            br="$2"
-            hoverStyle={{ bc: '$gray4', cursor: 'pointer' }}
-            pressStyle={{ bc: '$gray4' }}
-            onPress={() => {
-              setIsMenuOpen(true)
-            }}
-          >
+          <Stack f={1}>
             <XStack>
               <H6 numberOfLines={1}>{torrent.name}</H6>
             </XStack>
@@ -102,7 +102,10 @@ export const TorrentCard = ({ torrent, theme = 'yellow' }) => {
               bordered
               size="$2"
             >
-              <Progress.Indicator animation="lazy" bc={`$${theme}9`} />
+              <Progress.Indicator
+                animation="lazy"
+                backgroundColor={`$${theme}9`}
+              />
             </Progress>
             <XStack jc="space-between">
               <TorrentInfo torrent={torrent} />
@@ -117,7 +120,7 @@ export const TorrentCard = ({ torrent, theme = 'yellow' }) => {
               >
                 <XStack gap={media.gtXs ? '$2' : '$1'}>
                   {torrent.labels.map((label, index) => (
-                    <Label key={index} name={label} color={'$gray12'}></Label>
+                    <Label key={index} name={label}></Label>
                   ))}
                 </XStack>
               </ScrollView>
@@ -147,13 +150,6 @@ const TorrentActions = ({ torrent, handleOpenFolder, open, onOpenChange }) => {
 
   return (
     <Dialog
-      // trigger={
-      //   <Button
-      //     circular
-      //     icon={Menu}
-      //     bc={theme === 'light' ? 'white' : 'black'}
-      //   ></Button>
-      // }
       // Fit has a glitch when a nested sheets is rendered
       snapPointsMode="fit"
       // snapPoints={[70]}

@@ -18,9 +18,8 @@ export const StartPauseAllTorrentsButton = () => {
     <Button
       icon={isAllTorrentsActive ? PauseCircle : PlayCircle}
       onPress={isAllTorrentsActive ? pauseAll : startAll}
-      themeReset
-      bc="$backgroundTransparent"
-      scaleIcon={1.5}
+      {...(!media.gtXs && { scaleIcon: 1.5 })}
+      transparent
     >
       {media.gtXs
         ? isAllTorrentsActive

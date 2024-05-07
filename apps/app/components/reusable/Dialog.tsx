@@ -126,9 +126,6 @@ const Dialog = ({
             overflow: 'auto',
           })}
           bordered
-          elevate
-          key="content"
-          bc={'$background'}
           animation={[
             'quick',
             {

@@ -18,11 +18,10 @@ export const Filters = ({ onChangeFilters }) => {
       title="Labels"
       trigger={
         <Button
+          transparent
           icon={Tags}
-          themeReset
-          bc="$backgroundTransparent"
           {...(filteredLabels.length > 0 && { color: '$blue9' })}
-          scaleIcon={1.5}
+          {...(!media.gtXs && { scaleIcon: 1.5 })}
         >
           {media.gtXs
             ? `${filteredLabels.length} ${i18n.t('torrents.filteredLabels')}`

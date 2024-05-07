@@ -1,14 +1,6 @@
 import { ArrowDownNarrowWide, ArrowDownWideNarrow } from '@tamagui/lucide-icons'
 import React from 'react'
-import {
-  Button,
-  Label,
-  Switch,
-  XStack,
-  YStack,
-  useMedia,
-  useThemeName,
-} from 'tamagui'
+import { Button, Label, Switch, XStack, YStack, useMedia } from 'tamagui'
 import { Dialog } from '../reusable/Dialog'
 import { Select } from '../reusable/Select'
 import { useI18n } from '../../hooks/use18n'
@@ -28,7 +20,6 @@ export const SortingOptionsDialog = ({
   onChangeSort,
 }: SortingOptionsDialogProps) => {
   const media = useMedia()
-  const theme = useThemeName()
   const i18n = useI18n()
 
   if (!sortOptions) return null
@@ -38,11 +29,11 @@ export const SortingOptionsDialog = ({
       title={i18n.t('sortingOptionsDialog.title')}
       trigger={
         <Button
+          transparent
           icon={
             sortOptions.isReversed ? ArrowDownWideNarrow : ArrowDownNarrowWide
           }
-          transparent
-          scaleIcon={1.5}
+          {...(!media.gtXs && { scaleIcon: 1.5 })}
         >
           {media.gtXs && i18n.t('sortingOptionsDialog.' + sortOptions.property)}
         </Button>
@@ -92,10 +83,7 @@ export const SortingOptionsDialog = ({
               onChangeSort({ ...sortOptions, isReversed: isChecked })
             }
           >
-            <Switch.Thumb
-              animation="quick"
-              bc={theme === 'light' ? 'black' : 'white'}
-            />
+            <Switch.Thumb animation="quick" />
           </Switch>
         </XStack>
       </YStack>

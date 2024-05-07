@@ -5,7 +5,6 @@ import Fuse from 'fuse.js'
 import { useTorrents } from '../../../hooks/useTorrents'
 import { TorrentCard, TorrentCardPlaceHolder } from './TorrentCard'
 import { FlatList } from 'react-native'
-import { DESKTOP_MAX_CONTENT_WIDTH } from '../../../constants/layout'
 import { SortOptions } from '../../dialogs/SortingOptionsDialog'
 
 type TorrentsListProp = {
@@ -53,12 +52,7 @@ export const TorrentsList = ({
 
   if (torrents.length === 0) {
     return (
-      <XStack
-        w="100%"
-        mx="auto"
-        px={media.gtXs ? 46 : 7}
-        maxWidth={DESKTOP_MAX_CONTENT_WIDTH + (media.gtXs ? 46 * 2 : 7 * 2)}
-      >
+      <XStack w="100%">
         <TorrentCardPlaceHolder />
       </XStack>
     )
@@ -68,11 +62,6 @@ export const TorrentsList = ({
     <FlatList
       contentContainerStyle={{
         width: '100%',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        paddingTop: 4,
-        paddingBottom: 4,
-        maxWidth: DESKTOP_MAX_CONTENT_WIDTH + (media.gtXs ? 46 * 2 : 7 * 2),
       }}
       data={displayedTorrents || []}
       renderItem={({ item }) => <TorrentCard key={item.id} torrent={item} />}

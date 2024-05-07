@@ -1,20 +1,8 @@
 import React, { useContext, useState } from 'react'
-import {
-  Button,
-  Card,
-  Input,
-  Separator,
-  Stack,
-  XStack,
-  YStack,
-  useMedia,
-  Theme,
-  Paragraph,
-} from 'tamagui'
+import { Button, Separator, Stack, XStack, YStack, useMedia } from 'tamagui'
 import { Link, Slot } from 'expo-router'
 import { PlusCircle } from '@tamagui/lucide-icons'
 
-import { DESKTOP_MAX_CONTENT_WIDTH } from '../../constants/layout'
 import {
   SortOptions,
   SortingOptionsDialog,
@@ -25,35 +13,34 @@ import { SearchBar } from '../../components/screens/torrents/SearchBar'
 import { Filters } from '../../components/screens/torrents/Filters'
 import { TorrentsList } from '../../components/screens/torrents/TorrentsList'
 import { StartPauseAllTorrentsButton } from '../../components/screens/torrents/StartPauseAllTorrentsButton'
+import { Input } from '../../components/reusable/Input'
 
 const SearchBarWithAddButton = () => {
   const media = useMedia()
   const i18n = useI18n()
 
   return (
-    <Card mx="auto" w="100%" maxWidth={DESKTOP_MAX_CONTENT_WIDTH}>
-      <XStack bc="$backgroundTransparent" gap="$2">
-        {/* Workaround to avoid textDecoration on Firefox */}
-        <Link href="/add" asChild>
-          <Button
-            theme="yellow"
-            icon={PlusCircle}
-            bordered
-            borderColor={'$yellow7'}
-            {...(!media.gtXs && {
-              position: 'absolute',
-              bottom: '$10',
-              right: '$1',
-              size: '$5',
-              br: 50,
-            })}
-          >
-            {i18n.t('torrents.add')}
-          </Button>
-        </Link>
-        <SearchBar />
-      </XStack>
-    </Card>
+    <XStack w="100%" gap="$8">
+      <Link href="/add" asChild>
+        <Button
+          theme="yellow"
+          transparent
+          icon={PlusCircle}
+          borderColor={'$yellow9'}
+          style={{ textDecoration: 'none' }}
+          br={50}
+          {...(!media.gtXs && {
+            position: 'absolute',
+            bottom: '$12',
+            right: '$6',
+            size: '$5',
+          })}
+        >
+          {i18n.t('torrents.add')}
+        </Button>
+      </Link>
+      <SearchBar />
+    </XStack>
   )
 }
 
@@ -73,60 +60,48 @@ export default function Torrents() {
       <YStack>
         {media.gtXs && (
           <Stack>
-            <YStack mb="$4">
+            <YStack px={media.gtXs ? '$8' : '$2'}>
               <SearchBarWithAddButton />
             </YStack>
-            <Separator />
+            <Separator my="$4" />
           </Stack>
         )}
-
-        <Card
-          mx="auto"
-          my="$2"
-          w="100%"
-          maxWidth={DESKTOP_MAX_CONTENT_WIDTH}
-          bc="$backgroundTransparent"
-        >
-          <XStack jc="space-between" bc="$backgroundTransparent">
-            <StartPauseAllTorrentsButton />
-            <Theme reset>
-              <SortingOptionsDialog
-                sortOptions={settings.sortOptions}
-                onChangeSort={handleChangeSort}
-              />
-            </Theme>
-            <Theme reset>
-              <Filters onChangeFilters={setFilters} />
-            </Theme>
-            <Input
-              minWidth={120}
-              f={1}
-              m={'$1'}
-              mr="$2"
-              placeholder={i18n.t('torrents.filterListPlaceholder')}
-              value={filter}
-              onChangeText={setFilter}
-              borderTopWidth={0}
-              borderRightWidth={0}
-              borderLeftWidth={0}
-              br={0}
-              bc="$backgroundTransparent"
-              placeholderTextColor={'$color'}
-            />
-          </XStack>
-        </Card>
       </YStack>
-      <TorrentsList
-        filter={filter}
-        filters={filters}
-        sortOptions={settings.sortOptions}
-      />
+      <XStack
+        mx="auto"
+        w="100%"
+        px={media.gtXs ? '$8' : '$2'}
+        pb={media.gtXs ? '$4' : '$0'}
+        gap="$2"
+        jc="space-between"
+      >
+        <StartPauseAllTorrentsButton />
+        <SortingOptionsDialog
+          sortOptions={settings.sortOptions}
+          onChangeSort={handleChangeSort}
+        />
+        <Filters onChangeFilters={setFilters} />
+        <Input
+          f={1}
+          minWidth={120}
+          placeholder={i18n.t('torrents.filterListPlaceholder')}
+          value={filter}
+          onChangeText={setFilter}
+        />
+      </XStack>
+      <YStack px={media.gtXs ? '$8' : '$2'}>
+        <TorrentsList
+          filter={filter}
+          filters={filters}
+          sortOptions={settings.sortOptions}
+        />
+      </YStack>
       <Slot />
-      {!media.gtXs && <Separator />}
       {!media.gtXs && (
-        <XStack py="$2" mx="$2" mt="auto">
+        <YStack py="$2" w="100%" mt="auto">
+          <Separator />
           <SearchBarWithAddButton />
-        </XStack>
+        </YStack>
       )}
     </YStack>
   )

@@ -9,11 +9,10 @@ import {
   XStack,
   YStack,
   useMedia,
-  useThemeName,
 } from 'tamagui'
 import { DESKTOP_MAX_CONTENT_WIDTH } from '../constants/layout'
 import { Download } from '@tamagui/lucide-icons'
-import { Link, useRouter } from 'expo-router'
+import { useRouter } from 'expo-router'
 import { library } from '../lib/library'
 import { useI18n } from '../hooks/use18n'
 import { Platform } from 'react-native'
@@ -22,7 +21,6 @@ import { TorrentFieldFormatter } from '../components/screens/torrents/TorrentFie
 
 export default function Library() {
   const media = useMedia()
-  const theme = useThemeName()
   const i18n = useI18n()
   const router = useRouter()
 
@@ -49,8 +47,8 @@ export default function Library() {
         })}
       >
         {library.map((t, index) => (
-          <Card key={index} p="$2" bc={theme === 'light' ? 'white' : 'black'}>
-            <XStack gap="$4" jc="space-between" f={1} w="100%" mb="$2">
+          <Card key={index} p="$4" transparent bordered>
+            <XStack f={1} w="100%">
               <XStack gap="$4" f={1}>
                 <Image
                   alignSelf="center"

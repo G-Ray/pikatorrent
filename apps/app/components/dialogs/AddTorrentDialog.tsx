@@ -55,7 +55,6 @@ export const AddTorrentDialog = () => {
   const router = useRouter()
   const url = useURL()
   const node = useContext(NodeContext)
-  const theme = useThemeName()
 
   useEffect(() => {
     if (!url) return
@@ -148,7 +147,6 @@ export const AddTorrentDialog = () => {
         router.push('/')
         // TODO: wait for animation duration to finish
       }}
-      // snapPoints={[42]}
       defaultOpen
       title={i18n.t('addTorrentDialog.title')}
       snapPointsMode="fit"

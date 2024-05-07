@@ -14,12 +14,13 @@ import {
   useThemeName,
   XStack,
   YStack,
+  View,
 } from 'tamagui'
 import { useFonts } from 'expo-font'
-import { Tabs, useRouter } from 'expo-router'
+import { Tabs, useRouter, useSegments } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import { ToastProvider, ToastViewport } from '@tamagui/toast'
-import { View, useColorScheme } from 'react-native'
+import { useColorScheme } from 'react-native'
 import * as Linking from 'expo-linking'
 import * as SplashScreen from 'expo-splash-screen'
 
@@ -37,6 +38,8 @@ import { Portal } from 'tamagui'
 import { Header } from '../components/layout/Header'
 import { BottomTabs, Sidebar } from '../components/layout'
 import { ToastController } from '../components/layout/ToastController'
+import { ConnectionStatus } from '../components/layout/ConnectionStatus'
+import { GlobalStats } from '../components/screens/torrents/GlobalStats'
 
 const screenOptions = {
   title: 'PikaTorrent',
@@ -81,14 +84,14 @@ export default function Layout() {
   }
 
   return (
-    <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-      <TamaguiProvider config={tamaguiConfig}>
+    <TamaguiProvider config={tamaguiConfig}>
+      <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
         <NativeURLHandlers />
         <SettingsProvider>
           <ThemedLayout />
         </SettingsProvider>
-      </TamaguiProvider>
-    </View>
+      </View>
+    </TamaguiProvider>
   )
 }
 
@@ -186,10 +189,10 @@ const ThemedLayout = () => {
           <Stack
             f={1}
             {...(Platform.OS === 'web' ? { h: '100vh' } : {})}
-            backgroundColor={theme === 'dark' ? 'black' : 'white'}
+            backgroundColor={'$background'}
           >
             <TorrentsProvider>
-              <Header />
+              {!media.gtMd && <Header />}
               {media.gtMd ? <Desktop /> : <Mobile />}
             </TorrentsProvider>
           </Stack>
@@ -200,16 +203,23 @@ const ThemedLayout = () => {
 }
 
 const Desktop = () => {
+  const segments = useSegments()
   return (
     <XStack f={1}>
       <Sidebar />
       <Separator vertical />
       <YStack f={1}>
+        <XStack jc="flex-end" gap="$4" px="$2" py="$2">
+          <ConnectionStatus />
+          {segments[0] === '(torrents)' && <GlobalStats />}
+        </XStack>
         <Tabs
+          sceneContainerStyle={{
+            backgroundColor: '$background',
+          }}
           screenOptions={screenOptions}
-          sceneContainerStyle={{ backgroundColor: 'transparent' }}
           tabBar={() => null}
-        ></Tabs>
+        />
       </YStack>
     </XStack>
   )
@@ -219,10 +229,10 @@ const Mobile = () => {
   return (
     <YStack f={1}>
       <Tabs
+        sceneContainerStyle={{ backgroundColor: '$background' }}
         screenOptions={screenOptions}
-        sceneContainerStyle={{ backgroundColor: 'transparent' }}
         tabBar={() => <BottomTabs />}
-      ></Tabs>
+      />
     </YStack>
   )
 }

@@ -1,8 +1,5 @@
-// the v2 config imports the css driver on web and react-native on native
-// for reanimated: @tamagui/config/v2-reanimated
-// for react-native only: @tamagui/config/v2-native
-import { config } from '@tamagui/config/v2'
-import { createTamagui } from 'tamagui' // or '@tamagui/core'
+import { config } from '@tamagui/config/v3'
+import { createTamagui } from 'tamagui'
 import { createInterFont } from '@tamagui/font-inter'
 
 const headingFont = createInterFont()

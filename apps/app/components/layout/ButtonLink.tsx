@@ -17,23 +17,17 @@ export const ButtonLink = ({
   return (
     <Link href={href} asChild>
       <Button
-        size="$5"
-        br={50}
+        theme="yellow"
+        transparent
         icon={icon}
-        scaleIcon={1.4}
-        variant="outlined"
-        borderWidth={0}
-        hoverStyle={{
-          borderColor: `$${theme}5`,
-        }}
-        focusStyle={{
-          outlineColor: `$${theme}5`,
-          borderWidth: 0,
-        }}
+        br={50}
+        circular={!media.gtXs}
+        {...(!media.gtXs && { scaleIcon: 1.4 })}
         {...(isActive && {
-          borderColor: `$${theme}5`,
+          borderColor: `$${theme}7`,
           color: `$${theme}9`,
         })}
+        style={{ textDecoration: 'none' }}
       >
         {media.gtXs && title}
       </Button>

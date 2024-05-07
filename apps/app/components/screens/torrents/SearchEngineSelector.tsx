@@ -6,15 +6,13 @@ import {
   Paragraph,
   Select,
   Sheet,
-  Theme,
   XStack,
   YStack,
   getFontSize,
   useMedia,
-  useThemeName,
 } from 'tamagui'
-import { Engine } from './SearchBar'
 
+import { Engine } from './SearchBar'
 import defaultSettings from '../../../defaultSettings.json'
 import { useI18n } from '../../../hooks/use18n'
 
@@ -35,126 +33,131 @@ export const SearchEngineSelector = ({
     defaultSettings.searchEnginesUrls[0]
   const i18n = useI18n()
   const media = useMedia()
-  const theme = useThemeName()
 
   return (
-    <Theme name={theme.startsWith('light') ? 'light' : 'dark'}>
-      <Select id="food" value={value} onValueChange={onValueChange} {...props}>
-        <Select.Trigger
-          w={media.gtXs ? 180 : '$6'}
-          size={media.gtXs ? '$4' : '$2'}
-          iconAfter={ChevronDown}
-          borderWidth={0}
-          transparent
-        >
-          <XStack f={1} ai="center" jc="space-between">
-            <XStack f={1} gap="$2">
-              <Image
-                source={{
-                  width: 24,
-                  height: 24,
-                  uri: selectedEngine.iconUrl,
-                }}
-              />
-              {media.gtXs && (
-                <Paragraph numberOfLines={1}>{selectedEngine.name}</Paragraph>
-              )}
-            </XStack>
+    <Select
+      id="search-engine"
+      value={value}
+      onValueChange={onValueChange}
+      {...props}
+    >
+      <Select.Trigger
+        w={media.gtXs ? 180 : '$6'}
+        size={media.gtXs ? '$4' : '$2'}
+        iconAfter={ChevronDown}
+        br={0}
+        borderTopWidth={0}
+        borderRightWidth={0}
+        borderLeftWidth={0}
+        transparent
+      >
+        <XStack f={1} ai="center" jc="space-between">
+          <XStack f={1} gap="$2">
+            <Image
+              source={{
+                width: 24,
+                height: 24,
+                uri: selectedEngine.iconUrl,
+              }}
+            />
+            {media.gtXs && (
+              <Paragraph numberOfLines={1}>{selectedEngine.name}</Paragraph>
+            )}
           </XStack>
-        </Select.Trigger>
+        </XStack>
+      </Select.Trigger>
 
-        <Adapt when="sm" platform="touch">
-          <Sheet native modal dismissOnSnapToBottom snapPointsMode="fit">
-            <Sheet.Frame>
-              <Sheet.ScrollView>
-                <Adapt.Contents />
-              </Sheet.ScrollView>
-            </Sheet.Frame>
-            <Sheet.Overlay />
-          </Sheet>
-        </Adapt>
+      <Adapt when="sm" platform="touch">
+        <Sheet native modal dismissOnSnapToBottom snapPointsMode="fit">
+          <Sheet.Frame>
+            <Sheet.ScrollView>
+              <Adapt.Contents />
+            </Sheet.ScrollView>
+          </Sheet.Frame>
+          <Sheet.Overlay />
+        </Sheet>
+      </Adapt>
 
-        <Select.Content zIndex={200000}>
-          <Select.ScrollUpButton
-            alignItems="center"
-            justifyContent="center"
-            position="relative"
-            width="100%"
-            height="$3"
-          >
-            <YStack zIndex={10}>
-              <ChevronUp size={20} />
-            </YStack>
-          </Select.ScrollUpButton>
+      <Select.Content zIndex={200000}>
+        <Select.ScrollUpButton
+          alignItems="center"
+          justifyContent="center"
+          position="relative"
+          width="100%"
+          height="$3"
+        >
+          <YStack zIndex={10}>
+            <ChevronUp size={20} />
+          </YStack>
+        </Select.ScrollUpButton>
 
-          <Select.Viewport minWidth={200}>
-            <XStack>
-              <Select.Group space="$0">
-                <Select.Label bc="$backgroundTransparent">
-                  {i18n.t('torrents.searchEngineSelectorLabel')}
-                </Select.Label>
-                {engines.map((engine, i) => {
-                  return (
-                    <Select.Item
-                      bc="$backgroundTransparent"
-                      index={i}
-                      key={engine.name}
-                      value={engine.name}
-                    >
-                      <XStack f={1} jc="space-between">
-                        <XStack gap="$2" f={1}>
-                          <Image
-                            source={{
-                              width: 24,
-                              height: 24,
-                              uri: engine.iconUrl,
-                            }}
-                          />
-                          <Select.ItemText numberOfLines={1}>
-                            {engine.name}
-                          </Select.ItemText>
-                        </XStack>
-                        <Select.ItemIndicator>
-                          <Check size={16} />
-                        </Select.ItemIndicator>
+        <Select.Viewport minWidth={200}>
+          <XStack>
+            <Select.Group space="$0">
+              <Select.Label bc="$backgroundTransparent">
+                {i18n.t('torrents.searchEngineSelectorLabel')}
+              </Select.Label>
+              {engines.map((engine, i) => {
+                return (
+                  <Select.Item
+                    bc="$backgroundTransparent"
+                    index={i}
+                    key={engine.name}
+                    value={engine.name}
+                  >
+                    <XStack f={1} jc="space-between">
+                      <XStack gap="$2" f={1}>
+                        <Image
+                          source={{
+                            width: 24,
+                            height: 24,
+                            uri: engine.iconUrl,
+                          }}
+                        />
+                        <Select.ItemText numberOfLines={1}>
+                          {engine.name}
+                        </Select.ItemText>
                       </XStack>
-                    </Select.Item>
-                  )
-                })}
-              </Select.Group>
-              {/* special icon treatment for native */}
-              {props.native && (
-                <YStack
-                  position="absolute"
-                  right={0}
-                  top={0}
-                  bottom={0}
-                  alignItems="center"
-                  justifyContent="center"
-                  width={'$4'}
-                  pointerEvents="none"
-                >
-                  <ChevronDown
-                    size={getFontSize((props.size ?? '$true') as any)}
-                  />
-                </YStack>
-              )}
-            </XStack>
-          </Select.Viewport>
+                      <Select.ItemIndicator>
+                        <Check size={16} />
+                      </Select.ItemIndicator>
+                    </XStack>
+                  </Select.Item>
+                )
+              })}
+            </Select.Group>
+            {/* special icon treatment for native */}
+            {props.native && (
+              <YStack
+                position="absolute"
+                right={0}
+                top={0}
+                bottom={0}
+                alignItems="center"
+                justifyContent="center"
+                width={'$4'}
+                pointerEvents="none"
+              >
+                <ChevronDown
+                  size={getFontSize((props.size ?? '$true') as any)}
+                />
+              </YStack>
+            )}
+          </XStack>
+        </Select.Viewport>
 
-          <Select.ScrollDownButton
-            alignItems="center"
-            justifyContent="center"
-            position="relative"
-            width="100%"
-            height="$3"
-          >
-            <YStack zIndex={10}>
-              <ChevronDown size={20} />
-            </YStack>
-          </Select.ScrollDownButton>
-        </Select.Content>
-      </Select>
-    </Theme>
+        <Select.ScrollDownButton
+          alignItems="center"
+          justifyContent="center"
+          position="relative"
+          width="100%"
+          height="$3"
+        >
+          <YStack zIndex={10}>
+            <ChevronDown size={20} />
+          </YStack>
+        </Select.ScrollDownButton>
+      </Select.Content>
+    </Select>
   )
 }

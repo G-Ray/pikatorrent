@@ -12,7 +12,7 @@ export const BottomTabs = () => {
   return (
     <YStack w="100%">
       <Separator />
-      <XStack jc="space-around" p="$2" gap="$4" bc="$backgroundStrong">
+      <XStack jc="space-around" p="$2" gap="$4">
         {[...buttons, ...footerButtons].map((button, index) => (
           <ButtonLink key={index} {...button} />
         ))}
