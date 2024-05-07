@@ -4,7 +4,6 @@ import { Button, H5, Paragraph, XStack, YStack, useMedia } from 'tamagui'
 import { ScrollView } from 'react-native'
 import prettyBytes from 'pretty-bytes'
 import prettyMilliseconds from 'pretty-ms'
-import { SpeedCharts } from './SpeedCharts'
 import { Dialog } from '../../reusable/Dialog'
 import { useSessionStats } from '../../../hooks/useSessionStats'
 import { Activity } from '@tamagui/lucide-icons'
@@ -43,12 +42,6 @@ export const StatsDialog = () => {
             pr={media.gtXs ? '$2' : 0}
             gap="$8"
           >
-            {config.FEATURES_FLAGS.includes('speedCharts') && (
-              <SpeedCharts
-                sessionStats={sessionStats}
-                refreshInterval={refreshInterval}
-              />
-            )}
             <YStack>
               <H5>{i18n.t('statsDialog.torrentsCount')}</H5>
               <XStack jc="space-between" w="100%">

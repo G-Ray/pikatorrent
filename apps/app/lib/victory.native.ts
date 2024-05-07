@@ -1,1 +1,0 @@
-export * from 'victory-native'

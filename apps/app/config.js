@@ -3,7 +3,7 @@ const { NODE_ENV } = process.env
 const development = {
   SIGNALING_URL: process.env.SIGNALING_URL || 'ws://localhost:9001',
   APP_URL: process.env.APP_URL || 'http://localhost:8081',
-  // Availabe flags: 'speedCharts'
+  // Availabe flags: none
   FEATURES_FLAGS: [],
 }
 
