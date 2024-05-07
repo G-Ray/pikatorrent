@@ -15,10 +15,11 @@ interface Node {
   name: string
 }
 
-interface Settings {
+export interface Settings {
   clientId?: string
   theme?: 'light' | 'dark' | 'system'
   nodes?: Node[]
+  language?: string
   selectedNodeId?: string
   searchEnginesUrls?: string[]
   isTermsOfUseAccepted?: boolean
