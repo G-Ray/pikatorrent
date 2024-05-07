@@ -7,7 +7,6 @@ import { initApp } from './lib/lifecycle'
 
 if (Platform.OS === 'web') {
   require('@tamagui/core/reset.css')
-  require('./index.css')
 }
 
 initApp()
