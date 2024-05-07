@@ -4,11 +4,10 @@ import { Button, H5, Paragraph, XStack, YStack, useMedia } from 'tamagui'
 import { ScrollView } from 'react-native'
 import prettyBytes from 'pretty-bytes'
 import prettyMilliseconds from 'pretty-ms'
-import { Dialog } from '../../reusable/Dialog'
-import { useSessionStats } from '../../../hooks/useSessionStats'
+import { Dialog } from '../reusable/Dialog'
+import { useSessionStats } from '../../hooks/useSessionStats'
 import { Activity } from '@tamagui/lucide-icons'
-import { useI18n } from '../../../hooks/use18n'
-import { default as config } from '../../../config'
+import { useI18n } from '../../hooks/use18n'
 
 const refreshInterval = 1000
 

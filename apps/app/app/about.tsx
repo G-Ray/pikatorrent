@@ -6,7 +6,7 @@ import { version } from '../package.json'
 import { DESKTOP_MAX_CONTENT_WIDTH } from '../constants/layout'
 import { ExternalLink, Github, MessageSquare } from '@tamagui/lucide-icons'
 import { openExternalLink } from '../lib/links'
-import { StatsDialog } from '../components/dialogs/Stats/Stats'
+import { StatsDialog } from '../components/dialogs/StatsDialog'
 import { useI18n } from '../hooks/use18n'
 import { SessionsInfoDialog } from '../components/dialogs/SessionInfoDialog'
 
