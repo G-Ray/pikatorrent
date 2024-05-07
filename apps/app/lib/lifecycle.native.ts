@@ -1,5 +1,5 @@
 import { Alert, AppState, BackHandler, PermissionsAndroid } from 'react-native'
-import { EventType } from '@notifee/react-native'
+import { Event, EventType } from '@notifee/react-native'
 
 import * as transmission from './transmission'
 import {
@@ -10,9 +10,12 @@ import {
 import { requestStoragePermission } from './permissionsAndroid'
 import i18n from '../i18n'
 
-const handleEvents = async ({ type, detail }) => {
+const handleEvents = async ({ type, detail }: Event) => {
   // Start all
-  if (type === EventType.ACTION_PRESS && detail.pressAction.id === 'startAll') {
+  if (
+    type === EventType.ACTION_PRESS &&
+    detail.pressAction?.id === 'startAll'
+  ) {
     await transmission.request({
       method: 'torrent-start-now',
       arguments: {},
@@ -20,7 +23,10 @@ const handleEvents = async ({ type, detail }) => {
   }
 
   // Pause all
-  if (type === EventType.ACTION_PRESS && detail.pressAction.id === 'pauseAll') {
+  if (
+    type === EventType.ACTION_PRESS &&
+    detail.pressAction?.id === 'pauseAll'
+  ) {
     await transmission.request({
       method: 'torrent-stop',
       arguments: {},
@@ -28,7 +34,7 @@ const handleEvents = async ({ type, detail }) => {
   }
 
   // Exit
-  if (type === EventType.ACTION_PRESS && detail.pressAction.id === 'exit') {
+  if (type === EventType.ACTION_PRESS && detail.pressAction?.id === 'exit') {
     console.log('handleEvents exit')
     quitApp()
   }

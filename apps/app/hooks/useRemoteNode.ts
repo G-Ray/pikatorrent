@@ -8,15 +8,20 @@ const RESPONSE_TIMEOUT = 10_000
 let msgId = 0
 const responsesPromises = new Map()
 
+interface UseRemoteNodeOptions {
+  clientId: string
+  nodeId: string
+}
+
 // Hook to interact with a pikatorrent node
-export const useRemoteNode = ({ clientId, nodeId }) => {
+export const useRemoteNode = ({ clientId, nodeId }: UseRemoteNodeOptions) => {
   const { settings } = useContext(SettingsContext)
   const { peerRef, isConnected, isUnsupportedBrowser } = usePeer({
     clientId,
     nodeId,
   })
 
-  const node = settings.nodes.find((n) => n.id === nodeId)
+  const node = settings.nodes?.find((n) => n.id === nodeId)
 
   useEffect(() => {
     const peer = peerRef.current

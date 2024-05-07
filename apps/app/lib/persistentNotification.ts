@@ -2,6 +2,7 @@ import prettyBytes from 'pretty-bytes'
 import notifee, {
   AndroidImportance,
   AuthorizationStatus,
+  Event,
 } from '@notifee/react-native'
 
 import * as transmission from './transmission'
@@ -82,7 +83,9 @@ const updateNotification = async (notification?: any) => {
   })
 }
 
-export const registerEvents = (eventsHandler) => {
+export const registerEvents = (
+  eventsHandler: (event: Event) => Promise<void>
+) => {
   notifee.onBackgroundEvent(eventsHandler)
   notifee.onForegroundEvent(eventsHandler)
 }

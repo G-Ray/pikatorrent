@@ -9,7 +9,21 @@ import { NodeContext } from './NodeContext'
 import { useToastController } from '@tamagui/toast'
 import { useI18n } from '../hooks/use18n'
 
-export const TorrentsContext = createContext(null)
+interface TorrentContext {
+  torrents: any[]
+  sessionStats: any
+  refresh: () => void
+}
+
+const defaultTorrentContext: TorrentContext = {
+  torrents: [],
+  sessionStats: {},
+  refresh: () => {},
+}
+
+export const TorrentsContext = createContext<TorrentContext>(
+  defaultTorrentContext
+)
 
 const REFRESH_INTERVAL = 5_000
 

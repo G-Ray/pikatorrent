@@ -1,7 +1,7 @@
 import React, { createContext, useContext } from 'react'
 import { useLocalNode } from '../hooks/useLocalNode'
 import { useRemoteNode } from '../hooks/useRemoteNode'
-import { SettingsContext } from './SettingsContext'
+import { Settings, SettingsContext } from './SettingsContext'
 import { Platform } from 'react-native'
 import isElectron from 'is-electron'
 
@@ -10,7 +10,7 @@ interface LocalNodeContext {
   isConnected: boolean
   isLocal: boolean
   settings: null
-  updateSettings: (update: any) => Promise<any>
+  updateSettings: (update: Partial<Settings>) => Promise<any>
 }
 
 interface RemoteNodeContext {
@@ -20,9 +20,17 @@ interface RemoteNodeContext {
   isUnsupportedBrowser: boolean
 }
 
-export const NodeContext = createContext<
-  LocalNodeContext | RemoteNodeContext | null
->(null)
+const defaultNode: LocalNodeContext = {
+  sendRPCMessage: () => Promise.reject(new Error('node not connected yet')),
+  isConnected: false,
+  isLocal: true,
+  settings: null,
+  updateSettings: () => Promise.reject(new Error('node not connected yet')),
+}
+
+export const NodeContext = createContext<LocalNodeContext | RemoteNodeContext>(
+  defaultNode
+)
 
 export const LocalNodeProvider = ({
   children,

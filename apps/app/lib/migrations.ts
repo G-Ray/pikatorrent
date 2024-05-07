@@ -14,6 +14,10 @@ const saveNewInstalledVersion = async () => {
       ? version
       : semver.inc(version, 'minor')
 
+  if (!newVersion) {
+    throw new Error('new version is null')
+  }
+
   await AsyncStorage.setItem('version', newVersion)
 }
 
@@ -29,7 +33,9 @@ const migrate_0_8_0 = async () => {
   const searchEnginesUrls = JSON.parse(searchEnginesUrlsString)
 
   if (searchEnginesUrls) {
-    const migratedSearchEnginesUrls = searchEnginesUrls.map((url) => `${url}%s`)
+    const migratedSearchEnginesUrls = searchEnginesUrls.map(
+      (url: string) => `${url}%s`
+    )
     // Save
     await AsyncStorage.setItem(
       'searchEnginesUrls',

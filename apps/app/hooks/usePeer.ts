@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Platform } from 'react-native'
-import { SimplePeer } from 'simple-peer'
+import { SignalData, SimplePeer } from 'simple-peer'
 
 import Peer from 'simple-peer/simplepeer.min.js'
 import { useWebSocket } from './useWebSocket'
@@ -27,7 +27,7 @@ export const usePeer = ({ nodeId, clientId }: UsePeerOptions) => {
       return // wait for ws connection
     }
 
-    const handleWSMessage = (event) => {
+    const handleWSMessage = (event: MessageEvent) => {
       const json = JSON.parse(event.data)
 
       if (
@@ -49,7 +49,7 @@ export const usePeer = ({ nodeId, clientId }: UsePeerOptions) => {
       console.error(e)
     }
 
-    const handleSignal = (signal) => {
+    const handleSignal = (signal: SignalData) => {
       ws.send(
         JSON.stringify({
           type: 'signal',
