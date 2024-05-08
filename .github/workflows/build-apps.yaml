@@ -53,7 +53,7 @@ jobs:
         if: ${{ matrix.os == 'ubuntu-latest' && !startsWith(github.ref, 'refs/tags/v') != true }}
         run: |
           # Clean all node modules before installing arm64 compatibles deps
-          npx rimraf@5.0.4 --glob **/node_modules
+          npx --ws rimraf@5 --glob **/node_modules
           TARGET_ARCH=arm64 npm ci
           npm run build:desktop -- -- --arch=arm64
 
@@ -62,7 +62,7 @@ jobs:
         if: ${{ matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/v') != true }}
         run: |
           # Clean all node modules before installing arm64 compatibles deps
-          npx rimraf@5.0.4 --glob **/node_modules
+          npx --ws rimraf@5 --glob **/node_modules
           TARGET_ARCH=arm64 npm ci
           npm -w @pikatorrent/desktop run publish -- -- --arch=arm64
         env:
