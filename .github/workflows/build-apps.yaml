@@ -50,7 +50,7 @@ jobs:
 
       # arm64 build
       - name: Build for arm64
-        if: ${{ matrix.os == 'ubuntu-latest' && !startsWith(github.ref, 'refs/tags/v') != true }}
+        if: ${{ matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/v') != true }}
         run: |
           # Clean all node modules before installing arm64 compatibles deps
           npx --ws rimraf@5 --glob **/node_modules
@@ -58,8 +58,8 @@ jobs:
           npm run build:desktop -- -- --arch=arm64
 
       # Publish arm64 build on tags starting with 'v'
-      - name: Publish
-        if: ${{ matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/v') != true }}
+      - name: Publish arm64
+        if: ${{ matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/v') }}
         run: |
           # Clean all node modules before installing arm64 compatibles deps
           npx --ws rimraf@5 --glob **/node_modules
