@@ -1,6 +1,6 @@
 import { Tags } from '@tamagui/lucide-icons'
 import React, { useState } from 'react'
-import { Button, Separator, YStack, useMedia, useThemeName } from 'tamagui'
+import { Button, Separator, YStack, useMedia } from 'tamagui'
 
 import { Dialog } from '../../reusable/Dialog'
 import { useTorrents } from '../../../hooks/useTorrents'

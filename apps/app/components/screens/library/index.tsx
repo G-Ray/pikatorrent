@@ -10,14 +10,14 @@ import {
   YStack,
   useMedia,
 } from 'tamagui'
-import { DESKTOP_MAX_CONTENT_WIDTH } from '../constants/layout'
+import { DESKTOP_MAX_CONTENT_WIDTH } from '../../../constants/layout'
 import { Download } from '@tamagui/lucide-icons'
 import { useRouter } from 'expo-router'
-import { library } from '../lib/library'
-import { useI18n } from '../hooks/use18n'
+import { library } from '../../../lib/library'
+import { useI18n } from '../../../hooks/use18n'
 import { Platform } from 'react-native'
 import isElectron from 'is-electron'
-import { TorrentFieldFormatter } from '../components/screens/torrents/TorrentFieldFormatter'
+import { TorrentFieldFormatter } from '../torrents/TorrentFieldFormatter'
 
 export default function Library() {
   const media = useMedia()

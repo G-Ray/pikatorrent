@@ -1,14 +1,14 @@
 import React from 'react'
 import { Button, Paragraph, XStack, YStack, useMedia } from 'tamagui'
-import { useSession } from '../hooks/useSession'
+import { useSession } from '../../../hooks/useSession'
 
-import { version } from '../package.json'
-import { DESKTOP_MAX_CONTENT_WIDTH } from '../constants/layout'
+import { version } from '../../../package.json'
+import { DESKTOP_MAX_CONTENT_WIDTH } from '../../../constants/layout'
 import { ExternalLink, Github, MessageSquare } from '@tamagui/lucide-icons'
-import { openExternalLink } from '../lib/links'
-import { StatsDialog } from '../components/dialogs/StatsDialog'
-import { useI18n } from '../hooks/use18n'
-import { SessionsInfoDialog } from '../components/dialogs/SessionInfoDialog'
+import { openExternalLink } from '../../../lib/links'
+import { StatsDialog } from '../../dialogs/StatsDialog'
+import { useI18n } from '../../../hooks/use18n'
+import { SessionsInfoDialog } from '../../dialogs/SessionInfoDialog'
 
 export default function About() {
   const i18n = useI18n()

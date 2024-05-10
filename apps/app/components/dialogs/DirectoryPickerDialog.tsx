@@ -1,5 +1,5 @@
 import React from 'react'
-import { FolderEdit } from '@tamagui/lucide-icons'
+import { FolderOpen } from '@tamagui/lucide-icons'
 import { Button } from 'tamagui'
 
 export const DirectoryPickerDialog = ({ selectedPath = '', onSelect }) => {
@@ -12,5 +12,5 @@ export const DirectoryPickerDialog = ({ selectedPath = '', onSelect }) => {
     }
   }
 
-  return <Button icon={FolderEdit} onPress={() => openElectronFolderPicker()} />
+  return <Button icon={FolderOpen} onPress={() => openElectronFolderPicker()} />
 }

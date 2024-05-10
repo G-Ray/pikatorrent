@@ -7,7 +7,7 @@ import { ScrollView } from 'react-native'
 import { DESKTOP_MAX_CONTENT_WIDTH } from '../../../constants/layout'
 import { Torrents } from './Torrents/Torrents'
 
-export const Settings = () => {
+export default function Settings() {
   const media = useMedia()
 
   return (
