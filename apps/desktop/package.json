@@ -3,7 +3,7 @@
   "productName": "pikatorrent",
   "version": "0.9.0",
   "description": "A modern, simple, connected, and electric BitTorrent app",
-  "main": "src/index.js",
+  "main": "src/index.mjs",
   "scripts": {
     "start": "cross-env NODE_ENV=development electron-forge start",
     "package": "electron-forge package",

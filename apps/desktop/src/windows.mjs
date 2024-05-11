@@ -1,4 +1,4 @@
-const handleSquirrelEvent = async (app) => {
+export const handleSquirrelEvent = async (app) => {
   if (process.platform !== 'win32') {
     return false
   }
@@ -10,13 +10,13 @@ const handleSquirrelEvent = async (app) => {
       unregisterAppAssociations()
   }
 
-  if (require('electron-squirrel-startup')) {
+  if (await import('electron-squirrel-startup')) {
     app.quit()
   }
 }
 
-const registerAppAssociations = async () => {
-  const Registry = require('rage-edit').default
+export const registerAppAssociations = async () => {
+  const Registry = (await import('rage-edit')).default
   await Registry.set(
     'HKCU\\Software\\Classes\\pikatorrent\\shell\\open\\command',
     '',
@@ -55,13 +55,8 @@ const registerAppAssociations = async () => {
 }
 
 const unregisterAppAssociations = async () => {
-  const Registry = require('rage-edit').default
+  const Registry = (await import('rage-edit')).default
   await Registry.delete('HKCU\\Software\\PikaTorrent')
   await Registry.delete('HKCU\\Software\\Classes\\pikatorrent')
   await Registry.delete('HKCU\\Software\\RegisteredApplications', 'PikaTorrent')
-}
-
-module.exports = {
-  registerAppAssociations,
-  handleSquirrelEvent,
 }

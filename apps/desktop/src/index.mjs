@@ -1,19 +1,23 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'production'
 
-const {
+import {
   app,
   BrowserWindow,
   ipcMain,
   shell,
   nativeTheme,
   dialog,
-} = require('electron')
-const fs = require('fs')
-const path = require('path')
-const serve = require('electron-serve')
-const minimist = require('minimist')
+} from 'electron'
+import fs from 'node:fs'
+import path from 'node:path'
+import serve from 'electron-serve'
+import minimist from 'minimist'
+import { fileURLToPath } from 'url'
 
-const { handleSquirrelEvent, registerAppAssociations } = require('./windows')
+import { handleSquirrelEvent, registerAppAssociations } from './windows.mjs'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 handleSquirrelEvent(app)
@@ -131,7 +135,7 @@ const handleAppReady = () => {
   ipcMain.handle('openFile', handleOpenFile)
   ipcMain.handle('quitApp', handleClose)
   ipcMain.handle('readFileAsBase64', readFileAsBase64)
-  require('./check-updates')(parsedArgs)
+  import('./check-updates.mjs').then((m) => m.default(parsedArgs))
 }
 
 let wrtc
@@ -142,12 +146,13 @@ let mainWindow
 let nodeRef
 
 const createWindow = async () => {
+  const preloadPath = path.join(__dirname, 'preload.js')
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: process.env.NODE_ENV === 'production' ? 1280 : 1800,
     height: process.env.NODE_ENV === 'production' ? 720 : 900,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
+      preload: preloadPath,
     },
     ...(process.platform === 'linux' && { icon: 'assets/icon.png' }),
   })
@@ -155,7 +160,7 @@ const createWindow = async () => {
   mainWindow.on('closed', handleClose)
 
   mainWindow.webContents.setWindowOpenHandler((details) => {
-    require('electron').shell.openExternal(details.url)
+    import('electron').then((m) => m.shell.openExternal(details.url))
     return { action: 'deny' }
   })
 
@@ -181,8 +186,8 @@ const handleAcceptOrRejectPeer = (id, name) => {
   })
 }
 
-const startPikatorrentNode = () => {
-  wrtc = require('@ca9io/electron-webrtc-relay')()
+const startPikatorrentNode = async () => {
+  wrtc = (await import('@ca9io/electron-webrtc-relay')).default()
   wrtc.init()
 
   // handle errors that may occur when trying to communicate with Electron

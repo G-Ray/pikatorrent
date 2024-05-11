@@ -1,5 +1,7 @@
-const { shell, dialog } = require('electron')
-const currentVersion = require('../package.json').version
+import { shell, dialog } from 'electron'
+import packageJson from '../package.json' with { type: 'json' }
+
+const { version: currentVersion } = packageJson
 
 const fetchLatestGHReleasefetch = async () => {
   const url =
@@ -59,4 +61,4 @@ const checkNewRelease = async (parsedArgs) => {
   }
 }
 
-module.exports = checkNewRelease
+export default checkNewRelease
