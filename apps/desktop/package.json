@@ -16,12 +16,12 @@
   "author": "PikaTorrent",
   "license": "GPL-3.0",
   "devDependencies": {
-    "@electron-forge/cli": "^7.3.0",
-    "@electron-forge/maker-appx": "^7.3.0",
-    "@electron-forge/maker-squirrel": "^7.3.0",
-    "@electron-forge/maker-zip": "^7.3.0",
-    "@electron-forge/publisher-github": "^7.3.0",
-    "electron": "^29.1.4"
+    "@electron-forge/cli": "^7.4.0",
+    "@electron-forge/maker-appx": "^7.4.0",
+    "@electron-forge/maker-squirrel": "^7.4.0",
+    "@electron-forge/maker-zip": "^7.4.0",
+    "@electron-forge/publisher-github": "^7.4.0",
+    "electron": "^30.0.3"
   },
   "dependencies": {
     "@ca9io/electron-webrtc-relay": "^0.2.0",
