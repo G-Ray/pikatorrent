@@ -16,6 +16,7 @@ export const StartPauseAllTorrentsButton = () => {
 
   return (
     <Button
+      bordered
       icon={isAllTorrentsActive ? PauseCircle : PlayCircle}
       onPress={isAllTorrentsActive ? pauseAll : startAll}
       {...(!media.gtXs && { scaleIcon: 1.5 })}

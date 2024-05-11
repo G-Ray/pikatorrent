@@ -1,13 +1,12 @@
 import { Search } from '@tamagui/lucide-icons'
 import React, { useContext, useState } from 'react'
-import { Button, XStack, Form } from 'tamagui'
+import { Button, XStack, Form, Input } from 'tamagui'
 import { SearchEngineSelector } from './SearchEngineSelector'
 
 import defaultSettings from '../../../defaultSettings.json'
 import { openExternalLink } from '../../../lib/links'
 import { useI18n } from '../../../hooks/use18n'
 import { SettingsContext } from '../../../contexts/SettingsContext'
-import { Input } from '../../reusable/Input'
 
 export type Engine = {
   name: string
@@ -52,10 +51,10 @@ export const SearchBar = () => {
       <XStack gap="$2">
         <Input
           f={1}
+          w={'100%'}
           placeholder={i18n.t('torrents.searchPlaceholder')}
           value={query}
           onChangeText={setQuery}
-          m={'$1'}
         />
         <SearchEngineSelector
           engines={engines}
@@ -65,6 +64,7 @@ export const SearchBar = () => {
         <Form.Trigger asChild>
           <Button
             transparent
+            bordered
             icon={Search}
             disabled={query.length === 0}
             scaleIcon={1.3}

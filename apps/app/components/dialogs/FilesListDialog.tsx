@@ -113,7 +113,11 @@ const FileRow = ({ torrent, file, toast }) => {
             size="$2"
             w="100%"
           >
-            <Progress.Indicator animation="lazy" bc={'$yellow9'} w={'100%'} />
+            <Progress.Indicator
+              animation="lazy"
+              backgroundColor={'$yellow9'}
+              w={'100%'}
+            />
           </Progress>
         </XStack>
         {file.bytesCompleted / file.length === 1 && (

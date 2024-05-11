@@ -23,7 +23,7 @@ export default function About() {
       pt="$4"
       px={media.gtXs ? '$8' : '$4'}
       alignSelf="center"
-      {...(media.gtXs && { w: DESKTOP_MAX_CONTENT_WIDTH })}
+      {...(media.gtXs && { maxWidth: DESKTOP_MAX_CONTENT_WIDTH })}
     >
       <XStack jc="space-between">
         <Paragraph>{i18n.t('about.pikatorrentVersion')}</Paragraph>

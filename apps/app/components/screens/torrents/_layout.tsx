@@ -25,7 +25,7 @@ export default function Torrents() {
 
   return (
     <YStack f={1}>
-      <YStack>
+      <YStack m="$1">
         {media.gtXs && (
           <Stack>
             <YStack px={media.gtXs ? '$8' : '$2'}>
@@ -57,7 +57,7 @@ export default function Torrents() {
           onChangeText={setFilter}
         />
       </XStack>
-      <YStack px={media.gtXs ? '$8' : '$2'}>
+      <YStack px={media.gtXs ? '$8' : '$2'} py={media.gtXs ? '$0' : '$2'}>
         <TorrentsList
           filter={filter}
           filters={filters}

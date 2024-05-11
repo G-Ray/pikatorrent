@@ -19,6 +19,7 @@ export const Filters = ({ onChangeFilters }) => {
       trigger={
         <Button
           transparent
+          bordered
           icon={Tags}
           {...(filteredLabels.length > 0 && { color: '$blue9' })}
           {...(!media.gtXs && { scaleIcon: 1.5 })}

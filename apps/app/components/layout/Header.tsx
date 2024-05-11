@@ -10,7 +10,7 @@ export const Header = () => {
   const segments = useSegments()
 
   return (
-    <YStack py="$2">
+    <YStack py="$2" px={media.gtXs ? '$8' : '$2'}>
       <XStack jc="space-between" ai="center">
         <XStack ai="center" gap="$8">
           <XStack ai="center" gap={media.gtXs ? '$8' : '$2'}>

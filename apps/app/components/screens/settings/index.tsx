@@ -20,7 +20,7 @@ export default function Settings() {
         pt="$4"
         pb="$4"
         px={media.gtXs ? '$8' : '$4'}
-        {...(media.gtXs && { w: DESKTOP_MAX_CONTENT_WIDTH })}
+        {...(media.gtXs && { maxWidth: DESKTOP_MAX_CONTENT_WIDTH })}
       >
         <Nodes />
         <Preferences />

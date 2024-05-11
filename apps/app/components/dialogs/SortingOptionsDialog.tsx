@@ -30,6 +30,7 @@ export const SortingOptionsDialog = ({
       trigger={
         <Button
           transparent
+          bordered
           icon={
             sortOptions.isReversed ? ArrowDownWideNarrow : ArrowDownNarrowWide
           }

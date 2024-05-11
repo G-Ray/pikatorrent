@@ -45,10 +45,6 @@ export const SearchEngineSelector = ({
         w={media.gtXs ? 180 : '$6'}
         size={media.gtXs ? '$4' : '$2'}
         iconAfter={ChevronDown}
-        br={0}
-        borderTopWidth={0}
-        borderRightWidth={0}
-        borderLeftWidth={0}
         transparent
       >
         <XStack f={1} ai="center" jc="space-between">

@@ -10,7 +10,7 @@ export const SearchBarWithAddButton = () => {
   const i18n = useI18n()
 
   return (
-    <XStack w="100%" gap="$8">
+    <XStack w="100%" gap="$16">
       <Link href="/add" asChild>
         <Button
           theme="yellow"

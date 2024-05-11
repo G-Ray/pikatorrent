@@ -42,7 +42,7 @@ export default function Library() {
         mb="$8"
         px={media.gtXs ? '$8' : '$2'}
         {...(media.gtXs && {
-          w: DESKTOP_MAX_CONTENT_WIDTH,
+          maxWidth: DESKTOP_MAX_CONTENT_WIDTH,
           alignSelf: 'center',
         })}
       >
