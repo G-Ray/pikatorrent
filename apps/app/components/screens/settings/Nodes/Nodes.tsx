@@ -32,7 +32,7 @@ import { APP_URL } from '../../../../config'
 import { useToastController } from '@tamagui/toast'
 import { useLocalNode } from '../../../../hooks/useLocalNode'
 import { useI18n } from '../../../../hooks/use18n'
-import isElectron = require('is-electron')
+import isElectron from 'is-electron'
 
 export const Nodes = () => {
   const settingsContext = useContext(SettingsContext)
