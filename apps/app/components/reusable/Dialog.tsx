@@ -6,8 +6,6 @@ import {
   Dialog as TamaguiDialog,
   Sheet,
   Unspaced,
-  useThemeName,
-  Theme,
 } from 'tamagui'
 import { BackHandler, Platform } from 'react-native'
 import { SnapPointsMode } from 'tamagui'
@@ -102,8 +100,8 @@ const Dialog = ({
           dismissOnOverlayPress={dismissOnOverlayPress}
           snapPointsMode={snapPointsMode}
         >
-          <Sheet.Handle bc={'white'} />
-          <Sheet.Frame padding="$4" bc={'$background'}>
+          <Sheet.Handle themeInverse backgroundColor={'$background'} />
+          <Sheet.Frame p="$4">
             <Adapt.Contents />
           </Sheet.Frame>
           <Sheet.Overlay />
@@ -136,7 +134,6 @@ const Dialog = ({
           ]}
           enterStyle={{ x: 0, y: -20, opacity: 0, scale: 0.9 }}
           exitStyle={{ x: 0, y: 10, opacity: 0, scale: 0.95 }}
-          space
         >
           {title && (
             <TamaguiDialog.Title fontSize={'$8'}>{title}</TamaguiDialog.Title>
