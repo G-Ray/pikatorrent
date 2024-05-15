@@ -69,7 +69,7 @@ export const FilesListDialog = ({ torrent, toast }) => {
           onOpenChange={setIsOpen}
         >
           <ScrollView>
-            <YGroup bordered size="$2">
+            <YGroup>
               {torrent.files.map((file) => (
                 <FileRow
                   key={file.name}
@@ -90,35 +90,18 @@ const FileRow = ({ torrent, file, toast }) => {
   const i18n = useI18n()
 
   return (
-    <ListItem key={file.name} hoverTheme>
+    <ListItem key={file.name} hoverTheme transparent>
       <YStack gap="$1" f={1}>
         <Paragraph f={1} flexWrap="wrap">
           {file.name}
         </Paragraph>
-        {/* <Paragraph color="$gray11">{prettyBytes(file.length)}</Paragraph> */}
         <XStack columnGap="$2">
           <TorrentFieldFormatter
             name="percentDone"
-            value={file.bytesCompleted / file.length}
+            value={Math.floor(file.bytesCompleted / file.length)}
           />
           <Paragraph>•</Paragraph>
           <TorrentFieldFormatter name="totalSize" value={file.length} />
-        </XStack>
-        <XStack mb="$2">
-          <Progress
-            value={Math.floor((file.bytesCompleted / file.length) * 100)}
-            theme="yellow"
-            borderColor={'$yellow7'}
-            bordered
-            size="$2"
-            w="100%"
-          >
-            <Progress.Indicator
-              animation="lazy"
-              backgroundColor={'$yellow9'}
-              w={'100%'}
-            />
-          </Progress>
         </XStack>
         {file.bytesCompleted / file.length === 1 && (
           <XStack gap="$4">
