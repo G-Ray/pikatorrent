@@ -41,6 +41,11 @@ export const EditLabelsDialog = ({ torrentsFunctions, torrent }) => {
     torrentsFunctions.setLabels(torrent.id, newLabels)
   }
 
+  const handleRemoveAllLabels = () => {
+    setLabels([])
+    torrentsFunctions.setLabels(torrent.id, [])
+  }
+
   return (
     <>
       <Button
@@ -73,7 +78,7 @@ export const EditLabelsDialog = ({ torrentsFunctions, torrent }) => {
             <SelectedLabels
               labels={labels}
               onRemoveLabel={handleRemoveLabel}
-              onRemoveAll={() => setLabels([])}
+              onRemoveAll={handleRemoveAllLabels}
             />
 
             <Form onSubmit={handleAddLabelSubmit}>
