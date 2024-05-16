@@ -61,7 +61,7 @@ export const Torrents = () => {
   if (!session || !isConnected) return null
 
   return (
-    <YStack space ai="flex-start" w="100%">
+    <YStack ai="flex-start" w="100%" gap="$4">
       <H2>{i18n.t('settings.torrents.title')}</H2>
       <XStack jc="space-between" w="100%">
         <Paragraph>{i18n.t('settings.torrents.downloadDirectory')}</Paragraph>

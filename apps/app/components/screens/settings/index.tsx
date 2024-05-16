@@ -22,9 +22,9 @@ export default function Settings() {
         px={media.gtXs ? '$8' : '$4'}
         {...(media.gtXs && { maxWidth: DESKTOP_MAX_CONTENT_WIDTH })}
       >
-        <Nodes />
         <Preferences />
         <Torrents />
+        <Nodes />
       </YStack>
     </ScrollView>
   )

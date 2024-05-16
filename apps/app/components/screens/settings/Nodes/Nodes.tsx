@@ -197,45 +197,43 @@ const LocalNodeQrcode = () => {
   }
 
   return (
-    <>
-      <>
-        <SettingLayout>
-          <Paragraph>{i18n.t('settings.nodes.qrCodeLabel')}</Paragraph>
-          <YStack gap="$4">
-            <XStack alignSelf="flex-end">
-              <Button
-                onPress={() => setIsDisplayed(!isDisplayed)}
-                icon={isDisplayed ? ChevronUp : ChevronDown}
-              >
-                {i18n.t(
-                  isDisplayed
-                    ? 'settings.nodes.hideQRCode'
-                    : 'settings.nodes.showQRCode'
-                )}
-              </Button>
-            </XStack>
-            {isDisplayed && (
-              <Card ai="center" jc="center" bordered p="$1" bg="white">
-                <QRCode xml={qrCodeXML} />
-              </Card>
-            )}
-          </YStack>
-        </SettingLayout>
-        <SettingLayout>
-          <Paragraph>{i18n.t('settings.nodes.secretLinkLabel')}</Paragraph>
-          <Button
-            icon={Clipboard}
-            onPress={async () => {
-              navigator.clipboard.writeText(linkURL)
-              toast.show(i18n.t('toasts.linkCopied'))
-            }}
-          >
-            {i18n.t('settings.nodes.copyLink')}
-          </Button>
-        </SettingLayout>
-      </>
+    <YStack gap="$4">
+      <SettingLayout>
+        <Paragraph>{i18n.t('settings.nodes.qrCodeLabel')}</Paragraph>
+        <YStack gap="$4">
+          <XStack alignSelf="flex-end">
+            <Button
+              onPress={() => setIsDisplayed(!isDisplayed)}
+              icon={isDisplayed ? ChevronUp : ChevronDown}
+            >
+              {i18n.t(
+                isDisplayed
+                  ? 'settings.nodes.hideQRCode'
+                  : 'settings.nodes.showQRCode'
+              )}
+            </Button>
+          </XStack>
+          {isDisplayed && (
+            <Card ai="center" jc="center" bordered p="$1" bg="white">
+              <QRCode xml={qrCodeXML} />
+            </Card>
+          )}
+        </YStack>
+      </SettingLayout>
+      <SettingLayout>
+        <Paragraph>{i18n.t('settings.nodes.secretLinkLabel')}</Paragraph>
+        <Button
+          icon={Clipboard}
+          onPress={async () => {
+            navigator.clipboard.writeText(linkURL)
+            toast.show(i18n.t('toasts.linkCopied'))
+          }}
+        >
+          {i18n.t('settings.nodes.copyLink')}
+        </Button>
+      </SettingLayout>
 
       <AcceptedOrRejectedPeers />
-    </>
+    </YStack>
   )
 }
