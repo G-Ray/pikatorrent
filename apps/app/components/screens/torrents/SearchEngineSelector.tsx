@@ -90,17 +90,12 @@ export const SearchEngineSelector = ({
         <Select.Viewport minWidth={200}>
           <XStack>
             <Select.Group space="$0">
-              <Select.Label bc="$backgroundTransparent">
+              <Select.Label>
                 {i18n.t('torrents.searchEngineSelectorLabel')}
               </Select.Label>
               {engines.map((engine, i) => {
                 return (
-                  <Select.Item
-                    bc="$backgroundTransparent"
-                    index={i}
-                    key={engine.name}
-                    value={engine.name}
-                  >
+                  <Select.Item index={i} key={engine.name} value={engine.name}>
                     <XStack f={1} jc="space-between">
                       <XStack gap="$2" f={1}>
                         <Image

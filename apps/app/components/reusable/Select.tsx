@@ -48,9 +48,7 @@ export const Select = ({
 
         <SelectTamagui.Viewport outlineStyle="none">
           <SelectTamagui.Group space="$0">
-            <SelectTamagui.Label bc="$backgroundStrong">
-              {label}
-            </SelectTamagui.Label>
+            <SelectTamagui.Label>{label}</SelectTamagui.Label>
             {options.map((option, i) => {
               return (
                 <SelectTamagui.Item
@@ -58,7 +56,6 @@ export const Select = ({
                   key={option}
                   value={option}
                   outlineStyle="none"
-                  bc="$backgroundStrong"
                 >
                   <SelectTamagui.ItemText>
                     {optionsTexts[i]}

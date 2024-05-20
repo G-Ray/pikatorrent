@@ -94,10 +94,7 @@ export const DirectoryPickerDialog = ({ onSelect }) => {
               }
             }}
           >
-            <Switch.Thumb
-              animation="quick"
-              bc={theme === 'light' ? 'black' : 'white'}
-            />
+            <Switch.Thumb animation="quick" />
           </Switch>
           <Label
             paddingRight="$0"

@@ -32,7 +32,7 @@ export const WelcomeDialog = () => {
           where nodejs is installed, with:
         </Dialog.Description>
         <XStack jc="center">
-          <Card bc="black" p="$4" br="$4" mb="$4">
+          <Card p="$4" br="$4" mb="$4">
             <Text color="white" fontFamily="monospace">
               npm install -g pikatorrent
             </Text>

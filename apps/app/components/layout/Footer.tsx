@@ -30,14 +30,7 @@ export const Footer = () => {
   return (
     <>
       <Separator />
-      <XStack
-        height={32}
-        bc="$background"
-        ai="center"
-        jc="flex-end"
-        px="$4"
-        gap="$8"
-      >
+      <XStack height={32} ai="center" jc="flex-end" px="$4" gap="$8">
         <Speed
           downloadSpeed={stats.downloadSpeed}
           uploadSpeed={stats.uploadSpeed}

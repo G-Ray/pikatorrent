@@ -12,7 +12,10 @@ export const ConnectionStatus = () => {
 
   return (
     <XStack ai="center" gap="$2">
-      <Circle bc={node.isConnected ? '$green9' : '$red9'} size={12} />
+      <Circle
+        backgroundColor={node.isConnected ? '$green9' : '$red9'}
+        size={12}
+      />
       {media.gtXs && (
         <Paragraph numberOfLines={1}>
           {node && node.name ? node.name : 'No node connected'}

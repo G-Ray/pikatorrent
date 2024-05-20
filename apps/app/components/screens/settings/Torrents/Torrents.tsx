@@ -102,10 +102,7 @@ export const Torrents = () => {
             saveSessionValue({ key: 'utp-enabled', value: isEnabled })
           }}
         >
-          <Switch.Thumb
-            animation="quick"
-            bc={theme === 'light' ? 'black' : 'white'}
-          />
+          <Switch.Thumb animation="quick" />
         </Switch>
       </SettingLayout>
 
@@ -118,10 +115,7 @@ export const Torrents = () => {
             saveSessionValue({ key: 'dht-enabled', value: isEnabled })
           }}
         >
-          <Switch.Thumb
-            animation="quick"
-            bc={theme === 'light' ? 'black' : 'white'}
-          />
+          <Switch.Thumb animation="quick" />
         </Switch>
       </SettingLayout>
 
@@ -134,10 +128,7 @@ export const Torrents = () => {
             saveSessionValue({ key: 'lpd-enabled', value: isEnabled })
           }}
         >
-          <Switch.Thumb
-            animation="quick"
-            bc={theme === 'light' ? 'black' : 'white'}
-          />
+          <Switch.Thumb animation="quick" />
         </Switch>
       </SettingLayout>
 
@@ -150,10 +141,7 @@ export const Torrents = () => {
             saveSessionValue({ key: 'pex-enabled', value: isEnabled })
           }}
         >
-          <Switch.Thumb
-            animation="quick"
-            bc={theme === 'light' ? 'black' : 'white'}
-          />
+          <Switch.Thumb animation="quick" />
         </Switch>
       </SettingLayout>
 
@@ -171,10 +159,7 @@ export const Torrents = () => {
             })
           }}
         >
-          <Switch.Thumb
-            animation="quick"
-            bc={theme === 'light' ? 'black' : 'white'}
-          />
+          <Switch.Thumb animation="quick" />
         </Switch>
       </SettingLayout>
 

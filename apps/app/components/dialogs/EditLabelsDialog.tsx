@@ -82,7 +82,6 @@ export const EditLabelsDialog = ({ torrentsFunctions, torrent }) => {
                 <Input
                   borderColor="$yellow7"
                   flex={1}
-                  bc="$backgroundTransparent"
                   id="label"
                   onChangeText={setLabel}
                 />

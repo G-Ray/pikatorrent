@@ -171,7 +171,6 @@ export const AddTorrentDialog = () => {
               )}
               value={magnet}
               onChangeText={setMagnet}
-              bc={'$backgroundTransparent'}
               borderColor={'$yellow7'}
             />
           </Fieldset>
