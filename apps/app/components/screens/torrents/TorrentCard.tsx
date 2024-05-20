@@ -74,8 +74,8 @@ export const TorrentCard = ({ torrent, theme = 'yellow' }) => {
                   start(torrent.id)
                 }}
                 icon={PlayCircle}
-                circular
                 scaleIcon={2}
+                circular
               />
             ) : (
               <Button
@@ -84,6 +84,7 @@ export const TorrentCard = ({ torrent, theme = 'yellow' }) => {
                   pause(torrent.id)
                 }}
                 icon={PauseCircle}
+                scaleIcon={2}
                 circular
               />
             )}
@@ -148,24 +149,11 @@ const TorrentActions = ({ torrent, handleOpenFolder, open, onOpenChange }) => {
     !torrent.downloadDir.startsWith(PRIVATE_DOWNLOAD_DIR)
 
   return (
-    <Dialog
-      // Fit has a glitch when a nested sheets is rendered
-      snapPointsMode="fit"
-      // snapPoints={[70]}
-      open={open}
-      onOpenChange={onOpenChange}
-    >
+    <Dialog snapPointsMode="fit" open={open} onOpenChange={onOpenChange}>
       <YStack gap="$4" py="$4" pt={media.gtXs ? '$8' : '$4'}>
         <ShareButtons torrent={torrent} toast={toast} />
         {isElectron() && torrent.percentDone === 1 && (
-          <Button
-            icon={FolderOpen}
-            onPress={handleOpenFolder}
-            variant="outlined"
-            theme="yellow"
-            hoverTheme
-            borderColor={'$yellow7'}
-          >
+          <Button icon={FolderOpen} onPress={handleOpenFolder}>
             {i18n.t('torrentDialog.openFolder')}
           </Button>
         )}
@@ -193,10 +181,6 @@ const ShareButtons = ({ toast, torrent }) => {
   if (Platform.OS === 'web') {
     return (
       <Button
-        variant="outlined"
-        theme="yellow"
-        hoverTheme
-        borderColor={'$yellow7'}
         icon={Share2}
         onPress={async () => {
           const shareLink = APP_URL + '/add#' + torrent.magnetLink
@@ -214,10 +198,6 @@ const ShareButtons = ({ toast, torrent }) => {
   // Native
   return (
     <Button
-      variant="outlined"
-      theme="yellow"
-      hoverTheme
-      borderColor={'$yellow7'}
       icon={Share2}
       onPress={async () => {
         const shareLink = APP_URL + '/add#' + torrent.magnetLink
