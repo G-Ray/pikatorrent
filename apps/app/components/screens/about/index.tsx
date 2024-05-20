@@ -39,10 +39,6 @@ export default function About() {
         <Paragraph>{i18n.t('about.reportBugOrFeature')}</Paragraph>
       </XStack>
       <Button
-        variant="outlined"
-        theme="yellow"
-        hoverTheme
-        borderColor={'$yellow7'}
         icon={ExternalLink}
         iconAfter={Github}
         onPress={() =>
@@ -52,10 +48,6 @@ export default function About() {
         <Paragraph>{i18n.t('about.githubLinkDescription')}</Paragraph>
       </Button>
       <Button
-        variant="outlined"
-        theme="yellow"
-        hoverTheme
-        borderColor={'$yellow7'}
         icon={ExternalLink}
         iconAfter={MessageSquare}
         onPress={() => openExternalLink('https://discord.gg/6HxCV4aGdy')}

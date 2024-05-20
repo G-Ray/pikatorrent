@@ -48,14 +48,7 @@ export const EditLabelsDialog = ({ torrentsFunctions, torrent }) => {
 
   return (
     <>
-      <Button
-        icon={Tag}
-        variant="outlined"
-        theme="yellow"
-        hoverTheme
-        borderColor={'$yellow7'}
-        onPress={() => setIsOpen(true)}
-      >
+      <Button icon={Tag} onPress={() => setIsOpen(true)}>
         {i18n.t('torrentDialog.editLabels')}
       </Button>
 

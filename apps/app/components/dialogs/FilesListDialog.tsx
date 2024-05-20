@@ -51,14 +51,7 @@ export const FilesListDialog = ({ torrent, toast }) => {
 
   return (
     <>
-      <Button
-        icon={List}
-        variant="outlined"
-        theme="yellow"
-        hoverTheme
-        borderColor={'$yellow7'}
-        onPress={() => setIsOpen(true)}
-      >
+      <Button icon={List} onPress={() => setIsOpen(true)}>
         {i18n.t('torrentDialog.files')}
       </Button>
       {isOpen && (
@@ -90,7 +83,14 @@ const FileRow = ({ torrent, file, toast }) => {
   const i18n = useI18n()
 
   return (
-    <ListItem key={file.name} hoverTheme transparent>
+    <ListItem
+      key={file.name}
+      hoverTheme
+      transparent
+      bordered
+      borderLeftWidth={0}
+      borderRightWidth={0}
+    >
       <YStack gap="$1" f={1}>
         <Paragraph f={1} flexWrap="wrap">
           {file.name}
@@ -106,10 +106,6 @@ const FileRow = ({ torrent, file, toast }) => {
         {file.bytesCompleted / file.length === 1 && (
           <XStack gap="$4">
             <Button
-              variant="outlined"
-              theme="yellow"
-              hoverTheme
-              borderColor={'$yellow7'}
               f={1}
               size="$3"
               icon={ExternalLink}
@@ -128,10 +124,6 @@ const FileRow = ({ torrent, file, toast }) => {
             </Button>
             {Platform.OS !== 'web' && (
               <Button
-                variant="outlined"
-                theme="yellow"
-                hoverTheme
-                borderColor={'$yellow7'}
                 f={1}
                 size="$3"
                 icon={Share2}
@@ -153,10 +145,6 @@ const FileRow = ({ torrent, file, toast }) => {
             )}
             {isElectron() && (
               <Button
-                variant="outlined"
-                theme="yellow"
-                hoverTheme
-                borderColor={'$yellow7'}
                 f={1}
                 size="$3"
                 icon={FolderOpen}

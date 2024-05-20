@@ -12,17 +12,7 @@ export const SessionsInfoDialog = ({ session }) => {
   return (
     <Dialog
       title={i18n.t('sessionInfoDialog.title')}
-      trigger={
-        <Button
-          icon={Info}
-          variant="outlined"
-          theme="yellow"
-          hoverTheme
-          borderColor={'$yellow7'}
-        >
-          {i18n.t('sessionInfoDialog.title')}
-        </Button>
-      }
+      trigger={<Button icon={Info}>{i18n.t('sessionInfoDialog.title')}</Button>}
       snapPoints={[90]}
     >
       <ScrollView>

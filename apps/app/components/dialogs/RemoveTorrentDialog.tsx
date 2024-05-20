@@ -16,15 +16,7 @@ export const RemoveTorrentDialog = ({
 
   return (
     <>
-      <Button
-        icon={Trash}
-        theme="red"
-        variant="outlined"
-        hoverTheme
-        borderColor={'$red7'}
-        color="$red9"
-        onPress={() => setIsOpen(true)}
-      >
+      <Button icon={Trash} theme="red" onPress={() => setIsOpen(true)}>
         {i18n.t('torrentDialog.remove')}
       </Button>
       {isOpen && (
@@ -40,11 +32,7 @@ export const RemoveTorrentDialog = ({
           <YStack space="$4" my="$4">
             {isRemovableWithoutData && (
               <Dialog.Close displayWhenAdapted asChild>
-                <Button
-                  onPress={() => torrentsFunctions.remove(id, true)}
-                  borderColor={'$red7'}
-                  variant="outlined"
-                >
+                <Button onPress={() => torrentsFunctions.remove(id, true)}>
                   {i18n.t('removeTorrentDialog.remove')}
                 </Button>
               </Dialog.Close>

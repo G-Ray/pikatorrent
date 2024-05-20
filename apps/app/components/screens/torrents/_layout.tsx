@@ -66,8 +66,7 @@ export default function Torrents() {
       </YStack>
       <Slot />
       {!media.gtXs && (
-        <YStack py="$2" w="100%" mt="auto">
-          <Separator />
+        <YStack p="$2" w="100%" mt="auto">
           <SearchBarWithAddButton />
         </YStack>
       )}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ArrowLeft, Folder, FolderEdit } from '@tamagui/lucide-icons'
+import { ArrowLeft, Folder, FolderOpen } from '@tamagui/lucide-icons'
 import {
   Button,
   Input,
@@ -79,7 +79,7 @@ export const DirectoryPickerDialog = ({ onSelect }) => {
     <Dialog
       title={i18n.t('directoryPickerDialog.title')}
       snapPoints={[90]}
-      trigger={<Button icon={FolderEdit} />}
+      trigger={<Button icon={FolderOpen} />}
     >
       <YStack gap="$4" pt="$4" f={1}>
         <XStack alignItems="center" jc="center" space="$4">
@@ -148,8 +148,6 @@ export const DirectoryPickerDialog = ({ onSelect }) => {
         <Dialog.Close asChild displayWhenAdapted>
           <Button
             onPress={handleSelect}
-            theme="yellow"
-            borderColor="$yellow7"
             disabled={currentFileUri === ROOT_FILE_URI}
             o={currentFileUri === ROOT_FILE_URI ? 0.5 : 1}
           >

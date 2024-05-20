@@ -19,17 +19,7 @@ export const StatsDialog = () => {
   return (
     <Dialog
       title={i18n.t('statsDialog.title')}
-      trigger={
-        <Button
-          icon={Activity}
-          variant="outlined"
-          theme="yellow"
-          hoverTheme
-          borderColor={'$yellow7'}
-        >
-          {i18n.t('statsDialog.title')}
-        </Button>
-      }
+      trigger={<Button icon={Activity}>{i18n.t('statsDialog.title')}</Button>}
       snapPoints={[90]}
     >
       {sessionStats && Object.keys(sessionStats).length > 0 && (

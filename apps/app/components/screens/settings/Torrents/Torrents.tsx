@@ -16,6 +16,7 @@ import { useSession } from '../../../../hooks/useSession'
 import { Select } from '../../../reusable/Select'
 import { DirectoryPickerDialog } from '../../../dialogs/DirectoryPickerDialog'
 import { useI18n } from '../../../../hooks/use18n'
+import { SettingLayout } from '../SettingLayout'
 
 export const Torrents = () => {
   const { sendRPCMessage, isConnected } = useContext(NodeContext)
@@ -63,7 +64,7 @@ export const Torrents = () => {
   return (
     <YStack ai="flex-start" w="100%" gap="$4">
       <H2>{i18n.t('settings.torrents.title')}</H2>
-      <XStack jc="space-between" w="100%">
+      <SettingLayout>
         <Paragraph>{i18n.t('settings.torrents.downloadDirectory')}</Paragraph>
         <DownloadDirectoryInput
           session={session}
@@ -71,9 +72,9 @@ export const Torrents = () => {
             saveSessionValue({ key: 'download-dir', value: path })
           }
         />
-      </XStack>
+      </SettingLayout>
 
-      <XStack jc="space-between" w="100%">
+      <SettingLayout>
         <Paragraph>Encryption</Paragraph>
         <XStack minWidth={180}>
           {session.encryption && (
@@ -90,9 +91,9 @@ export const Torrents = () => {
             ></Select>
           )}
         </XStack>
-      </XStack>
+      </SettingLayout>
 
-      <XStack jc="space-between" w="100%">
+      <SettingLayout>
         <Paragraph>{i18n.t('settings.torrents.enableUTP')}</Paragraph>
         <Switch
           id={'utp-enabled'}
@@ -106,9 +107,9 @@ export const Torrents = () => {
             bc={theme === 'light' ? 'black' : 'white'}
           />
         </Switch>
-      </XStack>
+      </SettingLayout>
 
-      <XStack jc="space-between" w="100%">
+      <SettingLayout>
         <Paragraph>{i18n.t('settings.torrents.enableDHT')}</Paragraph>
         <Switch
           id={'dht-enabled'}
@@ -122,9 +123,9 @@ export const Torrents = () => {
             bc={theme === 'light' ? 'black' : 'white'}
           />
         </Switch>
-      </XStack>
+      </SettingLayout>
 
-      <XStack jc="space-between" w="100%">
+      <SettingLayout>
         <Paragraph>{i18n.t('settings.torrents.enableLPD')}</Paragraph>
         <Switch
           id={'lpd-enabled'}
@@ -138,9 +139,9 @@ export const Torrents = () => {
             bc={theme === 'light' ? 'black' : 'white'}
           />
         </Switch>
-      </XStack>
+      </SettingLayout>
 
-      <XStack jc="space-between" w="100%">
+      <SettingLayout>
         <Paragraph>{i18n.t('settings.torrents.enablePEX')}</Paragraph>
         <Switch
           id={'pex-enabled'}
@@ -154,9 +155,9 @@ export const Torrents = () => {
             bc={theme === 'light' ? 'black' : 'white'}
           />
         </Switch>
-      </XStack>
+      </SettingLayout>
 
-      <XStack jc="space-between" w="100%">
+      <SettingLayout>
         <Paragraph>
           {i18n.t('settings.torrents.enablePortForwarding')}
         </Paragraph>
@@ -175,13 +176,12 @@ export const Torrents = () => {
             bc={theme === 'light' ? 'black' : 'white'}
           />
         </Switch>
-      </XStack>
+      </SettingLayout>
 
-      <XStack jc="space-between" w="100%">
+      <SettingLayout>
         <Paragraph>{i18n.t('settings.torrents.peerPort')}</Paragraph>
         <Input
           minWidth={180}
-          bc="$backgroundTransparent"
           value={(session['peer-port'] || 0).toString()}
           onChangeText={(text) => {
             try {
@@ -193,7 +193,7 @@ export const Torrents = () => {
             }
           }}
         />
-      </XStack>
+      </SettingLayout>
     </YStack>
   )
 }
@@ -211,19 +211,16 @@ const DownloadDirectoryInput = ({ session, onSelect }) => {
         o={0.5}
         flex={1}
         value={session['download-dir'] || ''}
-        bc="$backgroundTransparent"
       />
     )
   }
 
   return (
-    <XStack f={1} ml="auto">
+    <XStack gap="$2" f={1} justifyContent="flex-end">
       <Input
         f={1}
-        mx="$2"
-        minWidth={180}
         editable={false}
-        bc="$backgroundTransparent"
+        maxWidth={240}
         value={session['download-dir'] || ''}
         onChangeText={(text) => {
           onSelect(text)

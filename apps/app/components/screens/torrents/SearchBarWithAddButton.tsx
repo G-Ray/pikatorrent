@@ -21,8 +21,8 @@ export const SearchBarWithAddButton = () => {
           br={50}
           {...(!media.gtXs && {
             position: 'absolute',
-            bottom: '$12',
-            right: '$6',
+            bottom: '$10',
+            right: '$0',
             size: '$5',
           })}
         >

@@ -71,10 +71,6 @@ export default function Library() {
             <Button
               {...(!media.gtXs && { w: '100%' })}
               alignSelf="center"
-              variant="outlined"
-              theme="yellow"
-              hoverTheme
-              borderColor={'$yellow7'}
               icon={Download}
               onPress={() => handleDownloadPress(t)}
             >

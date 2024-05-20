@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { XStack, YStack, Button, TextArea, Paragraph } from 'tamagui'
+import { XStack, YStack, Button, TextArea, Paragraph, useMedia } from 'tamagui'
 import { SettingsContext } from '../../../../contexts/SettingsContext'
 
 import defaultSettings from '../../../../defaultSettings.json'
@@ -9,6 +9,7 @@ import { useI18n } from '../../../../hooks/use18n'
 
 export const SearchEngines = () => {
   const i18n = useI18n()
+  const media = useMedia()
   const { settings, updateSettings } = useContext(SettingsContext)
   const [searchEnginesUrls, setSearchEnginesUrls] = useState(
     settings.searchEnginesUrls
@@ -46,7 +47,7 @@ export const SearchEngines = () => {
 
   return (
     <YStack w="100%" gap="$4">
-      <SettingLayout>
+      <SettingLayout vertical={!media.gtXs}>
         <YStack>
           <Paragraph minWidth={260}>
             {i18n.t('settings.app.searchEngines')}
