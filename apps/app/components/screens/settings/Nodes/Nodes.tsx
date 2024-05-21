@@ -198,7 +198,7 @@ const LocalNodeQrcode = () => {
 
   return (
     <YStack gap="$4">
-      <SettingLayout>
+      <XStack jc="space-between" w="100%">
         <Paragraph>{i18n.t('settings.nodes.qrCodeLabel')}</Paragraph>
         <YStack gap="$4">
           <XStack alignSelf="flex-end">
@@ -219,7 +219,7 @@ const LocalNodeQrcode = () => {
             </Card>
           )}
         </YStack>
-      </SettingLayout>
+      </XStack>
       <SettingLayout>
         <Paragraph>{i18n.t('settings.nodes.secretLinkLabel')}</Paragraph>
         <Button
