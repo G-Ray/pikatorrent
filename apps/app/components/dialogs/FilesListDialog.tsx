@@ -1,13 +1,20 @@
-import React, { useState } from 'react'
-import { ExternalLink, FolderOpen, List, Share2 } from '@tamagui/lucide-icons'
+import React, { useContext, useState } from 'react'
+import {
+  Check,
+  ExternalLink,
+  FolderOpen,
+  List,
+  Share2,
+} from '@tamagui/lucide-icons'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as FileSystem from 'expo-file-system'
 import * as Sharing from 'expo-sharing'
 import {
   Button,
+  Card,
+  Checkbox,
   ListItem,
   Paragraph,
-  Progress,
   ScrollView,
   XStack,
   YGroup,
@@ -19,6 +26,8 @@ import isElectron from 'is-electron'
 import { Dialog } from '../reusable/Dialog'
 import { useI18n } from '../../hooks/use18n'
 import { TorrentFieldFormatter } from '../screens/torrents/TorrentFieldFormatter'
+import { useTorrents } from '../../hooks/useTorrents'
+import { NodeContext } from '../../contexts/NodeContext'
 
 const buildFilePath = (torrent, file) => {
   return `${torrent.downloadDir}/${file.name}`
@@ -63,9 +72,10 @@ export const FilesListDialog = ({ torrent, toast }) => {
         >
           <ScrollView>
             <YGroup>
-              {torrent.files.map((file) => (
+              {torrent.files.map((file, index) => (
                 <FileRow
                   key={file.name}
+                  index={index}
                   torrent={torrent}
                   file={file}
                   toast={toast}
@@ -79,85 +89,113 @@ export const FilesListDialog = ({ torrent, toast }) => {
   )
 }
 
-const FileRow = ({ torrent, file, toast }) => {
+const FileRow = ({ torrent, file, index, toast }) => {
   const i18n = useI18n()
+  const { wanted } = torrent.fileStats[index]
+  const { refresh } = useTorrents()
+  const { sendRPCMessage } = useContext(NodeContext)
+
+  const handleWantedChange = async (isChecked: boolean) => {
+    await sendRPCMessage({
+      method: 'torrent-set',
+      arguments: {
+        ids: torrent.id,
+        ...(isChecked
+          ? { ['files-wanted']: [index] }
+          : { ['files-unwanted']: [index] }),
+      },
+    })
+    refresh()
+  }
 
   return (
-    <ListItem
-      key={file.name}
-      hoverTheme
-      transparent
-      bordered
-      borderLeftWidth={0}
-      borderRightWidth={0}
-    >
-      <YStack gap="$1" f={1}>
-        <Paragraph f={1} flexWrap="wrap">
-          {file.name}
-        </Paragraph>
-        <XStack columnGap="$2">
-          <TorrentFieldFormatter
-            name="percentDone"
-            value={Math.floor(file.bytesCompleted / file.length)}
-          />
-          <Paragraph>•</Paragraph>
-          <TorrentFieldFormatter name="totalSize" value={file.length} />
+    <ListItem key={file.name} hoverTheme transparent mx={0} px={0}>
+      <Card f={1} p="$2" transparent>
+        <XStack f={1} jc="center" ai="center" gap="$4">
+          <Checkbox
+            size="$5"
+            id={`${file.name}-checkbox`}
+            checked={wanted}
+            onCheckedChange={handleWantedChange}
+          >
+            <Checkbox.Indicator>
+              <Check />
+            </Checkbox.Indicator>
+          </Checkbox>
+          <YStack f={1}>
+            <Paragraph f={1} flexWrap="wrap">
+              {file.name}
+            </Paragraph>
+            <XStack columnGap="$2">
+              <TorrentFieldFormatter
+                name="percentDone"
+                value={Math.floor(file.bytesCompleted / file.length)}
+              />
+              <Paragraph>•</Paragraph>
+              <TorrentFieldFormatter name="totalSize" value={file.length} />
+            </XStack>
+            <XStack gap="$4" ai="center">
+              {file.bytesCompleted / file.length === 1 && (
+                <>
+                  <Button
+                    f={1}
+                    size="$3"
+                    icon={ExternalLink}
+                    onPress={async () => {
+                      try {
+                        await handleOpenFile(torrent, file)
+                      } catch (e) {
+                        console.error(e)
+                        toast.show(i18n.t('toasts.noAppCanOpenFile'), {
+                          native: true,
+                        })
+                      }
+                    }}
+                  >
+                    {i18n.t('filesListDialog.open')}
+                  </Button>
+                  {Platform.OS !== 'web' && (
+                    <Button
+                      f={1}
+                      size="$3"
+                      icon={Share2}
+                      onPress={async () => {
+                        try {
+                          await Sharing.shareAsync(
+                            'file://' + buildFilePath(torrent, file)
+                          )
+                        } catch (e) {
+                          console.error(e)
+                          toast.show(i18n.t('toasts.cannotShareFile'), {
+                            native: true,
+                          })
+                        }
+                      }}
+                    >
+                      {i18n.t('filesListDialog.share')}
+                    </Button>
+                  )}
+                  {isElectron() && (
+                    <Button
+                      f={1}
+                      size="$3"
+                      icon={FolderOpen}
+                      onPress={async () => {
+                        window.electronAPI.openFolder(
+                          torrent.downloadDir,
+                          file.name
+                        )
+                      }}
+                    >
+                      {i18n.t('filesListDialog.openFolder')}
+                    </Button>
+                  )}
+                </>
+              )}
+            </XStack>
+          </YStack>
         </XStack>
-        {file.bytesCompleted / file.length === 1 && (
-          <XStack gap="$4">
-            <Button
-              f={1}
-              size="$3"
-              icon={ExternalLink}
-              onPress={async () => {
-                try {
-                  await handleOpenFile(torrent, file)
-                } catch (e) {
-                  console.error(e)
-                  toast.show(i18n.t('toasts.noAppCanOpenFile'), {
-                    native: true,
-                  })
-                }
-              }}
-            >
-              {i18n.t('filesListDialog.open')}
-            </Button>
-            {Platform.OS !== 'web' && (
-              <Button
-                f={1}
-                size="$3"
-                icon={Share2}
-                onPress={async () => {
-                  try {
-                    await Sharing.shareAsync(
-                      'file://' + buildFilePath(torrent, file)
-                    )
-                  } catch (e) {
-                    console.error(e)
-                    toast.show(i18n.t('toasts.cannotShareFile'), {
-                      native: true,
-                    })
-                  }
-                }}
-              >
-                {i18n.t('filesListDialog.share')}
-              </Button>
-            )}
-            {isElectron() && (
-              <Button
-                f={1}
-                size="$3"
-                icon={FolderOpen}
-                onPress={async () => {
-                  window.electronAPI.openFolder(torrent.downloadDir, file.name)
-                }}
-              >
-                {i18n.t('filesListDialog.openFolder')}
-              </Button>
-            )}
-          </XStack>
-        )}
-      </YStack>
+      </Card>
     </ListItem>
   )
 }

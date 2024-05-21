@@ -58,6 +58,7 @@ export const TorrentsProvider = ({
             'totalSize',
             'labels',
             'magnetLink',
+            'fileStats',
           ],
         },
       })
