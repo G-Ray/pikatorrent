@@ -32,7 +32,7 @@ export const RemoveTorrentDialog = ({
           <YStack space="$4" my="$4">
             {isRemovableWithoutData && (
               <Dialog.Close displayWhenAdapted asChild>
-                <Button onPress={() => torrentsFunctions.remove(id, true)}>
+                <Button onPress={() => torrentsFunctions.remove(id, false)}>
                   {i18n.t('removeTorrentDialog.remove')}
                 </Button>
               </Dialog.Close>
