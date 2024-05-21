@@ -19,7 +19,6 @@ export const TorrentsList = ({
   filters,
 }: TorrentsListProp) => {
   const { torrents } = useTorrents()
-  const media = useMedia()
 
   // toSorted is not defined on native
   torrents.sort((a, b) => {
@@ -62,6 +61,7 @@ export const TorrentsList = ({
     <FlatList
       contentContainerStyle={{
         width: '100%',
+        gap: 8,
       }}
       data={displayedTorrents || []}
       renderItem={({ item }) => <TorrentCard key={item.id} torrent={item} />}
