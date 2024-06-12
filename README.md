@@ -89,7 +89,11 @@ See [docs/development.md](docs/development.md)
 
 ## Localization
 
-See [docs/localization.md](docs/localization.md)
+We use [weblate](https://hosted.weblate.org/engage/pikatorrent/) to localize the app.
+
+<a href="https://hosted.weblate.org/engage/pikatorrent/">
+<img src="https://hosted.weblate.org/widget/pikatorrent/translations/multi-auto.svg" alt="Translation status" />
+</a>
 
 ## License
 
