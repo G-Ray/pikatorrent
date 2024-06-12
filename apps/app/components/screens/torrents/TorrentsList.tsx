@@ -3,7 +3,8 @@ import { XStack, useMedia } from 'tamagui'
 import Fuse from 'fuse.js'
 
 import { useTorrents } from '../../../hooks/useTorrents'
-import { TorrentCard, TorrentCardPlaceHolder } from './TorrentCard'
+import { TorrentCard } from './TorrentCard/TorrentCard'
+import { TorrentCardPlaceHolder } from './TorrentCard/TorrentCardPlaceHolder'
 import { FlatList } from 'react-native'
 import { SortOptions } from '../../dialogs/SortingOptionsDialog'
 
