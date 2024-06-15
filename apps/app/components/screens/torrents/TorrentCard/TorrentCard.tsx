@@ -7,6 +7,7 @@ import {
   Progress,
   ScrollView,
   Stack,
+  Theme,
   XStack,
   useMedia,
 } from 'tamagui'
@@ -76,19 +77,20 @@ export const TorrentCard = ({ torrent, theme = 'yellow' }) => {
             <XStack>
               <H6 numberOfLines={1}>{torrent.name}</H6>
             </XStack>
-            <Progress
-              mb="$2"
-              value={Math.floor(torrent.percentDone * 100)}
-              theme={theme}
-              borderColor={`$${theme}7`}
-              bordered
-              size="$2"
-            >
-              <Progress.Indicator
-                animation="lazy"
-                backgroundColor={`$${theme}9`}
-              />
-            </Progress>
+            <Theme name="yellow">
+              <Progress
+                mb="$2"
+                value={Math.floor(torrent.percentDone * 100)}
+                borderColor={`$${theme}7`}
+                bordered
+                size="$2"
+              >
+                <Progress.Indicator
+                  animation="lazy"
+                  backgroundColor={`$${theme}9`}
+                />
+              </Progress>
+            </Theme>
             <XStack jc="space-between">
               <TorrentInfo torrent={torrent} />
               <ScrollView
