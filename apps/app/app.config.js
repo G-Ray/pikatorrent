@@ -28,6 +28,7 @@ module.exports = () => {
           foregroundImage: './assets/adaptive-icon.png',
           backgroundColor: '#ffffff',
         },
+        permissions: ['android.permission.FOREGROUND_SERVICE_DATA_SYNC'],
         intentFilters: [
           {
             action: 'VIEW',
@@ -52,6 +53,7 @@ module.exports = () => {
         },
       },
       plugins: [
+        './plugins/withNotifeeForegroundServiceType.js',
         'expo-router',
         '@config-plugins/react-native-webrtc',
         'expo-localization',
