@@ -20,6 +20,7 @@ module.exports = () => {
       assetBundlePatterns: ['**/*'],
       ios: {
         supportsTablet: true,
+        bundleIdentifier: 'com.gray.pikatorrent',
       },
       android: {
         package: IS_DEV ? 'com.gray.pikatorrent.dev' : 'com.gray.pikatorrent',
