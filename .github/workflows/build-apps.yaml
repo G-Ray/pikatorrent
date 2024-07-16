@@ -99,6 +99,28 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
+      # - name: Install NDK
+      #   run: sdkmanager "ndk;27.0.11902837"
+
+      - name: Setup vcpkg
+        uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgGitCommitId: 1de2026f28ead93ff1773e6e680387643e914ea1 # 2024.07.12
+
+      - name: Get Dependencies
+        run: |
+          set -ex
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            ninja-build
+
+      - name: Install vcpkg packages
+        run: |
+          vcpkg install curl:x86-android openssl:x86-android
+          vcpkg install curl:x64-android openssl:x64-android
+          vcpkg install curl:arm-neon-android openssl:arm-neon-android
+          vcpkg install curl:arm64-android openssl:arm64-android
+
       - name: Setup EAS
         uses: expo/expo-github-action@v8
         with:

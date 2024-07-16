@@ -58,27 +58,27 @@ module.exports = () => {
         'expo-router',
         '@config-plugins/react-native-webrtc',
         'expo-localization',
-        [
-          'expo-build-properties',
-          {
-            android: {
-              packagingOptions: {
-                pickFirst: [
-                  // X64
-                  '/lib/arm64-v8a/libcrypto.so',
-                  '/lib/arm64-v8a/libssl.so',
-                  '/lib/x86_64/libcrypto.so',
-                  '/lib/x86_64/libssl.so',
-                  // x86
-                  '/lib/armeabi-v7a/libcrypto.so',
-                  '/lib/armeabi-v7a/libssl.so',
-                  '/lib/x86/libcrypto.so',
-                  '/lib/x86/libssl.so',
-                ],
-              },
-            },
-          },
-        ],
+        // [
+        //   'expo-build-properties',
+        //   {
+        //     android: {
+        //       packagingOptions: {
+        //         pickFirst: [
+        //           // X64
+        //           '/lib/arm64-v8a/libcrypto.so',
+        //           '/lib/arm64-v8a/libssl.so',
+        //           '/lib/x86_64/libcrypto.so',
+        //           '/lib/x86_64/libssl.so',
+        //           // x86
+        //           '/lib/armeabi-v7a/libcrypto.so',
+        //           '/lib/armeabi-v7a/libssl.so',
+        //           '/lib/x86/libcrypto.so',
+        //           '/lib/x86/libssl.so',
+        //         ],
+        //       },
+        //     },
+        //   },
+        // ],
         // We use notifee, but expo-notification allows us
         // to generate 'notification_icon'
         [
