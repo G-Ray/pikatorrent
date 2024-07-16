@@ -3,7 +3,7 @@ import * as FileSystem from 'expo-file-system'
 import RNFS from 'react-native-fs'
 
 const documentDirectory = FileSystem.documentDirectory?.substring(
-  'file://'.length
+  'file://'.length,
 )
 
 const ANDROID_TRANSMISSION_CONFIG_DIR = `${documentDirectory}transmission`
@@ -19,7 +19,7 @@ let transmission: Transmission
 export const init = async () => {
   transmission = new Transmission(
     ANDROID_TRANSMISSION_CONFIG_DIR,
-    ANDROID_TRANSMISSION_APP_NAME
+    ANDROID_TRANSMISSION_APP_NAME,
   )
 
   const res = await transmission.request({
