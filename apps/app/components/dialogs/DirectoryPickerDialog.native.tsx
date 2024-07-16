@@ -10,7 +10,6 @@ import {
   Label,
   Paragraph,
   Switch,
-  useThemeName,
 } from 'tamagui'
 import { YGroup } from 'tamagui'
 import RNFS from 'react-native-fs'
@@ -23,28 +22,27 @@ import { useI18n } from '../../hooks/use18n'
 
 const PRIVATE_DOWNLOAD_DIR_FILE_URI = 'file://' + PRIVATE_DOWNLOAD_DIR
 const ROOT_FILE_URI = 'file://' + RNFS.ExternalStorageDirectoryPath
+const PUBLIC_FOLDERS = ['Documents', 'Download']
 
 export const DirectoryPickerDialog = ({ onSelect }) => {
   const i18n = useI18n()
   const [directories, setDirectories] = useState<string[]>([])
   const [currentFileUri, setCurrentFileUri] = useState(ROOT_FILE_URI)
-  const theme = useThemeName()
 
   useEffect(() => {
-    if (currentFileUri === PRIVATE_DOWNLOAD_DIR_FILE_URI) {
-      return
-    }
+    readDirectory(ROOT_FILE_URI)
+  }, [])
 
-    const readDirectories = async () => {
+  const readDirectory = async (path: string) => {
+    try {
       const entries =
-        currentFileUri === ROOT_FILE_URI
-          ? ['Documents', 'Download'] // Public folders
-          : await FileSystem.readDirectoryAsync(currentFileUri)
-
-      const directories = currentFileUri !== ROOT_FILE_URI ? ['..'] : []
+        path === ROOT_FILE_URI
+          ? PUBLIC_FOLDERS
+          : await FileSystem.readDirectoryAsync(path)
+      const directories = path === ROOT_FILE_URI ? [] : ['..']
 
       for (const entry of entries) {
-        const fileUri = `${currentFileUri}/${entry}`
+        const fileUri = `${path}/${entry}`
         const info = await FileSystem.getInfoAsync(fileUri)
         if (info.isDirectory) {
           directories.push(entry)
@@ -52,21 +50,37 @@ export const DirectoryPickerDialog = ({ onSelect }) => {
       }
 
       setDirectories([...directories.sort()])
+    } catch (e) {
+      console.error(e)
     }
+  }
 
-    readDirectories()
-  }, [currentFileUri])
+  const handleChangeDirectory = async (path: string) => {
+    let newCurrentFileUri = ''
 
-  const handleChangeDirectory = (directory: string) => {
-    if (directory === '..') {
-      setCurrentFileUri((cur) => {
-        const directories = cur.split('/')
-        const lastDir = directories[directories.length - 1]
-        return cur.substring(0, cur.length - `/${lastDir}`.length)
-      })
+    if (path === '..') {
+      const directories = currentFileUri.split('/')
+      const lastDir = directories[directories.length - 1]
+      newCurrentFileUri = currentFileUri.substring(
+        0,
+        currentFileUri.length - `/${lastDir}`.length,
+      )
     } else {
-      setCurrentFileUri((cur) => `${cur}/${directory}`)
+      newCurrentFileUri = `${currentFileUri}/${path}`
     }
+
+    setCurrentFileUri(newCurrentFileUri)
+    readDirectory(newCurrentFileUri)
+  }
+
+  const handlePrivateDirectoryCheckChange = (isChecked: boolean) => {
+    const newDirectory = isChecked
+      ? PRIVATE_DOWNLOAD_DIR_FILE_URI
+      : ROOT_FILE_URI
+
+    setCurrentFileUri(newDirectory)
+
+    readDirectory(newDirectory)
   }
 
   const currentPath = currentFileUri.substring('file://'.length)
@@ -82,16 +96,12 @@ export const DirectoryPickerDialog = ({ onSelect }) => {
       trigger={<Button icon={FolderOpen} />}
     >
       <YStack gap="$4" pt="$4" f={1}>
-        <XStack alignItems="center" jc="center" space="$4">
+        <XStack alignItems="center" jc="center" gap="$4">
           <Switch
             id={'use-private-dir-switch'}
             checked={currentPath === PRIVATE_DOWNLOAD_DIR}
             onCheckedChange={(checked) => {
-              if (checked) {
-                setCurrentFileUri(PRIVATE_DOWNLOAD_DIR_FILE_URI)
-              } else {
-                setCurrentFileUri(ROOT_FILE_URI)
-              }
+              handlePrivateDirectoryCheckChange(checked)
             }}
           >
             <Switch.Thumb animation="quick" />
