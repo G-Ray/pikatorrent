@@ -85,10 +85,7 @@ export const TorrentCard = ({ torrent, theme = 'yellow' }) => {
                 bordered
                 size="$2"
               >
-                <Progress.Indicator
-                  animation="lazy"
-                  backgroundColor={`$${theme}9`}
-                />
+                <Progress.Indicator backgroundColor={`$${theme}9`} />
               </Progress>
             </Theme>
             <XStack jc="space-between">
