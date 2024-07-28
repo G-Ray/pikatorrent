@@ -23,7 +23,7 @@
     "node-pre-gyp": "^0.17.0",
     "qrcode": "^1.5.3",
     "simple-peer": "^9.11.1",
-    "transmission-native": "^0.4.5",
+    "transmission-native": "^0.4.6",
     "wrtc": "^0.4.7",
     "ws": "^8.12.1"
   },
