@@ -168,12 +168,14 @@ const ThemedLayout = () => {
       <NodeProvider>
         <ToastProvider>
           <ToastContainer>
-            <ToastViewport
-              flexDirection="column"
-              top={'$4'}
-              left={0}
-              right={0}
-            />
+            <Portal zIndex={999999}>
+              <ToastViewport
+                flexDirection="column"
+                bottom={'$4'}
+                left={0}
+                right={0}
+              />
+            </Portal>
           </ToastContainer>
           <ToastController />
 
