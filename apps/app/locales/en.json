@@ -112,6 +112,21 @@
     "title": "Unsupported browser",
     "description": "This browser is not supported. Please try pikatorrent in another browser."
   },
+  "detailsDialog": {
+    "title": "Details",
+    "torrentSize": "Torrent size",
+    "files": "files",
+    "uploaded": "Uploaded",
+    "downloaded": "Downloaded",
+    "creator": "Creator",
+    "addedDate": "Date added",
+    "remainingTime": "Remaining time",
+    "comment": "Comment",
+    "error": "Error",
+    "privacy": "Privacy",
+    "private": "Private",
+    "public": "Public"
+  },
   "torrentDialog": {
     "copyLink": "Copy Link",
     "share": "Share",
@@ -125,7 +140,8 @@
     "selectedLabels": "Selected labels",
     "allLabels": "All labels",
     "noLabels": "There is no labels yet.",
-    "addLabelInstruction": "Add labels by editing a torrent."
+    "addLabelInstruction": "Add labels by editing a torrent.",
+    "details": "Details"
   },
   "scanQRCodeDialog": {
     "title": "Scan QRCode",

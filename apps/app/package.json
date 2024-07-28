@@ -32,6 +32,7 @@
     "@tamagui/use-force-update": "1.100.5",
     "bowser": "^2.11.0",
     "burnt": "^0.10.0",
+    "date-fns": "^3.6.0",
     "expo": "~51.0.8",
     "expo-barcode-scanner": "~13.0.1",
     "expo-build-properties": "~0.12.1",

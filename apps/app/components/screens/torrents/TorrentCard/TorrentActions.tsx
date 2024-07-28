@@ -12,6 +12,7 @@ import { Dialog } from '../../../reusable/Dialog'
 import { useTorrents } from '../../../../hooks/useTorrents'
 import { PRIVATE_DOWNLOAD_DIR } from '../../../../lib/transmission'
 import { ShareButtons } from './ShareButtons'
+import { DetailsDialog } from '../../../dialogs/DetailsDialog'
 
 export const TorrentActions = ({
   torrent,
@@ -35,7 +36,7 @@ export const TorrentActions = ({
 
   return (
     <Dialog snapPointsMode="fit" open={open} onOpenChange={onOpenChange}>
-      <YStack gap="$4" py="$4" pt={media.gtXs ? '$8' : '$4'}>
+      <YStack gap="$4" py="$4" pt={'$8'}>
         <ShareButtons torrent={torrent} toast={toast} />
         {isElectron() && torrent.percentDone === 1 && (
           <Button icon={FolderOpen} onPress={handleOpenFolder}>
@@ -49,6 +50,7 @@ export const TorrentActions = ({
           torrent={torrent}
           torrentsFunctions={torrentsFunctions}
         />
+        <DetailsDialog torrent={torrent} />
         <RemoveTorrentDialog
           id={torrent.id}
           name={torrent.name}

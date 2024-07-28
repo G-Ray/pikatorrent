@@ -22,8 +22,36 @@ const defaultTorrentContext: TorrentContext = {
 }
 
 export const TorrentsContext = createContext<TorrentContext>(
-  defaultTorrentContext
+  defaultTorrentContext,
 )
+
+const TORRENT_FIELDS = [
+  'id',
+  'eta',
+  'errorString',
+  'peersConnected',
+  'name',
+  'files',
+  'status',
+  'percentDone',
+  'downloadDir',
+  'rateDownload',
+  'rateUpload',
+  'totalSize',
+  'labels',
+  'magnetLink',
+  'fileStats',
+  'availability',
+  'pieceSize',
+  'pieceCount',
+  'uploadedEver',
+  'downloadedEver',
+  'uploadRatio',
+  'creator',
+  'addedDate',
+  'comment',
+  'isPrivate',
+]
 
 const REFRESH_INTERVAL = 5_000
 
@@ -43,23 +71,7 @@ export const TorrentsProvider = ({
       const response = await sendRPCMessage({
         method: 'torrent-get',
         arguments: {
-          fields: [
-            'id',
-            'eta',
-            'errorString',
-            'peersConnected',
-            'name',
-            'files',
-            'status',
-            'percentDone',
-            'downloadDir',
-            'rateDownload',
-            'rateUpload',
-            'totalSize',
-            'labels',
-            'magnetLink',
-            'fileStats',
-          ],
+          fields: TORRENT_FIELDS,
         },
       })
 
@@ -68,11 +80,11 @@ export const TorrentsProvider = ({
       setTorrents((prevTorrents) => {
         const torrentsDone = response.arguments.torrents.filter((t) =>
           prevTorrents.find(
-            (pt) => pt.id === t.id && pt.percentDone < 1 && t.percentDone === 1
-          )
+            (pt) => pt.id === t.id && pt.percentDone < 1 && t.percentDone === 1,
+          ),
         )
         torrentsDone.forEach((torrent) =>
-          toast.show(i18n.t('toasts.torrentDownloaded'), { native: true })
+          toast.show(i18n.t('toasts.torrentDownloaded'), { native: true }),
         )
         return response.arguments.torrents
       })
