@@ -67,7 +67,7 @@ const Dialog = ({
 
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
-      backAction
+      backAction,
     )
 
     return () => backHandler.remove()
@@ -112,7 +112,6 @@ const Dialog = ({
         <TamaguiDialog.Overlay
           key="overlay"
           animation="quick"
-          o={0.5}
           enterStyle={{ o: 0 }}
           exitStyle={{ o: 0 }}
         />
