@@ -14,7 +14,7 @@ export const PUBLIC_DOWNLOAD_DIR =
 export const PUBLIC_DOCUMENTS_DIR =
   RNFS.ExternalStorageDirectoryPath + '/Documents'
 
-let transmission: Transmission
+let transmission: Transmission | null
 
 export const init = async () => {
   transmission = new Transmission(
@@ -51,11 +51,12 @@ export const init = async () => {
 }
 
 export const request = (...args) => {
-  return transmission.request(...args)
+  return transmission?.request(...args)
 }
 
 export const close = () => {
-  return transmission.close()
+  transmission?.close()
+  transmission = null
 }
 
 export { transmission }

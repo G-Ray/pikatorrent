@@ -44,7 +44,6 @@ const handleEvents = async ({ type, detail }: Event) => {
 
   // Exit
   if (type === EventType.ACTION_PRESS && detail.pressAction?.id === 'exit') {
-    console.log('handleEvents exit')
     quitApp()
   }
 }

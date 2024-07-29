@@ -9,7 +9,6 @@ if (Platform.OS === 'web') {
   require('@tamagui/core/reset.css')
 }
 
-console.log('initApp')
 initApp()
 
 polyfillWebCrypto()
