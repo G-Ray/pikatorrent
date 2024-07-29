@@ -96,8 +96,25 @@ jobs:
           java-version: "17"
           distribution: "temurin"
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+      - name: Setup vcpkg
+        uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgGitCommitId: 1de2026f28ead93ff1773e6e680387643e914ea1 # 2024.07.12
+
+      - name: Get Dependencies
+        run: |
+          set -ex
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            ninja-build
+          sudo apt clean
+
+      - name: Install vcpkg packages
+        run: |
+          vcpkg install --clean-after-build curl:x86-android openssl:x86-android
+          vcpkg install --clean-after-build curl:x64-android openssl:x64-android
+          vcpkg install --clean-after-build curl:arm-neon-android openssl:arm-neon-android
+          vcpkg install --clean-after-build curl:arm64-android openssl:arm64-android
 
       - name: Setup EAS
         uses: expo/expo-github-action@v8
