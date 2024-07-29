@@ -96,9 +96,6 @@ jobs:
           java-version: "17"
           distribution: "temurin"
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
-
       - name: Setup vcpkg
         uses: lukka/run-vcpkg@v11
         with:
