@@ -1,4 +1,10 @@
-import { Zap, Settings, HelpCircle, Library } from '@tamagui/lucide-icons'
+import {
+  Zap,
+  Settings,
+  HelpCircle,
+  Library,
+  Search,
+} from '@tamagui/lucide-icons'
 
 export const getButtons = ({ i18n }) => {
   return {
@@ -10,10 +16,10 @@ export const getButtons = ({ i18n }) => {
         segment: '(torrents)',
       },
       {
-        icon: Library,
-        title: i18n.t('menu.library'),
-        href: '/library',
-        segment: 'library',
+        icon: Search,
+        title: i18n.t('menu.search'),
+        href: '/search',
+        segment: 'search',
       },
       {
         icon: Settings,
