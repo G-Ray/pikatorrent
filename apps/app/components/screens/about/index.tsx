@@ -19,41 +19,48 @@ export default function About() {
     <YStack
       w="100%"
       flexShrink={1}
-      gap="$4"
-      pt="$4"
+      gap="$8"
+      p="$4"
       px={media.gtXs ? '$8' : '$4'}
       alignSelf="center"
+      flex={1}
       {...(media.gtXs && { maxWidth: DESKTOP_MAX_CONTENT_WIDTH })}
     >
-      <XStack jc="space-between">
-        <Paragraph>{i18n.t('about.pikatorrentVersion')}</Paragraph>
-        <Paragraph id="pikaTorrentVersion">{version}</Paragraph>
-      </XStack>
-      <XStack jc="space-between">
-        <Paragraph>{i18n.t('about.transmissionVersion')}</Paragraph>
-        <Paragraph id="transmissionVersion">{session['version']}</Paragraph>
-      </XStack>
-      <SessionsInfoDialog session={session} />
-      <StatsDialog />
-      <XStack mx="auto" mt="$8" gap="$2">
-        <Paragraph>{i18n.t('about.reportBugOrFeature')}</Paragraph>
-      </XStack>
-      <Button
-        icon={ExternalLink}
-        iconAfter={Github}
-        onPress={() =>
-          openExternalLink('https://www.github.com/G-Ray/pikatorrent/issues')
-        }
-      >
-        <Paragraph>{i18n.t('about.githubLinkDescription')}</Paragraph>
-      </Button>
-      <Button
-        icon={ExternalLink}
-        iconAfter={MessageSquare}
-        onPress={() => openExternalLink('https://discord.gg/6HxCV4aGdy')}
-      >
-        <Paragraph>{i18n.t('about.discordLinkDescription')}</Paragraph>
-      </Button>
+      <YStack gap="$4">
+        <XStack jc="space-between">
+          <Paragraph>{i18n.t('about.pikatorrentVersion')}</Paragraph>
+          <Paragraph id="pikaTorrentVersion">{version}</Paragraph>
+        </XStack>
+        <XStack jc="space-between">
+          <Paragraph>{i18n.t('about.transmissionVersion')}</Paragraph>
+          <Paragraph id="transmissionVersion">{session['version']}</Paragraph>
+        </XStack>
+      </YStack>
+      <YStack gap="$4">
+        <StatsDialog />
+        <SessionsInfoDialog session={session} />
+      </YStack>
+      <YStack gap="$4">
+        <XStack mx="auto" mt="$8" gap="$2">
+          <Paragraph>{i18n.t('about.reportBugOrFeature')}</Paragraph>
+        </XStack>
+        <Button
+          icon={ExternalLink}
+          iconAfter={Github}
+          onPress={() =>
+            openExternalLink('https://www.github.com/G-Ray/pikatorrent/issues')
+          }
+        >
+          <Paragraph>{i18n.t('about.githubLinkDescription')}</Paragraph>
+        </Button>
+        <Button
+          icon={ExternalLink}
+          iconAfter={MessageSquare}
+          onPress={() => openExternalLink('https://discord.gg/6HxCV4aGdy')}
+        >
+          <Paragraph>{i18n.t('about.discordLinkDescription')}</Paragraph>
+        </Button>
+      </YStack>
     </YStack>
   )
 }

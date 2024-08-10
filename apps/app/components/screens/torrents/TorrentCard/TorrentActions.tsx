@@ -23,7 +23,6 @@ export const TorrentActions = ({
   /* Bug: we can't access contexts inside nested dialogs, see https://github.com/tamagui/tamagui/issues/1481 */
   const torrentsFunctions = useTorrents()
   const toast = useToastController()
-  const media = useMedia()
   const i18n = useI18n()
 
   if (!open) {
