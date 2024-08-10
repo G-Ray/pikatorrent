@@ -40,9 +40,9 @@ export const TorrentCard = ({ torrent, theme = 'yellow' }) => {
       />
       <Card
         transparent
-        bordered
-        key={torrent.id}
+        bordered={media.gtXs ? true : 0}
         p="$2"
+        key={torrent.id}
         hoverStyle={{ cursor: 'pointer', backgroundColor: '$background' }}
         onPress={() => {
           setIsMenuOpen(true)
