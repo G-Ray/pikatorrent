@@ -142,7 +142,7 @@ const NativeURLHandlers = () => {
 const ToastContainer = ({ children }: { children: ReactNode }) => {
   const theme = useThemeName()
   return Platform.OS === 'web' ? (
-    <Portal>
+    <Portal zIndex={'999999'}>
       <Theme name={theme}>{children}</Theme>
     </Portal>
   ) : (
@@ -168,14 +168,12 @@ const ThemedLayout = () => {
       <NodeProvider>
         <ToastProvider>
           <ToastContainer>
-            <Portal zIndex={999999}>
-              <ToastViewport
-                flexDirection="column"
-                bottom={'$4'}
-                left={0}
-                right={0}
-              />
-            </Portal>
+            <ToastViewport
+              flexDirection="column"
+              bottom={'$4'}
+              left={0}
+              right={0}
+            />
           </ToastContainer>
           <ToastController />
 
