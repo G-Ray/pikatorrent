@@ -100,7 +100,7 @@ const Dialog = ({
           dismissOnOverlayPress={dismissOnOverlayPress}
           snapPointsMode={snapPointsMode}
         >
-          <Sheet.Handle themeInverse backgroundColor={'$background'} />
+          <Sheet.Handle backgroundColor={'$background'} o={1} />
           <Sheet.Frame p="$4">
             <Adapt.Contents />
           </Sheet.Frame>

@@ -20,7 +20,7 @@ export const StatsDialog = () => {
     <Dialog
       title={i18n.t('statsDialog.title')}
       trigger={<Button icon={Activity}>{i18n.t('statsDialog.title')}</Button>}
-      snapPoints={[90]}
+      snapPointsMode="fit"
     >
       {sessionStats && Object.keys(sessionStats).length > 0 && (
         <ScrollView>
@@ -53,7 +53,7 @@ export const StatsDialog = () => {
                 <Paragraph>{i18n.t('statsDialog.downloaded')}</Paragraph>
                 <Paragraph>
                   {prettyBytes(
-                    sessionStats['current-stats'].downloadedBytes || 0
+                    sessionStats['current-stats'].downloadedBytes || 0,
                   )}
                 </Paragraph>
               </XStack>
@@ -62,7 +62,7 @@ export const StatsDialog = () => {
                 <Paragraph>{i18n.t('statsDialog.uploaded')}</Paragraph>
                 <Paragraph>
                   {prettyBytes(
-                    sessionStats['current-stats'].uploadedBytes || 0
+                    sessionStats['current-stats'].uploadedBytes || 0,
                   )}
                 </Paragraph>
               </XStack>
@@ -78,7 +78,7 @@ export const StatsDialog = () => {
                 <Paragraph>
                   {prettyMilliseconds(
                     sessionStats['current-stats'].secondsActive * 1000,
-                    { secondsDecimalDigits: 0 }
+                    { secondsDecimalDigits: 0 },
                   )}
                 </Paragraph>
               </XStack>
@@ -90,7 +90,7 @@ export const StatsDialog = () => {
                 <Paragraph>{i18n.t('statsDialog.downloaded')}</Paragraph>
                 <Paragraph>
                   {prettyBytes(
-                    sessionStats['cumulative-stats'].downloadedBytes || 0
+                    sessionStats['cumulative-stats'].downloadedBytes || 0,
                   )}
                 </Paragraph>
               </XStack>
@@ -99,7 +99,7 @@ export const StatsDialog = () => {
                 <Paragraph>{i18n.t('statsDialog.uploaded')}</Paragraph>
                 <Paragraph>
                   {prettyBytes(
-                    sessionStats['cumulative-stats'].uploadedBytes || 0
+                    sessionStats['cumulative-stats'].uploadedBytes || 0,
                   )}
                 </Paragraph>
               </XStack>
@@ -115,7 +115,7 @@ export const StatsDialog = () => {
                 <Paragraph>
                   {prettyMilliseconds(
                     sessionStats['cumulative-stats'].secondsActive * 1000,
-                    { secondsDecimalDigits: 0 }
+                    { secondsDecimalDigits: 0 },
                   )}
                 </Paragraph>
               </XStack>

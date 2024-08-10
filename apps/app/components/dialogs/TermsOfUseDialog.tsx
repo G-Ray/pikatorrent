@@ -16,15 +16,10 @@ export const TermsOfUseDialog = () => {
     updateSettings({ isTermsOfUseAccepted: true })
   }
 
-  if (settings.isTermsOfUseAccepted) {
-    return null
-  }
-
   return (
     <Dialog
       title={i18n.t('termsOfUseDialog.title')}
-      open
-      snapPoints={[30]}
+      open={!settings.isTermsOfUseAccepted}
       dismissOnOverlayPress={false}
       dismissOnSnapToBottom={false}
       snapPointsMode="fit"

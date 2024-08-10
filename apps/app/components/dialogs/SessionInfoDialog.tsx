@@ -13,7 +13,7 @@ export const SessionsInfoDialog = ({ session }) => {
     <Dialog
       title={i18n.t('sessionInfoDialog.title')}
       trigger={<Button icon={Info}>{i18n.t('sessionInfoDialog.title')}</Button>}
-      snapPoints={[90]}
+      snapPoints={[80]}
     >
       <ScrollView>
         {Platform.OS === 'web' ? (

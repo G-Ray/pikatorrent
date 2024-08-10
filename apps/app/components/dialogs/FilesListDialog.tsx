@@ -37,7 +37,7 @@ const handleOpenFile = async (torrent, file) => {
   if (Platform.OS === 'android') {
     try {
       const contentUri = await FileSystem.getContentUriAsync(
-        'file://' + buildFilePath(torrent, file)
+        'file://' + buildFilePath(torrent, file),
       )
 
       await IntentLauncher.startActivityAsync('android.intent.action.VIEW', {
@@ -56,35 +56,28 @@ const handleOpenFile = async (torrent, file) => {
 
 export const FilesListDialog = ({ torrent, toast }) => {
   const i18n = useI18n()
-  const [isOpen, setIsOpen] = useState(false)
 
   return (
     <>
-      <Button icon={List} onPress={() => setIsOpen(true)}>
-        {i18n.t('torrentDialog.files')}
-      </Button>
-      {isOpen && (
-        <Dialog
-          title={i18n.t('filesListDialog.title')}
-          snapPoints={[90]}
-          open={isOpen}
-          onOpenChange={setIsOpen}
-        >
-          <ScrollView>
-            <YGroup>
-              {torrent.files.map((file, index) => (
-                <FileRow
-                  key={file.name}
-                  index={index}
-                  torrent={torrent}
-                  file={file}
-                  toast={toast}
-                />
-              ))}
-            </YGroup>
-          </ScrollView>
-        </Dialog>
-      )}
+      <Dialog
+        title={i18n.t('filesListDialog.title')}
+        snapPoints={[90]}
+        trigger={<Button icon={List}>{i18n.t('torrentDialog.files')}</Button>}
+      >
+        <ScrollView>
+          <YGroup>
+            {torrent.files.map((file, index) => (
+              <FileRow
+                key={file.name}
+                index={index}
+                torrent={torrent}
+                file={file}
+                toast={toast}
+              />
+            ))}
+          </YGroup>
+        </ScrollView>
+      </Dialog>
     </>
   )
 }
@@ -96,6 +89,7 @@ const FileRow = ({ torrent, file, index, toast }) => {
   const { sendRPCMessage } = useContext(NodeContext)
 
   const handleWantedChange = async (isChecked: boolean) => {
+    console.log('handleWantedChange', isChecked, index)
     await sendRPCMessage({
       method: 'torrent-set',
       arguments: {
@@ -109,7 +103,14 @@ const FileRow = ({ torrent, file, index, toast }) => {
   }
 
   return (
-    <ListItem key={file.name} hoverTheme transparent mx={0} px={0}>
+    <ListItem
+      key={file.name}
+      hoverTheme
+      transparent
+      mx={0}
+      px={0}
+      borderBottomWidth={1}
+    >
       <Card f={1} p="$2" transparent>
         <XStack f={1} jc="center" ai="center" gap="$4">
           <Checkbox
@@ -162,7 +163,7 @@ const FileRow = ({ torrent, file, index, toast }) => {
                       onPress={async () => {
                         try {
                           await Sharing.shareAsync(
-                            'file://' + buildFilePath(torrent, file)
+                            'file://' + buildFilePath(torrent, file),
                           )
                         } catch (e) {
                           console.error(e)
@@ -183,7 +184,7 @@ const FileRow = ({ torrent, file, index, toast }) => {
                       onPress={async () => {
                         window.electronAPI.openFolder(
                           torrent.downloadDir,
-                          file.name
+                          file.name,
                         )
                       }}
                     >
