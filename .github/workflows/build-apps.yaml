@@ -116,6 +116,22 @@ jobs:
           vcpkg install --clean-after-build curl:arm-neon-android openssl:arm-neon-android
           vcpkg install --clean-after-build curl:arm64-android openssl:arm64-android
 
+      - name: Free Disk Space
+        uses: jlumbroso/free-disk-space@main
+        with:
+          # this might remove tools that are actually needed,
+          # if set to "true" but frees about 6 GB
+          tool-cache: false
+
+          # all of these default to true, but feel free to set to
+          # "false" if necessary for your workflow
+          android: false
+          dotnet: true
+          haskell: true
+          large-packages: false
+          docker-images: false
+          swap-storage: false
+
       - name: Setup EAS
         uses: expo/expo-github-action@v8
         with:
