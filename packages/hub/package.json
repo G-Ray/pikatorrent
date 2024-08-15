@@ -19,7 +19,7 @@
   "homepage": "https://github.com/G-Ray/pikatorrent#readme",
   "license": "GPL-3.0",
   "dependencies": {
-    "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.19.0"
+    "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.47.0"
   },
   "devDependencies": {
     "@types/node": "^20.3.1",
