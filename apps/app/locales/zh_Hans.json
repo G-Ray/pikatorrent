@@ -1,0 +1,193 @@
+{
+    "torrents": {
+        "add": "添加",
+        "startAll": "全部开始",
+        "pauseAll": "全部暂停",
+        "filterListPlaceholder": "筛选列表…",
+        "addYourFirstTorrentDescription": "您的种子会显示在这里",
+        "filteredLabels": "筛选标签",
+        "searchPlaceholder": "选择在线种子…",
+        "searchEngineSelectorLabel": "搜索引擎",
+        "addYourFirstTorrentTitle": "添加您的首个种子"
+    },
+    "settings": {
+        "nodes": {
+            "loading": "加载中",
+            "showQRCode": "显示二维码",
+            "copyLink": "复制链接",
+            "acceptedPeersLabel": "已接受的连接",
+            "rejectedPeersLabel": "已拒绝的连接",
+            "acceptedOrRejectedPeers": {
+                "delete": "删除",
+                "none": "无"
+            },
+            "qrCodeLabel": "通过二维码连接至移动端",
+            "title": "节点",
+            "hideQRCode": "隐藏二维码",
+            "listLabel": "本地和远程节点",
+            "secretLinkLabel": "连接至 app.pikatorrent.com 的私密链接",
+            "qrCodeScanButtonLabel": "扫描二维码"
+        },
+        "app": {
+            "title": "应用设置",
+            "theme": "主题",
+            "language": "语言",
+            "searchEngines": "搜索引擎网址（每行一个）",
+            "searchEnginesInstructions": "%s 会被查询内容替换",
+            "invalidUrls": "无效网址",
+            "save": "保存",
+            "reset": "重置"
+        },
+        "torrents": {
+            "downloadDirectory": "下载文件夹",
+            "encryption": "加密",
+            "encryptionModes": {
+                "preferred": "倾向加密",
+                "tolerated": "倾向非加密",
+                "required": "全部加密"
+            },
+            "save": "保存",
+            "enableUTP": "打开 uTP",
+            "enableDHT": "打开 DHT",
+            "enableLPD": "打开 LPD",
+            "enablePEX": "打开 PEX",
+            "enablePortForwarding": "打开端口转发",
+            "peerPort": "peer 端口",
+            "title": "种子设置"
+        }
+    },
+    "menu": {
+        "library": "库",
+        "about": "关于",
+        "settings": "设置"
+    },
+    "about": {
+        "pikatorrentVersion": "PikaTorrent 版本",
+        "transmissionVersion": "Transmission 版本",
+        "reportBugOrFeature": "反馈漏洞或意见建议？",
+        "githubLinkDescription": "在 GitHub 上提交 issue",
+        "discordLinkDescription": "加入我们的 Discord"
+    },
+    "addNodeDialog": {
+        "title": "添加新节点",
+        "triggerLabel": "添加节点",
+        "nameLabel": "名称",
+        "namePlaceholder": "名称",
+        "idPlaceholder": "ID",
+        "add": "添加",
+        "description": "添加新节点以从他处控制。",
+        "idLabel": "ID"
+    },
+    "addTorrentDialog": {
+        "selectFile": "选择一个 .torrent 文件",
+        "sendToNode": "发送种子至",
+        "title": "添加种子",
+        "add": "添加",
+        "torrentOrMagnetLinkPlaceholder": "种子或 magnet:// 链接"
+    },
+    "confirmNodeDeleteAlertDialog": {
+        "title": "确认移除节点",
+        "confirmMessage": "删除此节点？",
+        "cancel": "取消",
+        "delete": "删除"
+    },
+    "sessionInfoDialog": {
+        "title": "会话信息"
+    },
+    "acceptOrRejectPeerDialog": {
+        "title": "授权新连接",
+        "description": "一个可以控制 PikaTorrent 的新设备：",
+        "warningIfNotRecognize": "如果您不认识此设备请拒绝。",
+        "reject": "拒绝",
+        "accept": "接受"
+    },
+    "directoryPickerDialog": {
+        "privateAppSwitchLabel": "使用私有应用文件夹",
+        "title": "文件夹选取",
+        "privateAppDescription1": "选择私有文件夹可防止其他应用读取您的下载内容。",
+        "privateAppDescription2": "卸载 PikaTorrent 后您的所有下载文件都会被删除。",
+        "select": "选择"
+    },
+    "torrentDialog": {
+        "copyLink": "复制链接",
+        "share": "分享",
+        "editLabels": "编辑标签",
+        "openFolder": "打开文件夹",
+        "noLabels": "暂无标签。",
+        "addLabelInstruction": "编辑种子以添加标签。",
+        "add": "添加",
+        "allLabels": "所有标签",
+        "remove": "移除",
+        "files": "文件",
+        "newLabel": "新标签",
+        "clearAll": "全部清除",
+        "selectedLabels": "已选标签"
+    },
+    "scanQRCodeDialog": {
+        "title": "扫描二维码",
+        "cameraPermissionDenied": "相机权限被拒绝"
+    },
+    "removeTorrentDialog": {
+        "title": "确认移除",
+        "warningMessage": "确认删除",
+        "remove": "移除",
+        "removeWithData": "随数据移除"
+    },
+    "filesListDialog": {
+        "title": "文件",
+        "open": "打开",
+        "openFolder": "打卡文件夹",
+        "share": "分享"
+    },
+    "sortingOptionsDialog": {
+        "title": "排序依据",
+        "name": "名称",
+        "totalSize": "大小 ",
+        "percentDone": "进度",
+        "reverseOrder": "倒序"
+    },
+    "statsDialog": {
+        "title": "统计",
+        "torrentsCount": "种子数",
+        "allTorrents": "所有",
+        "activeTorrents": "启动",
+        "pauseTorrents": "暂停",
+        "downloaded": "已下载",
+        "uploaded": "已上传",
+        "filesAdded": "添加的文件",
+        "timeActive": "启动时间",
+        "sinceAppStart": "自应用启动起",
+        "sinceBeginning": "自开始起"
+    },
+    "library": {
+        "download": "下载",
+        "moreToCome": "更多…"
+    },
+    "alerts": {
+        "storagePermissionRequest": {
+            "title": "储存权限",
+            "description": "PikaTorrent 需要访问储存空间来下载数据。"
+        },
+        "storagePermissionDenied": {
+            "title": "储存权限被拒绝",
+            "description": "“您需要允许 PikaTorrent 访问储存空间。”"
+        }
+    },
+    "unsupportedBrowserDialog": {
+        "title": "不支持的网页浏览器",
+        "description": "不支持此网页浏览器。请尝试在其他浏览器中使用 PikaTorrent。"
+    },
+    "termsOfUseDialog": {
+        "accept": "接受",
+        "title": "服务条款",
+        "termsOfUseMessage": "使用 PikaTorrent 即表示您为您下载或分享的内容负责。",
+        "privacyPolicyMessage": "您还接受",
+        "privacyPolicy": "隐私政策",
+        "cancel": "取消"
+    },
+    "toasts": {
+        "linkCopied": "链接已复制",
+        "torrentDownloaded": "种子已下载",
+        "noAppCanOpenFile": "未找到可打开此文件的应用"
+    }
+}

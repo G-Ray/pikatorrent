@@ -1,0 +1,193 @@
+{
+    "torrents": {
+        "filteredLabels": "Filtrerte etiketter",
+        "add": "Legg til",
+        "startAll": "Start alle",
+        "pauseAll": "Pause alle",
+        "searchEngineSelectorLabel": "Søkemotorer",
+        "searchPlaceholder": "Velg en torrent på nett …",
+        "addYourFirstTorrentTitle": "Legg til din første torrent",
+        "addYourFirstTorrentDescription": "Torrentene dine vil vises her",
+        "filterListPlaceholder": "Listefiltrering …"
+    },
+    "settings": {
+        "nodes": {
+            "copyLink": "Kopier lenke",
+            "secretLinkLabel": "Hemmelig nettadresse for å sammenkoble app.pikatorrent.com",
+            "qrCodeLabel": "QR-kode for sammenkobling med mobilprogrammet",
+            "listLabel": "Lokale- og noder annensteds hen",
+            "rejectedPeersLabel": "Avslåtte tilkoblinger",
+            "title": "Noder",
+            "hideQRCode": "Skjul QR-kode",
+            "showQRCode": "Vis QR-kode",
+            "qrCodeScanButtonLabel": "Skann QR-kode",
+            "acceptedPeersLabel": "Godkjente tilkoblinger",
+            "acceptedOrRejectedPeers": {
+                "none": "Ingen",
+                "delete": "Slett"
+            },
+            "loading": "Laster inn …"
+        },
+        "app": {
+            "searchEngines": "Søkemotornettadresser (én per linje)",
+            "invalidUrls": "Ugyldige nettadresser",
+            "save": "Lagre",
+            "reset": "Tilbakestill",
+            "title": "Programinnstillinger",
+            "theme": "Drakt",
+            "language": "Språk",
+            "searchEnginesInstructions": "%s vil erstattes av selve søket"
+        },
+        "torrents": {
+            "downloadDirectory": "Nedlastingsmappe",
+            "encryptionModes": {
+                "tolerated": "Tolerert",
+                "required": "Påkrevd",
+                "preferred": "Foretrukket"
+            },
+            "enableDHT": "Skru på DHT",
+            "enablePEX": "Skru på PEX",
+            "peerPort": "Likemannsport",
+            "save": "Lagre",
+            "encryption": "Kryptering",
+            "title": "Torrentinnstillinger",
+            "enableUTP": "Skru på uTP",
+            "enableLPD": "Skru på LPD",
+            "enablePortForwarding": "Skru på portvideresending"
+        }
+    },
+    "about": {
+        "pikatorrentVersion": "PikaTorrent-versjon",
+        "transmissionVersion": "Transmission-versjon",
+        "reportBugOrFeature": "Rapporter feil eller foreslå funksjoner?",
+        "githubLinkDescription": "Åpne en feilrapport på GitHub",
+        "discordLinkDescription": "Ta del på Discord"
+    },
+    "addNodeDialog": {
+        "description": "Legg til en ny node for å kontrollere den fra hvor som helst",
+        "nameLabel": "Navn",
+        "idLabel": "ID",
+        "namePlaceholder": "Navn",
+        "add": "Legg til",
+        "idPlaceholder": "ID",
+        "title": "Legg til ny node",
+        "triggerLabel": "Legg til node"
+    },
+    "addTorrentDialog": {
+        "torrentOrMagnetLinkPlaceholder": "Torrent eller magnet:// -lenker",
+        "sendToNode": "Send denne torrenten til",
+        "add": "Legg til",
+        "title": "Legg til en torrent",
+        "selectFile": "Velg en .torrent-fil"
+    },
+    "sessionInfoDialog": {
+        "title": "Øktinfo"
+    },
+    "acceptOrRejectPeerDialog": {
+        "title": "Godkjenn ny tilkobling",
+        "reject": "Avslå",
+        "warningIfNotRecognize": "Avslå den hvis du ikke gjenkjenner enheten.",
+        "accept": "Godta",
+        "description": "En ny enhet ønsker å kontrollere PikaTorrent:"
+    },
+    "unsupportedBrowserDialog": {
+        "title": "Ustøttet nettleser",
+        "description": "Denne nettleseren er ikke støttet. Prøv PikaTorrent i en annen nettleser."
+    },
+    "torrentDialog": {
+        "newLabel": "Ny etikett",
+        "add": "Legg til",
+        "selectedLabels": "Valgte etiketter",
+        "allLabels": "Alle etiketter",
+        "addLabelInstruction": "Legg til etiketter ved å redigere en torrent.",
+        "remove": "Fjern",
+        "share": "Del",
+        "clearAll": "Tøm alle",
+        "copyLink": "Kopier lenke",
+        "editLabels": "Rediger etiketter",
+        "openFolder": "Åpne mappe",
+        "files": "Filer",
+        "noLabels": "Ingen etiketter enda."
+    },
+    "scanQRCodeDialog": {
+        "title": "Skann QR-kode",
+        "cameraPermissionDenied": "Kameratilgang nektet"
+    },
+    "removeTorrentDialog": {
+        "title": "Fjerningsbekreftelse",
+        "warningMessage": "Bekreft sletting",
+        "remove": "Fjern",
+        "removeWithData": "Fjern med data"
+    },
+    "filesListDialog": {
+        "share": "Del",
+        "title": "Filer",
+        "openFolder": "Åpne mappe",
+        "open": "Åpne"
+    },
+    "termsOfUseDialog": {
+        "accept": "Godta",
+        "privacyPolicyMessage": "Du godkjenner også",
+        "title": "Bruksvilkår",
+        "privacyPolicy": "personvernspraksis",
+        "cancel": "Avbryt",
+        "termsOfUseMessage": "Ved å bruke PikaTorrent, godkjenner du at innhold du laster ned eller deler kun er ditt ansvar."
+    },
+    "toasts": {
+        "linkCopied": "Lenke kopiert",
+        "noAppCanOpenFile": "Ingen installerte programmer kan åpne denne filen",
+        "torrentDownloaded": "Torrent nedlastet"
+    },
+    "sortingOptionsDialog": {
+        "percentDone": "Framdrift",
+        "title": "Sorter etter",
+        "name": "Navn",
+        "totalSize": "Størrelse ",
+        "reverseOrder": "Omvendt rekkefølge"
+    },
+    "statsDialog": {
+        "title": "Statistikk",
+        "allTorrents": "Alle",
+        "torrentsCount": "Torrentantall",
+        "sinceAppStart": "Siden programstart",
+        "uploaded": "Opplastet",
+        "filesAdded": "Filer tillagt",
+        "activeTorrents": "Aktive",
+        "downloaded": "Nedlastet",
+        "timeActive": "Tid aktiv",
+        "sinceBeginning": "Siden begynnelsen",
+        "pauseTorrents": "Pausede"
+    },
+    "library": {
+        "download": "Last ned",
+        "moreToCome": "Mer i følge …"
+    },
+    "alerts": {
+        "storagePermissionRequest": {
+            "title": "Lagringstilgang",
+            "description": "PikaTorrent trenger tilgang til lagring for å lagre nedlastet data."
+        },
+        "storagePermissionDenied": {
+            "title": "Lagringstilgang nektet",
+            "description": "Innvilg PikaTorrent lagringstilgang."
+        }
+    },
+    "menu": {
+        "about": "Om",
+        "settings": "Innstillinger",
+        "library": "Bibliotek"
+    },
+    "directoryPickerDialog": {
+        "select": "Velg",
+        "privateAppSwitchLabel": "Bruk privat program-mappe",
+        "privateAppDescription2": "Alle nedlastningene dine slettes hvis du avinstallerer PikaTorrent.",
+        "title": "Mappevelger",
+        "privateAppDescription1": "Bruk av privat programmappe kan forhindre andre programmer fra å bruke nedlastet innhold."
+    },
+    "confirmNodeDeleteAlertDialog": {
+        "confirmMessage": "Slett denne noden?",
+        "title": "Bekreft nodefjerning",
+        "cancel": "Avbryt",
+        "delete": "Slett"
+    }
+}

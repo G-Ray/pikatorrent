@@ -1,0 +1,86 @@
+{
+    "torrents": {
+        "add": "Dodaj"
+    },
+    "settings": {
+        "nodes": {
+            "loading": "Ładowanie",
+            "acceptedOrRejectedPeers": {
+                "none": "Brak",
+                "delete": "Usuń"
+            }
+        },
+        "torrents": {
+            "encryptionModes": {
+                "required": "Wymagane",
+                "preferred": "Preferowane"
+            },
+            "encryption": "Szyfrowanie",
+            "save": "Zapisz"
+        },
+        "app": {
+            "language": "Język",
+            "theme": "Motyw",
+            "save": "Zapisz",
+            "reset": "Przywróć domyślne"
+        }
+    },
+    "addNodeDialog": {
+        "nameLabel": "Nazwa",
+        "idLabel": "ID",
+        "namePlaceholder": "Nazwa",
+        "idPlaceholder": "ID",
+        "add": "Dodaj"
+    },
+    "addTorrentDialog": {
+        "add": "Dodaj"
+    },
+    "confirmNodeDeleteAlertDialog": {
+        "cancel": "Anuluj",
+        "delete": "Usuń"
+    },
+    "acceptOrRejectPeerDialog": {
+        "reject": "Odrzuć",
+        "accept": "Akceptuj"
+    },
+    "torrentDialog": {
+        "files": "Pliki",
+        "remove": "Usuń",
+        "add": "Dodaj"
+    },
+    "filesListDialog": {
+        "title": "Pliki",
+        "open": "Otwórz",
+        "share": "Udostępnij"
+    },
+    "statsDialog": {
+        "downloaded": "Pobrane",
+        "title": "Statystyki",
+        "allTorrents": "Wszystko",
+        "activeTorrents": "Aktywne",
+        "pauseTorrents": "Zatrzymane"
+    },
+    "library": {
+        "download": "Pobierz"
+    },
+    "menu": {
+        "about": "O programie",
+        "settings": "Ustawienia",
+        "library": "Biblioteka"
+    },
+    "directoryPickerDialog": {
+        "select": "Wybierz"
+    },
+    "removeTorrentDialog": {
+        "remove": "Usuń"
+    },
+    "termsOfUseDialog": {
+        "cancel": "Anuluj",
+        "accept": "Akceptuj"
+    },
+    "sortingOptionsDialog": {
+        "totalSize": "Rozmiar ",
+        "name": "Nazwa",
+        "percentDone": "Postęp"
+    }
+}

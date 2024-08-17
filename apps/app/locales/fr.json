@@ -1,183 +1,193 @@
 {
-  "menu": {
-    "about": "À propos",
-    "settings": "Paramètres",
-    "library": "Bibliothèque"
-  },
-  "torrents": {
-    "add": "Ajouter",
-    "startAll": "Tout reprendre",
-    "pauseAll": "Tout mettre en pause",
-    "searchPlaceholder": "Choisir un torrent en ligne...",
-    "filterListPlaceholder": "Filtrer la liste...",
-    "searchEngineSelectorLabel": "Moteurs de recherches",
-    "addYourFirstTorrentTitle": "Ajoutez votre premier torrent",
-    "addYourFirstTorrentDescription": "Vos torrents seront affichés ici",
-    "filteredLabels": "Étiquettes filtrées"
-  },
-  "settings": {
-    "nodes": {
-      "loading": "Chargement",
-      "title": "Nœuds",
-      "listLabel": "Nœuds local et à distance",
-      "qrCodeLabel": "QR code pour lier l'application mobile",
-      "hideQRCode": "Hide QR Code",
-      "showQRCode": "Show QR Code",
-      "secretLinkLabel": "Url secrète pour lier app.pikatorrent.com",
-      "copyLink": "Copier le lien",
-      "qrCodeScanButtonLabel": "Scanner un QR code",
-      "acceptedPeersLabel": "Connections acceptées",
-      "rejectedPeersLabel": "Connections rejetées",
-      "acceptedOrRejectedPeers": {
-        "none": "Aucun",
-        "delete": "Supprimer"
-      }
-    },
-    "app": {
-      "title": "Paramètres de l'application",
-      "theme": "Thème",
-      "language": "Langue",
-      "searchEngines": "Urls de moteurs de recherches (un par ligne)",
-      "searchEnginesInstructions": "%s sera remplacé par la recherche",
-      "invalidUrls": "Urls invalides",
-      "save": "Sauvegarder",
-      "reset": "Réinitialiser"
+    "menu": {
+        "about": "À propos",
+        "settings": "Paramètres",
+        "library": "Bibliothèque"
     },
     "torrents": {
-      "title": "Paramètres des torrents",
-      "downloadDirectory": "Dossier de téléchargements",
-      "encryption": "Chiffrement",
-      "encryptionModes": {
-        "required": "Requis",
-        "preferred": "Préféré",
-        "tolerated": "Toléré"
-      },
-      "save": "Sauvegarder",
-      "enableUTP": "Activer uTP",
-      "enableDHT": "Activer DHT",
-      "enableLPD": "Activer LPD",
-      "enablePEX": "Activer PEX",
-      "enablePortForwarding": "Activer la redirection de port",
-      "peerPort": "Port entrant"
+        "add": "Ajouter",
+        "startAll": "Tout reprendre",
+        "pauseAll": "Tout mettre en pause",
+        "searchPlaceholder": "Choisir un torrent en ligne…",
+        "filterListPlaceholder": "Filtrer la liste…",
+        "searchEngineSelectorLabel": "Moteurs de recherche",
+        "addYourFirstTorrentTitle": "Ajoutez votre premier torrent",
+        "addYourFirstTorrentDescription": "Vos torrents seront affichés ici",
+        "filteredLabels": "Étiquettes filtrées"
+    },
+    "settings": {
+        "nodes": {
+            "loading": "Chargement",
+            "title": "Nœuds",
+            "listLabel": "Nœuds locaux et distants",
+            "qrCodeLabel": "Code QR pour lier l'application mobile",
+            "hideQRCode": "Masquer le code QR",
+            "showQRCode": "Afficher le code QR",
+            "secretLinkLabel": "URL secrète pour lier app.pikatorrent.com",
+            "copyLink": "Copier le lien",
+            "qrCodeScanButtonLabel": "Scanner un code QR",
+            "acceptedPeersLabel": "Connexions acceptées",
+            "rejectedPeersLabel": "Connexions rejetées",
+            "acceptedOrRejectedPeers": {
+                "none": "Aucun",
+                "delete": "Supprimer"
+            }
+        },
+        "app": {
+            "title": "Paramètres de l'application",
+            "theme": "Thème",
+            "language": "Langue",
+            "searchEngines": "URL de moteurs de recherche (un par ligne)",
+            "searchEnginesInstructions": "%s sera remplacé par la recherche",
+            "invalidUrls": "URLs invalides",
+            "save": "Sauvegarder",
+            "reset": "Réinitialiser"
+        },
+        "torrents": {
+            "title": "Paramètres des torrents",
+            "downloadDirectory": "Dossier de téléchargements",
+            "encryption": "Chiffrement",
+            "encryptionModes": {
+                "required": "Requis",
+                "preferred": "Préféré",
+                "tolerated": "Toléré"
+            },
+            "save": "Sauvegarder",
+            "enableUTP": "Activer uTP",
+            "enableDHT": "Activer DHT",
+            "enableLPD": "Activer LPD",
+            "enablePEX": "Activer PEX",
+            "enablePortForwarding": "Activer la redirection de port",
+            "peerPort": "Port entrant"
+        }
+    },
+    "about": {
+        "pikatorrentVersion": "Version de PikaTorrent",
+        "transmissionVersion": "Version de transmission",
+        "reportBugOrFeature": "Signaler une erreur ou suggérer une fonctionnalité",
+        "githubLinkDescription": "Ouvrir un ticket sur GitHub",
+        "discordLinkDescription": "Rejoindre le Discord"
+    },
+    "addNodeDialog": {
+        "title": "Ajouter un nœud",
+        "description": "Ajouter un nouveau nœuds pour le contrôler depuis n'importe où.",
+        "triggerLabel": "Ajouter le nœud",
+        "nameLabel": "Nom",
+        "idLabel": "Identifiant",
+        "namePlaceholder": "Nom",
+        "idPlaceholder": "Identifiant",
+        "add": "Ajouter"
+    },
+    "addTorrentDialog": {
+        "title": "Ajouter un torrent",
+        "add": "Ajouter",
+        "selectFile": "Selectionner un fichier .torrent",
+        "torrentOrMagnetLinkPlaceholder": "Lien torrent ou magnet://",
+        "sendToNode": "Envoyer ce torrent vers"
+    },
+    "confirmNodeDeleteAlertDialog": {
+        "title": "Confirmer la suppression du nœud",
+        "confirmMessage": "Supprimer ce nœud ?",
+        "cancel": "Annuler",
+        "delete": "Supprimer"
+    },
+    "sessionInfoDialog": {
+        "title": "Info de session"
+    },
+    "acceptOrRejectPeerDialog": {
+        "title": "Autoriser une nouvelle connexion",
+        "description": "Un nouvel appareil souhaite contrôler PikaTorrent :",
+        "warningIfNotRecognize": "Si vous ne reconnaissez pas cet appareil, cliquez sur rejeter.",
+        "reject": "Rejeter",
+        "accept": "Accepter"
+    },
+    "directoryPickerDialog": {
+        "title": "Choix d'un dossier",
+        "privateAppSwitchLabel": "Utiliser le dossier privé de l'application",
+        "privateAppDescription1": "Utiliser le dossier privé de l'application peut empêcher d'autres application d'accéder à vos contenus téléchargés.",
+        "privateAppDescription2": "Tous vos téléchargements seront supprimés lorsque vous désinstallerez PikaTorrent.",
+        "select": "Sélectionner"
+    },
+    "unsupportedBrowserDialog": {
+        "title": "Navigateur non pris en charge",
+        "description": "Ce navigateur Web n'est pas pris en charge. Veuillez essayer PikaTorrent dans un autre navigateur Web."
+    },
+    "torrentDialog": {
+        "copyLink": "Copier le lien",
+        "share": "Partager",
+        "editLabels": "Modifier les étiquettes",
+        "openFolder": "Ouvrir le dossier",
+        "remove": "Supprimer",
+        "files": "Fichiers",
+        "newLabel": "Nouvelle étiquette",
+        "add": "Ajouter",
+        "clearAll": "Tout effacer",
+        "selectedLabels": "Étiquettes sélectionnées",
+        "allLabels": "Toutes les étiquettes",
+        "noLabels": "Il n'y a pas encore d'étiquettes.",
+        "addLabelInstruction": "Ajoutez une étiquette en éditant un torrent."
+    },
+    "scanQRCodeDialog": {
+        "title": "Scanner un code QR",
+        "cameraPermissionDenied": "Permission de l'appareil photo refusé"
+    },
+    "removeTorrentDialog": {
+        "title": "Confirmation de suppression",
+        "warningMessage": "Êtes vous certain de supprimer",
+        "remove": "Supprimer",
+        "removeWithData": "Supprimer avec les données"
+    },
+    "filesListDialog": {
+        "title": "Fichiers",
+        "open": "Ouvrir",
+        "openFolder": "Ouvrir le dossier",
+        "share": "Partager"
+    },
+    "termsOfUseDialog": {
+        "title": "Conditions d'utilisation",
+        "termsOfUseMessage": "En utilisant PikaTorrent, vous acceptez que le contenu que vous téléchargez ou partagez est de votre entière responsabilité.",
+        "privacyPolicyMessage": "Vous acceptez également la",
+        "privacyPolicy": "politique de confidentialité",
+        "cancel": "Annuler",
+        "accept": "Accepter"
+    },
+    "toasts": {
+        "linkCopied": "Lien copié",
+        "torrentDownloaded": "Torrent téléchargé",
+        "noAppCanOpenFile": "Aucune application ne peut ouvrir ce fichier"
+    },
+    "sortingOptionsDialog": {
+        "title": "Filtrer par",
+        "name": "Nom",
+        "totalSize": "Taille ",
+        "percentDone": "Progression",
+        "reverseOrder": "Ordre inversé"
+    },
+    "statsDialog": {
+        "title": "Statistiques",
+        "torrentsCount": "Nombre de torrents",
+        "allTorrents": "Tous les torrents",
+        "activeTorrents": "Torrents actifs",
+        "pauseTorrents": "Torrents en pause",
+        "sinceAppStart": "Depuis le démarrage de l'appli",
+        "downloaded": "Téléchargé",
+        "uploaded": "Téléversé",
+        "filesAdded": "Fichiers ajoutés",
+        "timeActive": "Temps actif",
+        "sinceBeginning": "Depuis le début"
+    },
+    "library": {
+        "download": "Télécharger",
+        "moreToCome": "Plus à venir…"
+    },
+    "alerts": {
+        "storagePermissionRequest": {
+            "title": "Autorisation de stockage",
+            "description": "PikaTorrent a besoin d'accéder au stockage pour enregistrer les données téléchargées."
+        },
+        "storagePermissionDenied": {
+            "title": "Licence de stockage refusée",
+            "description": "« Vous devez autoriser la permission de stockage pour PikaTorrent. »"
+        }
     }
-  },
-  "about": {
-    "pikatorrentVersion": "Version de PikaTorrent",
-    "transmissionVersion": "Version de Transmission",
-    "reportBugOrFeature": "Un bug trouvé ou une fonctionnalité à proposer ?",
-    "githubLinkDescription": "Ouvrir un ticket sur Github",
-    "discordLinkDescription": "Rejoindre le Discord"
-  },
-  "addNodeDialog": {
-    "title": "Ajouter un nœuds",
-    "description": "Ajouter un nouveau nœuds pour le contrôler depuis n'importe où.",
-    "triggerLabel": "Ajouter le nœud",
-    "nameLabel": "Nom",
-    "idLabel": "Id",
-    "namePlaceholder": "Nom",
-    "idPlaceholder": "Id",
-    "add": "Ajouter"
-  },
-  "addTorrentDialog": {
-    "title": "Ajouter un torrent",
-    "add": "Ajouter",
-    "selectFile": "Selectionner un fichier .torrent",
-    "torrentOrMagnetLinkPlaceholder": "Lien torrent ou magnet://",
-    "sendToNode": "Envoyer ce torrent vers"
-  },
-  "confirmNodeDeleteAlertDialog": {
-    "title": "Confirmer la suppression du nœud",
-    "confirmMessage": "Êtes-vous certain de supprimer ce nœud ?",
-    "cancel": "Annuler",
-    "delete": "Supprimer"
-  },
-  "sessionInfoDialog": {
-    "title": "Info de session"
-  },
-  "acceptOrRejectPeerDialog": {
-    "title": "Authoriser une nouvelle connection",
-    "description": "Un nouvel appareil souhaite contrôler pikatorrent:",
-    "warningIfNotRecognize": "Si vous ne reconnaissez pas cet appareil, cliquez sur rejeter.",
-    "reject": "Rejeter",
-    "accept": "Accepter"
-  },
-  "directoryPickerDialog": {
-    "title": "Choix d'un dossier",
-    "privateAppSwitchLabel": "Utiliser le dossier privé de l'application",
-    "privateAppDescription1": "Utiliser le dossier privé de l'application peut empêcher d'autres application d'accéder à vos contenus téléchargés.",
-    "privateAppDescription2": "Tous vos téléchargements seront supprimés lorsque vous désinstallerez PikaTorrent.",
-    "select": "Selectionner"
-  },
-  "unsupportedBrowserDialog": {
-    "title": "Navigateur non supporté",
-    "description": "Ce navigateur n'est pas supporté. Merci d'essayer PikaTorrent dans un autre navigateur."
-  },
-  "torrentDialog": {
-    "copyLink": "Copier le lien",
-    "share": "Partager",
-    "editLabels": "Editer les étiquettes",
-    "openFolder": "Ouvrir le dossier",
-    "remove": "Supprimer",
-    "files": "Fichiers",
-    "newLabel": "Nouvelle étiquette",
-    "add": "Ajouter",
-    "clearAll": "Tout effacer",
-    "selectedLabels": "Étiquettes sélectionnées",
-    "allLabels": "Toutes les étiquettes",
-    "noLabels": "Il n'y a pas encore d'étiquettes.",
-    "addLabelInstruction": "Ajoutez une étiquette en éditant un torrent."
-  },
-  "scanQRCodeDialog": {
-    "title": "Scanner un QRCode",
-    "cameraPermissionDenied": "Permission de l'appareil photo refusé"
-  },
-  "removeTorrentDialog": {
-    "title": "Confirmation de suppression",
-    "warningMessage": "Êtes vous certain de supprimer",
-    "remove": "Supprimer",
-    "removeWithData": "Supprimer avec les données"
-  },
-  "filesListDialog": {
-    "title": "Fichiers",
-    "open": "Ouvrir",
-    "openFolder": "Ouvrir le dossier",
-    "share": "Partager"
-  },
-  "termsOfUseDialog": {
-    "title": "Conditions d'utilisation",
-    "termsOfUseMessage": "En utilisant PikaTorrent, vous acceptez que le contenu que vous téléchargez ou partagez est de votre entière responsabilité.",
-    "privacyPolicyMessage": "Vous acceptez également la",
-    "privacyPolicy": "politique de vie privée",
-    "cancel": "Annuler",
-    "accept": "Accepter"
-  },
-  "toasts": {
-    "linkCopied": "Lien copié",
-    "torrentDownloaded": "Torrent téléchargé",
-    "noAppCanOpenFile": "Aucune application ne peut ouvrir ce fichier"
-  },
-  "sortingOptionsDialog": {
-    "title": "Filtrer par",
-    "name": "Nom",
-    "totalSize": "Taille",
-    "percentDone": "Progression",
-    "reverseOrder": "Ordre inversé"
-  },
-  "statsDialog": {
-    "title": "Statistics",
-    "torrentsCount": "Torrents count",
-    "allTorrents": "All torrents",
-    "activeTorrents": "Active torrents",
-    "pauseTorrents": "Paused torrents",
-    "sinceAppStart": "Since app start",
-    "downloaded": "Downloaded",
-    "uploaded": "Uploaded",
-    "filesAdded": "Files added",
-    "timeActive": "Time active",
-    "sinceBeginning": "Since the beginning"
-  },
-  "library": {
-    "download": "Télécharger",
-    "moreToCome": "Plus à venir..."
-  }
 }
