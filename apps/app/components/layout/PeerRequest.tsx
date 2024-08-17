@@ -4,28 +4,27 @@ import isElectron from 'is-electron'
 
 export const PeerRequest = () => {
   const [pendingPeer, setPendingPeer] = useState(null)
-  const eventResponse = useRef(null)
 
   useEffect(() => {
     if (!isElectron() || !window.electronAPI) return
 
-    window.electronAPI.handleAcceptOrRejectPeer((event, { id, name }) => {
-      eventResponse.current = event
+    window.electronAPI.handleAcceptOrRejectPeer((_, { id, name }) => {
       setPendingPeer({ id, name })
     })
   }, [])
 
-  const sendReponse = (response) => {
-    eventResponse.current.sender.send('onAcceptOrRejectPeerResponse', response)
-    eventResponse.current = null
-    setPendingPeer(null)
+  const sendResponse = (response: boolean) => {
+    if (response !== undefined) {
+      window.electronAPI.onAcceptOrRejectPeerResponse(response)
+      setPendingPeer(null)
+    }
   }
 
   if (pendingPeer) {
     return (
       <AcceptOrRejectPeerDialog
         name={pendingPeer.name}
-        onResponse={sendReponse}
+        onResponse={sendResponse}
       />
     )
   }
