@@ -1,0 +1,192 @@
+{
+    "menu": {
+        "about": "Մասին",
+        "settings": "Կարգավորումներ",
+        "library": "Դարան"
+    },
+    "torrents": {
+        "add": "Ավելացնել",
+        "startAll": "Մեկնարկել բոլորը",
+        "searchPlaceholder": "Ընտրել torrent առցանց…",
+        "pauseAll": "Դադարեցնել բոլորը",
+        "searchEngineSelectorLabel": "Որոնիչներ",
+        "addYourFirstTorrentTitle": "Ավելացնել Ձեր առաջին torrent-ը",
+        "filterListPlaceholder": "Զտիչի ցուցակ...",
+        "addYourFirstTorrentDescription": "Ձեր torrent-ները կցուցադրվեն այստեղ",
+        "filteredLabels": "Զտված մակնշումներ"
+    },
+    "settings": {
+        "nodes": {
+            "loading": "Բեռնում",
+            "title": "Հանգույցներ",
+            "listLabel": "Տեղական և հեռավոր հանգույցներ",
+            "hideQRCode": "Թաքցնել QR ծածկագիրը",
+            "qrCodeLabel": "Շարժական հավելվածին կապման QR ծածկագիր",
+            "showQRCode": "Ցուցադրել QR ծածկագիրը",
+            "qrCodeScanButtonLabel": "Ծրել QR ծածկագիրը",
+            "rejectedPeersLabel": "Մերժված միացումներ",
+            "acceptedOrRejectedPeers": {
+                "none": "Չկա",
+                "delete": "Ջնջել"
+            },
+            "acceptedPeersLabel": "Ընդունված միացումներ",
+            "secretLinkLabel": "app.pikatorrent.com-ին կապելու գաղտնի URL",
+            "copyLink": "Պատճենել հղումը"
+        },
+        "app": {
+            "theme": "Ոճ",
+            "save": "Պահպանել",
+            "reset": "Վերադնել",
+            "title": "Հավելվածի կարգավորումներ",
+            "language": "Լեզու",
+            "searchEngines": "Որոնիչների URL-ներ (ըստ ամեն տողի)",
+            "invalidUrls": "Անվավեր URL-ներ",
+            "searchEnginesInstructions": "%s-ը կփոխարինվի ըստ հարցման"
+        },
+        "torrents": {
+            "downloadDirectory": "Ներբեռնման թղթապանակ",
+            "encryption": "Գաղտնագրում",
+            "encryptionModes": {
+                "required": "Պահանջված",
+                "preferred": "Նախընտրած",
+                "tolerated": "Հանդուրժված"
+            },
+            "enablePortForwarding": "Միացնել փոխանորդի վերահասցեավորումը",
+            "save": "Պահպանել",
+            "title": "Torrent-ների կարգավորումներ",
+            "enableUTP": "Միացնել uTP-ն",
+            "enableDHT": "Միացնել DHT-ն",
+            "enableLPD": "Միացնել LPD-ն",
+            "enablePEX": "Միացնել PEX-ը",
+            "peerPort": "Հավասարազոր փոխանորդ"
+        }
+    },
+    "about": {
+        "pikatorrentVersion": "PikaTorrent-ի տարբերակ",
+        "transmissionVersion": "Փոխանցման տարբերակ",
+        "reportBugOrFeature": "Զեկուցել վրիպա՞կ թե՞ առաջարկել հատկություն:",
+        "githubLinkDescription": "Բացել խնդիր GitHub-ում",
+        "discordLinkDescription": "Միացեք մեզ Discord-ում"
+    },
+    "sortingOptionsDialog": {
+        "title": "Դասավորել ըստ",
+        "name": "Անունի",
+        "totalSize": "Չափի ",
+        "percentDone": "Առաջընթացի",
+        "reverseOrder": "Հակադարձ հերթականության"
+    },
+    "statsDialog": {
+        "torrentsCount": "Torrent-ների քանակը",
+        "allTorrents": "Բոլորը",
+        "title": "Վիճակագրություն",
+        "activeTorrents": "Գործողը",
+        "pauseTorrents": "Ընդմիջվածը",
+        "downloaded": "Ներբեռնվածը",
+        "sinceAppStart": "Հավելվածի մեկնարկից սկսած",
+        "uploaded": "Վերբեռնվածը",
+        "filesAdded": "Ավելացված ֆայլերը",
+        "timeActive": "Գործող ժամանակը",
+        "sinceBeginning": "Ի սկզբանե"
+    },
+    "addNodeDialog": {
+        "title": "Ավելացնել նոր հանգույց",
+        "description": "Ավելացնել նոր հանգույց՝ այն ամեն տեղից կառավարելու համար:",
+        "triggerLabel": "Ավելացնել հանգույց",
+        "nameLabel": "Անուն",
+        "idLabel": "ID",
+        "namePlaceholder": "Անունը",
+        "idPlaceholder": "ID-ն",
+        "add": "Ավելացնել"
+    },
+    "addTorrentDialog": {
+        "title": "Ավելացնել torrent",
+        "add": "Ավելացնել",
+        "selectFile": "Ընտրեք .torrent ֆայլը",
+        "torrentOrMagnetLinkPlaceholder": "Torrent կամ magnet:// հղումներ",
+        "sendToNode": "Ուղարկել այս torrent-ը դեպի"
+    },
+    "confirmNodeDeleteAlertDialog": {
+        "title": "Հաստատեք հանգույցի հեռացումը",
+        "confirmMessage": "Հեռացնե՞լ այս հանգույցը",
+        "cancel": "Չեղարկել",
+        "delete": "Ջնջել"
+    },
+    "sessionInfoDialog": {
+        "title": "Նստաշրջանի տեղեկություն"
+    },
+    "acceptOrRejectPeerDialog": {
+        "title": "Լիազորել նոր կապը",
+        "description": "Նոր սարքավորումը ցանկանում է կառավարել PikaTorrent-ը.",
+        "warningIfNotRecognize": "Մերժեք, եթե չեք ճանաչում այս սարքավորումը:",
+        "reject": "Մերժել",
+        "accept": "Ընդունել"
+    },
+    "directoryPickerDialog": {
+        "title": "Թղթապանակի ընտրիչ",
+        "privateAppSwitchLabel": "Օգտագործեք հավելվածի գաղտնի թղթապանակ",
+        "privateAppDescription1": "Հավելվածի գաղտնի թղթապանակն օգտագործելը կարող է կանխել այլ հավելվածներին Ձեր ներբեռնած բովանդակությանը հասանելիություն ունենալուց:",
+        "privateAppDescription2": "Ձեր բոլոր ներբեռնումները կջնջվեն եթե Դուք ապատեղադրեք PikaTorrent-ը:",
+        "select": "Ընտրել"
+    },
+    "unsupportedBrowserDialog": {
+        "description": "Այս վեդ դիտարկիչը չի աջակցվում: Խնդրում ենք փորձել PikaTorrent-ն այլ վեբ դիտարկիչում:",
+        "title": "Չաջակցված վեբ դիտարկիչ"
+    },
+    "torrentDialog": {
+        "copyLink": "Պատճենել հղումը",
+        "share": "Տարածել",
+        "editLabels": "Խմբագրել մակնշումները",
+        "openFolder": "Բացել թղթապանակը",
+        "remove": "Հեռացնել",
+        "files": "Ֆայլեր",
+        "newLabel": "Նոր մակնշում",
+        "add": "Ավելացնել",
+        "clearAll": "Մաքրել բոլորը",
+        "selectedLabels": "Ընտրված մակնշումներ",
+        "allLabels": "Բոլոր մակնշումներ",
+        "noLabels": "Մակնշումներ դեռ չկան:",
+        "addLabelInstruction": "Ավելացնել մակնշումներ՝ խմբագրելով torrent-ը:"
+    },
+    "scanQRCodeDialog": {
+        "title": "Ծրել QR ծածկագիրը",
+        "cameraPermissionDenied": "Տեսախցիկի թույլտվությունը մերժվեց"
+    },
+    "removeTorrentDialog": {
+        "remove": "Հեռացնել",
+        "title": "Հեռացման հաստատում",
+        "removeWithData": "Հեռացնել տվյալներով"
+    },
+    "filesListDialog": {
+        "title": "Ֆայլեր",
+        "open": "Բացել",
+        "openFolder": "Բացել թղթապանակը",
+        "share": "Տարածել"
+    },
+    "termsOfUseDialog": {
+        "title": "Օգտագործան պայմանները",
+        "accept": "Ընդունել",
+        "privacyPolicy": "գաղտնիության քաղաքականությունը",
+        "cancel": "Չեղարկել",
+        "termsOfUseMessage": "Օգտվելով PikaTorrent-ից՝ Դուք ընդունում եք, որ Ձեր ներբեռնած կամ տարածած բովանդակությունը միայն Ձեր պատասխանատվությունն է:",
+        "privacyPolicyMessage": "Դուք ընդունում եք նաև"
+    },
+    "toasts": {
+        "linkCopied": "Հղումը պատճենվեց",
+        "torrentDownloaded": "Torrent-ը ներբեռնվեց",
+        "noAppCanOpenFile": "Տեղադրված ոչ մի հավելված չի կարող բացել այս ֆայլը"
+    },
+    "library": {
+        "download": "Ներբեռնել",
+        "moreToCome": "Ավելին է գալու…"
+    },
+    "alerts": {
+        "storagePermissionRequest": {
+            "title": "Պահեստի թույլտվություն",
+            "description": "PikaTorrent-ին պետք է հասանելիություն ունելալ պահեստին՝ ներբեռնված տվյալները պահպանելու համար:"
+        },
+        "storagePermissionDenied": {
+            "title": "Պահեստի թույլտվությունը մերժվեց",
+            "description": "«Դուք պետք է ընդունեք PikaTorrent-ի համար պահետի թույտվությունը:»"
+        }
+    }
+}

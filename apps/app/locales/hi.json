@@ -1,0 +1,192 @@
+{
+    "menu": {
+        "library": "लाइब्रेरी",
+        "about": "बारे में",
+        "settings": "सेटिंग्स"
+    },
+    "torrents": {
+        "add": "जोड़ें",
+        "startAll": "सभी प्रारंभ करें",
+        "pauseAll": "सभी रोकें",
+        "addYourFirstTorrentTitle": "अपना पहला torrent जोड़ें",
+        "filteredLabels": "फिल्टर किए गए लेबल",
+        "filterListPlaceholder": "फिल्टर सूची…",
+        "searchPlaceholder": "ऑनलाइन एक torrent चुनें…",
+        "searchEngineSelectorLabel": "सर्च इंजन",
+        "addYourFirstTorrentDescription": "आपके torrent यहां प्रदर्शित होंगे"
+    },
+    "settings": {
+        "nodes": {
+            "loading": "लोड हो रहा है",
+            "title": "नोड्स",
+            "listLabel": "स्थानीय और रिमोट नोड्स",
+            "hideQRCode": "QR कोड छिपाएँ",
+            "showQRCode": "QR कोड दिखाएँ",
+            "secretLinkLabel": "app.pikatorrent.com को लिंक करने का गुप्त URL",
+            "copyLink": "लिंक कॉपी करें",
+            "qrCodeScanButtonLabel": "स्कैन QR कोड",
+            "qrCodeLabel": "मोबाइल ऐप को लिंक करने के लिए QR कोड",
+            "rejectedPeersLabel": "अस्वीकृत कनेक्शन",
+            "acceptedPeersLabel": "स्वीकृत कनेक्शन",
+            "acceptedOrRejectedPeers": {
+                "none": "कोई नहीं",
+                "delete": "हटाएं"
+            }
+        },
+        "app": {
+            "title": "एप्लिकेशन सेटिंग्स",
+            "theme": "थीम",
+            "language": "भाषा",
+            "searchEngines": "खोज इंजन URL (प्रति पंक्ति एक)",
+            "searchEnginesInstructions": "%s को क्वेरी द्वारा प्रतिस्थापित किया जाएगा",
+            "reset": "रीसेट",
+            "invalidUrls": "अमान्य URLs",
+            "save": "सहेजें"
+        },
+        "torrents": {
+            "downloadDirectory": "डाउनलोड फोल्डर",
+            "encryption": "एन्क्रिप्शन",
+            "encryptionModes": {
+                "required": "आवश्यक",
+                "preferred": "वरीय",
+                "tolerated": "सहन"
+            },
+            "save": "सहेजें",
+            "enableUTP": "uTP चालू करें",
+            "enableDHT": "DHT चालू करें",
+            "enableLPD": "LPD चालू करें",
+            "enablePortForwarding": "पोर्ट फ़ॉरवर्डिंग चालू करें",
+            "peerPort": "पीयर पोर्ट",
+            "title": "Torrents सेटिंग्स",
+            "enablePEX": "PEX चालू करें"
+        }
+    },
+    "about": {
+        "transmissionVersion": "Transmission वर्शन",
+        "reportBugOrFeature": "किसी बग की रिपोर्ट करें या कोई सुविधा सुझाएं?",
+        "pikatorrentVersion": "PikaTorrent वर्शन",
+        "githubLinkDescription": "GitHub पर एक समस्या खोलें",
+        "discordLinkDescription": "Discord पर हमसे जुड़ें"
+    },
+    "addNodeDialog": {
+        "title": "एक नया नोड जोड़ें",
+        "description": "इसे कहीं से भी नियंत्रित करने के लिए एक नया नोड जोड़ें।",
+        "triggerLabel": "नोड जोड़ें",
+        "nameLabel": "नाम",
+        "idLabel": "ID",
+        "namePlaceholder": "नाम",
+        "add": "जोड़ें",
+        "idPlaceholder": "ID"
+    },
+    "addTorrentDialog": {
+        "title": "एक torrent जोड़ें",
+        "selectFile": "एक .torrent फ़ाइल चुनें",
+        "add": "जोड़ें",
+        "torrentOrMagnetLinkPlaceholder": "Torrent या magnet:// links",
+        "sendToNode": "इस torrent को यहां भेजें"
+    },
+    "confirmNodeDeleteAlertDialog": {
+        "title": "नोड हटाने की पुष्टि करें",
+        "confirmMessage": "इस नोड को हटाएँ?",
+        "cancel": "रद्द",
+        "delete": "हटाएं"
+    },
+    "sessionInfoDialog": {
+        "title": "सत्र की जानकारी"
+    },
+    "acceptOrRejectPeerDialog": {
+        "title": "नये कनेक्शन को अधिकृत करें",
+        "description": "एक नया डिवाइस PikaTorrent को नियंत्रित करना चाहेगा:",
+        "warningIfNotRecognize": "यदि आप इस डिवाइस को नहीं पहचानते हैं तो इसे अस्वीकार कर दें।",
+        "reject": "अस्वीकार करें",
+        "accept": "स्वीकार करें"
+    },
+    "directoryPickerDialog": {
+        "title": "फोल्डर पिकर",
+        "privateAppSwitchLabel": "निजी ऐप फोल्डर का उपयोग करें",
+        "privateAppDescription2": "यदि आप PikaTorrent को अनइंस्टॉल करते हैं तो आपके सभी डाउनलोड हटा दिए जाएंगे।",
+        "select": "चुनें",
+        "privateAppDescription1": "निजी ऐप फोल्डर का उपयोग करने से अन्य ऐप्स को आपकी डाउनलोड की गई सामग्री तक पहुंचने से रोका जा सकता है।"
+    },
+    "unsupportedBrowserDialog": {
+        "title": "असमर्थित वेब ब्राउज़र",
+        "description": "यह वेब ब्राउज़र असमर्थित है. कृपया किसी अन्य वेब ब्राउज़र में PikaTorrent आज़माएँ।"
+    },
+    "torrentDialog": {
+        "copyLink": "लिंक कॉपी करें",
+        "share": "शेयर",
+        "editLabels": "लेबल संपादित करें",
+        "openFolder": "फोल्डर खोलें",
+        "remove": "हटाएँ",
+        "files": "फाइलें",
+        "newLabel": "नया लेबल",
+        "add": "जोड़ें",
+        "clearAll": "सभी साफ करें",
+        "selectedLabels": "चयनित लेबल",
+        "allLabels": "सभी लेबल",
+        "noLabels": "अभी तक कोई लेबल नहीं हैं।",
+        "addLabelInstruction": "Torrent संपादित करके लेबल जोड़ें।"
+    },
+    "scanQRCodeDialog": {
+        "title": "स्कैन QR कोड",
+        "cameraPermissionDenied": "कैमरे की अनुमति अस्वीकृत"
+    },
+    "filesListDialog": {
+        "title": "फाइलें",
+        "open": "खोलें",
+        "openFolder": "फोल्डर खोलें",
+        "share": "शेयर"
+    },
+    "removeTorrentDialog": {
+        "title": "हटाने की पुष्टि",
+        "removeWithData": "डेटा सहित हटाएँ",
+        "remove": "हटाएँ"
+    },
+    "termsOfUseDialog": {
+        "title": "उपयोग की शर्तें",
+        "cancel": "रद्द",
+        "privacyPolicy": "गोपनीयता नीति",
+        "privacyPolicyMessage": "आप भी स्वीकार करते हैं",
+        "accept": "स्वीकार करें",
+        "termsOfUseMessage": "PikaTorrent का उपयोग करके, आप स्वीकार करते हैं कि आपके द्वारा डाउनलोड या साझा की गई सामग्री आपकी एकमात्र जिम्मेदारी है।"
+    },
+    "sortingOptionsDialog": {
+        "percentDone": "प्रगति",
+        "totalSize": "साइज़ ",
+        "title": "इसके अनुसार क्रमबद्ध करें",
+        "reverseOrder": "उल्टे क्रम",
+        "name": "नाम"
+    },
+    "statsDialog": {
+        "activeTorrents": "सक्रिय",
+        "allTorrents": "सभी",
+        "pauseTorrents": "रुका हुआ",
+        "title": "आंकड़े",
+        "torrentsCount": "Torrent गिनती",
+        "downloaded": "डाउनलोड हो गया",
+        "filesAdded": "फाइलें जोड़ी गईं",
+        "sinceAppStart": "जब से ऐप शुरू हुआ है",
+        "sinceBeginning": "शुरुआत से ही",
+        "timeActive": "समय सक्रिय",
+        "uploaded": "अपलोड किए गए"
+    },
+    "library": {
+        "download": "डाउनलोड",
+        "moreToCome": "और भी आने को है…"
+    },
+    "alerts": {
+        "storagePermissionDenied": {
+            "title": "स्टोरेज की अनुमति अस्वीकृत",
+            "description": "'आपको PikaTorrent के लिए स्टोरेज की अनुमति देनी होगी।'"
+        },
+        "storagePermissionRequest": {
+            "description": "डाउनलोड किए गए डेटा को सहेजने के लिए PikaTorrent को स्टोरेज तक पहुंच की आवश्यकता है।",
+            "title": "स्टोरेज की अनुमति"
+        }
+    },
+    "toasts": {
+        "linkCopied": "लिंक कॉपी किया गया",
+        "noAppCanOpenFile": "कोई भी इंस्टॉल किया गया ऐप इस फाइल को नहीं खोल सकता",
+        "torrentDownloaded": "Torrent डाउनलोड किया गया"
+    }
+}
