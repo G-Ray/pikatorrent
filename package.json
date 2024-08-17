@@ -17,6 +17,7 @@
     "build:web": "npm run build:web --workspace=@pikatorrent/app",
     "build:site": "npm run build --workspace=@pikatorrent/site",
     "build:desktop": "npm -w @pikatorrent/desktop run make",
+    "build:android:development": "npm -w @pikatorrent/app run build:android:development",
     "publish:desktop": "npm -w @pikatorrent/desktop run publish"
   },
   "devDependencies": {
