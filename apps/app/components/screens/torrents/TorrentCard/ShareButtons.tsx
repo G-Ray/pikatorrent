@@ -3,7 +3,8 @@ import { Share2 } from '@tamagui/lucide-icons'
 import { Button } from 'tamagui'
 import { Platform, Share } from 'react-native'
 import { useI18n } from '../../../../hooks/use18n'
-import { APP_URL } from '../../../../config'
+
+const appUrl = process.env.EXPO_PUBLIC_APP_URL
 
 export const ShareButtons = ({ toast, torrent }) => {
   const i18n = useI18n()
@@ -13,7 +14,7 @@ export const ShareButtons = ({ toast, torrent }) => {
       <Button
         icon={Share2}
         onPress={async () => {
-          const shareLink = APP_URL + '/add#' + torrent.magnetLink
+          const shareLink = appUrl + '/add#' + torrent.magnetLink
           try {
             navigator.clipboard.writeText(shareLink)
             toast.show(i18n.t('toasts.linkCopied'))
@@ -30,7 +31,7 @@ export const ShareButtons = ({ toast, torrent }) => {
     <Button
       icon={Share2}
       onPress={async () => {
-        const shareLink = APP_URL + '/add#' + torrent.magnetLink
+        const shareLink = appUrl + '/add#' + torrent.magnetLink
         Share.share({
           url: shareLink,
           message: shareLink,

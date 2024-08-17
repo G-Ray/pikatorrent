@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 
-import { SIGNALING_URL } from '../config'
+const signalingUrl = process.env.EXPO_PUBLIC_SIGNALING_URL
+
+if (!signalingUrl) {
+  throw new Error('Missing EXPO_PUBLIC_SIGNALING_URL env var')
+}
 
 interface UseWebSocketOptions {
   clientId: string
@@ -34,7 +38,7 @@ export const useWebSocket = ({ clientId }: UseWebSocketOptions) => {
       // Cleanup any existing instance & listener
       close()
 
-      wsRef.current = new WebSocket(SIGNALING_URL)
+      wsRef.current = new WebSocket(signalingUrl)
 
       wsRef.current.addEventListener('error', handleError)
       wsRef.current.addEventListener('close', handleClose)

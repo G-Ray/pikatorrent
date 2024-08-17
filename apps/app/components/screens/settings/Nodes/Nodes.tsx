@@ -28,11 +28,12 @@ import {
 import { AcceptedOrRejectedPeers } from './AcceptedOrRejectPeers'
 import { AddNodeDialog } from '../../../dialogs/AddNodeDialog'
 import { SettingLayout } from '../SettingLayout'
-import { APP_URL } from '../../../../config'
 import { useToastController } from '@tamagui/toast'
 import { useLocalNode } from '../../../../hooks/useLocalNode'
 import { useI18n } from '../../../../hooks/use18n'
 import isElectron from 'is-electron'
+
+const appUrl = process.env.EXPO_PUBLIC_APP_URL
 
 export const Nodes = () => {
   const settingsContext = useContext(SettingsContext)
@@ -179,7 +180,7 @@ const LocalNodeQrcode = () => {
   const [isDisplayed, setIsDisplayed] = useState(false)
   const [qrCodeXML, setQrCodeXML] = useState(null)
   const linkURL = localNode?.settings?.nodeId
-    ? `${APP_URL}/settings?nodeId=${
+    ? `${appUrl}/settings?nodeId=${
         localNode?.settings?.nodeId
       }&name=${getDeviceName()}`
     : null
@@ -187,7 +188,7 @@ const LocalNodeQrcode = () => {
   useEffect(() => {
     if (linkURL) {
       QRCodeGenerator.toString(encodeURI(linkURL), { type: 'svg' }).then(
-        setQrCodeXML
+        setQrCodeXML,
       )
     }
   }, [linkURL])
@@ -209,7 +210,7 @@ const LocalNodeQrcode = () => {
               {i18n.t(
                 isDisplayed
                   ? 'settings.nodes.hideQRCode'
-                  : 'settings.nodes.showQRCode'
+                  : 'settings.nodes.showQRCode',
               )}
             </Button>
           </XStack>
