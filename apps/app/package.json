@@ -70,7 +70,7 @@
     "react-native-svg": "15.2.0",
     "react-native-transmission": "^0.3.3",
     "react-native-web": "~0.19.6",
-    "react-native-webrtc": "111.0.3",
+    "react-native-webrtc": "118.0.7",
     "semver": "^7.5.4",
     "simple-peer": "^9.11.1",
     "tamagui": "1.108.3"
