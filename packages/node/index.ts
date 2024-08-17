@@ -1,6 +1,6 @@
 import Peer from 'simple-peer'
 import Transmission from 'transmission-native'
-import wrtc from 'wrtc'
+import wrtc from '@roamhq/wrtc'
 
 import { default as config } from './config.js'
 import { initWebSocket } from './lib/websocket.js'

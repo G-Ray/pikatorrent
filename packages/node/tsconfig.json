@@ -4,7 +4,8 @@
     "allowJs": true,
     "target": "ES6",
     "moduleResolution": "nodenext",
-    "module": "NodeNext"
+    "module": "NodeNext",
+    "skipLibCheck": true
   },
   "include": ["./**/*"]
 }
