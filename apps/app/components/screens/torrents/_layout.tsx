@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { useI18n } from '../../../hooks/use18n'
-import { Input, Separator, Stack, XStack, YStack, useMedia } from 'tamagui'
+import { Input, XStack, YStack, useMedia } from 'tamagui'
 import { AddButton } from './AddButton'
 import {
   SortOptions,
@@ -24,18 +24,7 @@ export default function Torrents() {
   }
 
   return (
-    <YStack f={1}>
-      {/* <YStack m="$1">
-        {media.gtXs && (
-          <Stack>
-            <YStack px={media.gtXs ? '$8' : '$2'}>
-              <SearchBarWithAddButton />
-            </YStack>
-            <Separator my="$4" />
-          </Stack>
-        )}
-      </YStack> */}
-
+    <YStack f={1} mt={2}>
       <XStack
         mx="auto"
         w="100%"
@@ -66,11 +55,6 @@ export default function Torrents() {
         />
       </YStack>
       <Slot />
-      {/* {!media.gtXs && (
-        <YStack p="$2" w="100%" mt="auto">
-          <AddButton />
-        </YStack>
-      )} */}
       <YStack p="$2" w="100%" mt="auto">
         <AddButton />
       </YStack>
