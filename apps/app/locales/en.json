@@ -83,7 +83,8 @@
     "add": "Add",
     "selectFile": "Select a .torrent file",
     "torrentOrMagnetLinkPlaceholder": "Torrent or magnet:// links",
-    "sendToNode": "Send this torrent to"
+    "sendToNode": "Send this torrent to",
+    "location": "Location"
   },
   "confirmNodeDeleteAlertDialog": {
     "title": "Confirm node removal",
@@ -114,6 +115,7 @@
   },
   "detailsDialog": {
     "title": "Details",
+    "location": "Location",
     "torrentSize": "Torrent size",
     "files": "files",
     "uploaded": "Uploaded",

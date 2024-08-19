@@ -22,6 +22,13 @@ export const DetailsDialog = ({ torrent }) => {
     >
       <YStack gap="$4" pt="$8">
         <XStack jc="space-between" gap="$16">
+          <Paragraph>{i18n.t('detailsDialog.downloaded')}</Paragraph>
+          <Paragraph id="pieces">
+            {prettyBytes(torrent.downloadedEver)}
+          </Paragraph>
+        </XStack>
+
+        <XStack jc="space-between" gap="$16">
           <Paragraph>{i18n.t('detailsDialog.torrentSize')}</Paragraph>
           <Paragraph id="pieces">{`${prettyBytes(torrent.totalSize)} in ${torrent.files.length} ${i18n.t('detailsDialog.files')} (${torrent.pieceCount} pieces of ${prettyBytes(torrent.pieceSize)} each)`}</Paragraph>
         </XStack>
@@ -32,10 +39,8 @@ export const DetailsDialog = ({ torrent }) => {
         </XStack>
 
         <XStack jc="space-between" gap="$16">
-          <Paragraph>{i18n.t('detailsDialog.downloaded')}</Paragraph>
-          <Paragraph id="pieces">
-            {prettyBytes(torrent.downloadedEver)}
-          </Paragraph>
+          <Paragraph>{i18n.t('detailsDialog.location')}</Paragraph>
+          <Paragraph id="location">{`${torrent.downloadDir}`}</Paragraph>
         </XStack>
 
         <XStack jc="space-between" gap="$16">

@@ -5,6 +5,7 @@ import {
   Fieldset,
   H6,
   Input,
+  Label,
   Paragraph,
   Separator,
   XStack,
@@ -25,6 +26,8 @@ import { NodeContext } from '../../contexts/NodeContext'
 import { Dialog } from '../reusable/Dialog'
 import { openExternalLink } from '../../lib/links'
 import { useI18n } from '../../hooks/use18n'
+import { useSession } from '../../hooks/useSession'
+import { DirectoryPickerDialog } from './DirectoryPickerDialog'
 
 function readFileToBase64(document: DocumentPicker.DocumentResult) {
   return new Promise((resolve, reject) => {
@@ -33,7 +36,7 @@ function readFileToBase64(document: DocumentPicker.DocumentResult) {
       reader.readAsDataURL(document.file)
       reader.onload = () =>
         resolve(
-          reader.result?.slice('data:application/x-bittorrent;base64,'.length)
+          reader.result?.slice('data:application/x-bittorrent;base64,'.length),
         )
       reader.onerror = reject
     } else {
@@ -48,6 +51,7 @@ export const AddTorrentDialog = () => {
   const i18n = useI18n()
   const [magnet, setMagnet] = useState<string>('')
   const [torrentFilePath, setTorrentFilePath] = useState<string | null>(null)
+  const session = useSession()
   const [documentResult, setDocumentResult] =
     useState<DocumentPicker.DocumentResult | null>(null)
   const { sendRPCMessage } = useContext(NodeContext)
@@ -55,6 +59,8 @@ export const AddTorrentDialog = () => {
   const router = useRouter()
   const url = useURL()
   const node = useContext(NodeContext)
+  const [localDownloadDir, setLocalDownloadDir] = useState(null)
+  const downloadDir = localDownloadDir ?? session.session['download-dir']
 
   useEffect(() => {
     if (!url) return
@@ -111,9 +117,8 @@ export const AddTorrentDialog = () => {
           filename: magnet,
         }
       } else if (torrentFilePath) {
-        const content = await window.electronAPI.readFileAsBase64(
-          torrentFilePath
-        )
+        const content =
+          await window.electronAPI.readFileAsBase64(torrentFilePath)
         torrentAddArgs = {
           metainfo: content,
         }
@@ -121,7 +126,7 @@ export const AddTorrentDialog = () => {
 
       await sendRPCMessage({
         method: 'torrent-add',
-        arguments: torrentAddArgs,
+        arguments: { ...torrentAddArgs, 'download-dir': downloadDir },
       })
     } catch (e) {
       console.error(e)
@@ -140,6 +145,8 @@ export const AddTorrentDialog = () => {
     setTorrentFilePath(null)
     setMagnet('')
   }
+
+  console.log('downloadDir', localDownloadDir)
 
   return (
     <Dialog
@@ -167,7 +174,7 @@ export const AddTorrentDialog = () => {
             <Input
               f={1}
               placeholder={i18n.t(
-                'addTorrentDialog.torrentOrMagnetLinkPlaceholder'
+                'addTorrentDialog.torrentOrMagnetLinkPlaceholder',
               )}
               value={magnet}
               onChangeText={setMagnet}
@@ -190,6 +197,26 @@ export const AddTorrentDialog = () => {
             {documentResult && <Paragraph>{documentResult.name}</Paragraph>}
             {torrentFilePath && <Paragraph>{torrentFilePath}</Paragraph>}
           </Fieldset>
+
+          {isElectron() && (
+            <YStack alignItems="center" space="$4">
+              <Label width={90} htmlFor="name">
+                {i18n.t('addTorrentDialog.location')}
+              </Label>
+              <XStack gap="$2">
+                <Input
+                  f={1}
+                  borderColor={'$yellow7'}
+                  readOnly
+                  value={downloadDir}
+                />
+                <DirectoryPickerDialog
+                  selectedPath={downloadDir}
+                  onSelect={setLocalDownloadDir}
+                />
+              </XStack>
+            </YStack>
+          )}
 
           <YStack ai="flex-end" mt={'$4'}>
             <Dialog.Close displayWhenAdapted asChild>
