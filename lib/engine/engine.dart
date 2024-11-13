@@ -17,7 +17,7 @@ abstract interface class Engine {
   void dispose();
 
   // Add a torrent
-  Future<TorrentAddedResponse> addTorrent(String link);
+  Future<TorrentAddedResponse> addTorrent(String filename, String? downloadDir);
 
   // Fetch all torrents
   Future<List<Torrent>> fetchTorrents();

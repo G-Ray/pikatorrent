@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pikatorrent/engine/session.dart';
 import 'package:pikatorrent/main.dart';
 import 'package:pikatorrent/models/app.dart';
+import 'package:pikatorrent/models/session.dart';
 import 'package:pikatorrent/screens/settings/dialogs/maximum_active_downloads_editor.dart';
 import 'package:pikatorrent/screens/settings/dialogs/reset_torrent_settings.dart';
 import 'package:pikatorrent/screens/settings/dialogs/theme_selector.dart';
@@ -17,43 +18,36 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  Session? session;
-
-  @override
-  void initState() {
-    super.initState();
-    fetchSession();
-  }
-
-  fetchSession() async {
-    Session fetchedSession = await engine.fetchSession();
-
-    setState(() {
-      session = fetchedSession;
-    });
-  }
-
   // Handlers
-  void handlePickFolder() async {
+  void handlePickFolder(BuildContext context) async {
     String? selectedDirectory = await FilePicker.platform
         .getDirectoryPath(dialogTitle: 'Download directory picker');
 
     if (selectedDirectory == null) return;
 
     var sessionUpdate = SessionBase(downloadDir: selectedDirectory);
-    await session?.update(sessionUpdate);
-    await fetchSession();
+    if (context.mounted) {
+      var sessionModel = Provider.of<SessionModel>(context, listen: false);
+      await sessionModel.session?.update(sessionUpdate);
+      await sessionModel.fetchSession();
+    }
   }
 
-  void handleMaximumActiveDownloadsSave(int value) async {
+  void handleMaximumActiveDownloadsSave(BuildContext context, int value) async {
     var sessionUpdate = SessionBase(downloadQueueSize: value);
-    await session?.update(sessionUpdate);
-    await fetchSession();
+    if (context.mounted) {
+      var sessionModel = Provider.of<SessionModel>(context, listen: false);
+      await sessionModel.session?.update(sessionUpdate);
+      await sessionModel.fetchSession();
+    }
   }
 
-  void handleResetTorrentsSettings() async {
+  void handleResetTorrentsSettings(BuildContext context) async {
     await engine.resetSettings();
-    await fetchSession();
+    if (context.mounted) {
+      var sessionModel = Provider.of<SessionModel>(context, listen: false);
+      await sessionModel.fetchSession();
+    }
   }
 
   // Dialogs
@@ -84,7 +78,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       context: context,
       builder: (BuildContext context) {
         return MaximumActiveDownloadEditorDialog(
-          onSave: handleMaximumActiveDownloadsSave,
+          onSave: (value) => handleMaximumActiveDownloadsSave(context, value),
         );
       },
     );
@@ -95,7 +89,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       context: context,
       builder: (BuildContext context) {
         return ResetTorrentsSettingsDialog(
-          onOK: handleResetTorrentsSettings,
+          onOK: () => handleResetTorrentsSettings(context),
         );
       },
     );
@@ -103,11 +97,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var downloadDir = session?.downloadDir ?? '';
-    var downloadQueueEnabled = session?.downloadQueueEnabled ?? '';
-    var downloadQueueSize = session?.downloadQueueSize ?? '';
+    return Consumer2<AppModel, SessionModel>(
+        builder: (context, app, sessionModel, child) {
+      var downloadDir = sessionModel.session?.downloadDir ?? '';
+      var downloadQueueEnabled =
+          sessionModel.session?.downloadQueueEnabled ?? '';
+      var downloadQueueSize = sessionModel.session?.downloadQueueSize ?? '';
 
-    return Consumer<AppModel>(builder: (context, app, child) {
       return ListView(children: [
         Padding(
           padding: const EdgeInsets.only(left: 16.0),
@@ -125,7 +121,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               style: Theme.of(context).textTheme.titleLarge),
         ),
         ListTile(
-            onTap: handlePickFolder,
+            onTap: () => handlePickFolder(context),
             leading: const Icon(Icons.folder_open),
             title: const Text('Download directory'),
             subtitle: Text(downloadDir)),

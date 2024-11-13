@@ -10,11 +10,16 @@ class TorrentAddRequest {
 
 class TorrentAddRequestArguments {
   final String filename;
+  final String? downloadDir;
 
-  TorrentAddRequestArguments(this.filename);
+  TorrentAddRequestArguments({required this.filename, this.downloadDir});
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{'filename': filename};
+
+    if (downloadDir != null) {
+      json['download-dir'] = downloadDir;
+    }
 
     return json;
   }

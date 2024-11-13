@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:pikatorrent/engine/engine.dart';
 import 'package:pikatorrent/engine/transmission/transmission.dart';
 import 'package:pikatorrent/models/app.dart';
+import 'package:pikatorrent/models/session.dart';
 import 'package:pikatorrent/models/torrents.dart';
 import 'package:pikatorrent/navigation/navigation.dart';
 import 'package:pikatorrent/screens/settings/settings.dart';
@@ -51,14 +52,6 @@ final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 
 final GlobalKey<NavigatorState> _shellNavigatorKey =
     GlobalKey<NavigatorState>();
-
-class MyCustomScrollBehavior extends MaterialScrollBehavior {
-  @override
-  Set<PointerDeviceKind> get dragDevices => {
-        PointerDeviceKind.touch,
-        PointerDeviceKind.mouse,
-      };
-}
 
 // GoRouter configuration
 final _router = GoRouter(
@@ -125,12 +118,12 @@ class _PikaTorrent extends State<PikaTorrent> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => AppModel(widget.theme)),
-        ChangeNotifierProvider(create: (context) => TorrentsModel())
+        ChangeNotifierProvider(create: (context) => TorrentsModel()),
+        ChangeNotifierProvider(create: (context) => SessionModel())
       ],
       child: Consumer<AppModel>(
           builder: (context, app, child) => MaterialApp.router(
                 title: 'PikaTorrent',
-                scrollBehavior: MyCustomScrollBehavior(),
                 theme: _lightTheme,
                 darkTheme: _darkTheme,
                 themeMode: app.theme,

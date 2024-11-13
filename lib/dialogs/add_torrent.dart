@@ -2,6 +2,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:pikatorrent/engine/engine.dart';
 import 'package:pikatorrent/main.dart';
+import 'package:pikatorrent/models/session.dart';
+import 'package:provider/provider.dart';
 
 class AddTorrentDialog extends StatefulWidget {
   const AddTorrentDialog({
@@ -19,6 +21,8 @@ final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
 class _AddTorrentDialogState extends State<AddTorrentDialog> {
   late TextEditingController _torrentLinkController;
+  String? _filename;
+  String? pickedDownloadDir;
 
   @override
   void initState() {
@@ -32,9 +36,13 @@ class _AddTorrentDialogState extends State<AddTorrentDialog> {
     super.dispose();
   }
 
-  void _handleAddTorrent(context, String filename) async {
+  void _handleAddTorrent(context) async {
     try {
-      var status = await engine.addTorrent(filename);
+      var status = await engine.addTorrent(
+          _torrentLinkController.text.isNotEmpty
+              ? _torrentLinkController.text
+              : _filename ?? '',
+          pickedDownloadDir);
 
       if (status == TorrentAddedResponse.duplicated) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -64,12 +72,27 @@ class _AddTorrentDialogState extends State<AddTorrentDialog> {
         allowedExtensions: ['torrent']);
     if (result == null || result.files.first.path == null) return;
 
-    _handleAddTorrent(context, result.files.first.path!);
-    Navigator.of(context).pop();
+    setState(() {
+      _filename = result.files.first.path;
+    });
+  }
+
+  void _handlePickDirectory() async {
+    String? selectedDirectory = await FilePicker.platform
+        .getDirectoryPath(dialogTitle: 'Download directory picker');
+
+    if (selectedDirectory == null) return;
+    setState(() {
+      pickedDownloadDir = selectedDirectory;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    var downloadDir =
+        pickedDownloadDir ?? Provider.of<SessionModel>(context, listen: true).session?.downloadDir ??
+            '';
+
     return AlertDialog(
       title: const Text('Add a torrent'),
       content: Form(
@@ -86,8 +109,8 @@ class _AddTorrentDialogState extends State<AddTorrentDialog> {
                 // border: OutlineInputBorder()
               ),
               validator: (String? value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a valid torrent link';
+                if ((value == null || value.isEmpty) && _filename != null) {
+                  return 'Please enter a valid torrent link or pick a .torrent file';
                 }
                 return null;
               },
@@ -101,6 +124,27 @@ class _AddTorrentDialogState extends State<AddTorrentDialog> {
                   onPressed: () => _handleSelectTorrentFile(context),
                   child: const Text('Select .torrent file')),
             ),
+            const SizedBox(height: 8),
+            if (_filename != null)
+              Text(
+                _filename!,
+                overflow: TextOverflow.ellipsis,
+              ),
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                const Text('Destination:'),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: TextButton(
+                      onPressed: _handlePickDirectory,
+                      child: Text(
+                        downloadDir,
+                        overflow: TextOverflow.ellipsis,
+                      )),
+                )
+              ],
+            )
           ],
         ),
       ),
@@ -115,7 +159,7 @@ class _AddTorrentDialogState extends State<AddTorrentDialog> {
           child: const Text('Add'),
           onPressed: () {
             if (_formKey.currentState!.validate()) {
-              _handleAddTorrent(context, _torrentLinkController.text);
+              _handleAddTorrent(context);
               Navigator.of(context).pop();
             }
           },
