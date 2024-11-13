@@ -38,10 +38,11 @@ class TorrentListTile extends StatelessWidget {
                 strokeWidth: 4),
             Center(
                 child: IconButton(
-              onPressed: () {
+              onPressed: () async {
                 torrent.status == TorrentStatus.stopped
-                    ? torrent.start()
-                    : torrent.stop();
+                    ? await torrent.start()
+                    : await torrent.stop();
+                torrentsModel.fetchTorrents();
               },
               icon: torrent.status == TorrentStatus.stopped
                   ? const Icon(Icons.play_circle_outline)

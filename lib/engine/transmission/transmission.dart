@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_libtransmission/flutter_libtransmission.dart'
-    as flutter_libtransmission;
+as flutter_libtransmission;
 import 'package:path_provider/path_provider.dart';
 import 'package:pikatorrent/engine/file.dart' as torrentFile;
 import 'package:pikatorrent/engine/engine.dart';
@@ -23,32 +23,32 @@ import 'package:pikatorrent/engine/transmission/models/torrent_set_request.dart'
 
 Future<Directory> getConfigDir() async {
   final configDir =
-      path.join((await getApplicationSupportDirectory()).path, 'transmission');
+  path.join((await getApplicationSupportDirectory()).path, 'transmission');
   return Directory(configDir);
 }
 
 class TransmissionTorrent extends Torrent {
-  TransmissionTorrent(
-      {required super.id,
-      super.name,
-      super.progress,
-      super.status,
-      super.size,
-      super.rateDownload,
-      super.rateUpload,
-      super.downloadedEver,
-      super.uploadedEver,
-      super.eta,
-      super.pieceCount,
-      super.pieceSize,
-      super.errorString,
-      super.addedDate,
-      super.isPrivate,
-      super.location,
-      super.creator,
-      super.comment,
-      super.files,
-      super.labels});
+  TransmissionTorrent({required super.id,
+    super.name,
+    super.progress,
+    super.status,
+    super.size,
+    super.rateDownload,
+    super.rateUpload,
+    super.downloadedEver,
+    super.uploadedEver,
+    super.eta,
+    super.pieceCount,
+    super.pieceSize,
+    super.errorString,
+    super.addedDate,
+    super.isPrivate,
+    super.location,
+    super.creator,
+    super.comment,
+    super.files,
+    super.labels,
+    super.peersConnected});
 
   @override
   start() {
@@ -78,8 +78,8 @@ class TransmissionTorrent extends Torrent {
   Future update(TorrentBase torrent) async {
     var request = TorrentSetRequest(
         arguments:
-            TorrentSetRequestArguments(ids: [id], labels: torrent.labels));
-     await flutter_libtransmission.requestAsync(jsonEncode(request));
+        TorrentSetRequestArguments(ids: [id], labels: torrent.labels));
+    await flutter_libtransmission.requestAsync(jsonEncode(request));
   }
 }
 
@@ -114,11 +114,11 @@ class TransmissionEngine implements Engine {
   @override
   Future<TorrentAddedResponse> addTorrent(String link) async {
     var torrentAddRequest =
-        TorrentAddRequest(arguments: TorrentAddRequestArguments(link));
+    TorrentAddRequest(arguments: TorrentAddRequestArguments(link));
     var jsonResponse = await flutter_libtransmission
         .requestAsync(jsonEncode(torrentAddRequest));
     TorrentAddResponse response =
-        TorrentAddResponse.fromJson(jsonDecode(jsonResponse));
+    TorrentAddResponse.fromJson(jsonDecode(jsonResponse));
 
     if (response.result != 'success') {
       throw TorrentAddError();
@@ -135,23 +135,24 @@ class TransmissionEngine implements Engine {
   Future<List<Torrent>> fetchTorrents() async {
     TorrentGetRequest torrentGetRequest = TorrentGetRequest(
         arguments: TorrentGetRequestArguments(fields: [
-      TorrentField.id,
-      TorrentField.name,
-      TorrentField.percentDone,
-      TorrentField.status,
-      TorrentField.totalSize,
-      TorrentField.rateDownload,
-      TorrentField.rateUpload,
-      TorrentField.labels
-    ]));
+          TorrentField.id,
+          TorrentField.name,
+          TorrentField.percentDone,
+          TorrentField.status,
+          TorrentField.totalSize,
+          TorrentField.rateDownload,
+          TorrentField.rateUpload,
+          TorrentField.labels
+        ]));
     String res = await flutter_libtransmission
         .requestAsync(jsonEncode(torrentGetRequest));
 
     final TorrentGetResponse decodedRes =
-        TorrentGetResponse.fromJson(jsonDecode(res));
+    TorrentGetResponse.fromJson(jsonDecode(res));
 
     return decodedRes.arguments.torrents
-        .map((torrent) => TransmissionTorrent(
+        .map((torrent) =>
+        TransmissionTorrent(
             id: torrent.id,
             name: torrent.name,
             progress: torrent.percentDone,
@@ -167,39 +168,41 @@ class TransmissionEngine implements Engine {
   Future<Torrent> fetchTorrentDetails(int id) async {
     TorrentGetRequest torrentGetRequest = TorrentGetRequest(
         arguments: TorrentGetRequestArguments(ids: [
-      id
-    ], fields: [
-      TorrentField.id,
-      TorrentField.name,
-      TorrentField.percentDone,
-      TorrentField.status,
-      TorrentField.totalSize,
-      TorrentField.rateDownload,
-      TorrentField.rateUpload,
-      TorrentField.downloadedEver,
-      TorrentField.uploadedEver,
-      TorrentField.eta,
-      TorrentField.pieceSize,
-      TorrentField.pieceCount,
-      TorrentField.errorString,
-      TorrentField.addedDate,
-      TorrentField.isPrivate,
-      TorrentField.downloadDir,
-      TorrentField.comment,
-      TorrentField.creator,
-      TorrentField.files,
-      TorrentField.filesStats,
-      TorrentField.labels
-    ]));
+          id
+        ], fields: [
+          TorrentField.id,
+          TorrentField.name,
+          TorrentField.percentDone,
+          TorrentField.status,
+          TorrentField.totalSize,
+          TorrentField.rateDownload,
+          TorrentField.rateUpload,
+          TorrentField.downloadedEver,
+          TorrentField.uploadedEver,
+          TorrentField.eta,
+          TorrentField.pieceSize,
+          TorrentField.pieceCount,
+          TorrentField.errorString,
+          TorrentField.addedDate,
+          TorrentField.isPrivate,
+          TorrentField.downloadDir,
+          TorrentField.comment,
+          TorrentField.creator,
+          TorrentField.files,
+          TorrentField.filesStats,
+          TorrentField.labels,
+          TorrentField.peersConnected
+        ]));
 
     String res = await flutter_libtransmission
         .requestAsync(jsonEncode(torrentGetRequest));
 
     final TorrentGetResponse decodedRes =
-        TorrentGetResponse.fromJson(jsonDecode(res));
+    TorrentGetResponse.fromJson(jsonDecode(res));
 
     return decodedRes.arguments.torrents
-        .map((torrent) => TransmissionTorrent(
+        .map((torrent) =>
+        TransmissionTorrent(
             id: torrent.id,
             name: torrent.name,
             progress: torrent.percentDone,
@@ -219,13 +222,15 @@ class TransmissionEngine implements Engine {
             comment: torrent.comment,
             creator: torrent.creator,
             files: torrent.files
-                ?.map((file) => torrentFile.File(
+                ?.map((file) =>
+                torrentFile.File(
                     name: file.name,
                     length: file.length,
                     bytesCompleted: file.bytesCompleted,
                     wanted: true))
                 .toList(),
-            labels: torrent.labels))
+            labels: torrent.labels,
+            peersConnected: torrent.peersConnected))
         .toList()
         .first;
   }
@@ -234,15 +239,15 @@ class TransmissionEngine implements Engine {
   Future<Session> fetchSession() async {
     SessionGetRequest sessionGetRequest = SessionGetRequest(
         arguments: SessionGetRequestArguments(fields: [
-      SessionField.downloadDir,
-      SessionField.downloadQueueEnabled,
-      SessionField.downloadQueueSize
-    ]));
+          SessionField.downloadDir,
+          SessionField.downloadQueueEnabled,
+          SessionField.downloadQueueSize
+        ]));
     String res = await flutter_libtransmission
         .requestAsync(jsonEncode(sessionGetRequest));
 
     final SessionGetResponse decodedRes =
-        SessionGetResponse.fromJson(jsonDecode(res));
+    SessionGetResponse.fromJson(jsonDecode(res));
 
     return TransmissionSession(
         downloadDir: decodedRes.arguments.downloadDir,
@@ -256,7 +261,7 @@ class TransmissionEngine implements Engine {
     dispose();
     // Delete settings.json
     final settingsFilePath =
-        path.join((await getConfigDir()).path, 'settings.json');
+    path.join((await getConfigDir()).path, 'settings.json');
     File settingsFile = File(settingsFilePath);
     // Delete settings file
     settingsFile.deleteSync();

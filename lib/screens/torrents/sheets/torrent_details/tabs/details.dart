@@ -42,6 +42,7 @@ class DetailsTab extends StatelessWidget {
             title: const Text('Uploaded'),
             subtitle: Text(prettyBytes(torrent.uploadedEver!.toDouble()))),
         ListTile(title: const Text('Ratio'), subtitle: Text(ratio.toString())),
+        ListTile(title: const Text('Peers connected'), subtitle: Text(torrent.peersConnected.toString())),
         ListTile(title: const Text('State'), subtitle: Text(status)),
         ListTile(
             title: const Text('Remaining Time'),
