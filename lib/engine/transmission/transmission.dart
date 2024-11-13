@@ -19,9 +19,11 @@ import 'package:pikatorrent/engine/transmission/models/torrent_get_request.dart'
 import 'package:pikatorrent/engine/transmission/models/torrent_get_response.dart';
 import 'package:pikatorrent/engine/transmission/models/torrent_remove_request.dart';
 import 'package:path/path.dart' as path;
+import 'package:pikatorrent/engine/transmission/models/torrent_set_request.dart';
 
 Future<Directory> getConfigDir() async {
-  final configDir = path.join((await getApplicationSupportDirectory()).path, 'transmission');
+  final configDir =
+      path.join((await getApplicationSupportDirectory()).path, 'transmission');
   return Directory(configDir);
 }
 
@@ -45,7 +47,8 @@ class TransmissionTorrent extends Torrent {
       super.location,
       super.creator,
       super.comment,
-      super.files});
+      super.files,
+      super.labels});
 
   @override
   start() {
@@ -70,6 +73,14 @@ class TransmissionTorrent extends Torrent {
             ids: [id], deleteLocalData: withData));
     flutter_libtransmission.requestAsync(jsonEncode(request));
   }
+
+  @override
+  Future update(TorrentBase torrent) async {
+    var request = TorrentSetRequest(
+        arguments:
+            TorrentSetRequestArguments(ids: [id], labels: torrent.labels));
+     await flutter_libtransmission.requestAsync(jsonEncode(request));
+  }
 }
 
 class TransmissionSession extends Session {
@@ -89,7 +100,6 @@ class TransmissionSession extends Session {
 }
 
 class TransmissionEngine implements Engine {
-
   @override
   void init() async {
     final configDir = await getConfigDir();
@@ -132,6 +142,7 @@ class TransmissionEngine implements Engine {
       TorrentField.totalSize,
       TorrentField.rateDownload,
       TorrentField.rateUpload,
+      TorrentField.labels
     ]));
     String res = await flutter_libtransmission
         .requestAsync(jsonEncode(torrentGetRequest));
@@ -147,7 +158,8 @@ class TransmissionEngine implements Engine {
             status: torrent.status,
             size: torrent.totalSize,
             rateDownload: torrent.rateDownload,
-            rateUpload: torrent.rateUpload))
+            rateUpload: torrent.rateUpload,
+            labels: torrent.labels))
         .toList();
   }
 
@@ -176,7 +188,8 @@ class TransmissionEngine implements Engine {
       TorrentField.comment,
       TorrentField.creator,
       TorrentField.files,
-      TorrentField.filesStats
+      TorrentField.filesStats,
+      TorrentField.labels
     ]));
 
     String res = await flutter_libtransmission
@@ -211,7 +224,8 @@ class TransmissionEngine implements Engine {
                     length: file.length,
                     bytesCompleted: file.bytesCompleted,
                     wanted: true))
-                .toList()))
+                .toList(),
+            labels: torrent.labels))
         .toList()
         .first;
   }
@@ -241,7 +255,8 @@ class TransmissionEngine implements Engine {
     // Close transmission session
     dispose();
     // Delete settings.json
-    final settingsFilePath = path.join((await getConfigDir()).path, 'settings.json');
+    final settingsFilePath =
+        path.join((await getConfigDir()).path, 'settings.json');
     File settingsFile = File(settingsFilePath);
     // Delete settings file
     settingsFile.deleteSync();

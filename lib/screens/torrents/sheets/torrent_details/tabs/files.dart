@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pikatorrent/engine/file.dart';
-import 'package:pikatorrent/engine/engine.dart';
 import 'package:pretty_bytes/pretty_bytes.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path/path.dart' as path;

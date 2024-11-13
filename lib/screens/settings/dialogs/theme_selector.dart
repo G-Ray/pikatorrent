@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pikatorrent/models/app_model.dart';
+import 'package:pikatorrent/models/app.dart';
 import 'package:provider/provider.dart';
 
 class ThemeSelector extends StatefulWidget {

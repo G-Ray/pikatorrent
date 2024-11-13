@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:pikatorrent/engine/engine.dart';
 import 'package:pikatorrent/engine/torrent.dart';
 import 'package:pretty_bytes/pretty_bytes.dart';
 import 'package:duration/duration.dart';
 
-class DetailsTabDialog extends StatelessWidget {
+class DetailsTab extends StatelessWidget {
   final Torrent torrent;
 
-  const DetailsTabDialog({super.key, required this.torrent});
+  const DetailsTab({super.key, required this.torrent});
 
   @override
   Widget build(BuildContext context) {

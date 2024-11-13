@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pikatorrent/engine/engine.dart';
 import 'package:pikatorrent/engine/transmission/transmission.dart';
-import 'package:pikatorrent/models/app_model.dart';
+import 'package:pikatorrent/models/app.dart';
+import 'package:pikatorrent/models/torrents.dart';
 import 'package:pikatorrent/navigation/navigation.dart';
 import 'package:pikatorrent/screens/settings/settings.dart';
-import 'package:pikatorrent/screens/torrents.dart';
+import 'package:pikatorrent/screens/torrents/torrents.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yaru/yaru.dart';
@@ -28,7 +29,11 @@ final _lightTheme = ThemeData(
     navigationBarTheme:
         NavigationBarThemeData(backgroundColor: lightColorScheme.surface),
     bottomSheetTheme:
-        BottomSheetThemeData(backgroundColor: lightColorScheme.surface));
+        BottomSheetThemeData(backgroundColor: lightColorScheme.surface),
+    chipTheme: ChipThemeData(
+        shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(16.0), // Adjust the radius as needed
+    )));
 
 final _darkTheme = ThemeData(
     colorScheme: darkColorScheme,
@@ -36,7 +41,11 @@ final _darkTheme = ThemeData(
     navigationBarTheme:
         NavigationBarThemeData(backgroundColor: darkColorScheme.surface),
     bottomSheetTheme:
-        BottomSheetThemeData(backgroundColor: darkColorScheme.surface));
+        BottomSheetThemeData(backgroundColor: darkColorScheme.surface),
+    chipTheme: ChipThemeData(
+        shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(16.0), // Adjust the radius as needed
+    )));
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -113,16 +122,20 @@ class _PikaTorrent extends State<PikaTorrent> {
   // App root
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-        create: (context) => AppModel(widget.theme),
-        child: Consumer<AppModel>(
-            builder: (context, app, child) => MaterialApp.router(
-                  title: 'PikaTorrent',
-                  scrollBehavior: MyCustomScrollBehavior(),
-                  theme: _lightTheme,
-                  darkTheme: _darkTheme,
-                  themeMode: app.theme,
-                  routerConfig: _router,
-                )));
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => AppModel(widget.theme)),
+        ChangeNotifierProvider(create: (context) => TorrentsModel())
+      ],
+      child: Consumer<AppModel>(
+          builder: (context, app, child) => MaterialApp.router(
+                title: 'PikaTorrent',
+                scrollBehavior: MyCustomScrollBehavior(),
+                theme: _lightTheme,
+                darkTheme: _darkTheme,
+                themeMode: app.theme,
+                routerConfig: _router,
+              )),
+    );
   }
 }

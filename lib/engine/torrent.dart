@@ -11,9 +11,15 @@ enum TorrentStatus {
   seeding
 }
 
-// Torrent abstraction
-abstract class Torrent {
+class TorrentBase {
   final int id;
+  final List<String>? labels;
+
+  TorrentBase({required this.id, this.labels});
+}
+
+// Torrent abstraction
+abstract class Torrent extends TorrentBase {
   final String? name;
   final double? progress;
   final TorrentStatus? status;
@@ -33,26 +39,27 @@ abstract class Torrent {
   final String? comment;
   final List<File>? files;
 
-  const Torrent(
-      {required this.id,
-        this.name,
-        this.progress,
-        this.status,
-        this.size,
-        this.rateDownload,
-        this.rateUpload,
-        this.downloadedEver,
-        this.uploadedEver,
-        this.eta,
-        this.pieceSize,
-        this.errorString,
-        this.pieceCount,
-        this.location,
-        this.isPrivate,
-        this.addedDate,
-        this.comment,
-        this.creator,
-        this.files});
+  Torrent(
+      {required super.id,
+      super.labels,
+      this.name,
+      this.progress,
+      this.status,
+      this.size,
+      this.rateDownload,
+      this.rateUpload,
+      this.downloadedEver,
+      this.uploadedEver,
+      this.eta,
+      this.pieceSize,
+      this.errorString,
+      this.pieceCount,
+      this.location,
+      this.isPrivate,
+      this.addedDate,
+      this.comment,
+      this.creator,
+      this.files});
 
   // Start the torrent
   start();
@@ -62,4 +69,7 @@ abstract class Torrent {
 
   // Remove the torrent
   remove(bool withData);
+
+  // Update torrent data
+  Future update(TorrentBase torrent);
 }

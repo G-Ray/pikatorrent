@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pikatorrent/engine/session.dart';
 import 'package:pikatorrent/main.dart';
-import 'package:pikatorrent/models/app_model.dart';
+import 'package:pikatorrent/models/app.dart';
 import 'package:pikatorrent/screens/settings/dialogs/maximum_active_downloads_editor.dart';
 import 'package:pikatorrent/screens/settings/dialogs/reset_torrent_settings.dart';
 import 'package:pikatorrent/screens/settings/dialogs/theme_selector.dart';

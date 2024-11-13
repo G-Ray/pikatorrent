@@ -4,8 +4,7 @@ bool isMobile(BuildContext context) {
   return MediaQuery.sizeOf(context).width < 450;
 }
 
-void showDeviceSheet(BuildContext context, String title, Widget child,
-    [bool showDesktopSheet = false]) {
+void showDeviceSheet(BuildContext context, String title, Widget child) {
   if (isMobile(context)) {
     showModalBottomSheet<void>(
         context: context,

@@ -1,4 +1,3 @@
-import 'package:pikatorrent/engine/engine.dart';
 import 'package:pikatorrent/engine/torrent.dart';
 
 enum TorrentField {
@@ -21,7 +20,8 @@ enum TorrentField {
   creator,
   comment,
   files,
-  filesStats
+  filesStats,
+  labels
 }
 
 class TransmissionTorrentFile {
@@ -57,6 +57,7 @@ class TransmissionTorrent {
   final String? creator;
   final String? comment;
   final List<TransmissionTorrentFile>? files;
+  final List<String>? labels;
 
   const TransmissionTorrent(
       this.id,
@@ -77,7 +78,8 @@ class TransmissionTorrent {
       this.location,
       this.comment,
       this.creator,
-      this.files);
+      this.files,
+      this.labels);
 
   TransmissionTorrent.fromJson(Map<String, dynamic> json)
       : id = json['id'],
@@ -105,5 +107,7 @@ class TransmissionTorrent {
         files = json['files']
             ?.map<TransmissionTorrentFile>(
                 (json) => TransmissionTorrentFile.fromJson(json))
-            .toList();
+            .toList(),
+        labels =
+            json['labels'] != null ? List<String>.from(json['labels']) : null;
 }
