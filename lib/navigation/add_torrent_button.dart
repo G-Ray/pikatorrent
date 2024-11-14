@@ -16,7 +16,7 @@ class AddTorrentButton extends StatelessWidget {
             });
       },
       tooltip: 'Add Torrent',
-      shape: isMobile(context) ? const CircleBorder() : null,
+      shape: isMobileSize(context) ? const CircleBorder() : null,
       child: const Icon(Icons.add),
     );
   }

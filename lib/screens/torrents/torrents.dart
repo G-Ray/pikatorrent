@@ -54,7 +54,7 @@ class _TorrentScreen extends State<TorrentsScreen>
             Torrent torrent = torrentsModel.torrents[index];
             final percent = (torrent.progress ?? 0) * 100;
 
-            if (isMobile(context)) {
+            if (isMobileSize(context)) {
               return Slidable(
                 key: Key(index.toString()),
                 endActionPane: ActionPane(

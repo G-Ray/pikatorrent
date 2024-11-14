@@ -56,7 +56,7 @@ class TorrentListTile extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
             style: const TextStyle(fontWeight: FontWeight.bold)),
-        trailing: (!isMobile(context))
+        trailing: (!isMobileSize(context))
             ? IconButton(
                 onPressed: () => showDialog(
                     context: context,

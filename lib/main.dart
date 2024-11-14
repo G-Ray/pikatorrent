@@ -10,6 +10,7 @@ import 'package:pikatorrent/models/torrents.dart';
 import 'package:pikatorrent/navigation/navigation.dart';
 import 'package:pikatorrent/screens/settings/settings.dart';
 import 'package:pikatorrent/screens/torrents/torrents.dart';
+import 'package:pikatorrent/utils/device.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yaru/yaru.dart';
@@ -33,7 +34,7 @@ final _lightTheme = ThemeData(
         BottomSheetThemeData(backgroundColor: lightColorScheme.surface),
     chipTheme: ChipThemeData(
         shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(16.0), // Adjust the radius as needed
+      borderRadius: BorderRadius.circular(32.0), // Adjust the radius as needed
     )));
 
 final _darkTheme = ThemeData(
@@ -45,7 +46,7 @@ final _darkTheme = ThemeData(
         BottomSheetThemeData(backgroundColor: darkColorScheme.surface),
     chipTheme: ChipThemeData(
         shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(16.0), // Adjust the radius as needed
+      borderRadius: BorderRadius.circular(32.0), // Adjust the radius as needed
     )));
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -85,7 +86,9 @@ final _router = GoRouter(
 Engine engine = TransmissionEngine();
 
 void main() async {
-  await YaruWindowTitleBar.ensureInitialized();
+  if (isDesktop()) {
+    await YaruWindowTitleBar.ensureInitialized();
+  }
   WidgetsFlutterBinding.ensureInitialized();
 
   engine.init();

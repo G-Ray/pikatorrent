@@ -77,16 +77,20 @@ class _Navigation extends State<Navigation> {
     return 0;
   }
 
+  YaruWindowTitleBar buildWindowTitleBar(BuildContext context) {
+    return YaruWindowTitleBar(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      border: BorderSide.none,
+      // FIXME: Depends of platform and gnome settings
+      isMaximizable: false,
+      isMinimizable: false,
+    );
+  }
+
   // Mobile Navigation
   Widget buildBottomBarScaffold(BuildContext context) {
     return Scaffold(
-      appBar: YaruWindowTitleBar(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        border: BorderSide.none,
-        // FIXME: Depends of platform and gnome settings
-        isMaximizable: false,
-        isMinimizable: false,
-      ),
+      appBar: isDesktop() ? buildWindowTitleBar(context) : null,
       body: Column(children: [
         Expanded(child: widget.child),
         const Divider(thickness: 1, height: 1)
@@ -148,13 +152,7 @@ class _Navigation extends State<Navigation> {
           const VerticalDivider(thickness: 1, width: 1),
           Expanded(
               child: Column(children: [
-            YaruWindowTitleBar(
-              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              border: BorderSide.none,
-              // FIXME: Depends of platform and gnome settings
-              isMaximizable: false,
-              isMinimizable: false,
-            ),
+            if (isDesktop()) buildWindowTitleBar(context),
             Expanded(child: widget.child)
           ]))
         ],
@@ -165,7 +163,7 @@ class _Navigation extends State<Navigation> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    showNavigationRail = !isMobile(context);
+    showNavigationRail = !isMobileSize(context);
   }
 
   @override

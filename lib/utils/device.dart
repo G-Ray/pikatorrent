@@ -1,11 +1,21 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
-bool isMobile(BuildContext context) {
+bool isMobileSize(BuildContext context) {
   return MediaQuery.sizeOf(context).width < 450;
 }
 
+bool isMobile() {
+  return Platform.isAndroid || Platform.isIOS || Platform.isFuchsia;
+}
+
+bool isDesktop() {
+  return Platform.isMacOS || Platform.isWindows || Platform.isLinux;
+}
+
 void showDeviceSheet(BuildContext context, String title, Widget child) {
-  if (isMobile(context)) {
+  if (isMobileSize(context)) {
     showModalBottomSheet<void>(
         context: context,
         isScrollControlled: true,
