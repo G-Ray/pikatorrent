@@ -88,7 +88,6 @@ class _TorrentScreen extends State<TorrentsScreen>
                                 builder: (BuildContext context) {
                                   return RemoveTorrentDialog(torrent: torrent);
                                 }),
-                            foregroundColor: Colors.deepOrange,
                             icon: Icons.remove_circle_outline,
                           ),
                         ],

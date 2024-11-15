@@ -58,6 +58,7 @@ class TorrentListTile extends StatelessWidget {
             style: const TextStyle(fontWeight: FontWeight.bold)),
         trailing: (!isMobileSize(context))
             ? IconButton(
+                tooltip: 'Remove',
                 onPressed: () => showDialog(
                     context: context,
                     builder: (BuildContext context) {
@@ -65,7 +66,6 @@ class TorrentListTile extends StatelessWidget {
                     }),
                 icon: const Icon(
                   Icons.remove_circle_outline,
-                  color: Colors.deepOrange,
                 ))
             : null,
 
