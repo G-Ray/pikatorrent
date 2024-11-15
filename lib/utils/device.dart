@@ -63,10 +63,23 @@ void showDeviceSheet(BuildContext context, String title, Widget child) {
                             Padding(
                                 padding: const EdgeInsets.symmetric(
                                     vertical: 16.0, horizontal: 16.0),
-                                child: Text(title,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleLarge)),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: Text(title,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleLarge),
+                                    ),
+                                    IconButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        icon: const Icon(Icons.close))
+                                  ],
+                                )),
                             child
                           ]),
                     )),
