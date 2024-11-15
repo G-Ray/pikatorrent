@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pikatorrent/utils/device.dart';
 
 class TextSearch extends StatefulWidget {
   final Function(String) onChange;
@@ -27,20 +28,65 @@ class _TextSearchState extends State<TextSearch> {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
+    return ExpandableSearchFormField(
       controller: _filterController,
-      decoration: InputDecoration(
-        labelText: 'Filter',
-        border: InputBorder.none,
-        prefixIcon: const Icon(Icons.search),
-        suffixIcon: _filterController.text.isNotEmpty
-            ? IconButton(
-                icon: const Icon(Icons.clear),
-                onPressed: () {
-                  _filterController.clear();
-                },
-              )
-            : null,
+    );
+  }
+}
+
+class ExpandableSearchFormField extends StatefulWidget {
+  final TextEditingController controller;
+
+  const ExpandableSearchFormField({super.key, required this.controller});
+
+  @override
+  State<ExpandableSearchFormField> createState() =>
+      _ExpandableSearchFormFieldState();
+}
+
+class _ExpandableSearchFormFieldState extends State<ExpandableSearchFormField> {
+  bool _isExpanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    var controller = widget.controller;
+
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+      width: _isExpanded
+          ? isMobileSize(context)
+              ? 160
+              : 240
+          : 48,
+      height: 48,
+      child: Row(
+        children: [
+          Expanded(
+            child: _isExpanded
+                ? TextFormField(
+                    controller: controller,
+                    autofocus: true,
+                    decoration: const InputDecoration(
+                      labelText: 'Search...',
+                      prefixIcon: Icon(Icons.search),
+                      border: InputBorder.none,
+                    ),
+                  )
+                : const SizedBox(),
+          ),
+          IconButton(
+            icon: Icon(_isExpanded ? Icons.close : Icons.search),
+            onPressed: () {
+              setState(() {
+                _isExpanded = !_isExpanded;
+                if (!_isExpanded) {
+                  controller.clear();
+                }
+              });
+            },
+          ),
+        ],
       ),
     );
   }

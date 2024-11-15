@@ -53,15 +53,15 @@ class _TorrentScreen extends State<TorrentsScreen>
         return Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.only(left: 16, right: 16),
               child: Row(
                 children: [
                   const SortButton(),
                   const FilterLabelButton(),
-                  Expanded(
-                      child: TextSearch(
+                  const Spacer(),
+                  TextSearch(
                     onChange: torrentsModel.setFilterText,
-                  )),
+                  ),
                 ],
               ),
             ),
