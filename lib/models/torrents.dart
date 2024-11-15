@@ -10,6 +10,26 @@ const refreshIntervalSeconds = 5;
 
 enum Sort { addedDate, progress, size }
 
+class Filters {
+  Set<String> labels = {};
+
+  Filters({required this.labels});
+
+  bool get enabled {
+    return labels.isNotEmpty;
+  }
+
+  Filters.copy(Filters other) : this(labels: Set.from(other.labels));
+
+  addLabel(String label) {
+    labels.add(label);
+  }
+
+  removeLabel(String label) {
+    labels.remove(label);
+  }
+}
+
 class TorrentsModel extends ChangeNotifier {
   // All loaded torrents
   List<Torrent> torrents = [];
@@ -20,6 +40,7 @@ class TorrentsModel extends ChangeNotifier {
   bool hasLoaded = false;
   Sort sort = Sort.addedDate;
   bool reverseSort = true;
+  Filters filters = Filters(labels: {});
 
   TorrentsModel() {
     _init();
@@ -42,7 +63,7 @@ class TorrentsModel extends ChangeNotifier {
         await SharedPrefsStorage.getBool('reverseSort') ?? reverseSort;
   }
 
-  List<Torrent> _filterTorrents(List<Torrent> torrents) {
+  List<Torrent> _filterTorrentsName(List<Torrent> torrents) {
     return filterText.isNotEmpty
         ? extractAllSorted(
                 query: filterText,
@@ -52,6 +73,14 @@ class TorrentsModel extends ChangeNotifier {
             .map((result) => torrents[result.index])
             .toList()
         : torrents;
+  }
+
+  List<Torrent> _filterTorrents(List<Torrent> torrents) {
+    if (filters.labels.isEmpty) return torrents;
+
+    return torrents.where((t) {
+      return filters.labels.every((l) => t.labels!.contains(l));
+    }).toList();
   }
 
   List<Torrent> _sortTorrents(List<Torrent> torrents) {
@@ -87,7 +116,8 @@ class TorrentsModel extends ChangeNotifier {
   }
 
   processDisplayedTorrents() {
-    displayedTorrents = _filterTorrents(_sortTorrents(torrents));
+    displayedTorrents =
+        _filterTorrents(_filterTorrentsName(_sortTorrents(torrents)));
     notifyListeners();
   }
 
@@ -96,11 +126,16 @@ class TorrentsModel extends ChangeNotifier {
     processDisplayedTorrents();
   }
 
-  void setSort(Sort value, bool reverse) async {
+  setSort(Sort value, bool reverse) async {
     SharedPrefsStorage.setString('sort', value.name);
     SharedPrefsStorage.setBool('reverseSort', reverse);
     sort = value;
     reverseSort = reverse;
+    processDisplayedTorrents();
+  }
+
+  setFilters(Filters updatedFilters) async {
+    filters = updatedFilters;
     processDisplayedTorrents();
   }
 }

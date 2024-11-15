@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pikatorrent/dialogs/remove_torrent.dart';
 import 'package:pikatorrent/engine/torrent.dart';
 import 'package:pikatorrent/models/torrents.dart';
+import 'package:pikatorrent/screens/torrents/filter_labels_button.dart';
 import 'package:pikatorrent/screens/torrents/sort_button.dart';
 import 'package:pikatorrent/screens/torrents/text_search.dart';
 import 'package:pikatorrent/screens/torrents/torrent_list_tile.dart';
@@ -56,6 +57,7 @@ class _TorrentScreen extends State<TorrentsScreen>
               child: Row(
                 children: [
                   const SortButton(),
+                  const FilterLabelButton(),
                   Expanded(
                       child: TextSearch(
                     onChange: torrentsModel.setFilterText,
