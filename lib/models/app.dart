@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:pikatorrent/storage/shared_preferences.dart';
 
 class AppModel extends ChangeNotifier {
   ThemeMode theme = ThemeMode.system;
 
-  AppModel(ThemeMode initialTheme) {
-    theme = initialTheme;
+  AppModel() {
+    _loadSettings();
   }
 
-  void setTheme(ThemeMode newTheme) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString('theme', newTheme.name);
-    theme = newTheme;
+  _loadSettings() async {
+    // Load theme
+    var themeName =
+        await SharedPrefsStorage.getString('theme') ?? ThemeMode.system.name;
+    theme = ThemeMode.values.firstWhere((e) => e.name == themeName);
+
+    notifyListeners();
+  }
+
+  void setTheme(ThemeMode value) async {
+    SharedPrefsStorage.setString('theme', value.name);
+    theme = value;
     notifyListeners();
   }
 }

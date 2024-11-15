@@ -145,7 +145,8 @@ class TransmissionEngine implements Engine {
       TorrentField.totalSize,
       TorrentField.rateDownload,
       TorrentField.rateUpload,
-      TorrentField.labels
+      TorrentField.labels,
+      TorrentField.addedDate
     ]));
     String res = await flutter_libtransmission
         .requestAsync(jsonEncode(torrentGetRequest));
@@ -162,7 +163,8 @@ class TransmissionEngine implements Engine {
             size: torrent.totalSize,
             rateDownload: torrent.rateDownload,
             rateUpload: torrent.rateUpload,
-            labels: torrent.labels))
+            labels: torrent.labels,
+            addedDate: torrent.addedDate))
         .toList();
   }
 

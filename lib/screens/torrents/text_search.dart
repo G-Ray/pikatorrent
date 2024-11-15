@@ -12,8 +12,6 @@ class TextSearch extends StatefulWidget {
 class _TextSearchState extends State<TextSearch> {
   final _filterController = TextEditingController();
 
-  String filterText = '';
-
   @override
   void initState() {
     super.initState();
@@ -31,16 +29,18 @@ class _TextSearchState extends State<TextSearch> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: _filterController,
-
       decoration: InputDecoration(
         labelText: 'Filter',
+        border: InputBorder.none,
         prefixIcon: const Icon(Icons.search),
-        suffixIcon: IconButton(
-          icon: const Icon(Icons.clear),
-          onPressed: () {
-            _filterController.clear();
-          },
-        ),
+        suffixIcon: _filterController.text.isNotEmpty
+            ? IconButton(
+                icon: const Icon(Icons.clear),
+                onPressed: () {
+                  _filterController.clear();
+                },
+              )
+            : null,
       ),
     );
   }

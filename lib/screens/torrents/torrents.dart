@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fuzzywuzzy/fuzzywuzzy.dart';
 import 'package:pikatorrent/dialogs/remove_torrent.dart';
 import 'package:pikatorrent/engine/torrent.dart';
 import 'package:pikatorrent/models/torrents.dart';
+import 'package:pikatorrent/screens/torrents/sort_button.dart';
 import 'package:pikatorrent/screens/torrents/text_search.dart';
 import 'package:pikatorrent/screens/torrents/torrent_list_tile.dart';
 import 'package:pikatorrent/utils/device.dart';
@@ -27,19 +27,6 @@ class TorrentsScreen extends StatefulWidget {
 class _TorrentScreen extends State<TorrentsScreen>
     with SingleTickerProviderStateMixin {
   late final controller = SlidableController(this);
-  String filterText = '';
-
-  filterTorrents (List<Torrent> torrents) {
-    return filterText.isNotEmpty
-        ? extractAllSorted(
-        query: filterText,
-        choices: torrents.toList(),
-        getter: (t) => t.name!,
-        cutoff: 60)
-        .map((result) => torrents[result.index])
-        .toList()
-        : torrents;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,25 +49,26 @@ class _TorrentScreen extends State<TorrentsScreen>
           // return downloadSvg;
         }
 
-        var filteredTorrents = filterTorrents(torrentsModel.torrents);
-
         return Column(
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: TextSearch(
-                  onChange: (text) => {
-                        setState(() {
-                          filterText = text;
-                        })
-                      }),
+              child: Row(
+                children: [
+                  const SortButton(),
+                  Expanded(
+                      child: TextSearch(
+                    onChange: torrentsModel.setFilterText,
+                  )),
+                ],
+              ),
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: filteredTorrents.length,
+                itemCount: torrentsModel.displayedTorrents.length,
                 // FIXME: add prototypeItem to improve perfs.
                 itemBuilder: (context, index) {
-                  Torrent torrent = filteredTorrents[index];
+                  Torrent torrent = torrentsModel.displayedTorrents[index];
                   final percent = (torrent.progress ?? 0) * 100;
 
                   if (isMobileSize(context)) {
@@ -119,5 +107,3 @@ class _TorrentScreen extends State<TorrentsScreen>
     );
   }
 }
-
-

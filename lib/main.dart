@@ -93,17 +93,16 @@ void main() async {
 
   engine.init();
 
-  final prefs = await SharedPreferences.getInstance();
-  var themeName = prefs.getString('theme') ?? ThemeMode.system.name;
-  var theme = ThemeMode.values.firstWhere((e) => e.name == themeName);
+  // Load initial theme
+  // final prefs = await SharedPreferences.getInstance();
+  // var themeName = prefs.getString('theme') ?? ThemeMode.system.name;
+  // var theme = ThemeMode.values.firstWhere((e) => e.name == themeName);
 
-  runApp(PikaTorrent(theme: theme));
+  runApp(const PikaTorrent());
 }
 
 class PikaTorrent extends StatefulWidget {
-  final ThemeMode theme;
-
-  const PikaTorrent({super.key, required this.theme});
+  const PikaTorrent({super.key});
 
   @override
   State<PikaTorrent> createState() => _PikaTorrent();
@@ -120,7 +119,7 @@ class _PikaTorrent extends State<PikaTorrent> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => AppModel(widget.theme)),
+        ChangeNotifierProvider(create: (context) => AppModel()),
         ChangeNotifierProvider(create: (context) => TorrentsModel()),
         ChangeNotifierProvider(create: (context) => SessionModel())
       ],

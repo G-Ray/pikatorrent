@@ -60,9 +60,9 @@ class _TorrentDetailsModalSheetContentState
           child: Column(children: [
             const TabBar(
               tabs: [
-                Tab(text: 'Files', icon: Icon(Icons.file_copy_outlined)),
-                Tab(text: 'Labels', icon: Icon(Icons.label_outlined)),
-                Tab(text: 'Details', icon: Icon(Icons.description_outlined)),
+                Tab(text: 'Files'),
+                Tab(text: 'Labels'),
+                Tab(text: 'Details'),
               ],
             ),
             Expanded(
