@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -8,11 +9,11 @@ import 'package:pikatorrent/models/app.dart';
 import 'package:pikatorrent/models/session.dart';
 import 'package:pikatorrent/models/torrents.dart';
 import 'package:pikatorrent/navigation/navigation.dart';
+import 'package:pikatorrent/platforms/android/foreground_service.dart';
 import 'package:pikatorrent/screens/settings/settings.dart';
 import 'package:pikatorrent/screens/torrents/torrents.dart';
 import 'package:pikatorrent/utils/device.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yaru/yaru.dart';
 
 final lightColorScheme = ColorScheme.fromSeed(
@@ -86,17 +87,17 @@ final _router = GoRouter(
 Engine engine = TransmissionEngine();
 
 void main() async {
+  debugPrint('main');
   if (isDesktop()) {
     await YaruWindowTitleBar.ensureInitialized();
   }
   WidgetsFlutterBinding.ensureInitialized();
 
-  engine.init();
+  if (Platform.isAndroid) {
+    createForegroundService();
+  }
 
-  // Load initial theme
-  // final prefs = await SharedPreferences.getInstance();
-  // var themeName = prefs.getString('theme') ?? ThemeMode.system.name;
-  // var theme = ThemeMode.values.firstWhere((e) => e.name == themeName);
+  engine.init();
 
   runApp(const PikaTorrent());
 }
