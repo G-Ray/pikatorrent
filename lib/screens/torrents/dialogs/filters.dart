@@ -38,17 +38,19 @@ class _FiltersDialogState extends State<FiltersDialog> {
     return Consumer<TorrentsModel>(builder: (context, torrentsModel, child) {
       return AlertDialog(
         title: const Text('Filters'),
-        content: Wrap(
-            spacing: 8.0, // gap between adjacent chips
-            runSpacing: 4.0,
-            children: [
-              ...torrentsModel.labels.map((String label) => FilterChip(
-                    label: Text(label),
-                    selected: filters.labels.contains(label),
-                    onSelected: (bool selected) =>
-                        handleFilterChipSelected(selected, label),
-                  ))
-            ]),
+        content: torrentsModel.labels.isEmpty
+            ? const Text('No labels added yet. Try adding labels to a torrent.')
+            : Wrap(
+                spacing: 8.0, // gap between adjacent chips
+                runSpacing: 4.0,
+                children: [
+                    ...torrentsModel.labels.map((String label) => FilterChip(
+                          label: Text(label),
+                          selected: filters.labels.contains(label),
+                          onSelected: (bool selected) =>
+                              handleFilterChipSelected(selected, label),
+                        ))
+                  ]),
         actions: <Widget>[
           TextButton(
             child: const Text('Cancel'),
