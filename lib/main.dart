@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -87,33 +86,22 @@ final _router = GoRouter(
 Engine engine = TransmissionEngine();
 
 void main() async {
-  debugPrint('main');
   if (isDesktop()) {
     await YaruWindowTitleBar.ensureInitialized();
   }
   WidgetsFlutterBinding.ensureInitialized();
 
+  engine.init();
+
   if (Platform.isAndroid) {
     createForegroundService();
   }
 
-  engine.init();
-
   runApp(const PikaTorrent());
 }
 
-class PikaTorrent extends StatefulWidget {
+class PikaTorrent extends StatelessWidget {
   const PikaTorrent({super.key});
-
-  @override
-  State<PikaTorrent> createState() => _PikaTorrent();
-}
-
-class _PikaTorrent extends State<PikaTorrent> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   // App root
   @override

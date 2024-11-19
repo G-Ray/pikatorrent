@@ -1,9 +1,9 @@
+import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pikatorrent/dialogs/add_torrent.dart';
 import 'package:pikatorrent/navigation/add_torrent_button.dart';
 import 'package:pikatorrent/utils/device.dart';
-import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:yaru/widgets.dart';
 
 class Destination {
@@ -36,6 +36,40 @@ class Navigation extends StatefulWidget {
 class _Navigation extends State<Navigation> {
   int screenIndex = 0;
   late bool showNavigationRail;
+  late AppLinks _appLinks;
+
+  @override
+  void initState() {
+    super.initState();
+    _initAppLinks();
+  }
+
+  _initAppLinks() {
+    _appLinks = AppLinks();
+    _appLinks.uriLinkStream.listen((uri) async {
+      var uriString = uri.toString();
+
+      if (uriString.startsWith('magnet:')) {
+        _openTorrentDialog(uriString, null);
+      } else if (uriString.startsWith('content://') ||
+          uriString.startsWith('file://')) {
+        _openTorrentDialog(null, uriString);
+      }
+    });
+  }
+
+  _openTorrentDialog(String? initialMagnetLink, String? initialContentPath) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AddTorrentDialog(
+              initialMagnetLink: initialMagnetLink,
+              initialContentPath: initialContentPath,
+            );
+          });
+    });
+  }
 
   void _handleNavigationBarDestinationSelected(int selectedIndex) {
     if (selectedIndex == 0) {

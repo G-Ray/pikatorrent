@@ -1,10 +1,7 @@
 import 'package:pikatorrent/engine/session.dart';
 import 'package:pikatorrent/engine/torrent.dart';
 
-enum TorrentAddedResponse {
-  added,
-  duplicated
-}
+enum TorrentAddedResponse { added, duplicated }
 
 class TorrentAddError extends Error {}
 
@@ -17,7 +14,8 @@ abstract interface class Engine {
   void dispose();
 
   // Add a torrent
-  Future<TorrentAddedResponse> addTorrent(String filename, String? downloadDir);
+  Future<TorrentAddedResponse> addTorrent(
+      String? filename, String? metainfo, String? downloadDir);
 
   // Fetch all torrents
   Future<List<Torrent>> fetchTorrents();
@@ -25,7 +23,7 @@ abstract interface class Engine {
   // Fetch a torrent details
   Future<Torrent> fetchTorrentDetails(int id);
 
-    // Fetch session information (e.g. default download directory)
+  // Fetch session information (e.g. default download directory)
   Future<Session> fetchSession();
 
   // Reset torrents engine settings

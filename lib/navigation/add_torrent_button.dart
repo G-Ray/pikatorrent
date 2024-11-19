@@ -12,7 +12,7 @@ class AddTorrentButton extends StatelessWidget {
         showDialog(
             context: context,
             builder: (BuildContext context) {
-              return AddTorrentDialog(context: context);
+              return const AddTorrentDialog();
             });
       },
       tooltip: 'Add Torrent',

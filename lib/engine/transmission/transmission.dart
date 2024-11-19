@@ -114,10 +114,10 @@ class TransmissionEngine implements Engine {
 
   @override
   Future<TorrentAddedResponse> addTorrent(
-      String filename, String? downloadDir) async {
+      String? filename, String? metainfo, String? downloadDir) async {
     var torrentAddRequest = TorrentAddRequest(
         arguments: TorrentAddRequestArguments(
-            filename: filename, downloadDir: downloadDir));
+            filename: filename, metainfo: metainfo, downloadDir: downloadDir));
     var jsonResponse = await flutter_libtransmission
         .requestAsync(jsonEncode(torrentAddRequest));
     TorrentAddResponse response =

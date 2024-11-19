@@ -54,6 +54,8 @@ dependencies:
   handy_window: ^0.4.0
   fuzzywuzzy: ^1.2.0
   flutter_local_notifications: ^18.0.1
+  app_links: ^6.3.2
+  content_resolver: ^0.3.2
 
 dev_dependencies:
   flutter_test:
