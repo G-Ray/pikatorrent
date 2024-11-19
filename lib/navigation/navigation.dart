@@ -36,39 +36,10 @@ class Navigation extends StatefulWidget {
 class _Navigation extends State<Navigation> {
   int screenIndex = 0;
   late bool showNavigationRail;
-  late AppLinks _appLinks;
 
   @override
   void initState() {
     super.initState();
-    _initAppLinks();
-  }
-
-  _initAppLinks() {
-    _appLinks = AppLinks();
-    _appLinks.uriLinkStream.listen((uri) async {
-      var uriString = uri.toString();
-
-      if (uriString.startsWith('magnet:')) {
-        _openTorrentDialog(uriString, null);
-      } else if (uriString.startsWith('content://') ||
-          uriString.startsWith('file://')) {
-        _openTorrentDialog(null, uriString);
-      }
-    });
-  }
-
-  _openTorrentDialog(String? initialMagnetLink, String? initialContentPath) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AddTorrentDialog(
-              initialMagnetLink: initialMagnetLink,
-              initialContentPath: initialContentPath,
-            );
-          });
-    });
   }
 
   void _handleNavigationBarDestinationSelected(int selectedIndex) {
@@ -126,7 +97,11 @@ class _Navigation extends State<Navigation> {
   // Mobile Navigation
   Widget buildBottomBarScaffold(BuildContext context) {
     return Scaffold(
-      appBar: isDesktop() ? buildWindowTitleBar(context) : null,
+      appBar: isDesktop()
+          ? buildWindowTitleBar(context)
+          : AppBar(
+              toolbarHeight: 0,
+            ),
       body: Column(children: [
         Expanded(child: widget.child),
         const Divider(thickness: 1, height: 1)
@@ -164,34 +139,39 @@ class _Navigation extends State<Navigation> {
 
   // Desktop Navigation
   Widget buildNavigationRailScaffold(BuildContext context) {
-    return Scaffold(
-      body: Row(
-        children: <Widget>[
-          NavigationRail(
-            leading: const Padding(
-              padding: EdgeInsets.symmetric(vertical: 2),
-              child: AddTorrentButton(),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          toolbarHeight: 0,
+        ),
+        body: Row(
+          children: <Widget>[
+            NavigationRail(
+              leading: const Padding(
+                padding: EdgeInsets.symmetric(vertical: 2),
+                child: AddTorrentButton(),
+              ),
+              destinations: destinations.map(
+                (Destination destination) {
+                  return NavigationRailDestination(
+                    label: Text(destination.label),
+                    icon: destination.icon,
+                    selectedIcon: destination.selectedIcon,
+                  );
+                },
+              ).toList(),
+              selectedIndex: _calculateNavigationRailSelectedIndex(context),
+              useIndicator: true,
+              onDestinationSelected: _handleNavigationRailDestinationSelected,
             ),
-            destinations: destinations.map(
-              (Destination destination) {
-                return NavigationRailDestination(
-                  label: Text(destination.label),
-                  icon: destination.icon,
-                  selectedIcon: destination.selectedIcon,
-                );
-              },
-            ).toList(),
-            selectedIndex: _calculateNavigationRailSelectedIndex(context),
-            useIndicator: true,
-            onDestinationSelected: _handleNavigationRailDestinationSelected,
-          ),
-          const VerticalDivider(thickness: 1, width: 1),
-          Expanded(
-              child: Column(children: [
-            if (isDesktop()) buildWindowTitleBar(context),
-            Expanded(child: widget.child)
-          ]))
-        ],
+            const VerticalDivider(thickness: 1, width: 1),
+            Expanded(
+                child: Column(children: [
+              if (isDesktop()) buildWindowTitleBar(context),
+              Expanded(child: widget.child)
+            ]))
+          ],
+        ),
       ),
     );
   }

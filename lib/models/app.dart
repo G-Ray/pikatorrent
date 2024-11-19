@@ -3,6 +3,8 @@ import 'package:pikatorrent/storage/shared_preferences.dart';
 
 class AppModel extends ChangeNotifier {
   ThemeMode theme = ThemeMode.system;
+  bool termsOfUseAccepted = false;
+  bool loaded = false;
 
   AppModel() {
     _loadSettings();
@@ -10,9 +12,14 @@ class AppModel extends ChangeNotifier {
 
   _loadSettings() async {
     // Load theme
-    var themeName =
+    final themeName =
         await SharedPrefsStorage.getString('theme') ?? ThemeMode.system.name;
     theme = ThemeMode.values.firstWhere((e) => e.name == themeName);
+    // Load terms of use status
+    termsOfUseAccepted =
+        await SharedPrefsStorage.getBool('termsOfUseAccepted') ??
+            termsOfUseAccepted;
+    loaded = true;
 
     notifyListeners();
   }
@@ -20,6 +27,12 @@ class AppModel extends ChangeNotifier {
   void setTheme(ThemeMode value) async {
     SharedPrefsStorage.setString('theme', value.name);
     theme = value;
+    notifyListeners();
+  }
+
+  void setTermsOfUseAccepted(bool value) async {
+    SharedPrefsStorage.setBool('termsOfUseAccepted', value);
+    termsOfUseAccepted = value;
     notifyListeners();
   }
 }
