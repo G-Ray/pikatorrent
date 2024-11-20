@@ -23,16 +23,19 @@ class FilesTab extends StatelessWidget {
 
         var percent = (file.bytesCompleted / file.length).floor() * 100;
 
+        var completed = file.bytesCompleted == file.length;
+
         return ListTile(
-          title: Text(file.name),
-          subtitle: Text(
-              '${percent.toString()}% • ${prettyBytes(file.length.toDouble())}'),
-          onTap: file.bytesCompleted == file.length
-              ? () {
-                  _openFile(file.name);
-                }
-              : null, // TODO: display toast because the file is not complete yet
-        );
+            enabled: completed,
+            leading: Tooltip(
+                message: 'Download file',
+                child: Checkbox(
+                    value: true,
+                    onChanged: completed ? null : (bool? changed) {})),
+            title: Text(file.name),
+            subtitle: Text(
+                '${percent.toString()}% • ${prettyBytes(file.length.toDouble())}'),
+            onTap: () => _openFile(file.name));
       },
     );
   }

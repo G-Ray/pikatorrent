@@ -3,8 +3,8 @@ import 'package:pikatorrent/models/torrents.dart';
 import 'package:pikatorrent/screens/torrents/dialogs/filters.dart';
 import 'package:provider/provider.dart';
 
-class FilterLabelButton extends StatelessWidget {
-  const FilterLabelButton({super.key});
+class FilterLabelsButton extends StatelessWidget {
+  const FilterLabelsButton({super.key});
 
   _handleButtonClick(BuildContext context) {
     showDialog<void>(

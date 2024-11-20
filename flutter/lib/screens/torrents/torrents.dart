@@ -57,7 +57,7 @@ class _TorrentScreen extends State<TorrentsScreen>
               child: Row(
                 children: [
                   const SortButton(),
-                  const FilterLabelButton(),
+                  const FilterLabelsButton(),
                   const Spacer(),
                   TextSearch(
                     onChange: torrentsModel.setFilterText,

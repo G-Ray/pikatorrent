@@ -148,7 +148,7 @@ class _Navigation extends State<Navigation> {
           children: <Widget>[
             NavigationRail(
               leading: const Padding(
-                padding: EdgeInsets.symmetric(vertical: 2),
+                padding: EdgeInsets.symmetric(vertical: 4),
                 child: AddTorrentButton(),
               ),
               destinations: destinations.map(
