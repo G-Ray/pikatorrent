@@ -6,6 +6,16 @@ A modern, simple, connected, and electric BitTorrent app ⚡
   <img src="https://img.shields.io/badge/Join_us_on_discord-gray?logo=discord" />
 </a>
 
+## ⚠️ Project status
+
+PikaTorrent is currently being rewritten with [Flutter](https://flutter.dev/). The codebase will greatly change and old implementation will be retired.
+
+Flutter targets mobile & desktop. It allows me to focus on developing the app instead of continuously fight with the stack for each target (React Native/Electron/Node.js/Tamagui, and WebRTC implementations).
+
+Remote control and CLI will no longer be available from next releases. Anyway, the UX was not great, it was not always working correctly, and it's a niche feature. It might come back later though, maybe.
+
+PikaTorrent will now focus on providing a greater and consistent torrent experience on Mobile & Desktop, even for Apple devices 🤞.
+
 ## Installation
 
 ### Desktop & mobile
