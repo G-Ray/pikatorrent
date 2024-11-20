@@ -88,6 +88,8 @@ class _AddTorrentDialogState extends State<AddTorrentDialog> {
         backgroundColor: Colors.orange,
       ));
     }
+
+    Navigator.of(context).pop();
   }
 
   void _handleSelectTorrentFile(context) async {
@@ -216,7 +218,6 @@ class _AddTorrentDialogState extends State<AddTorrentDialog> {
               ? () {
                   if (_formKey.currentState!.validate()) {
                     _handleAddTorrent(context);
-                    Navigator.of(context).pop();
                   }
                 }
               : null,
