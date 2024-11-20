@@ -9,20 +9,29 @@ class TorrentSetRequest {
 }
 
 class TorrentSetRequestArguments {
-  final List<int>? ids;
+  final List<int> ids;
   final List<String>? labels;
+  final List<int>? filesWanted;
+  final List<int>? filesUnwanted;
 
-  TorrentSetRequestArguments({this.ids, required this.labels});
+  TorrentSetRequestArguments(
+      {required this.ids, this.labels, this.filesWanted, this.filesUnwanted});
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
 
-    if (ids != null) {
-      json['ids'] = ids;
-    }
+    json['ids'] = ids;
 
     if (labels != null) {
       json['labels'] = labels;
+    }
+
+    if (filesWanted != null) {
+      json['files-wanted'] = filesWanted;
+    }
+
+    if (filesUnwanted != null) {
+      json['files-unwanted'] = filesUnwanted;
     }
 
     return json;

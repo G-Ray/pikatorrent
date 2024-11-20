@@ -20,6 +20,7 @@ import 'package:pikatorrent/engine/transmission/models/torrent_get_response.dart
 import 'package:pikatorrent/engine/transmission/models/torrent_remove_request.dart';
 import 'package:path/path.dart' as path;
 import 'package:pikatorrent/engine/transmission/models/torrent_set_request.dart';
+import 'package:collection/collection.dart';
 
 Future<Directory> getConfigDir() async {
   final configDir =
@@ -80,6 +81,25 @@ class TransmissionTorrent extends Torrent {
     var request = TorrentSetRequest(
         arguments:
             TorrentSetRequestArguments(ids: [id], labels: torrent.labels));
+    await flutter_libtransmission.requestAsync(jsonEncode(request));
+  }
+
+  @override
+  Future toggleFileWanted(int fileIndex, bool wanted) async {
+    List<int> filesWanted = [];
+    List<int> filesUnwanted = [];
+
+    files?.forEachIndexed((index, file) {
+      if (index == fileIndex) {
+        return wanted ? filesWanted.add(index) : filesUnwanted.add(index);
+      }
+
+      return file.wanted ? filesWanted.add(index) : filesUnwanted.add(index);
+    });
+
+    var request = TorrentSetRequest(
+        arguments: TorrentSetRequestArguments(
+            ids: [id], filesWanted: filesWanted, filesUnwanted: filesUnwanted));
     await flutter_libtransmission.requestAsync(jsonEncode(request));
   }
 }
@@ -193,7 +213,7 @@ class TransmissionEngine implements Engine {
       TorrentField.comment,
       TorrentField.creator,
       TorrentField.files,
-      TorrentField.filesStats,
+      TorrentField.fileStats,
       TorrentField.labels,
       TorrentField.peersConnected
     ]));
@@ -225,11 +245,13 @@ class TransmissionEngine implements Engine {
             comment: torrent.comment,
             creator: torrent.creator,
             files: torrent.files
-                ?.map((file) => torrentFile.File(
-                    name: file.name,
-                    length: file.length,
-                    bytesCompleted: file.bytesCompleted,
-                    wanted: true))
+                ?.asMap()
+                .entries
+                .map((entry) => torrentFile.File(
+                    name: entry.value.name,
+                    length: entry.value.length,
+                    bytesCompleted: entry.value.bytesCompleted,
+                    wanted: torrent.fileStats![entry.key].wanted))
                 .toList(),
             labels: torrent.labels,
             peersConnected: torrent.peersConnected))

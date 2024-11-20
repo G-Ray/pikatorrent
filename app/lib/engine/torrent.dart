@@ -74,4 +74,6 @@ abstract class Torrent extends TorrentBase {
 
   // Update torrent data
   Future update(TorrentBase torrent);
+
+  Future toggleFileWanted(int fileIndex, bool wanted);
 }

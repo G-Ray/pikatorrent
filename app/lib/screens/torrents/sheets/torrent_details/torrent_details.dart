@@ -69,7 +69,7 @@ class _TorrentDetailsModalSheetContentState
               child: TabBarView(
                 children: [
                   FilesTab(
-                    files: widget.torrentModel.torrent!.files!,
+                    torrent: widget.torrentModel.torrent!,
                     location: widget.torrentModel.torrent!.location!,
                   ),
                   LabelsTab(torrent: widget.torrentModel.torrent!),
