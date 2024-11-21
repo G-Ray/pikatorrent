@@ -52,10 +52,23 @@ class TorrentListTile extends StatelessWidget {
             )),
           ]),
         ),
-        title: Text(torrent.name ?? '-',
-            overflow: TextOverflow.ellipsis,
-            maxLines: 1,
-            style: const TextStyle(fontWeight: FontWeight.bold)),
+        title: Row(
+          children: [
+            if (torrent.errorString!.isNotEmpty)
+              const Row(
+                children: [
+                  Icon(Icons.warning_amber, size: 16,color: Colors.orange),
+                  SizedBox(width: 2,)
+                ],
+              ),
+            Expanded(
+              child: Text(torrent.name ?? '-',
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: const TextStyle(fontWeight: FontWeight.bold)),
+            ),
+          ],
+        ),
         trailing: (!isMobileSize(context))
             ? IconButton(
                 tooltip: 'Remove',
