@@ -29,7 +29,7 @@ createForegroundService() async {
       ?.requestNotificationsPermission();
 
   const initializationSettings = InitializationSettings(
-      android: AndroidInitializationSettings('app_icon'));
+      android: AndroidInitializationSettings('ic_stat_name'));
 
   await flutterLocalNotificationsPlugin.initialize(initializationSettings,
       onDidReceiveNotificationResponse: onDidReceiveNotificationResponse);
