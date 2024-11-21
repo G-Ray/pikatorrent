@@ -58,7 +58,14 @@ void main() async {
   engine.init();
 
   if (Platform.isAndroid) {
-    createForegroundService();
+    try {
+      await createForegroundService();
+    } catch (e) {
+      // Android does not allow to start a foreground service
+      // while app is in background. This can happen in development
+      // when live reloading.
+      debugPrint(e.toString());
+    }
   }
 
   runApp(const PikaTorrent());
