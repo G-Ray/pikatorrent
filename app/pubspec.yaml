@@ -56,6 +56,8 @@ dependencies:
   flutter_local_notifications: ^18.0.1
   app_links: ^6.3.2
   content_resolver: ^0.3.2
+  permission_handler: ^11.3.1
+  external_path: ^2.0.1
 
 dev_dependencies:
   flutter_test:

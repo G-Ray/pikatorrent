@@ -8,7 +8,7 @@ class TorrentAddError extends Error {}
 /// BitTorrent engine abstraction.
 abstract interface class Engine {
   // Initialise the engine
-  void init();
+  Future init();
 
   // Dispose the engine
   void dispose();

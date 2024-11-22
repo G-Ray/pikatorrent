@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:pikatorrent/engine/session.dart';
 import 'package:pikatorrent/main.dart';
@@ -121,7 +123,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               style: Theme.of(context).textTheme.titleLarge),
         ),
         ListTile(
-            onTap: () => handlePickFolder(context),
+            onTap: Platform.isAndroid ? null : () => handlePickFolder(context),
             leading: const Icon(Icons.folder_open),
             title: const Text('Download directory'),
             subtitle: Text(downloadDir)),

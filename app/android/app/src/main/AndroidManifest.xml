@@ -3,10 +3,21 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
 
+    <!--
+        To stay compatible with Android <= 10, we request WRITE_EXTERNAL_STORAGE,
+        and opt-out of scoped storage
+        https://developer.android.com/training/data-storage/use-cases#access-file-paths
+    -->
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="29" />
+
+    <!-- Opt-out of scoped storage for Android <= 10 -->
     <application
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        android:label="PikaTorrent">
+        android:label="PikaTorrent"
+        android:requestLegacyExternalStorage="true">
         <service
             android:name="com.dexterous.flutterlocalnotifications.ForegroundService"
             android:exported="false"
@@ -43,13 +54,16 @@
             <!-- Handle magnet:// links -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="magnet" />
             </intent-filter>
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 

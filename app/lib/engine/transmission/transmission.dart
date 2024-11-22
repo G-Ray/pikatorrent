@@ -21,6 +21,7 @@ import 'package:pikatorrent/engine/transmission/models/torrent_remove_request.da
 import 'package:path/path.dart' as path;
 import 'package:pikatorrent/engine/transmission/models/torrent_set_request.dart';
 import 'package:collection/collection.dart';
+import 'package:pikatorrent/platforms/android/default_session.dart';
 
 Future<Directory> getConfigDir() async {
   final configDir =
@@ -122,9 +123,12 @@ class TransmissionSession extends Session {
 
 class TransmissionEngine implements Engine {
   @override
-  void init() async {
+  init() async {
     final configDir = await getConfigDir();
     flutter_libtransmission.initSession(configDir.path, 'transmission');
+    if (Platform.isAndroid) {
+      await initDefaultDownloadDir(this);
+    }
   }
 
   @override

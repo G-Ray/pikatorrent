@@ -1,7 +1,5 @@
-import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pikatorrent/dialogs/add_torrent.dart';
 import 'package:pikatorrent/navigation/add_torrent_button.dart';
 import 'package:pikatorrent/utils/device.dart';
 import 'package:yaru/widgets.dart';
