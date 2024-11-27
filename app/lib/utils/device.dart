@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 
 bool isMobileSize(BuildContext context) {
@@ -64,7 +65,8 @@ void showDeviceSheet(BuildContext context, String title, Widget child) {
                                 padding: const EdgeInsets.symmetric(
                                     vertical: 16.0, horizontal: 16.0),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Expanded(
                                       child: Text(title,
@@ -86,4 +88,10 @@ void showDeviceSheet(BuildContext context, String title, Widget child) {
               ));
         });
   }
+}
+
+Future<int> getAndroidSdkVersion() async {
+  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+  AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+  return androidInfo.version.sdkInt;
 }

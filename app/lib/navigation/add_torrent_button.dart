@@ -10,7 +10,9 @@ class AddTorrentButton extends StatelessWidget {
   const AddTorrentButton({super.key});
 
   _handleClick(BuildContext context) async {
-    if (Platform.isAndroid && await Permission.storage.isGranted == false) {
+    if (Platform.isAndroid &&
+        (await getAndroidSdkVersion()) <= 29 &&
+        await Permission.storage.isGranted == false) {
       var isPermanentlyDenied = await Permission.storage.isPermanentlyDenied;
       if (context.mounted) {
         // Request storage permissions
