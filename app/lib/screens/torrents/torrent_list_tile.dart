@@ -57,8 +57,10 @@ class TorrentListTile extends StatelessWidget {
             if (torrent.errorString!.isNotEmpty)
               const Row(
                 children: [
-                  Icon(Icons.warning_amber, size: 16,color: Colors.orange),
-                  SizedBox(width: 2,)
+                  Icon(Icons.warning_amber, size: 16, color: Colors.orange),
+                  SizedBox(
+                    width: 2,
+                  )
                 ],
               ),
             Expanded(
@@ -104,12 +106,15 @@ class TorrentListTile extends StatelessWidget {
                 color: Colors.lightGreen,
               ),
               const SizedBox(width: 8),
-              Text(
-                  torrent.rateDownload != null
-                      ? '${prettyBytes(torrent.rateDownload!.toDouble())}/s'
-                      : '-',
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 12)),
+              Expanded(
+                child: Text(
+                    overflow: TextOverflow.ellipsis,
+                    torrent.rateDownload != null
+                        ? '${prettyBytes(torrent.rateDownload!.toDouble())}/s'
+                        : '-',
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 12)),
+              ),
             ]),
           ),
           Expanded(
@@ -120,12 +125,15 @@ class TorrentListTile extends StatelessWidget {
                 color: Colors.lightBlue,
               ),
               const SizedBox(width: 8),
-              Text(
-                  torrent.rateUpload != null
-                      ? '${prettyBytes(torrent.rateUpload!.toDouble())}/s'
-                      : '-',
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 12))
+              Expanded(
+                child: Text(
+                    overflow: TextOverflow.ellipsis,
+                    torrent.rateUpload != null
+                        ? '${prettyBytes(torrent.rateUpload!.toDouble())}/s'
+                        : '-',
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 12)),
+              )
             ]),
           ),
         ]),
