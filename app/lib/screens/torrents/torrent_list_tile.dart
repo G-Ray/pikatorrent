@@ -79,8 +79,10 @@ class TorrentListTile extends StatelessWidget {
                     builder: (BuildContext context) {
                       return RemoveTorrentDialog(torrent: torrent);
                     }),
+                // Rouge au survol
                 icon: const Icon(
-                  Icons.remove_circle_outline,
+                  Icons.delete_outline,
+                  // color: Colors.red
                 ))
             : null,
 

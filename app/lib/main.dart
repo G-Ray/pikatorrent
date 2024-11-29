@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:pikatorrent/engine/engine.dart';
 import 'package:pikatorrent/engine/transmission/transmission.dart';
 import 'package:pikatorrent/models/app.dart';

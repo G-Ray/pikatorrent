@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class ResetTorrentsSettingsDialog extends StatelessWidget {
   final Function onOK;

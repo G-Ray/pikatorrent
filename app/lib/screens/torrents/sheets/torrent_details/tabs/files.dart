@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pikatorrent/engine/file.dart';
 import 'package:pikatorrent/engine/torrent.dart';
-import 'package:pikatorrent/main.dart';
 import 'package:pikatorrent/models/torrents.dart';
 import 'package:pikatorrent/screens/torrents/sheets/torrent_details/models/torrent.dart';
 import 'package:pretty_bytes/pretty_bytes.dart';

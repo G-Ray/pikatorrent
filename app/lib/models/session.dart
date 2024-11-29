@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:pikatorrent/engine/session.dart';
-import 'package:pikatorrent/engine/torrent.dart';
 import 'package:pikatorrent/main.dart';
 
 const refreshIntervalSeconds = 5;

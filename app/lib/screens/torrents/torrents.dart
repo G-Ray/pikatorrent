@@ -78,17 +78,16 @@ class _TorrentScreen extends State<TorrentsScreen>
                       key: Key(index.toString()),
                       endActionPane: ActionPane(
                         motion: const ScrollMotion(),
-                        extentRatio: 0.3,
+                        extentRatio: 0.2,
                         children: [
                           SlidableAction(
-                            backgroundColor:
-                                Theme.of(context).colorScheme.surface,
+                            backgroundColor: Colors.red,
                             onPressed: (_) => showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
                                   return RemoveTorrentDialog(torrent: torrent);
                                 }),
-                            icon: Icons.remove_circle_outline,
+                            icon: Icons.delete_outline,
                           ),
                         ],
                       ),

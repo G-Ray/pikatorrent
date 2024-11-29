@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pikatorrent/engine/engine.dart';
-import 'package:pikatorrent/engine/torrent.dart';
-import 'package:pikatorrent/main.dart';
 import 'package:pikatorrent/models/app.dart';
-import 'package:pikatorrent/utils/device.dart';
 import 'package:provider/provider.dart';
 
 class TermsOfUseDialog extends StatelessWidget {
