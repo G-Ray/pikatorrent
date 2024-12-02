@@ -1,4 +1,4 @@
-package com.gray.pikatorrent.pikatorrent
+package com.gray.pikatorrent
 
 import android.os.Bundle
 import io.flutter.embedding.android.FlutterActivity
