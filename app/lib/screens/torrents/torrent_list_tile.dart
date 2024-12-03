@@ -26,6 +26,8 @@ class TorrentListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<TorrentsModel>(builder: (context, torrentsModel, child) {
       return ListTile(
+        contentPadding:
+            !isMobileSize(context) ? const EdgeInsets.only(left: 16, right: 16) : null,
         onTap: () {
           showDeviceSheet(context, torrent.name ?? 'Torrent details',
               TorrentDetailsModalSheet(id: torrent.id));
