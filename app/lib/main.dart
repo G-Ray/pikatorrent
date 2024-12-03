@@ -25,8 +25,11 @@ final darkColorScheme = ColorScheme.fromSeed(
 final _lightTheme = ThemeData(
     colorScheme: lightColorScheme,
     useMaterial3: true,
-    navigationBarTheme:
-        NavigationBarThemeData(backgroundColor: lightColorScheme.surface),
+    navigationBarTheme: const NavigationBarThemeData(
+        backgroundColor: Colors.transparent,
+        indicatorColor: Colors.transparent),
+    navigationRailTheme:
+        const NavigationRailThemeData(indicatorColor: Colors.transparent),
     bottomSheetTheme:
         BottomSheetThemeData(backgroundColor: lightColorScheme.surface),
     chipTheme: ChipThemeData(
@@ -37,8 +40,11 @@ final _lightTheme = ThemeData(
 final _darkTheme = ThemeData(
     colorScheme: darkColorScheme,
     useMaterial3: true,
-    navigationBarTheme:
-        NavigationBarThemeData(backgroundColor: darkColorScheme.surface),
+    navigationBarTheme: const NavigationBarThemeData(
+        backgroundColor: Colors.transparent,
+        indicatorColor: Colors.transparent),
+    navigationRailTheme:
+        const NavigationRailThemeData(indicatorColor: Colors.transparent),
     bottomSheetTheme:
         BottomSheetThemeData(backgroundColor: darkColorScheme.surface),
     chipTheme: ChipThemeData(

@@ -13,11 +13,11 @@ class Destination {
 }
 
 const List<Destination> destinations = <Destination>[
-  Destination('Torrents', Icon(Icons.electric_bolt, size: 28),
-      Icon(Icons.electric_bolt, size: 28)),
+  Destination('Torrents', Icon(Icons.electric_bolt, size: 32),
+      Icon(Icons.electric_bolt, size: 32, color: Colors.yellow)),
   // Destination('Search', Icon(Icons.search_outlined), Icon(Icons.search)),
-  Destination('Settings', Icon(Icons.settings, size: 28),
-      Icon(Icons.settings, size: 28)),
+  Destination('Settings', Icon(Icons.settings, size: 32),
+      Icon(Icons.settings, size: 32, color: Colors.yellow)),
   // Destination(
   //     'About', Icon(Icons.question_mark_outlined), Icon(Icons.question_mark)),
 ];
