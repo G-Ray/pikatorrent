@@ -50,8 +50,14 @@ class FilesTab extends StatelessWidget {
                         : (bool? checked) =>
                             _handleWantedChange(context, index, checked))),
             title: Text(file.name),
-            subtitle: Text(
-                '${percent.toString()}% • ${prettyBytes(file.length.toDouble())}'),
+            subtitle: Row(
+              children: [
+                Text('${percent.toString()}%',
+                    style: TextStyle(
+                        color: percent == 100 ? Colors.lightGreen : null)),
+                Text(' • ${prettyBytes(file.length.toDouble())}')
+              ],
+            ),
             onTap: () => _openFile(file.name));
       },
     );
