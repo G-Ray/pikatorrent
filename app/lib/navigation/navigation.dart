@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pikatorrent/navigation/add_torrent_button.dart';
@@ -86,9 +88,9 @@ class _Navigation extends State<Navigation> {
     return YaruWindowTitleBar(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       border: BorderSide.none,
-      // FIXME: Depends of platform and gnome settings
-      isMaximizable: false,
-      isMinimizable: false,
+      // FIXME: Depends Gnome settings on Linux
+      isMaximizable: Platform.isWindows ? true : false,
+      isMinimizable:  Platform.isWindows ? true : false,
     );
   }
 
