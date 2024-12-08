@@ -22,6 +22,62 @@ jobs:
         with:
           name: pikatorrent-linux
           path: app/build/linux/x64/release/bundle/**/*
+
+  windows:
+    runs-on: windows-2022
+    env:
+      # Workaround for https://gitlab.kitware.com/cmake/cmake/-/issues/25936
+      TRANSMISSION_PREFIX: ${{ github.workspace }}/transmission-prefix
+      VCPKG_MANIFEST_DIR: ${{ github.workspace }}/app
+    defaults:
+      run:
+        working-directory: ./app
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+      - name: Set up vcpkg
+        uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgDirectory: ${{ github.workspace }}/app/vcpkg
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - run: flutter build windows
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pikatorrent-windows
+          path: app/build/windows/x64/runner/Release/**/*
+      
+  macos:
+    runs-on: macos-14
+    defaults:
+      run:
+        working-directory: ./app
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+      - name: Install dependencies
+        run: |
+          brew install ninja
+      - name: Set up vcpkg
+        uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgDirectory: ${{ github.workspace }}/app/vcpkg
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - run: flutter build macos
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pikatorrent-macos
+          path: app/build/macos/Build/Products/Release/*app
+
   android:
     runs-on: ubuntu-24.04
     env:
@@ -51,30 +107,3 @@ jobs:
         with:
           name: pikatorrent-android
           path: app/build/app/outputs/apk/release/app-release.apk
-  windows:
-    runs-on: windows-2022
-    env:
-      # Workaround for https://gitlab.kitware.com/cmake/cmake/-/issues/25936
-      TRANSMISSION_PREFIX: ${{ github.workspace }}/transmission-prefix
-      VCPKG_MANIFEST_DIR: ${{ github.workspace }}/app
-    defaults:
-      run:
-        working-directory: ./app
-    steps:
-      - name: Clone repository
-        uses: actions/checkout@v4
-        with:
-          submodules: true
-      - name: Set up vcpkg
-        uses: lukka/run-vcpkg@v11
-        with:
-          vcpkgDirectory: ${{ github.workspace }}/app/vcpkg
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: stable
-      - run: flutter build windows
-      - uses: actions/upload-artifact@v4
-        with:
-          name: pikatorrent-windows
-          path: app/build/windows/x64/runner/Release/**/*
