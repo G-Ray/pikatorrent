@@ -12,10 +12,9 @@ class ResetTorrentsSettingsDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Reset torrents settings'),
       content: const Column(
         mainAxisSize: MainAxisSize.min,
-        children: <Widget>[Text('All torrents settings will be reset. Torrents will be stopped and restarted.')],
+        children: <Widget>[Text('All torrents settings will be reset.')],
       ),
       actions: <Widget>[
         TextButton(
@@ -25,7 +24,7 @@ class ResetTorrentsSettingsDialog extends StatelessWidget {
           },
         ),
         TextButton(
-          child: const Text('OK'),
+          child: const Text('Reset'),
           onPressed: () {
             Navigator.of(context).pop();
             handleOK();

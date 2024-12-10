@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter_libtransmission/flutter_libtransmission.dart'
     as flutter_libtransmission;
 import 'package:path_provider/path_provider.dart';
-import 'package:pikatorrent/engine/file.dart' as torrentFile;
+import 'package:pikatorrent/engine/file.dart' as torrent_file;
 import 'package:pikatorrent/engine/engine.dart';
 import 'package:pikatorrent/engine/session.dart';
 import 'package:pikatorrent/engine/torrent.dart';
@@ -133,6 +133,7 @@ class TransmissionEngine implements Engine {
 
   @override
   void dispose() {
+    print('dispose');
     flutter_libtransmission.closeSession();
   }
 
@@ -254,7 +255,7 @@ class TransmissionEngine implements Engine {
             files: torrent.files
                 ?.asMap()
                 .entries
-                .map((entry) => torrentFile.File(
+                .map((entry) => torrent_file.File(
                     name: entry.value.name,
                     length: entry.value.length,
                     bytesCompleted: entry.value.bytesCompleted,
@@ -288,15 +289,6 @@ class TransmissionEngine implements Engine {
 
   @override
   Future resetSettings() async {
-    // Close transmission session
-    dispose();
-    // Delete settings.json
-    final settingsFilePath =
-        path.join((await getConfigDir()).path, 'settings.json');
-    File settingsFile = File(settingsFilePath);
-    // Delete settings file
-    settingsFile.deleteSync();
-    // Re-init transmission
-    init();
+    flutter_libtransmission.resetSettings();
   }
 }

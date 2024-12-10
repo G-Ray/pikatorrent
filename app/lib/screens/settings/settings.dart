@@ -102,8 +102,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Consumer2<AppModel, SessionModel>(
         builder: (context, app, sessionModel, child) {
       var downloadDir = sessionModel.session?.downloadDir ?? '';
-      var downloadQueueEnabled =
-          sessionModel.session?.downloadQueueEnabled ?? '';
       var downloadQueueSize = sessionModel.session?.downloadQueueSize ?? '';
 
       return ListView(children: [
