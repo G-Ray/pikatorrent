@@ -106,7 +106,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: pikatorrent-android
-          path: app/build/app/outputs/apk/release/app-release.apk
+          path: app/build/app/outputs/flutter-apk/ios.apk
 
   ios:
     runs-on: macos-14
@@ -135,5 +135,5 @@ jobs:
       - run: flutter build ios --no-codesign
       - uses: actions/upload-artifact@v4
         with:
-          name: pikatorrent-android
+          name: pikatorrent-ios
           path: app/build/ios/iphoneos/*.app
