@@ -95,7 +95,18 @@ Join the discord for support, & report any bugs or features on Github :heart:
 
 ## Development
 
-See [docs/development.md](docs/development.md)
+You will need the flutter SDK to be installed on your platform.
+Follow the guide at https://docs.flutter.dev/get-started/install.
+You will
+
+You might need to install `cmake`, `openssl`, `curl` and other depencies in order
+to compile the project.
+
+```sh
+git clone --recurse-submodules git@github.com:G-Ray/pikatorrent.git pikatorrent
+cd pikatorrent/app
+flutter run
+```
 
 ## Localization
 
