@@ -106,4 +106,34 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: pikatorrent-android
-          path: app/build/app/outputs/apk/release/app-release.apk
+          path: app/build/app/outputs/flutter-apk/ios.apk
+
+  ios:
+    runs-on: macos-14
+    env:
+      # Do not target simulator
+      TARGET_IOS_DEVICE: true
+    defaults:
+      run:
+        working-directory: ./app
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+      - name: Install dependencies
+        run: |
+          brew install ninja
+      - name: Set up vcpkg
+        uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgDirectory: ${{ github.workspace }}/app/vcpkg
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - run: flutter build ios --no-codesign
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pikatorrent-ios
+          path: app/build/ios/iphoneos/*.app
