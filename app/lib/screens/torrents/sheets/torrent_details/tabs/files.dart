@@ -35,7 +35,7 @@ class FilesTab extends StatelessWidget {
       itemBuilder: (context, index) {
         var file = files[index];
 
-        var percent = (file.bytesCompleted / file.length).floor() * 100;
+        var percent = (file.bytesCompleted / file.length * 100).floor();
 
         var completed = file.bytesCompleted == file.length;
 
