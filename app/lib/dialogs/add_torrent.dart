@@ -26,19 +26,23 @@ class _AddTorrentDialogState extends State<AddTorrentDialog> {
   late TextEditingController _torrentLinkController;
   String? _filename;
   String? pickedDownloadDir;
-  String _torrentLink = '';
+  String _torrentLink = ''; // Track a state to trigger updates
 
   @override
   void initState() {
     super.initState();
     _torrentLinkController =
-        TextEditingController(text: widget.initialMagnetLink);
+        TextEditingController();
 
     _torrentLinkController.addListener(() {
       setState(() {
         _torrentLink = _torrentLinkController.text;
       });
     });
+
+    if(widget.initialMagnetLink != null) {
+      _torrentLinkController.text = widget.initialMagnetLink!;
+    }
 
     setState(() {
       _filename = widget.initialContentPath;
