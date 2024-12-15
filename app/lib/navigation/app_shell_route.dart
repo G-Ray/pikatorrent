@@ -17,7 +17,7 @@ class AppShellRoute extends StatefulWidget {
 
 class _AppShellRouteState extends State<AppShellRoute> {
   late AppLinks _appLinks;
-  bool triggeredTermsOfUseDialog = false;
+  bool isTermsOfUseDialogDisplayed = false;
 
   @override
   void initState() {
@@ -41,27 +41,35 @@ class _AppShellRouteState extends State<AppShellRoute> {
   }
 
   _openAddTorrentDialog(String? initialMagnetLink, String? initialContentPath) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AddTorrentDialog(
-              initialMagnetLink: initialMagnetLink,
-              initialContentPath: initialContentPath,
-            );
-          });
-    });
+    if (Navigator.canPop(context)) {
+      // Pop current dialog, if any
+      Navigator.pop(context);
+    }
+
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AddTorrentDialog(
+            initialMagnetLink: initialMagnetLink,
+            initialContentPath: initialContentPath,
+          );
+        });
+
+    if (isTermsOfUseDialogDisplayed) {
+      // This will re-trigger the terms of use dialog, if needed.
+      // This dialog should be displayed above.
+      setState(() {
+        isTermsOfUseDialogDisplayed = false;
+      });
+    }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    var settingsLoaded = context.select((AppModel app) => app.loaded);
-    var termsOfUseAccepted =
-        context.select((AppModel app) => app.termsOfUseAccepted);
+  _openTermsOfUseDialog(AppModel appModel) {
+    var termsOfUseAccepted = appModel.termsOfUseAccepted;
 
-    if (settingsLoaded && !termsOfUseAccepted && !triggeredTermsOfUseDialog) {
+    if (!isTermsOfUseDialogDisplayed && !termsOfUseAccepted) {
       // Avoid calling the dialog multiple times
-      triggeredTermsOfUseDialog = true;
+      isTermsOfUseDialogDisplayed = true;
       WidgetsBinding.instance.addPostFrameCallback((_) {
         showDialog(
             context: context,
@@ -71,7 +79,15 @@ class _AppShellRouteState extends State<AppShellRoute> {
             });
       });
     }
+  }
 
-    return Navigation(child: widget.child);
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<AppModel>(builder: (context, appModel, child) {
+      if (appModel.loaded) {
+        _openTermsOfUseDialog(appModel);
+      }
+      return Navigation(child: widget.child);
+    });
   }
 }

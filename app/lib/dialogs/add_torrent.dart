@@ -20,13 +20,12 @@ class AddTorrentDialog extends StatefulWidget {
   State<AddTorrentDialog> createState() => _AddTorrentDialogState();
 }
 
-final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
 class _AddTorrentDialogState extends State<AddTorrentDialog> {
   late TextEditingController _torrentLinkController;
   String? _filename;
   String? pickedDownloadDir;
   String _torrentLink = ''; // Track a state to trigger updates
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
