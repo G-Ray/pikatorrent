@@ -22,7 +22,8 @@ enum TorrentField {
   files,
   fileStats,
   labels,
-  peersConnected
+  peersConnected,
+  magnetLink
 }
 
 class TransmissionTorrentFile {
@@ -70,6 +71,7 @@ class TransmissionTorrent {
   final List<TransmissionTorrentFileStats>? fileStats;
   final List<String>? labels;
   final int? peersConnected;
+  final String? magnetLink;
 
   const TransmissionTorrent(
       this.id,
@@ -93,7 +95,8 @@ class TransmissionTorrent {
       this.files,
       this.labels,
       this.peersConnected,
-      this.fileStats);
+      this.fileStats,
+      this.magnetLink);
 
   TransmissionTorrent.fromJson(Map<String, dynamic> json)
       : id = json['id'],
@@ -128,5 +131,6 @@ class TransmissionTorrent {
             .toList(),
         labels =
             json['labels'] != null ? List<String>.from(json['labels']) : null,
-        peersConnected = json['peersConnected'];
+        peersConnected = json['peersConnected'],
+        magnetLink = json['magnetLink'];
 }

@@ -8,6 +8,7 @@ import 'package:pikatorrent/screens/torrents/filter_labels_button.dart';
 import 'package:pikatorrent/screens/torrents/sort_button.dart';
 import 'package:pikatorrent/screens/torrents/text_search.dart';
 import 'package:pikatorrent/screens/torrents/torrent_list_tile.dart';
+import 'package:pikatorrent/utils/app_links.dart';
 import 'package:pikatorrent/utils/device.dart';
 import 'package:provider/provider.dart';
 
@@ -78,8 +79,14 @@ class _TorrentScreen extends State<TorrentsScreen>
                       key: Key(index.toString()),
                       endActionPane: ActionPane(
                         motion: const ScrollMotion(),
-                        extentRatio: 0.2,
+                        extentRatio: 0.4,
                         children: [
+                          SlidableAction(
+                            backgroundColor: Colors.blue,
+                            onPressed: (_) =>
+                                shareLink(context, torrent.magnetLink!),
+                            icon: Icons.share,
+                          ),
                           SlidableAction(
                             backgroundColor: Colors.red,
                             onPressed: (_) => showDialog(

@@ -4,6 +4,7 @@ import 'package:pikatorrent/dialogs/remove_torrent.dart';
 import 'package:pikatorrent/engine/torrent.dart';
 import 'package:pikatorrent/models/torrents.dart';
 import 'package:pikatorrent/screens/torrents/sheets/torrent_details/torrent_details.dart';
+import 'package:pikatorrent/utils/app_links.dart';
 import 'package:pikatorrent/utils/device.dart';
 import 'package:pretty_bytes/pretty_bytes.dart';
 import 'package:provider/provider.dart';
@@ -26,8 +27,9 @@ class TorrentListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<TorrentsModel>(builder: (context, torrentsModel, child) {
       return ListTile(
-        contentPadding:
-            !isMobileSize(context) ? const EdgeInsets.only(left: 16, right: 16) : null,
+        contentPadding: !isMobileSize(context)
+            ? const EdgeInsets.only(left: 16, right: 16)
+            : null,
         onTap: () {
           showDeviceSheet(context, torrent.name ?? 'Torrent details',
               TorrentDetailsModalSheet(id: torrent.id));
@@ -74,16 +76,27 @@ class TorrentListTile extends StatelessWidget {
           ],
         ),
         trailing: (!isMobileSize(context))
-            ? IconButton(
-                tooltip: 'Remove',
-                onPressed: () => showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return RemoveTorrentDialog(torrent: torrent);
-                    }),
-                icon: const Icon(
-                  Icons.delete_outline,
-                ))
+            ? Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                      tooltip: 'Share',
+                      onPressed: () => shareLink(context, torrent.magnetLink!),
+                      icon: const Icon(
+                        Icons.share,
+                      )),
+                  IconButton(
+                      tooltip: 'Remove',
+                      onPressed: () => showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return RemoveTorrentDialog(torrent: torrent);
+                          }),
+                      icon: const Icon(
+                        Icons.delete_outline,
+                      )),
+                ],
+              )
             : null,
 
         subtitle: Row(children: [

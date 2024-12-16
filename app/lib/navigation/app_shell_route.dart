@@ -4,6 +4,7 @@ import 'package:pikatorrent/dialogs/add_torrent.dart';
 import 'package:pikatorrent/dialogs/terms_of_use.dart';
 import 'package:pikatorrent/models/app.dart';
 import 'package:pikatorrent/navigation/navigation.dart';
+import 'package:pikatorrent/utils/app_links.dart';
 import 'package:provider/provider.dart';
 
 class AppShellRoute extends StatefulWidget {
@@ -36,6 +37,8 @@ class _AppShellRouteState extends State<AppShellRoute> {
       } else if (uriString.startsWith('content://') ||
           uriString.startsWith('file://')) {
         _openAddTorrentDialog(null, uriString);
+      } else if (uriString.startsWith(appUri)) {
+        _openAddTorrentDialog(getTorrentLink(uriString), null);
       }
     });
   }

@@ -55,20 +55,39 @@
             <!-- Handle magnet: links -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="magnet" />
             </intent-filter>
 
             <!-- Handle .torrent files -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="content" />
                 <data android:scheme="file" />
                 <data android:mimeType="application/x-bittorrent" />
                 <data android:pathPattern=".*\\.torrent" />
+            </intent-filter>
+
+            <!-- App Links -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="www.pikatorrent.com"
+                    android:scheme="http" />
+                <data
+                    android:host="www.pikatorrent.com"
+                    android:scheme="https" />
             </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.

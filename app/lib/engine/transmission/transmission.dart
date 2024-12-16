@@ -51,7 +51,8 @@ class TransmissionTorrent extends Torrent {
       super.comment,
       super.files,
       super.labels,
-      super.peersConnected});
+      super.peersConnected,
+      super.magnetLink});
 
   @override
   start() {
@@ -133,7 +134,6 @@ class TransmissionEngine implements Engine {
 
   @override
   void dispose() {
-    print('dispose');
     flutter_libtransmission.closeSession();
   }
 
@@ -173,6 +173,8 @@ class TransmissionEngine implements Engine {
       TorrentField.labels,
       TorrentField.addedDate,
       TorrentField.errorString,
+      TorrentField.magnetLink,
+      TorrentField.isPrivate
     ]));
     String res = await flutter_libtransmission
         .requestAsync(jsonEncode(torrentGetRequest));
@@ -182,17 +184,18 @@ class TransmissionEngine implements Engine {
 
     return decodedRes.arguments.torrents
         .map((torrent) => TransmissionTorrent(
-              id: torrent.id,
-              name: torrent.name,
-              progress: torrent.percentDone,
-              status: torrent.status,
-              size: torrent.totalSize,
-              rateDownload: torrent.rateDownload,
-              rateUpload: torrent.rateUpload,
-              labels: torrent.labels,
-              addedDate: torrent.addedDate,
-              errorString: torrent.errorString,
-            ))
+            id: torrent.id,
+            name: torrent.name,
+            progress: torrent.percentDone,
+            status: torrent.status,
+            size: torrent.totalSize,
+            rateDownload: torrent.rateDownload,
+            rateUpload: torrent.rateUpload,
+            labels: torrent.labels,
+            addedDate: torrent.addedDate,
+            errorString: torrent.errorString,
+            magnetLink: torrent.magnetLink,
+            isPrivate: torrent.isPrivate))
         .toList();
   }
 
@@ -223,7 +226,8 @@ class TransmissionEngine implements Engine {
       TorrentField.files,
       TorrentField.fileStats,
       TorrentField.labels,
-      TorrentField.peersConnected
+      TorrentField.peersConnected,
+      TorrentField.magnetLink
     ]));
 
     String res = await flutter_libtransmission
@@ -262,7 +266,8 @@ class TransmissionEngine implements Engine {
                     wanted: torrent.fileStats![entry.key].wanted))
                 .toList(),
             labels: torrent.labels,
-            peersConnected: torrent.peersConnected))
+            peersConnected: torrent.peersConnected,
+            magnetLink: torrent.magnetLink))
         .toList()
         .first;
   }

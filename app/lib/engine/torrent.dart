@@ -39,6 +39,7 @@ abstract class Torrent extends TorrentBase {
   final String? comment;
   final List<File>? files;
   final int? peersConnected;
+  final String? magnetLink;
 
   Torrent(
       {required super.id,
@@ -61,7 +62,8 @@ abstract class Torrent extends TorrentBase {
       this.comment,
       this.creator,
       this.files,
-      this.peersConnected});
+      this.peersConnected,
+      this.magnetLink});
 
   // Start the torrent
   start();
