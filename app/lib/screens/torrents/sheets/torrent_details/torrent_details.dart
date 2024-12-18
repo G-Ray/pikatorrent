@@ -67,6 +67,7 @@ class _TorrentDetailsModalSheetContentState
             ),
             Expanded(
               child: TabBarView(
+                physics: const NeverScrollableScrollPhysics(),
                 children: [
                   FilesTab(
                     torrent: widget.torrentModel.torrent!,
