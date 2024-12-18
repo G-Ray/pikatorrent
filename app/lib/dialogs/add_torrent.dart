@@ -183,31 +183,34 @@ class _AddTorrentDialogState extends State<AddTorrentDialog> {
 
     return AlertDialog(
       title: const Text('Add a torrent'),
-      content: Form(
-        key: _formKey,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _buildTorrentLinkInput(),
-            _buildInputsSeparator(),
-            _buildFileInput(context),
-            if (!Platform.isAndroid) const SizedBox(height: 16),
-            if (!Platform.isAndroid)
-              Row(
-                children: [
-                  const Text('Destination:'),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: TextButton(
-                        onPressed: _handlePickDirectory,
-                        child: Text(
-                          downloadDir,
-                          overflow: TextOverflow.ellipsis,
-                        )),
-                  )
-                ],
-              )
-          ],
+      content: SizedBox(
+        width: 480,
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _buildTorrentLinkInput(),
+              _buildInputsSeparator(),
+              _buildFileInput(context),
+              if (!Platform.isAndroid) const SizedBox(height: 16),
+              if (!Platform.isAndroid)
+                Row(
+                  children: [
+                    const Text('Destination:'),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: TextButton(
+                          onPressed: _handlePickDirectory,
+                          child: Text(
+                            downloadDir,
+                            overflow: TextOverflow.ellipsis,
+                          )),
+                    )
+                  ],
+                )
+            ],
+          ),
         ),
       ),
       actions: <Widget>[
