@@ -5,8 +5,8 @@ import 'package:content_resolver/content_resolver.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:pikatorrent/engine/engine.dart';
-import 'package:pikatorrent/main.dart';
 import 'package:pikatorrent/models/session.dart';
+import 'package:pikatorrent/models/torrents.dart';
 import 'package:provider/provider.dart';
 
 class AddTorrentDialog extends StatefulWidget {
@@ -69,7 +69,7 @@ class _AddTorrentDialogState extends State<AddTorrentDialog> {
           metainfo = base64Encode(content);
         }
       }
-      var status = await engine.addTorrent(
+      var status = await Provider.of<TorrentsModel>(context, listen: false).addTorrent(
           _torrentLinkController.text, metainfo, pickedDownloadDir);
 
       if (status == TorrentAddedResponse.duplicated) {
@@ -83,14 +83,14 @@ class _AddTorrentDialogState extends State<AddTorrentDialog> {
         content: Text('Torrent added.'),
         backgroundColor: Colors.lightGreen,
       ));
-
-      await engine.fetchTorrents();
     } on TorrentAddError {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Invalid torrent.'),
         backgroundColor: Colors.orange,
       ));
     }
+
+    await Provider.of<TorrentsModel>(context, listen: false).fetchTorrents();
 
     Navigator.of(context).pop();
   }

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:fuzzywuzzy/fuzzywuzzy.dart';
+import 'package:pikatorrent/engine/engine.dart';
 import 'package:pikatorrent/engine/torrent.dart';
 import 'package:pikatorrent/main.dart';
 import 'package:pikatorrent/storage/shared_preferences.dart';
@@ -96,6 +97,10 @@ class TorrentsModel extends ChangeNotifier {
     }
 
     return reverseSort ? torrentsSorted.reversed.toList() : torrentsSorted;
+  }
+
+  Future<TorrentAddedResponse> addTorrent(String? filename, String? metainfo, String? downloadDir) async {
+    return engine.addTorrent(filename, metainfo, downloadDir);
   }
 
   Future<void> fetchTorrents() async {
