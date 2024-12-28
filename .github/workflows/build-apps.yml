@@ -50,7 +50,7 @@ jobs:
         with:
           name: pikatorrent-windows
           path: app/build/windows/x64/runner/Release/**/*
-      
+
   macos:
     runs-on: macos-14
     defaults:
@@ -106,7 +106,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: pikatorrent-android
-          path: app/build/app/outputs/flutter-apk/ios.apk
+          path: app/build/app/outputs/flutter-apk/*.apk
 
   ios:
     runs-on: macos-14
