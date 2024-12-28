@@ -4,6 +4,7 @@ import 'package:pikatorrent/dialogs/remove_torrent.dart';
 import 'package:pikatorrent/engine/torrent.dart';
 import 'package:pikatorrent/models/torrents.dart';
 import 'package:pikatorrent/screens/torrents/sheets/torrent_details/torrent_details.dart';
+import 'package:pikatorrent/screens/torrents/torrent_list_tile/torrent_status.dart';
 import 'package:pikatorrent/utils/app_links.dart';
 import 'package:pikatorrent/utils/device.dart';
 import 'package:pretty_bytes/pretty_bytes.dart';
@@ -49,10 +50,13 @@ class TorrentListTile extends StatelessWidget {
                 torrentsModel.fetchTorrents();
               },
               icon: torrent.status == TorrentStatus.stopped
-                  ? const Icon(Icons.play_circle_outline)
-                  : const Icon(Icons.pause_circle_outline),
-              tooltip:
-                  torrent.status == TorrentStatus.stopped ? 'Start' : 'Stop',
+                  ? const Icon(Icons.pause)
+                  : torrent.progress == 1
+                      ? const Icon(Icons.download_done)
+                      : const Icon(Icons.download),
+              tooltip: torrent.status == TorrentStatus.stopped
+                  ? 'Start'
+                  : 'Stop',
             )),
           ]),
         ),
@@ -101,12 +105,10 @@ class TorrentListTile extends StatelessWidget {
 
         subtitle: Row(children: [
           Expanded(
-            child: Text('${percent.floor().toString()}%',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
-                    color: percent == 100 ? Colors.lightGreen : null)),
-          ),
+              child: TorrentStatusText(
+            torrent: torrent,
+            percent: percent,
+          )),
           Expanded(
             child: Text(
                 torrent.size != null
@@ -116,23 +118,27 @@ class TorrentListTile extends StatelessWidget {
                     const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
           ),
           Expanded(
-            child: Row(children: [
-              const Icon(
-                Icons.arrow_circle_down,
-                size: 16,
-                color: Colors.lightGreen,
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                    overflow: TextOverflow.ellipsis,
-                    torrent.rateDownload != null
-                        ? '${prettyBytes(torrent.rateDownload!.toDouble())}/s'
-                        : '-',
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 12)),
-              ),
-            ]),
+            child: torrent.progress != 1
+                ? Row(children: [
+                    const Icon(
+                      Icons.arrow_circle_down,
+                      size: 16,
+                      color: Colors.lightGreen,
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                          overflow: TextOverflow.ellipsis,
+                          torrent.rateDownload != null
+                              ? '${prettyBytes(torrent.rateDownload!.toDouble())}/s'
+                              : '-',
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 12)),
+                    ),
+                  ])
+                : const SizedBox(
+                    width: 0,
+                  ),
           ),
           Expanded(
             child: Row(children: [
@@ -159,3 +165,4 @@ class TorrentListTile extends StatelessWidget {
     });
   }
 }
+

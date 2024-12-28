@@ -7,7 +7,7 @@ import 'package:pikatorrent/models/torrents.dart';
 import 'package:pikatorrent/screens/torrents/filter_labels_button.dart';
 import 'package:pikatorrent/screens/torrents/sort_button.dart';
 import 'package:pikatorrent/screens/torrents/text_search.dart';
-import 'package:pikatorrent/screens/torrents/torrent_list_tile.dart';
+import 'package:pikatorrent/screens/torrents/torrent_list_tile/torrent_list_tile.dart';
 import 'package:pikatorrent/utils/app_links.dart';
 import 'package:pikatorrent/utils/device.dart';
 import 'package:provider/provider.dart';
