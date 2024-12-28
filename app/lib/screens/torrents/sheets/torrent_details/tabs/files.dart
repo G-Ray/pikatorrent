@@ -6,6 +6,7 @@ import 'package:pretty_bytes/pretty_bytes.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path/path.dart' as path;
 import 'package:provider/provider.dart';
+import 'package:mime/mime.dart';
 
 class FilesTab extends StatelessWidget {
   final Torrent torrent;
@@ -40,26 +41,53 @@ class FilesTab extends StatelessWidget {
         var completed = file.bytesCompleted == file.length;
 
         return ListTile(
-            enabled: completed,
-            leading: Tooltip(
-                message: 'Download file',
-                child: Checkbox(
-                    value: file.wanted,
-                    onChanged: completed
-                        ? null
-                        : (bool? checked) =>
-                            _handleWantedChange(context, index, checked))),
+            leading: Opacity(
+                opacity: completed ? 1 : 0.5,
+                child: Icon(getFileIcon(file.name))),
             title: Text(file.name),
             subtitle: Row(
               children: [
-                Text('${percent.toString()}%',
-                    style: TextStyle(
-                        color: percent == 100 ? Colors.lightGreen : null)),
-                Text(' • ${prettyBytes(file.length.toDouble())}')
+                Text('${percent.toString()}%'),
+                Text(' • ${prettyBytes(file.length.toDouble())}'),
+                if (!file.wanted) const Text(' • Paused')
               ],
             ),
-            onTap: () => _openFile(file.name));
+            trailing: percent == 100
+                ? IconButton(
+                    onPressed: () => _openFile(file.name), icon: const Icon(Icons.download_done))
+                : file.wanted
+                    ? IconButton(
+                        tooltip: 'Pause',
+                        onPressed: () =>
+                            _handleWantedChange(context, index, false),
+                        icon: const Icon(Icons.download))
+                    : IconButton(
+                        tooltip: 'Download',
+                        onPressed: () =>
+                            _handleWantedChange(context, index, true),
+                        icon: const Icon(Icons.pause)),
+            onTap: completed ? () => _openFile(file.name) : null);
       },
     );
   }
+}
+
+IconData getFileIcon(String filename) {
+  var mimeType = lookupMimeType(filename);
+
+  if (mimeType != null) {
+    if (mimeType.startsWith('video')) {
+      return Icons.movie;
+    }
+
+    if (mimeType.startsWith('image')) {
+      return Icons.image;
+    }
+
+    if (mimeType.startsWith('audio')) {
+      return Icons.audiotrack;
+    }
+  }
+
+  return Icons.description;
 }
