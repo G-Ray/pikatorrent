@@ -11,6 +11,7 @@ import 'package:pikatorrent/screens/settings/dialogs/theme_selector.dart';
 import 'package:pikatorrent/utils/string_extensions.dart';
 import 'package:provider/provider.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -134,6 +135,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
             onTap: showResetTorrentsSettingsDialog,
             leading: const Icon(Icons.settings_backup_restore),
             title: const Text('Reset torrents settings')),
+        Padding(
+          padding: const EdgeInsets.only(left: 16.0, top: 16),
+          child: Text('About', style: Theme.of(context).textTheme.titleLarge),
+        ),
+        ListTile(
+            leading: const Icon(Icons.bolt),
+            // onTap: () => showThemeDialog(context),
+            title: const Text('Version'),
+            subtitle: Text(app.version)),
+        ListTile(
+            leading: const Icon(Icons.discord),
+            title: const Text('Join our Discord'),
+            onTap: () => launchUrl(Uri.parse('https://discord.gg/6HxCV4aGdy'))),
+        ListTile(
+          leading: const Icon(Icons.bug_report),
+          title: const Text('Report a bug or feature request'),
+          onTap: () => launchUrl(Uri.parse(
+              'https://github.com/G-Ray/pikatorrent/issues/new/choose')),
+        ),
       ]);
     });
   }

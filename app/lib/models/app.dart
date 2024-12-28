@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:pikatorrent/storage/shared_preferences.dart';
 
 class AppModel extends ChangeNotifier {
   ThemeMode theme = ThemeMode.system;
   bool termsOfUseAccepted = false;
   bool loaded = false;
+  String version = '';
 
   AppModel() {
     _loadSettings();
@@ -20,6 +22,10 @@ class AppModel extends ChangeNotifier {
         await SharedPrefsStorage.getBool('termsOfUseAccepted') ??
             termsOfUseAccepted;
     loaded = true;
+
+    // Load app version
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    version = packageInfo.version;
 
     notifyListeners();
   }
