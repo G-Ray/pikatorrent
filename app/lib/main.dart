@@ -10,6 +10,7 @@ import 'package:pikatorrent/navigation/router.dart';
 import 'package:pikatorrent/platforms/android/foreground_service.dart';
 import 'package:pikatorrent/utils/device.dart';
 import 'package:provider/provider.dart';
+import 'package:window_manager/window_manager.dart';
 import 'package:yaru/yaru.dart';
 
 final lightColorScheme = ColorScheme.fromSeed(
@@ -56,10 +57,22 @@ final _darkTheme = ThemeData(
 Engine engine = TransmissionEngine();
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   if (isDesktop()) {
     await YaruWindowTitleBar.ensureInitialized();
+      // Must add this line.
+    await windowManager.ensureInitialized();
+
+    WindowOptions windowOptions = const WindowOptions(
+      minimumSize: Size(360, 360)
+    );
+
+    windowManager.waitUntilReadyToShow(windowOptions, () async {
+      await windowManager.show();
+      await windowManager.focus();
+    });
   }
-  WidgetsFlutterBinding.ensureInitialized();
 
   await engine.init();
 

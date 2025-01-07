@@ -56,10 +56,6 @@ static void my_application_activate(GApplication *application) {
     gtk_window_set_title(window, "PikaTorrent");
   }
 
-  GdkGeometry geometry_min;
-  geometry_min.min_width = 360;
-  geometry_min.min_height = 360;
-  gtk_window_set_geometry_hints(window, nullptr, &geometry_min, GDK_HINT_MIN_SIZE);
   gtk_window_set_default_size(window, 1280, 720);
   // Set minimum window size
 
