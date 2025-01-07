@@ -54,9 +54,8 @@ class TorrentListTile extends StatelessWidget {
                   : torrent.progress == 1
                       ? const Icon(Icons.download_done)
                       : const Icon(Icons.download),
-              tooltip: torrent.status == TorrentStatus.stopped
-                  ? 'Start'
-                  : 'Stop',
+              tooltip:
+                  torrent.status == TorrentStatus.stopped ? 'Start' : 'Stop',
             )),
           ]),
         ),
@@ -83,12 +82,14 @@ class TorrentListTile extends StatelessWidget {
             ? Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  IconButton(
-                      tooltip: 'Share',
-                      onPressed: () => shareLink(context, torrent.magnetLink!),
-                      icon: const Icon(
-                        Icons.share,
-                      )),
+                  if (const bool.fromEnvironment('ENABLE_LINK_SHARING') == true)
+                    IconButton(
+                        tooltip: 'Share',
+                        onPressed: () =>
+                            shareLink(context, torrent.magnetLink!),
+                        icon: const Icon(
+                          Icons.share,
+                        )),
                   IconButton(
                       tooltip: 'Remove',
                       onPressed: () => showDialog(
@@ -165,4 +166,3 @@ class TorrentListTile extends StatelessWidget {
     });
   }
 }
-

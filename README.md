@@ -112,7 +112,7 @@ git clone --recurse-submodules git@github.com:G-Ray/pikatorrent.git pikatorrent
 cd pikatorrent/app
 ./vcpkg/bootstrap-vcpkg.sh # .bat for Windows
 export VCPKG_ROOT=/absolut/path/to/./app/vcpkg
-flutter run
+flutter run # optionally specify --dart-define-from-file=.env
 ```
 
 ## Localization

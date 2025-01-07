@@ -81,12 +81,15 @@ class _TorrentScreen extends State<TorrentsScreen>
                         motion: const ScrollMotion(),
                         extentRatio: 0.4,
                         children: [
-                          SlidableAction(
-                            backgroundColor: Colors.blue,
-                            onPressed: (_) =>
-                                shareLink(context, torrent.magnetLink!),
-                            icon: Icons.share,
-                          ),
+                          if (const bool.fromEnvironment(
+                                  'ENABLE_LINK_SHARING') ==
+                              true)
+                            SlidableAction(
+                              backgroundColor: Colors.blue,
+                              onPressed: (_) =>
+                                  shareLink(context, torrent.magnetLink!),
+                              icon: Icons.share,
+                            ),
                           SlidableAction(
                             backgroundColor: Colors.red,
                             onPressed: (_) => showDialog(
