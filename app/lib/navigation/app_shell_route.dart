@@ -22,7 +22,6 @@ class _AppShellRouteState extends State<AppShellRoute> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _initAppLinks();
   }
@@ -33,12 +32,18 @@ class _AppShellRouteState extends State<AppShellRoute> {
       var uriString = uri.toString();
 
       if (uriString.startsWith('magnet:')) {
+        // Magnet link
         _openAddTorrentDialog(uriString, null);
       } else if (uriString.startsWith('content://') ||
+        // Content uri (Android)
           uriString.startsWith('file://')) {
         _openAddTorrentDialog(null, uriString);
       } else if (uriString.startsWith(appUri)) {
+        // App URI
         _openAddTorrentDialog(getTorrentLink(uriString), null);
+      } else if (uriString.startsWith('/')) {
+        // Filesystem path
+        _openAddTorrentDialog(null, uriString);
       }
     });
   }
