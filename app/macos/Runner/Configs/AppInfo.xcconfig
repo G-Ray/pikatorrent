@@ -8,7 +8,7 @@
 PRODUCT_NAME = PikaTorrent
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.gray.pikatorrent
+PRODUCT_BUNDLE_IDENTIFIER = com.pikatorrent.PikaTorrent
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2024 com.gray. All rights reserved.
+PRODUCT_COPYRIGHT = GPL-3.0
