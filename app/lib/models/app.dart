@@ -5,6 +5,7 @@ import 'package:pikatorrent/storage/shared_preferences.dart';
 class AppModel extends ChangeNotifier {
   ThemeMode theme = ThemeMode.system;
   bool termsOfUseAccepted = false;
+  bool checkForUpdate = true;
   bool loaded = false;
   String version = '';
 
@@ -21,6 +22,9 @@ class AppModel extends ChangeNotifier {
     termsOfUseAccepted =
         await SharedPrefsStorage.getBool('termsOfUseAccepted') ??
             termsOfUseAccepted;
+    // Load check for update value
+    checkForUpdate =
+        await SharedPrefsStorage.getBool('checkForUpdate') ?? checkForUpdate;
     loaded = true;
 
     // Load app version
@@ -39,6 +43,12 @@ class AppModel extends ChangeNotifier {
   void setTermsOfUseAccepted(bool value) async {
     SharedPrefsStorage.setBool('termsOfUseAccepted', value);
     termsOfUseAccepted = value;
+    notifyListeners();
+  }
+
+  void setcheckForUpdate(bool value) {
+    SharedPrefsStorage.setBool('checkForUpdate', value);
+    checkForUpdate = value;
     notifyListeners();
   }
 }

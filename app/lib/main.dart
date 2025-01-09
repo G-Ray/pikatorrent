@@ -61,12 +61,11 @@ void main() async {
 
   if (isDesktop()) {
     await YaruWindowTitleBar.ensureInitialized();
-      // Must add this line.
+    // Must add this line.
     await windowManager.ensureInitialized();
 
-    WindowOptions windowOptions = const WindowOptions(
-      minimumSize: Size(360, 360)
-    );
+    WindowOptions windowOptions =
+        const WindowOptions(minimumSize: Size(360, 360));
 
     windowManager.waitUntilReadyToShow(windowOptions, () async {
       await windowManager.show();

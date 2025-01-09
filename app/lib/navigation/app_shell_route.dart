@@ -2,9 +2,11 @@ import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
 import 'package:pikatorrent/dialogs/add_torrent.dart';
 import 'package:pikatorrent/dialogs/terms_of_use.dart';
+import 'package:pikatorrent/dialogs/update_available.dart';
 import 'package:pikatorrent/models/app.dart';
 import 'package:pikatorrent/navigation/navigation.dart';
 import 'package:pikatorrent/utils/app_links.dart';
+import 'package:pikatorrent/utils/check_for_update.dart';
 import 'package:provider/provider.dart';
 
 class AppShellRoute extends StatefulWidget {
@@ -19,6 +21,7 @@ class AppShellRoute extends StatefulWidget {
 class _AppShellRouteState extends State<AppShellRoute> {
   late AppLinks _appLinks;
   bool isTermsOfUseDialogDisplayed = false;
+  bool hasShownUpdateDialog = false;
 
   @override
   void initState() {
@@ -35,7 +38,7 @@ class _AppShellRouteState extends State<AppShellRoute> {
         // Magnet link
         _openAddTorrentDialog(uriString, null);
       } else if (uriString.startsWith('content://') ||
-        // Content uri (Android)
+          // Content uri (Android)
           uriString.startsWith('file://')) {
         _openAddTorrentDialog(null, uriString);
       } else if (uriString.startsWith(appUri)) {
@@ -45,6 +48,27 @@ class _AppShellRouteState extends State<AppShellRoute> {
         // Filesystem path
         _openAddTorrentDialog(null, uriString);
       }
+    });
+  }
+
+  /// Ignore updates on mobile devices & depending on user prefs
+  _checkForUpdate() async {
+    if (hasShownUpdateDialog) return;
+
+    var appModel = Provider.of<AppModel>(context, listen: false);
+    if (!appModel.checkForUpdate) return;
+
+    var latestVersion = await checkForUpdate(appModel.version);
+    if (latestVersion == null) return;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      hasShownUpdateDialog = true;
+
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return UpdateAvailableDialog(latestVersion: latestVersion);
+          });
     });
   }
 
@@ -94,6 +118,7 @@ class _AppShellRouteState extends State<AppShellRoute> {
     return Consumer<AppModel>(builder: (context, appModel, child) {
       if (appModel.loaded) {
         _openTermsOfUseDialog(appModel);
+        _checkForUpdate();
       }
       return Navigation(child: widget.child);
     });

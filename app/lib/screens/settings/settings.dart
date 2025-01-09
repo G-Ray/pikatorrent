@@ -98,6 +98,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
+  void _handlecheckForUpdateToggle(bool value) {
+    var appModel = Provider.of<AppModel>(context, listen: false);
+    appModel.setcheckForUpdate(value);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer2<AppModel, SessionModel>(
@@ -116,6 +121,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
             leading: const Icon(Icons.dark_mode),
             title: const Text('Theme'),
             subtitle: Text(app.theme.name.capitalize())),
+        ListTile(
+            leading: const Icon(Icons.update),
+            title: const Text('Check for update'),
+            trailing: Switch(
+                value: app.checkForUpdate,
+                onChanged: _handlecheckForUpdateToggle),
+            subtitle:
+                const Text('Be notified when a new version is available')),
         Padding(
           padding: const EdgeInsets.only(left: 16.0, top: 16),
           child: Text('Torrents settings',

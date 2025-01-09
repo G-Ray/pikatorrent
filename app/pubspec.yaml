@@ -65,6 +65,8 @@ dependencies:
   package_info_plus: ^8.1.2
   url_launcher: ^6.3.1
   window_manager: ^0.4.3
+  pub_semver: ^2.1.5
+  http: ^1.2.2
 
 dev_dependencies:
   flutter_test:
