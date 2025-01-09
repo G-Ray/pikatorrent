@@ -61,15 +61,6 @@ class TorrentListTile extends StatelessWidget {
         ),
         title: Row(
           children: [
-            if (torrent.errorString!.isNotEmpty)
-              const Row(
-                children: [
-                  Icon(Icons.warning_amber, size: 16, color: Colors.orange),
-                  SizedBox(
-                    width: 2,
-                  )
-                ],
-              ),
             Expanded(
               child: Text(torrent.name ?? '-',
                   overflow: TextOverflow.ellipsis,
@@ -106,9 +97,13 @@ class TorrentListTile extends StatelessWidget {
 
         subtitle: Row(children: [
           Expanded(
-              child: TorrentStatusText(
-            torrent: torrent,
-            percent: percent,
+              child: Row(
+            children: [
+              TorrentStatusText(
+                torrent: torrent,
+                percent: percent,
+              ),
+            ],
           )),
           Expanded(
             child: Text(

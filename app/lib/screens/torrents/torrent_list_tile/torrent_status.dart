@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pikatorrent/engine/torrent.dart';
 
+const defaultTextStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 12);
+
 class TorrentStatusText extends StatelessWidget {
   final Torrent torrent;
   final double percent;
@@ -10,22 +12,27 @@ class TorrentStatusText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (torrent.errorString!.isNotEmpty) {
+      return const Text('Error',
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 12, color: Colors.red));
+    }
+
     return switch (torrent.status) {
-      TorrentStatus.stopped => const Text('Paused',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-      TorrentStatus.queuedToCheck => const Text('Queued to check',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-      TorrentStatus.checking => const Text('Checking',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-      TorrentStatus.queuedToDownload => const Text('Queued to download',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+      TorrentStatus.stopped => const Text('Paused', style: defaultTextStyle),
+      TorrentStatus.queuedToCheck =>
+        const Text('Queued to check', style: defaultTextStyle),
+      TorrentStatus.checking => const Text('Checking', style: defaultTextStyle),
+      TorrentStatus.queuedToDownload =>
+        const Text('Queued to download', style: defaultTextStyle),
+      TorrentStatus.queuedToSeed =>
+        const Text('Queued to seed', style: defaultTextStyle),
       TorrentStatus.downloading => Text('${percent.floor().toString()}%',
           style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 12,
               color: Colors.lightGreen)),
-      TorrentStatus.queuedToSeed => const Text('Queued to seed',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
       TorrentStatus.seeding => const Text('Seeding',
           style: TextStyle(
               fontWeight: FontWeight.bold,
