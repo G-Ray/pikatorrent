@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
 import 'package:pikatorrent/dialogs/add_torrent.dart';
@@ -44,7 +46,7 @@ class _AppShellRouteState extends State<AppShellRoute> {
       } else if (uriString.startsWith(appUri)) {
         // App URI
         _openAddTorrentDialog(getTorrentLink(uriString), null);
-      } else if (uriString.startsWith('/')) {
+      } else if (File(uriString).existsSync()) {
         // Filesystem path
         _openAddTorrentDialog(null, uriString);
       }

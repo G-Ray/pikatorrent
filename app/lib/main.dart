@@ -8,6 +8,7 @@ import 'package:pikatorrent/models/session.dart';
 import 'package:pikatorrent/models/torrents.dart';
 import 'package:pikatorrent/navigation/router.dart';
 import 'package:pikatorrent/platforms/android/foreground_service.dart';
+import 'package:pikatorrent/platforms/windows/register_app.dart';
 import 'package:pikatorrent/utils/device.dart';
 import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
@@ -84,6 +85,8 @@ void main() async {
       // when live reloading.
       debugPrint(e.toString());
     }
+  } else if (Platform.isWindows) {
+    registerAppInRegistry();
   }
 
   runApp(const PikaTorrent());
