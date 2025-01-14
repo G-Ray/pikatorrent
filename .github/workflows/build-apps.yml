@@ -137,3 +137,16 @@ jobs:
         with:
           name: pikatorrent-ios
           path: app/build/ios/iphoneos/*.app
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    needs: [linux, windows, macos, android]
+    steps:
+      - name: Release
+        uses: ncipollo/release-action@v1
+        with:
+          draft: true
+          artifacts: "pikatorrent-linux.zip,pikatorrent-windows.zip,pikatorrent-macos.zip,pikatorrent-android.zip"
