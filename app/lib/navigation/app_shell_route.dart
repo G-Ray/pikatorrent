@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
 import 'package:pikatorrent/dialogs/add_torrent.dart';
+import 'package:pikatorrent/dialogs/quitting.dart';
 import 'package:pikatorrent/dialogs/terms_of_use.dart';
 import 'package:pikatorrent/dialogs/update_available.dart';
 import 'package:pikatorrent/models/app.dart';
@@ -24,6 +25,7 @@ class _AppShellRouteState extends State<AppShellRoute> {
   late AppLinks _appLinks;
   bool isTermsOfUseDialogDisplayed = false;
   bool hasShownUpdateDialog = false;
+  bool showQuittingDialog = false;
 
   @override
   void initState() {
@@ -115,6 +117,20 @@ class _AppShellRouteState extends State<AppShellRoute> {
     }
   }
 
+  _openQuittingDialog(AppModel appModel) {
+    if (!showQuittingDialog) {
+      showQuittingDialog = true;
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return const QuittingDialog();
+            });
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<AppModel>(builder: (context, appModel, child) {
@@ -122,6 +138,11 @@ class _AppShellRouteState extends State<AppShellRoute> {
         _openTermsOfUseDialog(appModel);
         _checkForUpdate();
       }
+
+      if (appModel.quitting && !showQuittingDialog) {
+        _openQuittingDialog(appModel);
+      }
+
       return Navigation(child: widget.child);
     });
   }

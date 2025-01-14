@@ -6,7 +6,6 @@ void onDidReceiveNotificationResponse(
     NotificationResponse notificationResponse) async {
   if (notificationResponse.actionId == 'exit') {
     // Close BitTorrent engine
-    engine.dispose();
     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
     await flutterLocalNotificationsPlugin
@@ -15,6 +14,7 @@ void onDidReceiveNotificationResponse(
         ?.stopForegroundService();
     // Exit app
     SystemNavigator.pop();
+    engine.dispose();
   }
 }
 

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:pikatorrent/main.dart';
 import 'package:pikatorrent/storage/shared_preferences.dart';
+import 'package:window_manager/window_manager.dart';
 
 class AppModel extends ChangeNotifier {
   ThemeMode theme = ThemeMode.system;
   bool termsOfUseAccepted = false;
   bool checkForUpdate = true;
   bool loaded = false;
+  bool quitting = false;
   String version = '';
 
   AppModel() {
@@ -50,5 +53,15 @@ class AppModel extends ChangeNotifier {
     SharedPrefsStorage.setBool('checkForUpdate', value);
     checkForUpdate = value;
     notifyListeners();
+  }
+
+  void setQuitting(bool value) {
+    quitting = value;
+    notifyListeners();
+  }
+
+  void quit() async {
+    engine.dispose();
+    await windowManager.destroy();
   }
 }

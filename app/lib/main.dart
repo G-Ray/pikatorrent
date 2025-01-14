@@ -95,7 +95,6 @@ void main() async {
 class PikaTorrent extends StatelessWidget {
   const PikaTorrent({super.key});
 
-  // App root
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -104,14 +103,59 @@ class PikaTorrent extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => TorrentsModel()),
         ChangeNotifierProvider(create: (context) => SessionModel())
       ],
-      child: Consumer<AppModel>(
-          builder: (context, app, child) => MaterialApp.router(
-                title: 'PikaTorrent',
-                theme: _lightTheme,
-                darkTheme: _darkTheme,
-                themeMode: app.theme,
-                routerConfig: router,
-              )),
+      child: const PikaTorrentApp(),
     );
+  }
+}
+
+class PikaTorrentApp extends StatefulWidget {
+  const PikaTorrentApp({super.key});
+
+  @override
+  State<PikaTorrentApp> createState() => _PikaTorrentAppState();
+}
+
+class _PikaTorrentAppState extends State<PikaTorrentApp> with WindowListener {
+  @override
+  void initState() {
+    super.initState();
+    windowManager.addListener(this);
+    _init();
+  }
+
+  @override
+  void dispose() {
+    windowManager.removeListener(this);
+    super.dispose();
+  }
+
+  void _init() async {
+    if (isDesktop()) {
+      // Add this line to override the default close handler
+      await windowManager.setPreventClose(true);
+      setState(() {});
+    }
+  }
+
+  @override
+  void onWindowClose() async {
+    var appModel = Provider.of<AppModel>(context, listen: false);
+    appModel.setQuitting(true);
+    //FIXME: Workaround to call sync quit function *after* quitting dialog is shown
+    await Future.delayed(const Duration(milliseconds: 500));
+    appModel.quit();
+  }
+
+  // App root
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<AppModel>(
+        builder: (context, app, child) => MaterialApp.router(
+              title: 'PikaTorrent',
+              theme: _lightTheme,
+              darkTheme: _darkTheme,
+              themeMode: app.theme,
+              routerConfig: router,
+            ));
   }
 }
