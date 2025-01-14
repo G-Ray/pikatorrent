@@ -92,8 +92,37 @@ void main() async {
   runApp(const PikaTorrent());
 }
 
-class PikaTorrent extends StatelessWidget {
+class PikaTorrent extends StatefulWidget {
   const PikaTorrent({super.key});
+
+  @override
+  State<PikaTorrent> createState() => _PikaTorrentState();
+}
+
+class _PikaTorrentState extends State<PikaTorrent> with WindowListener {
+  @override
+  void initState() {
+    super.initState();
+    windowManager.addListener(this);
+    _init();
+  }
+
+  @override
+  void dispose() {
+    windowManager.removeListener(this);
+    super.dispose();
+  }
+
+  void _init() async {
+    // Add this line to override the default close handler
+    await windowManager.setPreventClose(true);
+    setState(() {});
+  }
+
+  @override
+  void onWindowClose() {
+    print('onWindowClose');
+  }
 
   // App root
   @override

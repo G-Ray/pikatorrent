@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:open_file/open_file.dart';
+// import 'package:open_file/open_file.dart';
 import 'package:pikatorrent/dialogs/remove_torrent.dart';
 import 'package:pikatorrent/engine/torrent.dart';
 import 'package:pikatorrent/models/torrents.dart';
@@ -23,6 +25,10 @@ class TorrentListTile extends StatelessWidget {
 
   final Torrent torrent;
   final double percent;
+
+  _openFolder() {
+    OpenFile.open('${torrent.location}/${torrent.name}');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +87,12 @@ class TorrentListTile extends StatelessWidget {
                         icon: const Icon(
                           Icons.share,
                         )),
+                  IconButton(
+                      tooltip: 'Open folder',
+                      onPressed: torrent.progress == 1 ? _openFolder : null,
+                      icon: const Icon(
+                        Icons.folder_outlined,
+                      )),
                   IconButton(
                       tooltip: 'Remove',
                       onPressed: () => showDialog(

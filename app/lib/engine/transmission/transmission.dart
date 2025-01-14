@@ -174,7 +174,8 @@ class TransmissionEngine implements Engine {
       TorrentField.addedDate,
       TorrentField.errorString,
       TorrentField.magnetLink,
-      TorrentField.isPrivate
+      TorrentField.isPrivate,
+      TorrentField.downloadDir,
     ]));
     String res = await flutter_libtransmission
         .requestAsync(jsonEncode(torrentGetRequest));
@@ -195,7 +196,8 @@ class TransmissionEngine implements Engine {
             addedDate: torrent.addedDate,
             errorString: torrent.errorString,
             magnetLink: torrent.magnetLink,
-            isPrivate: torrent.isPrivate))
+            isPrivate: torrent.isPrivate,
+            location: torrent.location))
         .toList();
   }
 

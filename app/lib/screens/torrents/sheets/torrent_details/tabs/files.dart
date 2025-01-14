@@ -54,7 +54,8 @@ class FilesTab extends StatelessWidget {
             ),
             trailing: percent == 100
                 ? IconButton(
-                    onPressed: () => _openFile(file.name), icon: const Icon(Icons.download_done))
+                    onPressed: () => _openFile(file.name),
+                    icon: const Icon(Icons.download_done))
                 : file.wanted
                     ? IconButton(
                         tooltip: 'Pause',
