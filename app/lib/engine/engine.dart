@@ -11,7 +11,7 @@ abstract interface class Engine {
   Future init();
 
   // Dispose the engine
-  void dispose();
+  Future dispose();
 
   // Add a torrent
   Future<TorrentAddedResponse> addTorrent(

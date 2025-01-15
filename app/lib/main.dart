@@ -141,8 +141,6 @@ class _PikaTorrentAppState extends State<PikaTorrentApp> with WindowListener {
   void onWindowClose() async {
     var appModel = Provider.of<AppModel>(context, listen: false);
     appModel.setQuitting(true);
-    //FIXME: Workaround to call sync quit function *after* quitting dialog is shown
-    await Future.delayed(const Duration(milliseconds: 500));
     appModel.quit();
   }
 

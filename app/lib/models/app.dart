@@ -61,7 +61,7 @@ class AppModel extends ChangeNotifier {
   }
 
   void quit() async {
-    engine.dispose();
+    await engine.dispose();
     await windowManager.destroy();
   }
 }

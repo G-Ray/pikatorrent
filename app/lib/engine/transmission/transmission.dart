@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:isolate';
 
 import 'package:flutter_libtransmission/flutter_libtransmission.dart'
     as flutter_libtransmission;
@@ -133,8 +134,8 @@ class TransmissionEngine implements Engine {
   }
 
   @override
-  void dispose() {
-    flutter_libtransmission.closeSession();
+  Future dispose() {
+    return Isolate.run(() => flutter_libtransmission.closeSession());
   }
 
   @override
