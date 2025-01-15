@@ -296,5 +296,8 @@ class TransmissionEngine implements Engine {
   @override
   Future resetSettings() async {
     flutter_libtransmission.resetSettings();
+    if (Platform.isAndroid) {
+      await initDefaultDownloadDir(this);
+    }
   }
 }
