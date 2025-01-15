@@ -71,7 +71,7 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/window_manager/macos
 
 SPEC CHECKSUMS:
-  app_links: 9028728e32c83a0831d9db8cf91c526d16cc5468
+  app_links: afe860c55c7ef176cea7fb630a2b7d7736de591d
   device_info_plus: 4fb280989f669696856f8b129e4a5e3cd6c48f76
   flutter_libtransmission: e4f89a8f6e6b542a9586d523892f4779e1e4d8e1
   flutter_local_notifications: 13862b132e32eb858dea558a86d45d08daeacfe7
