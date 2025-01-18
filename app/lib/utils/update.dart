@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:http/http.dart' as http;
@@ -8,6 +10,8 @@ const String _githubApiUrl =
 
 // Returns the latest update version, or null
 Future<String?> checkForUpdate(String version) async {
+  if (isDistributedFromAppStore()) return null;
+
   try {
     final response = await http.get(Uri.parse(_githubApiUrl));
 
@@ -28,4 +32,14 @@ Future<String?> checkForUpdate(String version) async {
   }
 
   return null;
+}
+
+// Check if app is in release mode, and try to find out
+// if it's distributed through an app store
+bool isDistributedFromAppStore() {
+  if (kDebugMode) return false;
+
+  return Platform.environment.containsKey('FLATPAK_ID') ||
+      Platform.isWindows &&
+          Platform.environment.containsKey('APPLICATION_HOMEPAGE');
 }

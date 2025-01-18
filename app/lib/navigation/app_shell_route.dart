@@ -9,7 +9,7 @@ import 'package:pikatorrent/dialogs/update_available.dart';
 import 'package:pikatorrent/models/app.dart';
 import 'package:pikatorrent/navigation/navigation.dart';
 import 'package:pikatorrent/utils/app_links.dart';
-import 'package:pikatorrent/utils/check_for_update.dart';
+import 'package:pikatorrent/utils/update.dart';
 import 'package:provider/provider.dart';
 
 class AppShellRoute extends StatefulWidget {

@@ -9,6 +9,7 @@ import 'package:pikatorrent/screens/settings/dialogs/maximum_active_downloads_ed
 import 'package:pikatorrent/screens/settings/dialogs/reset_torrent_settings.dart';
 import 'package:pikatorrent/screens/settings/dialogs/theme_selector.dart';
 import 'package:pikatorrent/utils/string_extensions.dart';
+import 'package:pikatorrent/utils/update.dart';
 import 'package:provider/provider.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -121,14 +122,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
             leading: const Icon(Icons.dark_mode),
             title: const Text('Theme'),
             subtitle: Text(app.theme.name.capitalize())),
-        ListTile(
-            leading: const Icon(Icons.update),
-            title: const Text('Check for update'),
-            trailing: Switch(
-                value: app.checkForUpdate,
-                onChanged: _handlecheckForUpdateToggle),
-            subtitle:
-                const Text('Be notified when a new version is available')),
+        // Hide update check option if app is distributed through an app store
+        if (!isDistributedFromAppStore())
+          ListTile(
+              leading: const Icon(Icons.update),
+              title: const Text('Check for update'),
+              trailing: Switch(
+                  value: app.checkForUpdate,
+                  onChanged: _handlecheckForUpdateToggle),
+              subtitle:
+                  const Text('Be notified when a new version is available')),
         Padding(
           padding: const EdgeInsets.only(left: 16.0, top: 16),
           child: Text('Torrents settings',
