@@ -147,10 +147,13 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: pikatorrent-android
-          path: |
-            app/build/app/outputs/flutter-apk/*.apk
-            app/outputs/bundle/release/*.aab
+          name: pikatorrent-android-apk
+          path: app/build/app/outputs/flutter-apk/*.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pikatorrent-android-aab
+          path: app/outputs/bundle/release/*.aab
 
   ios:
     runs-on: macos-14
@@ -188,10 +191,24 @@ jobs:
     runs-on: ubuntu-24.04
     permissions:
       contents: write
-    needs: [linux, windows, macos, android]
+    needs: [linux, linux-arm64, windows, macos, android]
     steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+
+      - name: Desktop
+        run: |
+          zip -r PikaTorrent-${{ github.ref_name }}-linux-x64.zip pikatorrent-linux
+          zip -r PikaTorrent-${{ github.ref_name }}-linux-arm64.zip pikatorrent-linux-arm64
+          zip -r PikaTorrent-${{ github.ref_name }}-macos-universal-experimental.zip pikatorrent-macos
+          zip -r PikaTorrent-${{ github.ref_name }}-windows-x64.zip pikatorrent-windows
+      - name: Mobile
+        run: |
+          mv pikatorrent-android-apk/*apk PikaTorrent-${{ github.ref_name }}-android.apk
+
       - name: Release
-        uses: ncipollo/release-action@v1
+        uses: softprops/action-gh-release@v2
         with:
           draft: true
-          artifacts: "pikatorrent-linux.zip,pikatorrent-windows.zip,pikatorrent-macos.zip,pikatorrent-android.zip"
+          prerelease: true
+          files: PikaTorrent-*
