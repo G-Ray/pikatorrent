@@ -142,11 +142,16 @@ jobs:
           sudo apt-get update -y
           sudo apt-get install -y ninja-build
 
-      - run: flutter build apk
+      - run: |
+          flutter build apk
+          flutter build appbundle
+
       - uses: actions/upload-artifact@v4
         with:
           name: pikatorrent-android
-          path: app/build/app/outputs/flutter-apk/*.apk
+          path: |
+            app/build/app/outputs/flutter-apk/*.apk
+            app/outputs/bundle/release/*.aab
 
   ios:
     runs-on: macos-14
