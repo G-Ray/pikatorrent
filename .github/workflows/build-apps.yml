@@ -142,9 +142,8 @@ jobs:
           sudo apt-get update -y
           sudo apt-get install -y ninja-build
 
-      - run: |
-          flutter build apk
-          flutter build appbundle
+      - run: flutter build apk
+      - run: flutter build appbundle
 
       - uses: actions/upload-artifact@v4
         with:
