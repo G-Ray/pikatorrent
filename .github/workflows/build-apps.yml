@@ -13,6 +13,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: stable
+          flutter-version-file: app/pubspec.yaml
       - name: Install dependencies
         run: |
           sudo apt-get update -y
@@ -35,7 +36,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: master
-          flutter-version: 3.27.2
+          flutter-version-file: app/pubspec.yaml
       - name: Install dependencies
         run: |
           sudo apt-get update -y
@@ -65,9 +66,11 @@ jobs:
         with:
           vcpkgDirectory: ${{ github.workspace }}/app/vcpkg
       - name: Set up Flutter
-        uses: subosito/flutter-action@v2
+        # yq is not installed on windows on v2
+        uses: subosito/flutter-action@v2.18.0
         with:
           channel: stable
+          flutter-version-file: app/pubspec.yaml
       - run: flutter build windows
       - uses: actions/upload-artifact@v4
         with:
@@ -95,6 +98,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: stable
+          flutter-version-file: app/pubspec.yaml
       - run: flutter build macos
       - uses: actions/upload-artifact@v4
         with:
@@ -132,6 +136,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: stable
+          flutter-version-file: app/pubspec.yaml
       - name: Install dependencies
         run: |
           sudo apt-get update -y
@@ -167,6 +172,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: stable
+          flutter-version-file: app/pubspec.yaml
       - run: flutter build ios --no-codesign
       - uses: actions/upload-artifact@v4
         with:
