@@ -12,6 +12,8 @@ PikaTorrent aims to be an easy to use, open source torrent client for everyone.
 
 Download [latest release](https://github.com/G-Ray/pikatorrent/releases). The releases are currently considered pre-release versions. Please open issues to report bugs or features requests.
 
+You can join the open testing on Play Store : https://play.google.com/apps/testing/com.pikatorrent.PikaTorrent
+
 We are in the process to publish the latest release to the app stores.
 
 ## Screenshots
@@ -23,7 +25,7 @@ We are in the process to publish the latest release to the app stores.
 
 ## Upgrade to >= v0.10.0
 
-PikaTorrent has been rewritten from scratch for v0.10.0. If you already use a previous release, upgrading to v0.10.0 will most likely not display your previous torrents..
+PikaTorrent has been rewritten from scratch for v0.10.0. If you already use a previous release, upgrading to v0.10.0 will most likely not display your previous torrents.
 
 If you want to migrate your torrents :
 
