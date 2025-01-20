@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:isolate';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_libtransmission/flutter_libtransmission.dart'
     as flutter_libtransmission;
 import 'package:path_provider/path_provider.dart';
@@ -33,27 +34,27 @@ Future<Directory> getConfigDir() async {
 class TransmissionTorrent extends Torrent {
   TransmissionTorrent(
       {required super.id,
-      super.name,
-      super.progress,
-      super.status,
-      super.size,
-      super.rateDownload,
-      super.rateUpload,
-      super.downloadedEver,
-      super.uploadedEver,
-      super.eta,
-      super.pieceCount,
-      super.pieceSize,
-      super.errorString,
-      super.addedDate,
-      super.isPrivate,
-      super.location,
-      super.creator,
-      super.comment,
-      super.files,
-      super.labels,
-      super.peersConnected,
-      super.magnetLink});
+      required super.name,
+      required super.progress,
+      required super.status,
+      required super.size,
+      required super.rateDownload,
+      required super.rateUpload,
+      required super.downloadedEver,
+      required super.uploadedEver,
+      required super.eta,
+      required super.pieceCount,
+      required super.pieceSize,
+      required super.errorString,
+      required super.addedDate,
+      required super.isPrivate,
+      required super.location,
+      required super.creator,
+      required super.comment,
+      required super.files,
+      required super.labels,
+      required super.peersConnected,
+      required super.magnetLink});
 
   @override
   start() {
@@ -92,7 +93,7 @@ class TransmissionTorrent extends Torrent {
     List<int> filesWanted = [];
     List<int> filesUnwanted = [];
 
-    files?.forEachIndexed((index, file) {
+    files.forEachIndexed((index, file) {
       if (index == fileIndex) {
         return wanted ? filesWanted.add(index) : filesUnwanted.add(index);
       }
@@ -162,6 +163,7 @@ class TransmissionEngine implements Engine {
 
   @override
   Future<List<Torrent>> fetchTorrents() async {
+    debugPrint('fetchTorrents');
     TorrentGetRequest torrentGetRequest = TorrentGetRequest(
         arguments: TorrentGetRequestArguments(fields: [
       TorrentField.id,
@@ -174,77 +176,20 @@ class TransmissionEngine implements Engine {
       TorrentField.labels,
       TorrentField.addedDate,
       TorrentField.errorString,
-      TorrentField.magnetLink,
       TorrentField.isPrivate,
       TorrentField.downloadDir,
       TorrentField.files,
-      TorrentField.fileStats
-    ]));
-    String res = await flutter_libtransmission
-        .requestAsync(jsonEncode(torrentGetRequest));
-
-    final TorrentGetResponse decodedRes =
-        TorrentGetResponse.fromJson(jsonDecode(res));
-
-    return decodedRes.arguments.torrents
-        .map((torrent) => TransmissionTorrent(
-              id: torrent.id,
-              name: torrent.name,
-              progress: torrent.percentDone,
-              status: torrent.status,
-              size: torrent.totalSize,
-              rateDownload: torrent.rateDownload,
-              rateUpload: torrent.rateUpload,
-              labels: torrent.labels,
-              addedDate: torrent.addedDate,
-              errorString: torrent.errorString,
-              magnetLink: torrent.magnetLink,
-              isPrivate: torrent.isPrivate,
-              location: torrent.location,
-              files: torrent.files
-                  ?.asMap()
-                  .entries
-                  .map((entry) => torrent_file.File(
-                      name: entry.value.name,
-                      length: entry.value.length,
-                      bytesCompleted: entry.value.bytesCompleted,
-                      wanted: torrent.fileStats![entry.key].wanted))
-                  .toList(),
-            ))
-        .toList();
-  }
-
-  @override
-  Future<Torrent> fetchTorrentDetails(int id) async {
-    TorrentGetRequest torrentGetRequest = TorrentGetRequest(
-        arguments: TorrentGetRequestArguments(ids: [
-      id
-    ], fields: [
-      TorrentField.id,
-      TorrentField.name,
-      TorrentField.percentDone,
-      TorrentField.status,
-      TorrentField.totalSize,
-      TorrentField.rateDownload,
-      TorrentField.rateUpload,
+      TorrentField.fileStats,
       TorrentField.downloadedEver,
       TorrentField.uploadedEver,
       TorrentField.eta,
       TorrentField.pieceSize,
       TorrentField.pieceCount,
-      TorrentField.errorString,
-      TorrentField.addedDate,
-      TorrentField.isPrivate,
-      TorrentField.downloadDir,
       TorrentField.comment,
       TorrentField.creator,
-      TorrentField.files,
-      TorrentField.fileStats,
-      TorrentField.labels,
       TorrentField.peersConnected,
       TorrentField.magnetLink
     ]));
-
     String res = await flutter_libtransmission
         .requestAsync(jsonEncode(torrentGetRequest));
 
@@ -260,31 +205,30 @@ class TransmissionEngine implements Engine {
             size: torrent.totalSize,
             rateDownload: torrent.rateDownload,
             rateUpload: torrent.rateUpload,
-            downloadedEver: torrent.downloadedEver,
-            uploadedEver: torrent.uploadedEver,
-            eta: torrent.eta,
-            pieceCount: torrent.pieceCount,
-            pieceSize: torrent.pieceSize,
+            labels: torrent.labels,
             addedDate: torrent.addedDate,
             errorString: torrent.errorString,
+            magnetLink: torrent.magnetLink,
             isPrivate: torrent.isPrivate,
             location: torrent.location,
-            comment: torrent.comment,
-            creator: torrent.creator,
             files: torrent.files
-                ?.asMap()
+                .asMap()
                 .entries
                 .map((entry) => torrent_file.File(
                     name: entry.value.name,
                     length: entry.value.length,
                     bytesCompleted: entry.value.bytesCompleted,
-                    wanted: torrent.fileStats![entry.key].wanted))
+                    wanted: torrent.fileStats[entry.key].wanted))
                 .toList(),
-            labels: torrent.labels,
-            peersConnected: torrent.peersConnected,
-            magnetLink: torrent.magnetLink))
-        .toList()
-        .first;
+            downloadedEver: torrent.downloadedEver,
+            uploadedEver: torrent.uploadedEver,
+            eta: torrent.eta,
+            pieceCount: torrent.pieceCount,
+            pieceSize: torrent.pieceSize,
+            comment: torrent.comment,
+            creator: torrent.creator,
+            peersConnected: torrent.peersConnected))
+        .toList();
   }
 
   @override

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pikatorrent/engine/torrent.dart';
 import 'package:pikatorrent/models/torrents.dart';
-import 'package:pikatorrent/screens/torrents/sheets/torrent_details/models/torrent.dart';
 import 'package:pikatorrent/screens/torrents/sheets/torrent_details/tabs/dialogs/add_label.dart';
 import 'package:provider/provider.dart';
 
@@ -34,7 +33,6 @@ class LabelsTab extends StatelessWidget {
   }
 
   _refreshTorrents(BuildContext context) {
-    Provider.of<TorrentModel>(context, listen: false).fetchTorrent(torrent.id);
     Provider.of<TorrentsModel>(context, listen: false).fetchTorrents();
   }
 

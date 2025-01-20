@@ -50,28 +50,28 @@ class TransmissionTorrentFileStats {
 
 class TransmissionTorrent {
   final int id;
-  final String? name;
-  final double? percentDone;
-  final TorrentStatus? status;
-  final int? totalSize;
-  final int? rateDownload;
-  final int? rateUpload;
-  final int? downloadedEver;
-  final int? uploadedEver;
-  final int? eta;
-  final int? pieceCount;
-  final int? pieceSize;
-  final String? errorString;
-  final String? location;
-  final bool? isPrivate;
-  final int? addedDate;
-  final String? creator;
-  final String? comment;
-  final List<TransmissionTorrentFile>? files;
-  final List<TransmissionTorrentFileStats>? fileStats;
-  final List<String>? labels;
-  final int? peersConnected;
-  final String? magnetLink;
+  final String name;
+  final double percentDone;
+  final TorrentStatus status;
+  final int totalSize;
+  final int rateDownload;
+  final int rateUpload;
+  final int downloadedEver;
+  final int uploadedEver;
+  final int eta;
+  final int pieceCount;
+  final int pieceSize;
+  final String errorString;
+  final String location;
+  final bool isPrivate;
+  final int addedDate;
+  final String creator;
+  final String comment;
+  final List<TransmissionTorrentFile> files;
+  final List<TransmissionTorrentFileStats> fileStats;
+  final List<String> labels;
+  final int peersConnected;
+  final String magnetLink;
 
   const TransmissionTorrent(
       this.id,
@@ -104,9 +104,7 @@ class TransmissionTorrent {
         percentDone = json['percentDone'] is int
             ? json['percentDone'].toDouble()
             : json['percentDone'],
-        status = json['status'] != null
-            ? TorrentStatus.values[json['status']]
-            : null,
+        status = TorrentStatus.values[json['status']],
         totalSize = json['totalSize'],
         rateDownload = json['rateDownload'],
         rateUpload = json['rateUpload'],
@@ -129,8 +127,7 @@ class TransmissionTorrent {
             ?.map<TransmissionTorrentFileStats>(
                 (json) => TransmissionTorrentFileStats.fromJson(json))
             .toList(),
-        labels =
-            json['labels'] != null ? List<String>.from(json['labels']) : null,
+        labels = List<String>.from(json['labels']),
         peersConnected = json['peersConnected'],
         magnetLink = json['magnetLink'];
 }

@@ -10,12 +10,11 @@ class DetailsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double ratio = torrent.downloadedEver! > 0
-        ? torrent.uploadedEver! / torrent.downloadedEver!
+    double ratio = torrent.downloadedEver > 0
+        ? torrent.uploadedEver / torrent.downloadedEver
         : 0;
 
     String status = switch (torrent.status) {
-      null => '-',
       TorrentStatus.stopped => 'Stopped',
       TorrentStatus.checking => 'Checking',
       TorrentStatus.downloading => 'Downloading',
@@ -25,56 +24,58 @@ class DetailsTab extends StatelessWidget {
       TorrentStatus.seeding => 'Seeding'
     };
 
-    final eta = Duration(seconds: torrent.eta!);
+    final eta = Duration(seconds: torrent.eta);
 
     final String privacy =
-        torrent.isPrivate! ? 'Private torrent' : 'Public torrent';
+        torrent.isPrivate ? 'Private torrent' : 'Public torrent';
 
     return ListView(
       children: <Widget>[
         ListTile(
             title: const Text('Size'),
-            subtitle: Text(prettyBytes(torrent.size!.toDouble()))),
+            subtitle: Text(prettyBytes(torrent.size.toDouble()))),
         ListTile(
             title: const Text('Downloaded'),
-            subtitle: Text(prettyBytes(torrent.downloadedEver!.toDouble()))),
+            subtitle: Text(prettyBytes(torrent.downloadedEver.toDouble()))),
         ListTile(
             title: const Text('Uploaded'),
-            subtitle: Text(prettyBytes(torrent.uploadedEver!.toDouble()))),
+            subtitle: Text(prettyBytes(torrent.uploadedEver.toDouble()))),
         ListTile(title: const Text('Ratio'), subtitle: Text(ratio.toString())),
-        ListTile(title: const Text('Peers connected'), subtitle: Text(torrent.peersConnected.toString())),
+        ListTile(
+            title: const Text('Peers connected'),
+            subtitle: Text(torrent.peersConnected.toString())),
         ListTile(title: const Text('State'), subtitle: Text(status)),
         ListTile(
             title: const Text('Remaining Time'),
-            subtitle: Text(torrent.eta! >= 0
+            subtitle: Text(torrent.eta >= 0
                 ? eta.pretty(abbreviated: true, delimiter: ' ')
                 : '-')),
         ListTile(
             title: const Text('Error'),
             subtitle:
-                Text(torrent.errorString == '' ? '-' : torrent.errorString!)),
+                Text(torrent.errorString == '' ? '-' : torrent.errorString)),
         ListTile(
             title: const Text('Pieces'),
             subtitle: Text(torrent.pieceCount.toString())),
         ListTile(
             title: const Text('Piece size'),
             subtitle:
-                Text(prettyBytes(torrent.pieceSize!.toDouble()).toString())),
+                Text(prettyBytes(torrent.pieceSize.toDouble()).toString())),
         ListTile(
             title: const Text('Added date'),
             subtitle: Text(
-                DateTime.fromMillisecondsSinceEpoch(torrent.addedDate! * 1000)
+                DateTime.fromMillisecondsSinceEpoch(torrent.addedDate * 1000)
                     .toString())),
         ListTile(title: const Text('Privacy'), subtitle: Text(privacy)),
         ListTile(
             title: const Text('Creator'),
-            subtitle: Text(torrent.creator! == '' ? '-' : torrent.creator!)),
+            subtitle: Text(torrent.creator == '' ? '-' : torrent.creator)),
         ListTile(
             title: const Text('Comment'),
-            subtitle: Text(torrent.comment! == '' ? '-' : torrent.comment!)),
+            subtitle: Text(torrent.comment == '' ? '-' : torrent.comment)),
         ListTile(
             title: const Text('Download directory'),
-            subtitle: Text(torrent.location!)),
+            subtitle: Text(torrent.location)),
       ],
     );
   }

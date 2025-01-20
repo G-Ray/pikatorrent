@@ -21,55 +21,55 @@ class TorrentBase {
   final int id;
   final List<String>? labels;
 
-  TorrentBase({required this.id, this.labels});
+  TorrentBase({required this.id, required this.labels});
 }
 
 // Torrent abstraction
 abstract class Torrent extends TorrentBase {
-  final String? name;
-  final double? progress;
-  final TorrentStatus? status;
-  final int? size;
-  final int? rateDownload;
-  final int? rateUpload;
-  final int? downloadedEver;
-  final int? uploadedEver;
-  final int? eta;
-  final int? pieceCount;
-  final int? pieceSize;
-  final String? errorString;
-  final String? location;
-  final bool? isPrivate;
-  final int? addedDate;
-  final String? creator;
-  final String? comment;
-  final List<File>? files;
-  final int? peersConnected;
-  final String? magnetLink;
+  final String name;
+  final double progress;
+  final TorrentStatus status;
+  final int size;
+  final int rateDownload;
+  final int rateUpload;
+  final int downloadedEver;
+  final int uploadedEver;
+  final int eta;
+  final int pieceCount;
+  final int pieceSize;
+  final String errorString;
+  final String location;
+  final bool isPrivate;
+  final int addedDate;
+  final String creator;
+  final String comment;
+  final List<File> files;
+  final int peersConnected;
+  final String magnetLink;
 
   Torrent(
       {required super.id,
-      super.labels,
-      this.name,
-      this.progress,
-      this.status,
-      this.size,
-      this.rateDownload,
-      this.rateUpload,
-      this.downloadedEver,
-      this.uploadedEver,
-      this.eta,
-      this.pieceSize,
-      this.errorString,
-      this.pieceCount,
-      this.location,
-      this.isPrivate,
-      this.addedDate,
-      this.comment,
-      this.creator,
-      this.files,
-      this.peersConnected,
-      this.magnetLink});
+      required super.labels,
+      required this.name,
+      required this.progress,
+      required this.status,
+      required this.size,
+      required this.rateDownload,
+      required this.rateUpload,
+      required this.downloadedEver,
+      required this.uploadedEver,
+      required this.eta,
+      required this.pieceSize,
+      required this.errorString,
+      required this.pieceCount,
+      required this.location,
+      required this.isPrivate,
+      required this.addedDate,
+      required this.comment,
+      required this.creator,
+      required this.files,
+      required this.peersConnected,
+      required this.magnetLink});
 
   // Start the torrent
   start();
@@ -87,24 +87,22 @@ abstract class Torrent extends TorrentBase {
 
   openFolder(BuildContext context) async {
     if (!isDesktop()) return;
-    if (files == null) return;
-    if (location == null) return;
 
     OpenResult result;
     String folderPath;
 
-    if (files!.length == 1) {
-      folderPath = location!;
+    if (files.length == 1) {
+      folderPath = location;
     } else {
-      var folderName = split(files!.first.name).first;
-      folderPath = join(location!, folderName);
+      var folderName = split(files.first.name).first;
+      folderPath = join(location, folderName);
     }
 
     result = await OpenFile.open(
       folderPath,
     );
 
-    if (result.type != ResultType.done && context.mounted) {
+    if (result.type != ResultType.done) {
       var errorMessage = switch (result.type) {
         ResultType.noAppToOpen => 'No app to open',
         ResultType.fileNotFound => 'Not found',
@@ -116,10 +114,12 @@ abstract class Torrent extends TorrentBase {
         _ => 'Unknown error'
       };
 
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Error opening torrent location: $errorMessage.'),
-        backgroundColor: Colors.orange,
-      ));
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Error opening torrent location: $errorMessage.'),
+          backgroundColor: Colors.orange,
+        ));
+      }
     }
   }
 }

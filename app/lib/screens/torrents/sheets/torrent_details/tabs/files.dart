@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pikatorrent/engine/torrent.dart';
 import 'package:pikatorrent/models/torrents.dart';
-import 'package:pikatorrent/screens/torrents/sheets/torrent_details/models/torrent.dart';
 import 'package:pretty_bytes/pretty_bytes.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path/path.dart' as path;
@@ -21,15 +20,14 @@ class FilesTab extends StatelessWidget {
   _handleWantedChange(BuildContext context, int fileIndex, bool? wanted) async {
     await torrent.toggleFileWanted(fileIndex, wanted ?? true);
     if (context.mounted) {
-      Provider.of<TorrentModel>(context, listen: false)
-          .fetchTorrent(torrent.id);
+      // Refresh torrents
       await Provider.of<TorrentsModel>(context, listen: false).fetchTorrents();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    var files = torrent.files ?? [];
+    var files = torrent.files;
 
     return ListView.builder(
       itemCount: files.length,
@@ -54,7 +52,8 @@ class FilesTab extends StatelessWidget {
             ),
             trailing: percent == 100
                 ? IconButton(
-                    onPressed: () => _openFile(file.name), icon: const Icon(Icons.download_done))
+                    onPressed: () => _openFile(file.name),
+                    icon: const Icon(Icons.download_done))
                 : file.wanted
                     ? IconButton(
                         tooltip: 'Pause',

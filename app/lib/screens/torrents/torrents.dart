@@ -72,7 +72,7 @@ class _TorrentScreen extends State<TorrentsScreen>
                 // FIXME: add prototypeItem to improve perfs.
                 itemBuilder: (context, index) {
                   Torrent torrent = torrentsModel.displayedTorrents[index];
-                  final percent = (torrent.progress ?? 0) * 100;
+                  final percent = (torrent.progress) * 100;
 
                   if (isMobileSize(context)) {
                     return Slidable(
@@ -87,7 +87,7 @@ class _TorrentScreen extends State<TorrentsScreen>
                             SlidableAction(
                               backgroundColor: Colors.blue,
                               onPressed: (_) =>
-                                  shareLink(context, torrent.magnetLink!),
+                                  shareLink(context, torrent.magnetLink),
                               icon: Icons.share,
                             ),
                           if (isDesktop())

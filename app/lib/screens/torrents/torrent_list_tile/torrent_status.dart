@@ -12,7 +12,7 @@ class TorrentStatusText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (torrent.errorString!.isNotEmpty) {
+    if (torrent.errorString.isNotEmpty) {
       return const Text('Error',
           overflow: TextOverflow.ellipsis,
           style: TextStyle(
@@ -38,7 +38,6 @@ class TorrentStatusText extends StatelessWidget {
               fontWeight: FontWeight.bold,
               fontSize: 12,
               color: Colors.lightBlue)),
-      null => const Text('-'),
     };
   }
 }

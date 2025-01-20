@@ -32,13 +32,13 @@ class TorrentListTile extends StatelessWidget {
             ? const EdgeInsets.only(left: 16, right: 16)
             : null,
         onTap: () {
-          showDeviceSheet(context, torrent.name ?? 'Torrent details',
-              TorrentDetailsModalSheet(id: torrent.id));
+          showDeviceSheet(
+              context, torrent.name, TorrentDetailsModalSheet(id: torrent.id));
         },
         leading: FittedBox(
           child: Stack(alignment: Alignment.center, children: [
             CircularProgressIndicator(
-                value: torrent.progress ?? 0,
+                value: torrent.progress,
                 valueColor: const AlwaysStoppedAnimation<Color>(Colors.yellow),
                 strokeWidth: 4),
             Center(
@@ -62,7 +62,7 @@ class TorrentListTile extends StatelessWidget {
         title: Row(
           children: [
             Expanded(
-              child: Text(torrent.name ?? '-',
+              child: Text(torrent.name,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                   style: const TextStyle(fontWeight: FontWeight.bold)),
@@ -76,8 +76,7 @@ class TorrentListTile extends StatelessWidget {
                   if (const bool.fromEnvironment('ENABLE_LINK_SHARING') == true)
                     IconButton(
                         tooltip: 'Share',
-                        onPressed: () =>
-                            shareLink(context, torrent.magnetLink!),
+                        onPressed: () => shareLink(context, torrent.magnetLink),
                         icon: const Icon(
                           Icons.share,
                         )),
@@ -113,10 +112,7 @@ class TorrentListTile extends StatelessWidget {
             ],
           )),
           Expanded(
-            child: Text(
-                torrent.size != null
-                    ? prettyBytes(torrent.size!.toDouble())
-                    : '-',
+            child: Text(prettyBytes(torrent.size.toDouble()),
                 style:
                     const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
           ),
@@ -132,9 +128,7 @@ class TorrentListTile extends StatelessWidget {
                     Expanded(
                       child: Text(
                           overflow: TextOverflow.ellipsis,
-                          torrent.rateDownload != null
-                              ? '${prettyBytes(torrent.rateDownload!.toDouble())}/s'
-                              : '-',
+                          '${prettyBytes(torrent.rateDownload.toDouble())}/s',
                           style: const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 12)),
                     ),
@@ -154,9 +148,7 @@ class TorrentListTile extends StatelessWidget {
               Expanded(
                 child: Text(
                     overflow: TextOverflow.ellipsis,
-                    torrent.rateUpload != null
-                        ? '${prettyBytes(torrent.rateUpload!.toDouble())}/s'
-                        : '-',
+                    '${prettyBytes(torrent.rateUpload.toDouble())}/s',
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 12)),
               )

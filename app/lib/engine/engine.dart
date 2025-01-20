@@ -20,9 +20,6 @@ abstract interface class Engine {
   // Fetch all torrents
   Future<List<Torrent>> fetchTorrents();
 
-  // Fetch a torrent details
-  Future<Torrent> fetchTorrentDetails(int id);
-
   // Fetch session information (e.g. default download directory)
   Future<Session> fetchSession();
 

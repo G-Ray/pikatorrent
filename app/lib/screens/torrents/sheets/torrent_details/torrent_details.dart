@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pikatorrent/screens/torrents/sheets/torrent_details/models/torrent.dart';
+import 'package:pikatorrent/engine/torrent.dart';
+import 'package:pikatorrent/models/torrents.dart';
 import 'package:pikatorrent/screens/torrents/sheets/torrent_details/tabs/details.dart';
 import 'package:pikatorrent/screens/torrents/sheets/torrent_details/tabs/files.dart';
 import 'package:pikatorrent/screens/torrents/sheets/torrent_details/tabs/labels.dart';
@@ -12,47 +13,21 @@ class TorrentDetailsModalSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-        create: (context) => TorrentModel(),
-        child: Consumer<TorrentModel>(builder: (context, torrentModel, child) {
-          return TorrentDetailsModalSheetContent(
-              torrentModel: torrentModel, id: id);
-        }));
+    return Consumer<TorrentsModel>(builder: (context, torrentsModel, child) {
+      var torrent =
+          torrentsModel.torrents.firstWhere((element) => element.id == id);
+      return TorrentDetailsModalSheetContent(torrent: torrent);
+    });
   }
 }
 
-class TorrentDetailsModalSheetContent extends StatefulWidget {
-  final TorrentModel torrentModel;
-  final int id;
+class TorrentDetailsModalSheetContent extends StatelessWidget {
+  final Torrent torrent;
 
-  const TorrentDetailsModalSheetContent(
-      {super.key, required this.torrentModel, required this.id});
-
-  @override
-  State<TorrentDetailsModalSheetContent> createState() =>
-      _TorrentDetailsModalSheetContentState();
-}
-
-class _TorrentDetailsModalSheetContentState
-    extends State<TorrentDetailsModalSheetContent> {
-  @override
-  void initState() {
-    super.initState();
-    widget.torrentModel.startTorrentFetching(widget.id);
-  }
-
-  @override
-  void dispose() {
-    widget.torrentModel.stopTorrentFetching();
-    super.dispose();
-  }
+  const TorrentDetailsModalSheetContent({super.key, required this.torrent});
 
   @override
   Widget build(BuildContext context) {
-    if (widget.torrentModel.torrent == null) {
-      return const Text('Loading...');
-    }
-
     return DefaultTabController(
       length: 3, // Number of tabs
       child: Expanded(
@@ -70,11 +45,11 @@ class _TorrentDetailsModalSheetContentState
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
                   FilesTab(
-                    torrent: widget.torrentModel.torrent!,
-                    location: widget.torrentModel.torrent!.location!,
+                    torrent: torrent,
+                    location: torrent.location,
                   ),
-                  LabelsTab(torrent: widget.torrentModel.torrent!),
-                  DetailsTab(torrent: widget.torrentModel.torrent!)
+                  LabelsTab(torrent: torrent),
+                  DetailsTab(torrent: torrent)
                 ],
               ),
             ),

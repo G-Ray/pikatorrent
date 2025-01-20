@@ -69,7 +69,7 @@ class TorrentsModel extends ChangeNotifier {
         ? extractAllSorted(
                 query: filterText,
                 choices: torrents.toList(),
-                getter: (t) => t.name!,
+                getter: (t) => t.name,
                 cutoff: 60)
             .map((result) => torrents[result.index])
             .toList()
@@ -89,17 +89,18 @@ class TorrentsModel extends ChangeNotifier {
 
     switch (sort) {
       case Sort.addedDate:
-        torrentsSorted.sort((a, b) => a.addedDate!.compareTo(b.addedDate!));
+        torrentsSorted.sort((a, b) => a.addedDate.compareTo(b.addedDate));
       case Sort.progress:
-        torrentsSorted.sort((a, b) => a.progress!.compareTo(b.progress!));
+        torrentsSorted.sort((a, b) => a.progress.compareTo(b.progress));
       case Sort.size:
-        torrentsSorted.sort((a, b) => a.size!.compareTo(b.size!));
+        torrentsSorted.sort((a, b) => a.size.compareTo(b.size));
     }
 
     return reverseSort ? torrentsSorted.reversed.toList() : torrentsSorted;
   }
 
-  Future<TorrentAddedResponse> addTorrent(String? filename, String? metainfo, String? downloadDir) async {
+  Future<TorrentAddedResponse> addTorrent(
+      String? filename, String? metainfo, String? downloadDir) async {
     return engine.addTorrent(filename, metainfo, downloadDir);
   }
 
