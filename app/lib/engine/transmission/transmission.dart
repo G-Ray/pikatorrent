@@ -175,7 +175,10 @@ class TransmissionEngine implements Engine {
       TorrentField.addedDate,
       TorrentField.errorString,
       TorrentField.magnetLink,
-      TorrentField.isPrivate
+      TorrentField.isPrivate,
+      TorrentField.downloadDir,
+      TorrentField.files,
+      TorrentField.fileStats
     ]));
     String res = await flutter_libtransmission
         .requestAsync(jsonEncode(torrentGetRequest));
@@ -185,18 +188,29 @@ class TransmissionEngine implements Engine {
 
     return decodedRes.arguments.torrents
         .map((torrent) => TransmissionTorrent(
-            id: torrent.id,
-            name: torrent.name,
-            progress: torrent.percentDone,
-            status: torrent.status,
-            size: torrent.totalSize,
-            rateDownload: torrent.rateDownload,
-            rateUpload: torrent.rateUpload,
-            labels: torrent.labels,
-            addedDate: torrent.addedDate,
-            errorString: torrent.errorString,
-            magnetLink: torrent.magnetLink,
-            isPrivate: torrent.isPrivate))
+              id: torrent.id,
+              name: torrent.name,
+              progress: torrent.percentDone,
+              status: torrent.status,
+              size: torrent.totalSize,
+              rateDownload: torrent.rateDownload,
+              rateUpload: torrent.rateUpload,
+              labels: torrent.labels,
+              addedDate: torrent.addedDate,
+              errorString: torrent.errorString,
+              magnetLink: torrent.magnetLink,
+              isPrivate: torrent.isPrivate,
+              location: torrent.location,
+              files: torrent.files
+                  ?.asMap()
+                  .entries
+                  .map((entry) => torrent_file.File(
+                      name: entry.value.name,
+                      length: entry.value.length,
+                      bytesCompleted: entry.value.bytesCompleted,
+                      wanted: torrent.fileStats![entry.key].wanted))
+                  .toList(),
+            ))
         .toList();
   }
 

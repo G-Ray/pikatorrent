@@ -81,6 +81,13 @@ class TorrentListTile extends StatelessWidget {
                         icon: const Icon(
                           Icons.share,
                         )),
+                  if (isDesktop())
+                    IconButton(
+                        tooltip: 'Open folder',
+                        onPressed: () => torrent.openFolder(context),
+                        icon: const Icon(
+                          Icons.folder_outlined,
+                        )),
                   IconButton(
                       tooltip: 'Remove',
                       onPressed: () => showDialog(

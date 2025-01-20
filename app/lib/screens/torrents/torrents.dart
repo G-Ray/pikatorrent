@@ -90,6 +90,13 @@ class _TorrentScreen extends State<TorrentsScreen>
                                   shareLink(context, torrent.magnetLink!),
                               icon: Icons.share,
                             ),
+                          if (isDesktop())
+                            SlidableAction(
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.surface,
+                              onPressed: (_) => torrent.openFolder(context),
+                              icon: Icons.folder_outlined,
+                            ),
                           SlidableAction(
                             backgroundColor: Colors.red,
                             onPressed: (_) => showDialog(
