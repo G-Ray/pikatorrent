@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>com.pikatorrent.PikaTorrent</id>
+
+  <name>PikaTorrent</name>
+  <summary>Easy to use BitTorrent client for everyone ⚡</summary>
+
+  <url type="homepage">https://www.pikatorrent.com</url>
+  <url type="bugtracker">https://github.com/G-Ray/pikatorrent/issues</url>
+  <url type="help">https://github.com/G-Ray/pikatorrent</url>
+
+  <metadata_license>CC-BY-SA-4.0</metadata_license>
+  <project_license>GPL-3.0-only</project_license>
+
+  <content_rating type="oars-1.0" />
+
+  <supports>
+    <control>pointing</control>
+    <control>keyboard</control>
+    <control>touch</control>
+  </supports>
+
+  <description>
+    <p>Supercharge your torrents with PikaTorrent ⚡</p>
+
+    <ul>
+      <li>An easy to use, clean, and responsive user interface</li>
+      <li>Ability to select/unselect files to download</li>
+    </ul>
+  </description>
+
+  <launchable type="desktop-id">com.pikatorrent.PikaTorrent.desktop</launchable>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://www.pikatorrent.com/desktop-light.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://www.pikatorrent.com/desktop-dark.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://www.pikatorrent.com/mobile-light.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://www.pikatorrent.com/mobile-dark.png</image>
+    </screenshot>
+  </screenshots>
+
+  <releases>
+    <release version="0.10.0" date="2025-01-15">
+      <description>
+        <ul>
+          <li>Complete application rewrite.</li>
+          <li>Massive performance improvements</li>
+          <li>An easy to use, clean, and responsive user interface</li>
+          <li>Ability to select/unselect files to download</li>
+        </ul>
+      </description>
+    </release>
+    <release version="0.9.0" date="2023-12-13">
+      <description>
+        <ul>
+          <li>Added a library to quickly download free torrents 🍿</li>
+          <li>Allow removing a torrent while keeping data</li>
+          <li>Dark theme is now applied automatically on Linux 🐧</li>
+          <li>Added statistics dialog in about page 📈</li>
+          <li>Updated translations and German 🇩🇪 language</li>
+          <li>Interface, usability improvements, + bug fixes 🐛</li>
+        </ul>
+      </description>
+    </release>
+    <release version="0.8.1" date="2023-09-30">
+      <description>
+        <ul>
+          <li>A refreshed interface, with true dark theme support (save battery on OLED screens) 🕶️</li>
+          <li>Improve modals responsiveness 🚀</li>
+          <li>Support for any search engines urls using a placeholder %s 🔍</li>
+          <li>Initial support to display errors strings when a torrent has an issue 🔴</li>
+          <li>Bug fixes: new label input could have erratic behavior, ... 🐛</li>
+        </ul>
+      </description>
+    </release>
+    <release version="0.7.1" date="2023-09-20">
+      <description>
+        <ul>
+          <li>Display peers and ETA ✈️</li>
+          <li>Reworked files list, with progress status 🗄️</li>
+          <li>Moved speed stats to the top 🔝</li>
+          <li>Fix port number input, elements going offscreen, session info on desktop, ... 🐛</li>
+          <li>Minor UI improvements 💄</li>
+        </ul>
+      </description>
+    </release>
+    <release version="0.6.0" date="2023-09-07">
+      <description>
+        <ul>
+          <li>Sort your torrents by name, progress or size ⬇️ ⬆️</li>
+          <li>Better performances when editing or removing a torrent 🚀</li>
+          <li>Add advanced settings: uTP, DHT, LPD, PEX, port forwarding, and incoming peer port 🧲</li>
+          <li>Initial translations into russian 🇷🇺 , Brazilian portuguese 🇧🇷 , and french 🇫🇷</li>
+          <li>Added archive.org to the default search engines 🗃️</li>
+          <li>Minor UI improvements 💅</li>
+          <li>Bug fixes 🪱</li>
+        </ul>
+      </description>
+    </release>
+    <release version="0.5.3" date="2023-08-23" />
+  </releases>
+</component>
