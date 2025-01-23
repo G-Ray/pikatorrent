@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=PikaTorrent
+GenericName=BitTorrent Client
+Exec=pikatorrent %u
+Icon=com.pikatorrent.PikaTorrent
+Type=Application
+StartupNotify=true
+MimeType=x-scheme-handler/magnet;application/x-bittorrent;
+Categories=Network;FileTransfer
+Keywords=torrent;bittorrent
