@@ -22,6 +22,21 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  bool canCheckForUpdate = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _init();
+  }
+
+  _init() async {
+    bool isFromAppStore = await isDistributedFromAppStore();
+    setState(() {
+      canCheckForUpdate = !isFromAppStore;
+    });
+  }
+
   // Handlers
   void handlePickFolder(BuildContext context) async {
     String? selectedDirectory = await FilePicker.platform
@@ -123,7 +138,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             title: const Text('Theme'),
             subtitle: Text(app.theme.name.capitalize())),
         // Hide update check option if app is distributed through an app store
-        if (!isDistributedFromAppStore())
+        if (canCheckForUpdate)
           ListTile(
               leading: const Icon(Icons.update),
               title: const Text('Check for update'),

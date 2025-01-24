@@ -73,6 +73,7 @@ dependencies:
   pub_semver: ^2.1.5
   http: ^1.2.2
   win32_registry: ^1.1.5
+  store_checker: ^1.6.0
 
 dev_dependencies:
   flutter_test:
