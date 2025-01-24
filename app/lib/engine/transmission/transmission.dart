@@ -163,7 +163,6 @@ class TransmissionEngine implements Engine {
 
   @override
   Future<List<Torrent>> fetchTorrents() async {
-    debugPrint('fetchTorrents');
     TorrentGetRequest torrentGetRequest = TorrentGetRequest(
         arguments: TorrentGetRequestArguments(fields: [
       TorrentField.id,
