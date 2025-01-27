@@ -76,6 +76,14 @@ jobs:
         with:
           name: pikatorrent-windows
           path: app/build/windows/x64/runner/Release/**/*
+      - name: Build msix
+        run: |
+          dart pub global activate flutter_distributor
+          flutter_distributor package --platform windows --targets msix
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pikatorrent-windows-msix
+          path: app/dist/**/*.msix
 
   macos:
     runs-on: macos-14
