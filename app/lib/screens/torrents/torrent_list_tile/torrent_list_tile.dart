@@ -54,8 +54,9 @@ class TorrentListTile extends StatelessWidget {
                   : torrent.progress == 1
                       ? const Icon(Icons.download_done)
                       : const Icon(Icons.download),
-              tooltip:
-                  torrent.status == TorrentStatus.stopped ? 'Start' : 'Stop',
+              tooltip: torrent.status == TorrentStatus.stopped
+                  ? 'Download'
+                  : 'Pause',
             )),
           ]),
         ),

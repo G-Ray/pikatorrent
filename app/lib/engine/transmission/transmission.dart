@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:isolate';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter_libtransmission/flutter_libtransmission.dart'
     as flutter_libtransmission;
 import 'package:path_provider/path_provider.dart';
@@ -22,7 +21,6 @@ import 'package:pikatorrent/engine/transmission/models/torrent_get_response.dart
 import 'package:pikatorrent/engine/transmission/models/torrent_remove_request.dart';
 import 'package:path/path.dart' as path;
 import 'package:pikatorrent/engine/transmission/models/torrent_set_request.dart';
-import 'package:collection/collection.dart';
 import 'package:pikatorrent/platforms/android/default_session.dart';
 
 Future<Directory> getConfigDir() async {
@@ -90,20 +88,20 @@ class TransmissionTorrent extends Torrent {
 
   @override
   Future toggleFileWanted(int fileIndex, bool wanted) async {
-    List<int> filesWanted = [];
-    List<int> filesUnwanted = [];
-
-    files.forEachIndexed((index, file) {
-      if (index == fileIndex) {
-        return wanted ? filesWanted.add(index) : filesUnwanted.add(index);
-      }
-
-      return file.wanted ? filesWanted.add(index) : filesUnwanted.add(index);
-    });
-
     var request = TorrentSetRequest(
         arguments: TorrentSetRequestArguments(
-            ids: [id], filesWanted: filesWanted, filesUnwanted: filesUnwanted));
+            ids: [id],
+            filesWanted: wanted ? [fileIndex] : null,
+            filesUnwanted: !wanted ? [fileIndex] : null));
+    await flutter_libtransmission.requestAsync(jsonEncode(request));
+  }
+
+  @override
+  Future toggleAllFilesWanted(bool wanted) async {
+    var request = TorrentSetRequest(
+        arguments: wanted
+            ? TorrentSetRequestArguments(ids: [id], filesWanted: [])
+            : TorrentSetRequestArguments(ids: [id], filesUnwanted: []));
     await flutter_libtransmission.requestAsync(jsonEncode(request));
   }
 }

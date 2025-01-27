@@ -85,6 +85,8 @@ abstract class Torrent extends TorrentBase {
 
   Future toggleFileWanted(int fileIndex, bool wanted);
 
+  Future toggleAllFilesWanted(bool wanted);
+
   openFolder(BuildContext context) async {
     if (!isDesktop()) return;
 

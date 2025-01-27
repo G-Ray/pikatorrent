@@ -17,8 +17,16 @@ class FilesTab extends StatelessWidget {
     OpenFile.open(path.join(location, filepath));
   }
 
-  _handleWantedChange(BuildContext context, int fileIndex, bool? wanted) async {
-    await torrent.toggleFileWanted(fileIndex, wanted ?? true);
+  _handleWantedChange(BuildContext context, int fileIndex, bool wanted) async {
+    await torrent.toggleFileWanted(fileIndex, wanted);
+    if (context.mounted) {
+      // Refresh torrents
+      await Provider.of<TorrentsModel>(context, listen: false).fetchTorrents();
+    }
+  }
+
+  _handleAllWantedChange(BuildContext context, bool wanted) async {
+    await torrent.toggleAllFilesWanted(wanted);
     if (context.mounted) {
       // Refresh torrents
       await Provider.of<TorrentsModel>(context, listen: false).fetchTorrents();
@@ -28,45 +36,75 @@ class FilesTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var files = torrent.files;
+    bool areAllFilesWanted = files.every((f) => f.wanted);
+    bool areAllFilesCompleted =
+        files.every((f) => f.bytesCompleted == f.length);
 
-    return ListView.builder(
-      itemCount: files.length,
-      itemBuilder: (context, index) {
-        var file = files[index];
-
-        var percent = (file.bytesCompleted / file.length * 100).floor();
-
-        var completed = file.bytesCompleted == file.length;
-
-        return ListTile(
-            leading: Opacity(
-                opacity: completed ? 1 : 0.5,
-                child: Icon(getFileIcon(file.name))),
-            title: Text(file.name),
-            subtitle: Row(
-              children: [
-                Text('${percent.toString()}%'),
-                Text(' • ${prettyBytes(file.length.toDouble())}'),
-                if (!file.wanted) const Text(' • Paused')
-              ],
+    return Column(
+      children: [
+        if (!areAllFilesCompleted)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: areAllFilesWanted
+                  ? TextButton(
+                      onPressed: () {
+                        _handleAllWantedChange(context, false);
+                      },
+                      child: const Text('Pause all files'))
+                  : TextButton(
+                      onPressed: () {
+                        _handleAllWantedChange(context, true);
+                      },
+                      child: const Text('Download all files')),
             ),
-            trailing: percent == 100
-                ? IconButton(
-                    onPressed: () => _openFile(file.name),
-                    icon: const Icon(Icons.download_done))
-                : file.wanted
-                    ? IconButton(
-                        tooltip: 'Pause',
-                        onPressed: () =>
-                            _handleWantedChange(context, index, false),
-                        icon: const Icon(Icons.download))
-                    : IconButton(
-                        tooltip: 'Download',
-                        onPressed: () =>
-                            _handleWantedChange(context, index, true),
-                        icon: const Icon(Icons.pause)),
-            onTap: completed ? () => _openFile(file.name) : null);
-      },
+          ),
+        Expanded(
+          child: ListView.builder(
+            itemCount: files.length,
+            itemBuilder: (context, index) {
+              var file = files[index];
+
+              var percent = (file.bytesCompleted / file.length * 100).floor();
+
+              var completed = file.bytesCompleted == file.length;
+
+              return ListTile(
+                  leading: Icon(getFileIcon(file.name)),
+                  title: Text(file.name),
+                  subtitle: Row(
+                    children: [
+                      Text('${percent.toString()}%',
+                          style: (percent == 100)
+                              ? const TextStyle(color: Colors.lightGreen)
+                              : const TextStyle()),
+                      Text(' • ${prettyBytes(file.length.toDouble())}'),
+                      // Internal file can be unwanted in transmission, but still completed to 100%
+                      if (!file.wanted && percent != 100)
+                        const Text(' • Paused')
+                    ],
+                  ),
+                  trailing: percent == 100
+                      ? IconButton(
+                          onPressed: () => _openFile(file.name),
+                          icon: const Icon(Icons.download_done))
+                      : file.wanted
+                          ? IconButton(
+                              tooltip: 'Pause',
+                              onPressed: () =>
+                                  _handleWantedChange(context, index, false),
+                              icon: const Icon(Icons.download))
+                          : IconButton(
+                              tooltip: 'Download',
+                              onPressed: () =>
+                                  _handleWantedChange(context, index, true),
+                              icon: const Icon(Icons.pause)),
+                  onTap: completed ? () => _openFile(file.name) : null);
+            },
+          ),
+        ),
+      ],
     );
   }
 }
