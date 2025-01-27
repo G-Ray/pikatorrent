@@ -39,7 +39,7 @@ class _FiltersDialogState extends State<FiltersDialog> {
       return AlertDialog(
         title: const Text('Filters'),
         content: torrentsModel.labels.isEmpty
-            ? const Text('No labels added yet. Try adding labels to a torrent.')
+            ? const Text('No tags added yet. Try adding tags to a torrent.')
             : Wrap(
                 spacing: 8.0, // gap between adjacent chips
                 runSpacing: 4.0,

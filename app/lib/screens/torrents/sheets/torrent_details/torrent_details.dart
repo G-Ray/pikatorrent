@@ -3,7 +3,7 @@ import 'package:pikatorrent/engine/torrent.dart';
 import 'package:pikatorrent/models/torrents.dart';
 import 'package:pikatorrent/screens/torrents/sheets/torrent_details/tabs/details.dart';
 import 'package:pikatorrent/screens/torrents/sheets/torrent_details/tabs/files.dart';
-import 'package:pikatorrent/screens/torrents/sheets/torrent_details/tabs/labels.dart';
+import 'package:pikatorrent/screens/torrents/sheets/torrent_details/tabs/tags.dart';
 import 'package:provider/provider.dart';
 
 class TorrentDetailsModalSheet extends StatelessWidget {
@@ -36,7 +36,7 @@ class TorrentDetailsModalSheetContent extends StatelessWidget {
             const TabBar(
               tabs: [
                 Tab(text: 'Files'),
-                Tab(text: 'Labels'),
+                Tab(text: 'Tags'),
                 Tab(text: 'Details'),
               ],
             ),
@@ -48,7 +48,7 @@ class TorrentDetailsModalSheetContent extends StatelessWidget {
                     torrent: torrent,
                     location: torrent.location,
                   ),
-                  LabelsTab(torrent: torrent),
+                  TagsTab(torrent: torrent),
                   DetailsTab(torrent: torrent)
                 ],
               ),

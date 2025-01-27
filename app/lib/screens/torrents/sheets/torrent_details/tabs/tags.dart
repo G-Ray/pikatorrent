@@ -4,10 +4,10 @@ import 'package:pikatorrent/models/torrents.dart';
 import 'package:pikatorrent/screens/torrents/sheets/torrent_details/tabs/dialogs/add_label.dart';
 import 'package:provider/provider.dart';
 
-class LabelsTab extends StatelessWidget {
+class TagsTab extends StatelessWidget {
   final Torrent torrent;
 
-  const LabelsTab({super.key, required this.torrent});
+  const TagsTab({super.key, required this.torrent});
 
   _handleAddLabel(BuildContext context, String label) async {
     TorrentBase torrentUpdate =
@@ -54,7 +54,7 @@ class LabelsTab extends StatelessWidget {
                         )),
                     ActionChip(
                       avatar: const Icon(Icons.add),
-                      label: const Text('Label'),
+                      label: const Text('Tag'),
                       onPressed: () {
                         showDialog(
                             context: context,
