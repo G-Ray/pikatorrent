@@ -11,7 +11,6 @@ export const DownloadLinks = () => {
           href={
             "https://github.com/G-Ray/pikatorrent/releases/download/v0.10.0/pikatorrent-windows.zip"
           }
-          target="_blank"
           style={{ textDecoration: "none" }}
         >
           <Button size="$4" iconAfter={Download} borderColor={"$yellow9"}>
@@ -23,7 +22,6 @@ export const DownloadLinks = () => {
           href={
             "https://github.com/G-Ray/pikatorrent/releases/download/v0.10.0/pikatorrent-linux.zip"
           }
-          target="_blank"
           style={{ textDecoration: "none" }}
         >
           <Button size="$4" iconAfter={Download} borderColor={"$yellow9"}>
@@ -39,9 +37,8 @@ export const DownloadLinks = () => {
       <XStack gap="$4" flexWrap="wrap" justifyContent="center">
         <Link
           href={
-            "https://github.com/G-Ray/pikatorrent/releases/download/v0.10.0/pikatorrent-windows.zip"
+            "https://github.com/G-Ray/pikatorrent/releases/download/v0.10.0/pikatorrent-android.apk"
           }
-          target="_blank"
           style={{ textDecoration: "none" }}
         >
           <Button size="$4" iconAfter={Download} borderColor={"$yellow9"}>
@@ -49,15 +46,9 @@ export const DownloadLinks = () => {
           </Button>
         </Link>
 
-        <Link
-          href={
-            "https://github.com/G-Ray/pikatorrent/releases/download/v0.10.0/pikatorrent-android.apk"
-          }
-          target="_blank"
-          style={{ textDecoration: "none" }}
-        >
-          <Button size="$4">iOS (Soon)</Button>
-        </Link>
+        <Button size="$4" disabled>
+          iOS (Soon)
+        </Button>
       </XStack>
 
       <YStack ai="center">
