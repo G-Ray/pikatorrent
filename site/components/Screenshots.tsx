@@ -1,81 +1,52 @@
-import Image from 'next/image'
-import { useEffect, useState } from 'react'
-import { Card, XStack, useMedia } from 'tamagui'
+import { useEffect, useState } from "react";
+import { Card, useThemeName, YStack } from "tamagui";
 
-interface ScreenShotsProps {
-  theme: string | undefined
-}
-
-export const Screenshots = ({ theme }: ScreenShotsProps) => {
-  const media = useMedia()
-  const [desktopImageSource, setDesktopImageSource] = useState(
-    '/desktop-light.webp'
-  )
+export const Screenshots = () => {
+  const [desktopImageSource, setDesktopImageSource] =
+    useState("/desktop-light.png");
   const [mobileImageSource, setMobileImageSource] =
-    useState('/mobile-light.webp')
+    useState("/mobile-light.png");
 
-  const desktopWidth = media.gtMd ? 800 : media.gtXs ? 400 : '90vw'
-  const mobileWidth = media.gtMd ? 280 : 140
-  const mobilePositionTop = media.gtMd ? 395 : 200
-  const paddingX = media.gtMd ? 64 : 12
-  const paddingBottom = media.gtMd ? 128 : 280
+  const theme = useThemeName();
 
   useEffect(() => {
     setDesktopImageSource(
-      theme === 'light' ? '/desktop-light.webp' : '/desktop-dark.webp'
-    )
+      theme === "light" ? "/desktop-light.png" : "/desktop-dark.png"
+    );
     setMobileImageSource(
-      theme === 'light' ? '/mobile-light.webp' : '/mobile-dark.webp'
-    )
-  }, [theme])
+      theme === "light" ? "/mobile-light.png" : "/mobile-dark.png"
+    );
+  }, [theme]);
 
   return (
-    <XStack px={paddingX} pt={32} pb={paddingBottom} position="relative">
+    <YStack pt={32} px="$4" alignItems="center" width={"100%"} gap="$8">
       <Card
-        bordered
-        w={desktopWidth}
-        size="$6"
-        elevate
-        borderColor="$yellow9"
-        shadowColor="$yellow3"
+        theme="yellow"
+        style={{ textAlign: "center" }}
+        borderWidth={"$0.5"}
+        borderRadius={"$4"}
+        borderColor={"$yellow9"}
+        backgroundColor={theme == "light" ? "none" : "$background"}
       >
-        <Image
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
           src={desktopImageSource}
-          alt="pikatorrent screenshot on desktop."
-          width={0}
-          height={0}
-          style={{
-            objectFit: 'contain',
-            width: '100%',
-            height: 'auto',
-            borderRadius: 16,
-          }}
+          alt="Desktop & tablets screenshot"
+          width={"100%"}
         />
       </Card>
       <Card
-        bordered
-        w={mobileWidth}
-        size="$6"
-        elevate
-        position="absolute"
-        right={0}
-        top={mobilePositionTop}
-        borderColor="$yellow9"
-        shadowColor="$yellow3"
+        theme="yellow"
+        style={{ textAlign: "center" }}
+        maxWidth={360}
+        borderWidth={"$0.5"}
+        borderRadius={"$4"}
+        borderColor={"$yellow9"}
+        backgroundColor={theme == "light" ? "none" : "$background"}
       >
-        <Image
-          src={mobileImageSource}
-          alt="pikatorrent screenshot on mobile."
-          width={0}
-          height={0}
-          style={{
-            objectFit: 'contain',
-            width: '100%',
-            height: 'auto',
-            borderRadius: 16,
-          }}
-        />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={mobileImageSource} alt="Mobile screenshot" width={"100%"} />
       </Card>
-    </XStack>
-  )
-}
+    </YStack>
+  );
+};

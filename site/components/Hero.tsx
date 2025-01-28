@@ -1,19 +1,12 @@
-import { H3, H4, H5, H6, XStack, YStack } from 'tamagui'
-import Link from 'next/link'
+import { H2, H6, YStack } from "tamagui";
 
-export const Hero = ({ theme }: any) => {
+export const Hero = () => {
   return (
     <YStack ai="center" mt="$8">
-      <H4 mb="$4" textAlign="center">
-        A modern, simple, connected, and electric BitTorrent app ⚡.
-      </H4>
-      <H6>
-        Available on mobile, desktop,{' '}
-        <Link href={'https://www.npmjs.com/package/pikatorrent'}>
-          command line
-        </Link>{' '}
-        & the <Link href={'https://app.pikatorrent.com'}>web</Link>.
-      </H6>
+      <H2 mb="$4" textAlign="center" fontWeight="bold">
+        The Torrent app for the 21st century ⚡
+      </H2>
+      <H6>An easy to use Torrent app for everyone.</H6>
     </YStack>
-  )
-}
+  );
+};

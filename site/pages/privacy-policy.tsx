@@ -1,29 +1,26 @@
-import Head from 'next/head'
-import { Paragraph, YStack } from 'tamagui'
+import { H1, H2, Paragraph, YStack } from "tamagui";
 
 export default function PrivacyPolicy() {
   return (
     <YStack p="$8" gap="$4">
+      <H1>Privacy Policy (Updated on 2025-01-28)</H1>
       <Paragraph>
-        PikaTorrent is an open source application available on Android and
-        Desktop.
+        This privacy policy applies to the PikaTorrent software (hereby referred
+        to as &quot;Application&quot;) for desktop and mobile devices that was
+        created by Geoffrey Bonneville (hereby referred to as &quot;Service
+        Provider&quot;) as an Open Source software. This software is intended
+        for use &quot;AS IS&quot;.
       </Paragraph>
+      <H2>Information Collection and Use</H2>
       <Paragraph>
-        PikaTorrent apps send to a server (hub.pikatorrent.com) a unique
-        identifier for each device and a generic generated device name. These
-        data are sent to the server in the sole purpose of letting devices joins
-        together in order to establish a webrtc connection. The whole process of
-        joining devices is called signaling. Signaling data (see library
-        https://github.com/feross/simple-peer/) is sent to the server in order
-        for devices to find a way to find each other. Once a signaling process
-        is successful, devices communicate in a peer-to-peer manner, within an
-        encrypted webrtc data channel.
+        The Application does not collect any information when you download and
+        use it.
       </Paragraph>
+      <H2>Contact Us</H2>
       <Paragraph>
-        The server implementation hosted at hub.pikatorrent.com is also open
-        source and can be reviewed. Once a device disconnects from the server,
-        no data is kept.
+        If you have any questions regarding privacy while using the Application,
+        , or have questions about the practices, please contact us on Discord.
       </Paragraph>
     </YStack>
-  )
+  );
 }
