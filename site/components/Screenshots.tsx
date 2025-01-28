@@ -19,10 +19,11 @@ export const Screenshots = () => {
   }, [theme]);
 
   return (
-    <YStack pt={32} px="$4" alignItems="center" width={"100%"} gap="$8">
+    <YStack pt={"$8"} alignItems="center" width={"100%"} gap="$4">
       <Card
         theme="yellow"
         style={{ textAlign: "center" }}
+        maxWidth={1024}
         borderWidth={"$0.5"}
         borderRadius={"$4"}
         borderColor={"$yellow9"}

@@ -6,7 +6,7 @@ import Link from "next/link";
 export const DownloadLinks = () => {
   return (
     <YStack ai="center" gap="$4">
-      <XStack gap="$4">
+      <XStack gap="$4" flexWrap="wrap" justifyContent="center">
         <Link
           href={
             "https://github.com/G-Ray/pikatorrent/releases/download/v0.10.0/pikatorrent-windows.zip"
@@ -36,7 +36,7 @@ export const DownloadLinks = () => {
         </Button>
       </XStack>
 
-      <XStack gap="$4">
+      <XStack gap="$4" flexWrap="wrap" justifyContent="center">
         <Link
           href={
             "https://github.com/G-Ray/pikatorrent/releases/download/v0.10.0/pikatorrent-windows.zip"

@@ -1,5 +1,4 @@
 import { YStack } from "tamagui";
-import { useThemeSetting } from "@tamagui/next-theme";
 
 import { Screenshots } from "../components/Screenshots";
 import { Hero } from "@/components/Hero";
