@@ -38,7 +38,7 @@ class AddTorrentButton extends StatelessWidget {
       backgroundColor: Colors.yellow,
       foregroundColor: Colors.black,
       onPressed: () => _handleClick(context),
-      tooltip: 'Add Torrent',
+      tooltip: 'Pick a Torrent',
       shape: isMobileSize(context) ? const CircleBorder() : null,
       elevation: (isMobileSize(context)) ? 0 : null,
       child: const Icon(Icons.add),
