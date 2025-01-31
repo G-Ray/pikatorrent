@@ -9,7 +9,7 @@ export const DownloadLinks = () => {
       <XStack gap="$2" flexWrap="wrap" justifyContent="center">
         <Link
           href={
-            "https://github.com/G-Ray/pikatorrent/releases/download/v0.11.0/PikaTorrent-v0.11.0-windows-x64.zip"
+            "https://github.com/G-Ray/pikatorrent/releases/download/v0.11.1/PikaTorrent-v0.11.1-windows-x64.zip"
           }
           style={{ textDecoration: "none" }}
         >
@@ -20,7 +20,7 @@ export const DownloadLinks = () => {
 
         <Link
           href={
-            "https://github.com/G-Ray/pikatorrent/releases/download/v0.11.0/PikaTorrent-v0.11.0-linux-x64.zip"
+            "https://github.com/G-Ray/pikatorrent/releases/download/v0.11.1/PikaTorrent-v0.11.1-linux-x64.zip"
           }
           style={{ textDecoration: "none" }}
         >
@@ -31,7 +31,7 @@ export const DownloadLinks = () => {
 
         <Link
           href={
-            "https://github.com/G-Ray/pikatorrent/releases/download/v0.11.0/PikaTorrent-v0.11.0-linux-arm64.zip"
+            "https://github.com/G-Ray/pikatorrent/releases/download/v0.11.1/PikaTorrent-v0.11.1-linux-arm64.zip"
           }
           style={{ textDecoration: "none" }}
         >
@@ -48,7 +48,7 @@ export const DownloadLinks = () => {
       <XStack gap="$2" flexWrap="wrap" justifyContent="center">
         <Link
           href={
-            "https://github.com/G-Ray/pikatorrent/releases/download/v0.11.0/PikaTorrent-v0.11.0-android.apk"
+            "https://github.com/G-Ray/pikatorrent/releases/download/v0.11.1/PikaTorrent-v0.11.1-android.apk"
           }
           style={{ textDecoration: "none" }}
         >
