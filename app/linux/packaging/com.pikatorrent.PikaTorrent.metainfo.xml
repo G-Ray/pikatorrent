@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
   <id>com.pikatorrent.PikaTorrent</id>
+  <developer id="io.github.G-Ray">
+    <name>Geoffrey Bonneville</name>
+  </developer>
 
   <name>PikaTorrent</name>
   <summary>The Torrent app for the 21st century ⚡</summary>
@@ -35,15 +38,19 @@
   <launchable type="desktop-id">com.pikatorrent.PikaTorrent.desktop</launchable>
   <screenshots>
     <screenshot type="default">
+      <caption>Desktop light screenshot</caption>
       <image>https://www.pikatorrent.com/desktop-light.png</image>
     </screenshot>
     <screenshot>
+      <caption>Desktop dark screenshot</caption>
       <image>https://www.pikatorrent.com/desktop-dark.png</image>
     </screenshot>
     <screenshot>
+      <caption>Mobile light screenshot</caption>
       <image>https://www.pikatorrent.com/mobile-light.png</image>
     </screenshot>
     <screenshot>
+      <caption>Mobile dark screenshot</caption>
       <image>https://www.pikatorrent.com/mobile-dark.png</image>
     </screenshot>
   </screenshots>
