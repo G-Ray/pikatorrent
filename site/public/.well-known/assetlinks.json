@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.pikatorrent.PikaTorrent",
+      "sha256_cert_fingerprints": [
+        "10:5E:46:70:0F:DB:6D:D1:18:6D:22:C9:48:D3:50:ED:C3:AD:2B:D8:D7:B5:1E:CB:7B:E3:86:A5:3F:8F:34:C8"
+      ]
+    }
+  }
+]
