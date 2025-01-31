@@ -1,5 +1,3 @@
-import 'package:pikatorrent/engine/transmission/models/torrent.dart';
-
 class TorrentAddResponse {
   final TorrentAddResponseArguments arguments;
   final String result;
@@ -12,16 +10,12 @@ class TorrentAddResponse {
 }
 
 class TorrentAddResponseArguments {
-  final TransmissionTorrent? torrentAdded;
-  final TransmissionTorrent? torrentDuplicate;
+  final bool torrentAdded;
+  final bool torrentDuplicate;
 
   TorrentAddResponseArguments(this.torrentAdded, this.torrentDuplicate);
 
   TorrentAddResponseArguments.fromJson(Map<String, dynamic> json)
-      : torrentAdded = json['torrent-added'] != null
-            ? TransmissionTorrent.fromJson(json['torrent-added'])
-            : null,
-        torrentDuplicate = json['torrent-duplicate'] != null
-            ? TransmissionTorrent.fromJson(json['torrent-duplicate'])
-            : null;
+      : torrentAdded = json['torrent-added'] != null ? true : false,
+        torrentDuplicate = json['torrent-duplicate'] != null ? true : false;
 }

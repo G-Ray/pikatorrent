@@ -152,7 +152,7 @@ class TransmissionEngine implements Engine {
       throw TorrentAddError();
     }
 
-    if (response.arguments.torrentDuplicate != null) {
+    if (response.arguments.torrentDuplicate) {
       return TorrentAddedResponse.duplicated;
     }
 
