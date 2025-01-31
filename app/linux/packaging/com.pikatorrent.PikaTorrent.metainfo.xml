@@ -3,7 +3,7 @@
   <id>com.pikatorrent.PikaTorrent</id>
 
   <name>PikaTorrent</name>
-  <summary>Easy to use BitTorrent client for everyone ⚡</summary>
+  <summary>The Torrent app for the 21st century ⚡</summary>
 
   <url type="homepage">https://www.pikatorrent.com</url>
   <url type="bugtracker">https://github.com/G-Ray/pikatorrent/issues</url>
@@ -21,11 +21,14 @@
   </supports>
 
   <description>
-    <p>Supercharge your torrents with PikaTorrent ⚡</p>
+    <p>An easy to use Torrent app for everyone.</p>
 
     <ul>
-      <li>An easy to use, clean, and responsive user interface</li>
-      <li>Ability to select/unselect files to download</li>
+      <li>A modern and clean user interface, with dark mode support</li>
+      <li>Low cpu and memory usage</li>
+      <li>Add tags to your torrents</li>
+      <li>Select files to download or to pause</li>
+      <li>Browse and open files included in your torrents</li>
     </ul>
   </description>
 
@@ -46,6 +49,15 @@
   </screenshots>
 
   <releases>
+    <release version="0.11.0" date="2025-01-31">
+      <description>
+        <ul>
+          <li>Added open folder button</li>
+          <li>Added button to pause or download all files in a torrent</li>
+          <li>Bug fixes</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.10.0" date="2025-01-15">
       <description>
         <ul>
