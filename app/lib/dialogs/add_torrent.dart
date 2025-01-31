@@ -30,8 +30,7 @@ class _AddTorrentDialogState extends State<AddTorrentDialog> {
   @override
   void initState() {
     super.initState();
-    _torrentLinkController =
-        TextEditingController();
+    _torrentLinkController = TextEditingController();
 
     _torrentLinkController.addListener(() {
       setState(() {
@@ -39,7 +38,7 @@ class _AddTorrentDialogState extends State<AddTorrentDialog> {
       });
     });
 
-    if(widget.initialMagnetLink != null) {
+    if (widget.initialMagnetLink != null) {
       _torrentLinkController.text = widget.initialMagnetLink!;
     }
 
@@ -69,20 +68,20 @@ class _AddTorrentDialogState extends State<AddTorrentDialog> {
           metainfo = base64Encode(content);
         }
       }
-      var status = await Provider.of<TorrentsModel>(context, listen: false).addTorrent(
-          _torrentLinkController.text, metainfo, pickedDownloadDir);
+      var status = await Provider.of<TorrentsModel>(context, listen: false)
+          .addTorrent(_torrentLinkController.text, metainfo, pickedDownloadDir);
 
       if (status == TorrentAddedResponse.duplicated) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Torrent already added.'),
           backgroundColor: Colors.lightGreen,
         ));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Torrent added.'),
+          backgroundColor: Colors.lightGreen,
+        ));
       }
-
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('Torrent added.'),
-        backgroundColor: Colors.lightGreen,
-      ));
     } on TorrentAddError {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Invalid torrent.'),
