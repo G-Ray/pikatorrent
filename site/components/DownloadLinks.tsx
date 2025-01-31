@@ -1,55 +1,81 @@
-import { Button, XStack, YStack } from "tamagui";
+import { Button, Stack, XStack, YStack } from "tamagui";
 import { Download, ExternalLink } from "@tamagui/lucide-icons";
 
 import Link from "next/link";
 
 export const DownloadLinks = () => {
   return (
-    <YStack ai="center" gap="$4">
-      <XStack gap="$4" flexWrap="wrap" justifyContent="center">
+    <YStack ai="center" rowGap={"$2"}>
+      <XStack gap="$2" flexWrap="wrap" justifyContent="center">
         <Link
           href={
-            "https://github.com/G-Ray/pikatorrent/releases/download/v0.10.0/pikatorrent-windows.zip"
+            "https://github.com/G-Ray/pikatorrent/releases/download/v0.11.0/PikaTorrent-v0.11.0-windows-x64.zip"
           }
           style={{ textDecoration: "none" }}
         >
-          <Button size="$4" iconAfter={Download} borderColor={"$yellow9"}>
-            Windows (portable .zip)
+          <Button size="$3" iconAfter={Download} borderColor={"$yellow9"}>
+            Windows (.zip)
           </Button>
         </Link>
 
         <Link
           href={
-            "https://github.com/G-Ray/pikatorrent/releases/download/v0.10.0/pikatorrent-linux.zip"
+            "https://github.com/G-Ray/pikatorrent/releases/download/v0.11.0/PikaTorrent-v0.11.0-linux-x64.zip"
           }
           style={{ textDecoration: "none" }}
         >
-          <Button size="$4" iconAfter={Download} borderColor={"$yellow9"}>
-            Linux (.zip)
+          <Button size="$3" iconAfter={Download} borderColor={"$yellow9"}>
+            Linux x64 (.zip)
           </Button>
         </Link>
 
-        <Button disabled size="$4">
+        <Link
+          href={
+            "https://github.com/G-Ray/pikatorrent/releases/download/v0.11.0/PikaTorrent-v0.11.0-linux-arm64.zip"
+          }
+          style={{ textDecoration: "none" }}
+        >
+          <Button size="$3" iconAfter={Download} borderColor={"$yellow9"}>
+            Linux arm64 (.zip)
+          </Button>
+        </Link>
+
+        <Button size="$3" disabled>
           MacOS (Soon)
         </Button>
       </XStack>
 
-      <XStack gap="$4" flexWrap="wrap" justifyContent="center">
+      <XStack gap="$2" flexWrap="wrap" justifyContent="center">
         <Link
           href={
-            "https://github.com/G-Ray/pikatorrent/releases/download/v0.10.0/pikatorrent-android.apk"
+            "https://github.com/G-Ray/pikatorrent/releases/download/v0.11.0/PikaTorrent-v0.11.0-android.apk"
           }
           style={{ textDecoration: "none" }}
         >
-          <Button size="$4" iconAfter={Download} borderColor={"$yellow9"}>
+          <Button size="$3" iconAfter={Download} borderColor={"$yellow9"}>
             Android (.apk)
           </Button>
         </Link>
 
-        <Button size="$4" disabled>
+        <Button size="$3" disabled>
           iOS (Soon)
         </Button>
       </XStack>
+
+      {/* <Stack my="$4">
+        <Link
+          href={
+            "http://play.google.com/store/apps/details?id=com.pikatorrent.PikaTorrent"
+          }
+          style={{ textDecoration: "none" }}
+        >
+          <img
+            src="/google-play-badge-engligh.png"
+            alt="google play badge"
+            width={160}
+          />
+        </Link>
+      </Stack> */}
 
       <YStack ai="center">
         <Link
@@ -57,7 +83,7 @@ export const DownloadLinks = () => {
           target="_blank"
           style={{ textDecoration: "none" }}
         >
-          <Button size="$2" icon={ExternalLink} bc="$backgroundTransparent">
+          <Button size="$3" icon={ExternalLink} bc="$backgroundTransparent">
             All downloads
           </Button>
         </Link>

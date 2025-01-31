@@ -15,7 +15,7 @@ import { H2, Paragraph, Separator, XStack, YStack } from "tamagui";
 
 export const Features = () => {
   return (
-    <YStack mt="$16" gap="$4">
+    <YStack gap="$4">
       <H2 fontWeight="bold" mb="$4" textAlign="center">
         Features
       </H2>
