@@ -18,7 +18,7 @@ export default function Home() {
 
       <Features />
 
-      {/* <Paragraph mt="$8">Google Play is a trademark of Google LLC.</Paragraph> */}
+      <Paragraph mt="$8">Google Play is a trademark of Google LLC.</Paragraph>
     </YStack>
   );
 }
