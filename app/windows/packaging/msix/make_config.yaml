@@ -9,3 +9,5 @@ publisher: CN=9FB02A40-50B6-49F9-92D4-AA9DC9AC1AAB
 # file_extension: .torrent
 capabilities: internetClientServer, privateNetworkClientServer
 store: "true"
+logo_path: ./windows/runner/resources/app_icon.ico
+trim_logo: "false"
