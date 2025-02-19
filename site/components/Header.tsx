@@ -1,14 +1,16 @@
-import { Github, MessagesSquare, Moon, Sun } from "@tamagui/lucide-icons";
+import { Github, MessagesSquare, Moon, Sun, Zap } from "@tamagui/lucide-icons";
 import { useThemeSetting } from "@tamagui/next-theme";
-import { Button, Switch, XStack, useThemeName } from "tamagui";
+import { Button, Switch, XStack, useMedia, useThemeName } from "tamagui";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export const Header = () => {
+  const media = useMedia();
+
   return (
-    <XStack ml="auto" my="$2" mr="$2">
-      <XStack gap="$4">
-        <Links />
+    <XStack my="$2" px="$2" flexWrap="wrap">
+      <Links />
+      <XStack ml={media.gtXs ? "auto" : null}>
         <DarkModeToggle />
       </XStack>
     </XStack>
@@ -17,7 +19,12 @@ export const Header = () => {
 
 const Links = () => {
   return (
-    <XStack gap="$2" f={1} flexWrap="wrap">
+    <>
+      <Link href="/" style={{ textDecoration: "none" }}>
+        <Button fontWeight={"bold"} icon={Zap} bc="$backgroundTransparent">
+          Home
+        </Button>
+      </Link>
       <Link
         href="https://discord.gg/6HxCV4aGdy"
         style={{ textDecoration: "none" }}
@@ -40,7 +47,7 @@ const Links = () => {
           Github
         </Button>
       </Link>
-    </XStack>
+    </>
   );
 };
 
@@ -58,7 +65,7 @@ const DarkModeToggle = () => {
   }
 
   return (
-    <XStack ai="center" gap="$2">
+    <XStack px="$4" ai="center" gap="$2">
       {theme === "light" ? <Sun /> : <Moon />}
       <Switch
         id="dark-theme-switch"

@@ -8,7 +8,7 @@ import { DownloadLinks } from "@/components/DownloadLinks";
 export default function Home() {
   return (
     <YStack ai="center" px="$8" pb="$4" gap="$4">
-      <YStack gap="$8" ai="center">
+      <YStack py="$4" gap="$8" ai="center">
         <Hero />
       </YStack>
 

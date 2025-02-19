@@ -1,26 +1,11 @@
-import {
-  NextThemeProvider,
-  useRootTheme,
-  useThemeSetting,
-} from "@tamagui/next-theme";
+import { useRootTheme, useThemeSetting } from "@tamagui/next-theme";
 import { AppProps } from "next/app";
-import Script from "next/script";
 import React, { useMemo, useState } from "react";
-import {
-  Separator,
-  Stack,
-  TamaguiProvider,
-  Theme,
-  ThemeName,
-  useIsomorphicLayoutEffect,
-  useTheme,
-  useThemeName,
-} from "tamagui";
+import { Separator, Stack, Theme, useIsomorphicLayoutEffect } from "tamagui";
 import "@tamagui/font-inter/css/400.css";
 import "@tamagui/font-inter/css/700.css";
 import Head from "next/head";
 
-import config from "../tamagui.config";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { NextTamaguiProvider } from "@/tamagui/NextTamaguiProvider";
