@@ -38,16 +38,16 @@ class _AppShellRouteState extends State<AppShellRoute> {
     _appLinks.uriLinkStream.listen((uri) async {
       var uriString = uri.toString();
 
-      if (uriString.startsWith('magnet:')) {
+      if (uri.scheme == 'magnet') {
         // Magnet link
         _openAddTorrentDialog(uriString, null);
-      } else if (uriString.startsWith('content://') ||
-          // Content uri (Android)
-          uriString.startsWith('file://')) {
+      } else if (uri.scheme == 'content' || uri.scheme == 'file://') {
         _openAddTorrentDialog(null, uriString);
       } else if (uriString.startsWith(appUri)) {
         // App URI
         _openAddTorrentDialog(getTorrentLink(uriString), null);
+      } else if (uri.scheme == 'pikatorrent') {
+        _openAddTorrentDialog(uri.fragment, null);
       } else if (File(uriString).existsSync()) {
         // Filesystem path
         _openAddTorrentDialog(null, uriString);

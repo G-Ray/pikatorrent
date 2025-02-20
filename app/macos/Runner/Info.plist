@@ -32,6 +32,14 @@
 		<array>
 			<dict>
 				<key>CFBundleURLName</key>
+				<string>PikaTorrent URL</string>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<string>pikatorrent</string>
+				</array>
+			</dict>
+			<dict>
+				<key>CFBundleURLName</key>
 				<string>BitTorrent Magnet URL</string>
 				<key>CFBundleTypeRole</key>
 				<string>Viewer</string>

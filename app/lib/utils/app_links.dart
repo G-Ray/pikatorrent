@@ -1,9 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pikatorrent/utils/device.dart';
 import 'package:share_plus/share_plus.dart';
 
-const appUri = 'https://www.pikatorrent.com/';
+String appUri = kDebugMode && isDesktop()
+    ? 'http://localhost:3000/'
+    : 'https://www.pikatorrent.com/';
 
 createAppLink(String link) {
   return Uri.encodeFull('$appUri#$link');

@@ -39,31 +39,60 @@ Future<void> registerApp() async {
 }
 
 Future<void> registerCapabilities() async {
-  final regKey = Registry.currentUser.createKey('Software\\$appName\\Capabilities');
+  final regKey =
+      Registry.currentUser.createKey('Software\\$appName\\Capabilities');
   regKey.createValue(const RegistryValue(
     'ApplicationDescription',
     RegistryValueType.string,
     'BitTorrent software',
   ));
 
- final fileRegKey = Registry.currentUser.createKey('Software\\$appName\\Capabilities\\FILEAssociations');
+  final fileRegKey = Registry.currentUser
+      .createKey('Software\\$appName\\Capabilities\\FILEAssociations');
   fileRegKey.createValue(const RegistryValue(
     '.torrent',
     RegistryValueType.string,
     appName,
   ));
 
-  final mimeRegKey = Registry.currentUser.createKey('Software\\$appName\\Capabilities\\MIMEAssociations');
+  final mimeRegKey = Registry.currentUser
+      .createKey('Software\\$appName\\Capabilities\\MIMEAssociations');
   mimeRegKey.createValue(const RegistryValue(
     'application/x-bittorrent',
     RegistryValueType.string,
     appName,
   ));
 
-  final urlRegKey = Registry.currentUser.createKey('Software\\$appName\\Capabilities\\URLAssociations');
+  final urlRegKey = Registry.currentUser
+      .createKey('Software\\$appName\\Capabilities\\URLAssociations');
+
   urlRegKey.createValue(const RegistryValue(
     'magnet',
     RegistryValueType.string,
     appName,
   ));
+
+  await registerScheme('pikatorrent');
+}
+
+
+Future<void> registerScheme(String scheme) async {
+  String appPath = Platform.resolvedExecutable;
+
+  String protocolRegKey = 'Software\\Classes\\$scheme';
+  RegistryValue protocolRegValue = const RegistryValue(
+    'URL Protocol',
+    RegistryValueType.string,
+    '',
+  );
+  String protocolCmdRegKey = 'shell\\open\\command';
+  RegistryValue protocolCmdRegValue = RegistryValue(
+    '',
+    RegistryValueType.string,
+    '"$appPath" "%1"',
+  );
+
+  final regKey = Registry.currentUser.createKey(protocolRegKey);
+  regKey.createValue(protocolRegValue);
+  regKey.createKey(protocolCmdRegKey).createValue(protocolCmdRegValue);
 }

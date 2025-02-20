@@ -80,15 +80,14 @@ class _TorrentScreen extends State<TorrentsScreen>
                       key: Key(index.toString()),
                       endActionPane: ActionPane(
                         motion: const ScrollMotion(),
-                        extentRatio: 0.4,
+                        extentRatio: 0.6,
                         children: [
-                          if (dotenv.getBool('ENABLE_LINK_SHARING'))
-                            SlidableAction(
-                              backgroundColor: Colors.blue,
-                              onPressed: (_) =>
-                                  shareLink(context, torrent.magnetLink),
-                              icon: Icons.share,
-                            ),
+                          SlidableAction(
+                            backgroundColor: Colors.lightBlue,
+                            onPressed: (_) =>
+                                shareLink(context, torrent.magnetLink),
+                            icon: Icons.share,
+                          ),
                           if (isDesktop())
                             SlidableAction(
                               backgroundColor:
