@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pikatorrent/dialogs/remove_torrent.dart';
 import 'package:pikatorrent/engine/torrent.dart';
@@ -74,7 +75,7 @@ class TorrentListTile extends StatelessWidget {
             ? Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  if (const bool.fromEnvironment('ENABLE_LINK_SHARING') == true)
+                  if (dotenv.getBool('ENABLE_LINK_SHARING'))
                     IconButton(
                         tooltip: 'Share',
                         onPressed: () => shareLink(context, torrent.magnetLink),

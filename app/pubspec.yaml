@@ -74,6 +74,7 @@ dependencies:
   http: ^1.2.2
   win32_registry: ^1.1.5
   store_checker: ^1.6.0
+  flutter_dotenv: ^5.2.1
 
 dev_dependencies:
   flutter_test:
@@ -98,6 +99,7 @@ flutter:
 
   assets:
     - assets/
+    - .env
 
   # To add assets to your application, add an assets section, like this:
   # assets:

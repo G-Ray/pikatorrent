@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pikatorrent/dialogs/remove_torrent.dart';
@@ -81,9 +82,7 @@ class _TorrentScreen extends State<TorrentsScreen>
                         motion: const ScrollMotion(),
                         extentRatio: 0.4,
                         children: [
-                          if (const bool.fromEnvironment(
-                                  'ENABLE_LINK_SHARING') ==
-                              true)
+                          if (dotenv.getBool('ENABLE_LINK_SHARING'))
                             SlidableAction(
                               backgroundColor: Colors.blue,
                               onPressed: (_) =>

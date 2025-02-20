@@ -13,6 +13,7 @@ import 'package:pikatorrent/utils/device.dart';
 import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:yaru/yaru.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 final lightColorScheme = ColorScheme.fromSeed(
     seedColor: Colors.yellow,
@@ -58,6 +59,7 @@ final _darkTheme = ThemeData(
 Engine engine = TransmissionEngine();
 
 void main() async {
+  await dotenv.load();
   WidgetsFlutterBinding.ensureInitialized();
 
   if (isDesktop()) {
