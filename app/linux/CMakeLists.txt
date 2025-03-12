@@ -9,6 +9,9 @@ set(BINARY_NAME "pikatorrent")
 # https://wiki.gnome.org/HowDoI/ChooseApplicationID
 set(APPLICATION_ID "com.pikatorrent.PikaTorrent")
 
+# See https://github.com/ubuntu/handy_window.dart/pull/28
+set(USE_LIBHANDY ON)
+
 # Explicitly opt in to modern CMake behaviors to avoid warnings with recent
 # versions of CMake.
 cmake_policy(SET CMP0063 NEW)
