@@ -21,10 +21,22 @@ Install & configure Android SDK/NDK first.
 ```sh
 git clone --recurse-submodules git@github.com:G-Ray/pikatorrent.git
 cd pikatorrent/app
+export VCPKG_ROOT="$(pwd)/vcpkg"
 export VCPKG_MANIFEST_DIR=$(pwd)
 ./vcpkg/bootstrap-vcpkg.sh
 flutter devices # See available devices
 flutter run -d {device} # start the app in development mode
+```
+
+## MacOS
+
+```sh
+git clone --recurse-submodules git@github.com:G-Ray/pikatorrent.git
+cd pikatorrent/app
+export VCPKG_ROOT="$(pwd)/vcpkg"
+export VCPKG_MANIFEST_DIR=$(pwd)
+./vcpkg/bootstrap-vcpkg.sh
+flutter run # start the app in development mode
 ```
 
 ## For MacOS & Windows (WIP):
