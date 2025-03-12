@@ -59,5 +59,6 @@ createForegroundService() async {
       .resolvePlatformSpecificImplementation<
           AndroidFlutterLocalNotificationsPlugin>()
       ?.startForegroundService(1, 'PikaTorrent', 'Running in the background...',
-          notificationDetails: androidNotificationDetails);
+          notificationDetails: androidNotificationDetails,
+          startType: AndroidServiceStartType.startRedeliverIntent);
 }
