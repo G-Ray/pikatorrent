@@ -14,6 +14,7 @@ import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:yaru/yaru.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:media_kit/media_kit.dart';
 
 final lightColorScheme = ColorScheme.fromSeed(
     seedColor: Colors.yellow,
@@ -61,6 +62,7 @@ Engine engine = TransmissionEngine();
 void main() async {
   await dotenv.load();
   WidgetsFlutterBinding.ensureInitialized();
+  MediaKit.ensureInitialized();
 
   if (isDesktop()) {
     await YaruWindowTitleBar.ensureInitialized();
@@ -77,6 +79,9 @@ void main() async {
   }
 
   await engine.init();
+  // Restore torrents state before last streaming started, in case the app
+  // has been killed.
+  await engine.restoreTorrentsResumeStatus();
 
   if (Platform.isAndroid) {
     try {

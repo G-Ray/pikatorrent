@@ -8,10 +8,12 @@ class File {
   final int bytesCompleted;
   // True if the file should be downloaded
   final bool wanted;
+  final List<int> piecesRange;
 
   File(
       {required this.name,
-        required this.length,
-        required this.bytesCompleted,
-        required this.wanted});
+      required this.length,
+      required this.bytesCompleted,
+      required this.wanted,
+      required this.piecesRange});
 }

@@ -13,9 +13,16 @@ class TorrentSetRequestArguments {
   final List<String>? labels;
   final List<int>? filesWanted;
   final List<int>? filesUnwanted;
+  final bool? sequentialDownload;
+  final int? sequentialDownloadFromPiece;
 
   TorrentSetRequestArguments(
-      {required this.ids, this.labels, this.filesWanted, this.filesUnwanted});
+      {required this.ids,
+      this.labels,
+      this.filesWanted,
+      this.filesUnwanted,
+      this.sequentialDownload,
+      this.sequentialDownloadFromPiece});
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -32,6 +39,14 @@ class TorrentSetRequestArguments {
 
     if (filesUnwanted != null) {
       json['files-unwanted'] = filesUnwanted;
+    }
+
+    if (sequentialDownload != null) {
+      json['sequentialDownload'] = sequentialDownload;
+    }
+
+    if (sequentialDownloadFromPiece != null) {
+      json['sequentialDownloadFromPiece'] = sequentialDownloadFromPiece;
     }
 
     return json;

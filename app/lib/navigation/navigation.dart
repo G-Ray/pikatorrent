@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pikatorrent/navigation/add_torrent_button.dart';
 import 'package:pikatorrent/utils/device.dart';
-import 'package:yaru/widgets.dart';
+import 'package:pikatorrent/widgets/window_title_bar.dart';
 
 class Destination {
   const Destination(this.label, this.icon, this.selectedIcon);
@@ -84,21 +84,11 @@ class _Navigation extends State<Navigation> {
     return 0;
   }
 
-  YaruWindowTitleBar buildWindowTitleBar(BuildContext context) {
-    return YaruWindowTitleBar(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      border: BorderSide.none,
-      // FIXME: Depends Gnome settings on Linux
-      isMaximizable: Platform.isWindows ? true : false,
-      isMinimizable:  Platform.isWindows ? true : false,
-    );
-  }
-
   // Mobile Navigation
   Widget buildBottomBarScaffold(BuildContext context) {
     return Scaffold(
       appBar: isDesktop()
-          ? buildWindowTitleBar(context)
+          ? const WindowTitleBar()
           : AppBar(
               toolbarHeight: 0,
             ),
@@ -148,7 +138,10 @@ class _Navigation extends State<Navigation> {
           children: <Widget>[
             NavigationRail(
               leading: Padding(
-                padding: Platform.isMacOS ? const EdgeInsets.only(top: 20, bottom: 4, left: 4, right: 4): const EdgeInsets.symmetric(vertical: 4),
+                padding: Platform.isMacOS
+                    ? const EdgeInsets.only(
+                        top: 20, bottom: 4, left: 4, right: 4)
+                    : const EdgeInsets.symmetric(vertical: 4),
                 child: const AddTorrentButton(),
               ),
               destinations: destinations.map(
@@ -167,7 +160,7 @@ class _Navigation extends State<Navigation> {
             const VerticalDivider(thickness: 1, width: 1),
             Expanded(
                 child: Column(children: [
-              if (isDesktop()) buildWindowTitleBar(context),
+              if (isDesktop()) const WindowTitleBar(),
               Expanded(child: widget.child)
             ]))
           ],

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path/path.dart';
 import 'package:pikatorrent/engine/file.dart';
+import 'package:pikatorrent/main.dart';
 import 'package:pikatorrent/utils/device.dart';
 
 // Torrent statuses
@@ -36,6 +37,7 @@ abstract class Torrent extends TorrentBase {
   final int uploadedEver;
   final int eta;
   final int pieceCount;
+  final List<bool> pieces;
   final int pieceSize;
   final String errorString;
   final String location;
@@ -46,6 +48,7 @@ abstract class Torrent extends TorrentBase {
   final List<File> files;
   final int peersConnected;
   final String magnetLink;
+  final bool sequentialDownload;
 
   Torrent(
       {required super.id,
@@ -59,6 +62,7 @@ abstract class Torrent extends TorrentBase {
       required this.downloadedEver,
       required this.uploadedEver,
       required this.eta,
+      required this.pieces,
       required this.pieceSize,
       required this.errorString,
       required this.pieceCount,
@@ -69,7 +73,8 @@ abstract class Torrent extends TorrentBase {
       required this.creator,
       required this.files,
       required this.peersConnected,
-      required this.magnetLink});
+      required this.magnetLink,
+      required this.sequentialDownload});
 
   // Start the torrent
   start();
@@ -87,7 +92,48 @@ abstract class Torrent extends TorrentBase {
 
   Future toggleAllFilesWanted(bool wanted);
 
-  openFolder(BuildContext context) async {
+  Future setSequentialDownload(bool sequential);
+
+  Future setSequentialDownloadFromPiece(int sequentialDownloadFromPiece);
+
+  startStreaming(File file) async {
+    debugPrint('starting streaming ${file.name}');
+    // File already completed
+    if (file.bytesCompleted == file.length) {
+      // Do nothing if file is already completed.
+      return;
+    }
+
+    await engine.saveTorrentsResumeStatus();
+
+    // Be sure torrent is active
+    start();
+
+    final otherTorrents =
+        (await engine.fetchTorrents()).where((t) => t.id != id);
+
+    // Pause all other torrents
+    for (final otherTorrent in otherTorrents) {
+      otherTorrent.stop();
+    }
+
+    await toggleAllFilesWanted(false);
+    final fileIndex = files.indexWhere((f) => f.name == file.name);
+    await toggleFileWanted(fileIndex, true);
+    await setSequentialDownload(true);
+  }
+
+  stopStreaming() async {
+    debugPrint('stopping streaming');
+    setSequentialDownload(false);
+    await engine.restoreTorrentsResumeStatus();
+  }
+
+  hasLoadedPieces(List<int> piecesToTest) {
+    return piecesToTest.every((p) => pieces[p]);
+  }
+
+  Future openFolder(BuildContext context) async {
     if (!isDesktop()) return;
 
     OpenResult result;

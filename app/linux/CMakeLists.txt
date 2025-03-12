@@ -76,6 +76,8 @@ apply_standard_settings(${BINARY_NAME})
 # Add dependency libraries. Add any application-specific dependencies here.
 target_link_libraries(${BINARY_NAME} PRIVATE flutter)
 target_link_libraries(${BINARY_NAME} PRIVATE PkgConfig::GTK)
+# See https://github.com/media-kit/media-kit?tab=readme-ov-file#utilize-mimalloc
+target_link_libraries(${BINARY_NAME} PRIVATE ${MIMALLOC_LIB})
 
 # Run the Flutter tool portions of the build. This must not be removed.
 add_dependencies(${BINARY_NAME} flutter_assemble)

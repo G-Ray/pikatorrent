@@ -34,7 +34,8 @@ dependencies:
   flutter_libtransmission:
     git:
       url: "https://github.com/G-Ray/flutter_libtransmission"
-      ref: 77d8d2175144e917a71f672cd8359207b58396e2
+      ref: 478a63dde8d3cc4cb3ab7441b81201bc8733ff59
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -75,6 +76,9 @@ dependencies:
   win32_registry: ^1.1.5
   store_checker: ^1.6.0
   flutter_dotenv: ^5.2.1
+  media_kit: ^1.1.11
+  media_kit_video: ^1.2.5
+  media_kit_libs_video: ^1.0.5
 
 dev_dependencies:
   flutter_test:
@@ -86,6 +90,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^4.0.0
+  test: ^1.25.8
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
