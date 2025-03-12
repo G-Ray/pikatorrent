@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pikatorrent/engine/file.dart';
 import 'package:pikatorrent/engine/torrent.dart';
 import 'package:pikatorrent/models/torrents.dart';
+import 'package:pikatorrent/widgets/torrent_player.dart';
 import 'package:pretty_bytes/pretty_bytes.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path/path.dart' as path;
@@ -31,6 +33,16 @@ class FilesTab extends StatelessWidget {
       // Refresh torrents
       await Provider.of<TorrentsModel>(context, listen: false).fetchTorrents();
     }
+  }
+
+  // See docs/streaming.md
+  _handlePlayClick(BuildContext context, File file) {
+    String filePath = path.join(location, file.name);
+
+    Navigator.of(context, rootNavigator: true)
+        .push(MaterialPageRoute(builder: (BuildContext context) {
+      return TorrentPlayer(filePath: filePath, torrent: torrent, file: file);
+    }));
   }
 
   @override
@@ -70,6 +82,12 @@ class FilesTab extends StatelessWidget {
 
               var completed = file.bytesCompleted == file.length;
 
+              var mimeType = lookupMimeType(file.name);
+
+              bool isPlayable = mimeType != null &&
+                  (mimeType.startsWith('video') ||
+                      mimeType.startsWith('audio'));
+
               return ListTile(
                   leading: Icon(getFileIcon(file.name)),
                   title: Text(file.name),
@@ -85,21 +103,32 @@ class FilesTab extends StatelessWidget {
                         const Text(' • Paused')
                     ],
                   ),
-                  trailing: percent == 100
-                      ? IconButton(
-                          onPressed: () => _openFile(file.name),
-                          icon: const Icon(Icons.download_done))
-                      : file.wanted
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (isPlayable)
+                        IconButton(
+                            onPressed: () {
+                              _handlePlayClick(context, file);
+                            },
+                            icon: const Icon(Icons.play_circle_outlined)),
+                      percent == 100
                           ? IconButton(
-                              tooltip: 'Pause',
-                              onPressed: () =>
-                                  _handleWantedChange(context, index, false),
-                              icon: const Icon(Icons.download))
-                          : IconButton(
-                              tooltip: 'Download',
-                              onPressed: () =>
-                                  _handleWantedChange(context, index, true),
-                              icon: const Icon(Icons.pause)),
+                              onPressed: () => _openFile(file.name),
+                              icon: const Icon(Icons.download_done))
+                          : file.wanted
+                              ? IconButton(
+                                  tooltip: 'Pause',
+                                  onPressed: () => _handleWantedChange(
+                                      context, index, false),
+                                  icon: const Icon(Icons.download))
+                              : IconButton(
+                                  tooltip: 'Download',
+                                  onPressed: () =>
+                                      _handleWantedChange(context, index, true),
+                                  icon: const Icon(Icons.pause)),
+                    ],
+                  ),
                   onTap: completed ? () => _openFile(file.name) : null);
             },
           ),

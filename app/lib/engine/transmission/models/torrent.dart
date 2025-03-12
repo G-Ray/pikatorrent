@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:pikatorrent/engine/torrent.dart';
+import 'package:pikatorrent/utils/bitfield.dart';
 
 enum TorrentField {
   id,
@@ -12,6 +15,7 @@ enum TorrentField {
   uploadedEver,
   eta,
   pieceCount,
+  pieces,
   pieceSize,
   errorString,
   addedDate,
@@ -23,7 +27,8 @@ enum TorrentField {
   fileStats,
   labels,
   peersConnected,
-  magnetLink
+  magnetLink,
+  sequentialDownload
 }
 
 class TransmissionTorrentFile {
@@ -41,14 +46,16 @@ class TransmissionTorrentFile {
 
 class TransmissionTorrentFileStats {
   final bool wanted;
+  final List<int> piecesRange;
 
-  TransmissionTorrentFileStats(this.wanted);
+  TransmissionTorrentFileStats(this.wanted, this.piecesRange);
 
   TransmissionTorrentFileStats.fromJson(Map<String, dynamic> json)
-      : wanted = json['wanted'];
+      : wanted = json['wanted'],
+        piecesRange = List<int>.from(json['piecesRange']);
 }
 
-class TransmissionTorrent {
+class TransmissionTorrentModel {
   final int id;
   final String name;
   final double percentDone;
@@ -60,6 +67,7 @@ class TransmissionTorrent {
   final int uploadedEver;
   final int eta;
   final int pieceCount;
+  final List<bool> pieces;
   final int pieceSize;
   final String errorString;
   final String location;
@@ -72,8 +80,9 @@ class TransmissionTorrent {
   final List<String> labels;
   final int peersConnected;
   final String magnetLink;
+  final bool sequentialDownload;
 
-  const TransmissionTorrent(
+  const TransmissionTorrentModel(
       this.id,
       this.name,
       this.percentDone,
@@ -85,6 +94,7 @@ class TransmissionTorrent {
       this.uploadedEver,
       this.eta, // in seconds
       this.errorString,
+      this.pieces,
       this.pieceSize,
       this.pieceCount,
       this.addedDate,
@@ -96,9 +106,10 @@ class TransmissionTorrent {
       this.labels,
       this.peersConnected,
       this.fileStats,
-      this.magnetLink);
+      this.magnetLink,
+      this.sequentialDownload);
 
-  TransmissionTorrent.fromJson(Map<String, dynamic> json)
+  TransmissionTorrentModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         name = json['name'],
         percentDone = json['percentDone'] is int
@@ -111,6 +122,8 @@ class TransmissionTorrent {
         downloadedEver = json['downloadedEver'],
         uploadedEver = json['uploadedEver'],
         eta = json['eta'],
+        pieces = convertBitfieldToBoolList(
+            base64Decode(json['pieces']), json['pieceCount']),
         pieceCount = json['pieceCount'],
         pieceSize = json['pieceSize'],
         errorString = json['errorString'],
@@ -129,5 +142,6 @@ class TransmissionTorrent {
             .toList(),
         labels = List<String>.from(json['labels']),
         peersConnected = json['peersConnected'],
-        magnetLink = json['magnetLink'];
+        magnetLink = json['magnetLink'],
+        sequentialDownload = json['sequentialDownload'] as bool;
 }

@@ -12,13 +12,13 @@ class TorrentGetResponse {
 }
 
 class TorrentGetResponseArguments {
-  final List<TransmissionTorrent> torrents;
+  final List<TransmissionTorrentModel> torrents;
 
   TorrentGetResponseArguments(this.torrents);
 
   TorrentGetResponseArguments.fromJson(Map<String, dynamic> json)
       : torrents = (json['torrents'])
-            .map<TransmissionTorrent>(
-                (json) => TransmissionTorrent.fromJson(json))
+            .map<TransmissionTorrentModel>(
+                (json) => TransmissionTorrentModel.fromJson(json))
             .toList();
 }
