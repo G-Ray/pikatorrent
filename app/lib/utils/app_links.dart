@@ -9,12 +9,18 @@ String appUri = kDebugMode && isDesktop()
     : 'https://www.pikatorrent.com/';
 
 createAppLink(String link) {
-  return Uri.encodeFull('$appUri#$link');
+  Uri uri = Uri(fragment: Uri(queryParameters: {'magnet': link}).toString());
+  String fragmentString = uri.toString().substring(2); // Remove leading #?
+  final appLink = Uri.encodeFull('$appUri#$fragmentString');
+
+  return appLink;
 }
 
 /// get torrent link from an app link created with createAppLink
 getTorrentLink(String appLink) {
-  return appLink.replaceFirst('$appUri#', '');
+  String fragment = appLink.replaceFirst('$appUri#', '');
+  Uri uri = Uri(query: fragment);
+  return uri.queryParameters['magnet'];
 }
 
 shareLink(BuildContext context, String magnetLink) async {
