@@ -6,7 +6,7 @@ import 'package:pikatorrent/engine/session.dart';
 initDefaultDownloadDir(Engine engine) async {
   var session = await engine.fetchSession();
   var downloadDir = await ExternalPath.getExternalStoragePublicDirectory(
-      ExternalPath.DIRECTORY_DOWNLOADS);
+      ExternalPath.DIRECTORY_DOWNLOAD);
 
   // Default download directory set by transmission is not correct.
   // See tr_getDefaultDownloadDir() in platform.cc
