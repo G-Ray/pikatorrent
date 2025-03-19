@@ -114,6 +114,13 @@ class TorrentsModel extends ChangeNotifier {
         .toSet()
         .toList();
 
+    // Remove filtered labels that does not exist anymore
+    for (final label in filters.labels) {
+      if (!labels.contains(label)) {
+        filters.removeLabel(label);
+      }
+    }
+
     if (!hasLoaded) {
       hasLoaded = true;
     }
