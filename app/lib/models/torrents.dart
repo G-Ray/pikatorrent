@@ -42,6 +42,7 @@ class TorrentsModel extends ChangeNotifier {
   Sort sort = Sort.addedDate;
   bool reverseSort = true;
   Filters filters = Filters(labels: {});
+  late Timer _timer;
 
   TorrentsModel() {
     _init();
@@ -51,9 +52,12 @@ class TorrentsModel extends ChangeNotifier {
     await _loadSettings();
     fetchTorrents();
     // Indefinitely refresh
-    Timer.periodic(const Duration(seconds: refreshIntervalSeconds), (timer) {
-      fetchTorrents();
-    });
+    _timer = Timer.periodic(const Duration(seconds: refreshIntervalSeconds),
+        (timer) => fetchTorrents());
+  }
+
+  void stopTimer() {
+    _timer.cancel();
   }
 
   _loadSettings() async {
