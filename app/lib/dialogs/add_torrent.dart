@@ -227,7 +227,7 @@ class _AddTorrentDialogState extends State<AddTorrentDialog> {
                   }
                 }
               : null,
-          child: const Text('Add'),
+          child: const Text('Download'),
         ),
       ],
     );
