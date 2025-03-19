@@ -103,18 +103,17 @@ class TorrentListTile extends StatelessWidget {
 
         subtitle: Row(children: [
           Expanded(
-              child: Row(
-            children: [
-              TorrentStatusText(
-                torrent: torrent,
-                percent: percent,
-              ),
-            ],
+              child: TorrentStatusText(
+            torrent: torrent,
+            percent: percent,
           )),
           Expanded(
             child: Text(prettyBytes(torrent.size.toDouble()),
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                  overflow: TextOverflow.ellipsis,
+                )),
           ),
           Expanded(
             child: torrent.progress != 1

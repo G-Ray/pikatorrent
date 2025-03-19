@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:pikatorrent/engine/torrent.dart';
 
-const defaultTextStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 12);
+const defaultTextStyle = TextStyle(
+  fontWeight: FontWeight.bold,
+  fontSize: 12,
+  overflow: TextOverflow.ellipsis,
+);
 
 class TorrentStatusText extends StatelessWidget {
   final Torrent torrent;
@@ -14,9 +18,12 @@ class TorrentStatusText extends StatelessWidget {
   Widget build(BuildContext context) {
     if (torrent.errorString.isNotEmpty) {
       return const Text('Error',
-          overflow: TextOverflow.ellipsis,
           style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 12, color: Colors.red));
+            fontWeight: FontWeight.bold,
+            fontSize: 12,
+            color: Colors.red,
+            overflow: TextOverflow.ellipsis,
+          ));
     }
 
     return switch (torrent.status) {
@@ -30,14 +37,18 @@ class TorrentStatusText extends StatelessWidget {
         const Text('Queued to seed', style: defaultTextStyle),
       TorrentStatus.downloading => Text('${percent.floor().toString()}%',
           style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 12,
-              color: Colors.lightGreen)),
+            fontWeight: FontWeight.bold,
+            fontSize: 12,
+            color: Colors.lightGreen,
+            overflow: TextOverflow.ellipsis,
+          )),
       TorrentStatus.seeding => const Text('Seeding',
           style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 12,
-              color: Colors.lightBlue)),
+            fontWeight: FontWeight.bold,
+            fontSize: 12,
+            color: Colors.lightBlue,
+            overflow: TextOverflow.ellipsis,
+          )),
     };
   }
 }
