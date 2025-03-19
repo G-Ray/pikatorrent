@@ -108,10 +108,14 @@ class FilesTab extends StatelessWidget {
                     children: [
                       if (isPlayable)
                         IconButton(
-                            onPressed: () {
-                              _handlePlayClick(context, file);
-                            },
-                            icon: const Icon(Icons.play_circle_outlined)),
+                          onPressed: () {
+                            _handlePlayClick(context, file);
+                          },
+                          icon: const Icon(
+                            Icons.play_circle_outlined,
+                          ),
+                          tooltip: 'Play',
+                        ),
                       percent == 100
                           ? IconButton(
                               onPressed: () => _openFile(file.name),
