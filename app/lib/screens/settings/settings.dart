@@ -176,6 +176,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
             title: const Text('Version'),
             subtitle: Text(app.version)),
         ListTile(
+          leading: const Icon(Icons.favorite),
+          title: const Text('Donate'),
+          subtitle: const Text('Support us to improve PikaTorrent'),
+          onTap: () =>
+              launchUrl(Uri.parse('https://github.com/sponsors/G-Ray')),
+        ),
+        ListTile(
             leading: const Icon(Icons.discord),
             title: const Text('Join our Discord'),
             onTap: () => launchUrl(Uri.parse('https://discord.gg/6HxCV4aGdy'))),
