@@ -148,8 +148,11 @@ class _Navigation extends State<Navigation> {
                 (Destination destination) {
                   return NavigationRailDestination(
                     label: Text(destination.label),
-                    icon: destination.icon,
-                    selectedIcon: destination.selectedIcon,
+                    icon: Tooltip(
+                        message: destination.label, child: destination.icon),
+                    selectedIcon: Tooltip(
+                        message: destination.label,
+                        child: destination.selectedIcon),
                   );
                 },
               ).toList(),
