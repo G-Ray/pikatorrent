@@ -105,12 +105,12 @@ class TorrentPlayerState extends State<TorrentPlayer> {
                 child: device.isMobile()
                     ? MaterialVideoControlsTheme(
                         normal: const MaterialVideoControlsThemeData(
-                            seekBarThumbColor: Colors.yellow,
-                            seekBarPositionColor: Colors.yellow,
+                            seekBarThumbColor: Colors.blue,
+                            seekBarPositionColor: Colors.blue,
                             padding: EdgeInsets.only(bottom: 64)),
                         fullscreen: const MaterialVideoControlsThemeData(
-                            seekBarThumbColor: Colors.yellow,
-                            seekBarPositionColor: Colors.yellow,
+                            seekBarThumbColor: Colors.blue,
+                            seekBarPositionColor: Colors.blue,
                             padding: EdgeInsets.only(bottom: 64)),
                         child: Scaffold(
                           body: Video(
@@ -122,12 +122,12 @@ class TorrentPlayerState extends State<TorrentPlayer> {
                       )
                     : MaterialDesktopVideoControlsTheme(
                         normal: const MaterialDesktopVideoControlsThemeData(
-                          seekBarThumbColor: Colors.yellow,
-                          seekBarPositionColor: Colors.yellow,
+                          seekBarThumbColor: Colors.blue,
+                          seekBarPositionColor: Colors.blue,
                         ),
                         fullscreen: const MaterialDesktopVideoControlsThemeData(
-                          seekBarThumbColor: Colors.yellow,
-                          seekBarPositionColor: Colors.yellow,
+                          seekBarThumbColor: Colors.blue,
+                          seekBarPositionColor: Colors.blue,
                         ),
                         child: Scaffold(
                           body: Video(

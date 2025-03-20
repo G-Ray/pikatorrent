@@ -83,7 +83,7 @@ class _TorrentScreen extends State<TorrentsScreen>
                         extentRatio: 0.6,
                         children: [
                           SlidableAction(
-                            backgroundColor: Colors.lightBlue,
+                            backgroundColor: Colors.blue,
                             onPressed: (_) =>
                                 shareLink(context, torrent.magnetLink),
                             icon: Icons.share,
