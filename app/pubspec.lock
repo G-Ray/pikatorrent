@@ -1176,10 +1176,10 @@ packages:
     dependency: "direct main"
     description:
       name: store_checker
-      sha256: "9e5841e4f922cc7f0283323ff3c78fd31ace14c22e988525d33355c35d7c815a"
+      sha256: f191b6f1035caff62137c365cba21ad1a3c82c0369b522639052cd29fb48720f
       url: "https://pub.dev"
     source: hosted
-    version: "1.6.0"
+    version: "1.8.0"
   stream_channel:
     dependency: transitive
     description:
