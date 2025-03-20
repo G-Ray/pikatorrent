@@ -7,8 +7,10 @@ import 'package:pikatorrent/screens/torrents/sheets/torrent_details/torrent_deta
 import 'package:pikatorrent/screens/torrents/torrent_list_tile/torrent_status.dart';
 import 'package:pikatorrent/utils/app_links.dart';
 import 'package:pikatorrent/utils/device.dart';
+import 'package:pikatorrent/utils/theme.dart';
 import 'package:pretty_bytes/pretty_bytes.dart';
 import 'package:provider/provider.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 const String assetName = 'assets/undraw_download.svg';
 final Widget downloadSvg = SvgPicture.asset(
@@ -36,13 +38,11 @@ class TorrentListTile extends StatelessWidget {
               context, torrent.name, TorrentDetailsModalSheet(id: torrent.id));
         },
         leading: FittedBox(
-          child: Stack(alignment: Alignment.center, children: [
-            CircularProgressIndicator(
-                value: torrent.progress,
-                valueColor: const AlwaysStoppedAnimation<Color>(Colors.yellow),
-                strokeWidth: 4),
-            Center(
-                child: IconButton(
+          child: CircularPercentIndicator(
+            radius: 22.0,
+            lineWidth: 4.0,
+            percent: torrent.progress,
+            center: IconButton(
               onPressed: () async {
                 torrent.status == TorrentStatus.stopped
                     ? await torrent.start()
@@ -57,8 +57,11 @@ class TorrentListTile extends StatelessWidget {
               tooltip: torrent.status == TorrentStatus.stopped
                   ? 'Download'
                   : 'Pause',
-            )),
-          ]),
+            ),
+            linearGradient: const LinearGradient(
+              colors: gradientColors,
+            ),
+          ),
         ),
         title: Row(
           children: [
@@ -141,7 +144,7 @@ class TorrentListTile extends StatelessWidget {
               const Icon(
                 Icons.arrow_circle_up,
                 size: 16,
-                color: Colors.lightBlue,
+                color: Colors.blue,
               ),
               const SizedBox(width: 8),
               Expanded(
