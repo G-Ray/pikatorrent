@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pikatorrent/navigation/add_torrent_button.dart';
 import 'package:pikatorrent/utils/device.dart';
+import 'package:pikatorrent/utils/theme.dart';
 import 'package:pikatorrent/widgets/window_title_bar.dart';
 
 class Destination {
@@ -14,14 +15,63 @@ class Destination {
   final Widget selectedIcon;
 }
 
+class GradientIcon extends StatelessWidget {
+  final IconData icon;
+  final double size;
+  final Gradient gradient;
+
+  const GradientIcon({
+    super.key,
+    required this.icon,
+    required this.size,
+    required this.gradient,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ShaderMask(
+      shaderCallback: (Rect bounds) {
+        return gradient.createShader(bounds);
+      },
+      child: SizedBox(
+        width: size,
+        height: size,
+        child: Icon(
+          icon,
+          size: size,
+          color: Colors.white, // Use white as the color
+        ),
+      ),
+    );
+  }
+}
+
 const List<Destination> destinations = <Destination>[
-  Destination('Torrents', Icon(Icons.electric_bolt, size: 32),
-      Icon(Icons.electric_bolt, size: 32, color: Colors.yellow)),
-  // Destination('Search', Icon(Icons.search_outlined), Icon(Icons.search)),
-  Destination('Settings', Icon(Icons.settings, size: 32),
-      Icon(Icons.settings, size: 32, color: Colors.yellow)),
-  // Destination(
-  //     'About', Icon(Icons.question_mark_outlined), Icon(Icons.question_mark)),
+  Destination(
+      'Torrents',
+      Icon(Icons.cloud_download_outlined, size: 32),
+      GradientIcon(
+          icon: Icons.cloud_download_outlined,
+          size: 32,
+          gradient: LinearGradient(
+            colors: [
+              Colors.blue,
+              Colors.purple,
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ))),
+  Destination(
+      'Settings',
+      Icon(Icons.tune, size: 32),
+      GradientIcon(
+          icon: Icons.tune,
+          size: 32,
+          gradient: LinearGradient(
+            colors: gradientColors,
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ))),
 ];
 
 class Navigation extends StatefulWidget {

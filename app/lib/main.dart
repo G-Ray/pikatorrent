@@ -17,12 +17,12 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:media_kit/media_kit.dart';
 
 final lightColorScheme = ColorScheme.fromSeed(
-    seedColor: Colors.yellow,
+    seedColor: Colors.blue,
     brightness: Brightness.light,
     dynamicSchemeVariant: DynamicSchemeVariant.rainbow);
 
 final darkColorScheme = ColorScheme.fromSeed(
-    seedColor: Colors.yellow,
+    seedColor: Colors.blue,
     brightness: Brightness.dark,
     dynamicSchemeVariant: DynamicSchemeVariant.rainbow);
 
