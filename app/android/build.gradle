@@ -10,20 +10,9 @@ subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
 
-// Workaround for compilation issue of store_checker 
-// See https://github.com/transistorsoft/flutter_background_fetch/issues/369#issuecomment-2356150141
-subprojects {
-   afterEvaluate { project ->
-        if (project.hasProperty('android')) {
-            project.android { compileSdkVersion flutter.compileSdkVersion }
-        }
-    }
-}
-
 subprojects {
     project.evaluationDependsOn(":app")
 }
-
 
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
