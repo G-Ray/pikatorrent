@@ -13,7 +13,7 @@ export const DownloadLinks = () => {
           }
           style={{ textDecoration: "none" }}
         >
-          <Button size="$3" iconAfter={Download} borderColor={"$yellow9"}>
+          <Button size="$3" iconAfter={Download} borderColor={"$purple9"}>
             Windows (.zip)
           </Button>
         </Link>
@@ -24,7 +24,7 @@ export const DownloadLinks = () => {
           }
           style={{ textDecoration: "none" }}
         >
-          <Button size="$3" iconAfter={Download} borderColor={"$yellow9"}>
+          <Button size="$3" iconAfter={Download} borderColor={"$purple9"}>
             Linux x64 (.zip)
           </Button>
         </Link>
@@ -35,7 +35,7 @@ export const DownloadLinks = () => {
           }
           style={{ textDecoration: "none" }}
         >
-          <Button size="$3" iconAfter={Download} borderColor={"$yellow9"}>
+          <Button size="$3" iconAfter={Download} borderColor={"$purple9"}>
             Linux arm64 (.zip)
           </Button>
         </Link>
@@ -69,7 +69,7 @@ export const DownloadLinks = () => {
           }
           style={{ textDecoration: "none" }}
         >
-          <Button size="$3" iconAfter={Download} borderColor={"$yellow9"}>
+          <Button size="$3" iconAfter={Download} borderColor={"$purple9"}>
             Android (.apk)
           </Button>
         </Link>

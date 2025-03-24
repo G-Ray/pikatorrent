@@ -1,4 +1,12 @@
-import { Github, MessagesSquare, Moon, Sun, Zap } from "@tamagui/lucide-icons";
+import {
+  Download,
+  Github,
+  Home,
+  MessagesSquare,
+  Moon,
+  Sun,
+  Zap,
+} from "@tamagui/lucide-icons";
 import { useThemeSetting } from "@tamagui/next-theme";
 import { Button, Switch, XStack, useMedia, useThemeName } from "tamagui";
 import Link from "next/link";
@@ -21,7 +29,7 @@ const Links = () => {
   return (
     <>
       <Link href="/" style={{ textDecoration: "none" }}>
-        <Button fontWeight={"bold"} icon={Zap} bc="$backgroundTransparent">
+        <Button fontWeight={"bold"} icon={Home} bc="$backgroundTransparent">
           Home
         </Button>
       </Link>
