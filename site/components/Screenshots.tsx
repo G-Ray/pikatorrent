@@ -23,38 +23,21 @@ export const Screenshots = () => {
     <XStack
       alignItems="center"
       width={"100%"}
+      maxWidth={1024}
       gap="$4"
       justifyContent="space-between"
     >
-      <Link href={desktopImageSource} target="_blank" style={{ width: "70%" }}>
-        <Card
-          theme="yellow"
-          style={{ textAlign: "center" }}
-          borderWidth={"$0.5"}
-          borderRadius={"$4"}
-          borderColor={"$yellow9"}
-          backgroundColor={theme == "light" ? "none" : "$background"}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={desktopImageSource}
-            alt="Desktop & tablets screenshot"
-            width={"100%"}
-          />
-        </Card>
+      <Link href={desktopImageSource} target="_blank" style={{ width: "65%" }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={desktopImageSource}
+          alt="Desktop & tablets screenshot"
+          width={"100%"}
+        />
       </Link>
-      <Link href={mobileImageSource} target="_blank" style={{ width: "30%" }}>
-        <Card
-          theme="yellow"
-          style={{ textAlign: "center" }}
-          borderWidth={"$0.5"}
-          borderRadius={"$4"}
-          borderColor={"$yellow9"}
-          backgroundColor={theme == "light" ? "none" : "$background"}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={mobileImageSource} alt="Mobile screenshot" width={"100%"} />
-        </Card>
+      <Link href={mobileImageSource} target="_blank" style={{ width: "35%" }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={mobileImageSource} alt="Mobile screenshot" width={"100%"} />
       </Link>
     </XStack>
   );

@@ -49,24 +49,21 @@ class GradientIcon extends StatelessWidget {
 const List<Destination> destinations = <Destination>[
   Destination(
       'Torrents',
-      Icon(Icons.cloud_download_outlined, size: 32),
+      Icon(Icons.cloud_download_outlined, size: 36),
       GradientIcon(
           icon: Icons.cloud_download_outlined,
-          size: 32,
+          size: 36,
           gradient: LinearGradient(
-            colors: [
-              Colors.blue,
-              Colors.purple,
-            ],
+            colors: gradientColors,
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ))),
   Destination(
       'Settings',
-      Icon(Icons.tune, size: 32),
+      Icon(Icons.tune, size: 36),
       GradientIcon(
           icon: Icons.tune,
-          size: 32,
+          size: 36,
           gradient: LinearGradient(
             colors: gradientColors,
             begin: Alignment.topLeft,
