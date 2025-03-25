@@ -78,16 +78,17 @@ class TorrentPlayerState extends State<TorrentPlayer> {
     return Theme(
         data: ThemeData.dark(),
         child: Scaffold(
-            backgroundColor: Colors.black,
-            appBar: device.isDesktop()
-                ? const WindowTitleBar(
-                    backgroundColor: Colors.black,
-                  )
-                : AppBar(
-                    toolbarHeight: 0,
-                  ),
-            body:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          backgroundColor: Colors.black,
+          appBar: device.isDesktop()
+              ? const WindowTitleBar(
+                  backgroundColor: Colors.black,
+                )
+              : AppBar(
+                  toolbarHeight: 0,
+                ),
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
               Padding(
                 padding: const EdgeInsets.only(left: 16.0),
                 child: IconButton(
@@ -109,15 +110,14 @@ class TorrentPlayerState extends State<TorrentPlayer> {
                             seekBarPositionColor: Colors.blue,
                             padding: EdgeInsets.only(bottom: 64)),
                         fullscreen: const MaterialVideoControlsThemeData(
-                            seekBarThumbColor: Colors.blue,
-                            seekBarPositionColor: Colors.blue,
-                            padding: EdgeInsets.only(bottom: 64)),
-                        child: Scaffold(
-                          body: Video(
-                            key: _videoComponentKey,
-                            controller: controller,
-                            controls: MaterialVideoControls,
-                          ),
+                          seekBarThumbColor: Colors.blue,
+                          seekBarPositionColor: Colors.blue,
+                          padding: EdgeInsets.only(bottom: 64),
+                        ),
+                        child: Video(
+                          key: _videoComponentKey,
+                          controller: controller,
+                          controls: MaterialVideoControls,
                         ),
                       )
                     : MaterialDesktopVideoControlsTheme(
@@ -129,15 +129,15 @@ class TorrentPlayerState extends State<TorrentPlayer> {
                           seekBarThumbColor: Colors.blue,
                           seekBarPositionColor: Colors.blue,
                         ),
-                        child: Scaffold(
-                          body: Video(
-                            key: _videoComponentKey,
-                            controller: controller,
-                            controls: MaterialDesktopVideoControls,
-                          ),
+                        child: Video(
+                          key: _videoComponentKey,
+                          controller: controller,
+                          controls: MaterialDesktopVideoControls,
                         ),
                       ),
               )
-            ])));
+            ],
+          ),
+        ));
   }
 }

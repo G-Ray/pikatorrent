@@ -76,7 +76,11 @@ dependencies:
   store_checker: ^1.6.0
   flutter_dotenv: ^5.2.1
   media_kit: ^1.1.11
-  media_kit_video: ^1.2.5
+  media_kit_video:
+    git:
+      url: https://github.com/G-Ray/media-kit.git
+      path: media_kit_video
+      ref: cf93038927a85331b2f8bf61aa761abf45845738
   media_kit_libs_video: ^1.0.5
   percent_indicator: ^4.2.4
 
