@@ -5,10 +5,12 @@ import 'package:pikatorrent/engine/file.dart' as torrent_file;
 import 'package:pikatorrent/engine/torrent.dart';
 import 'package:pikatorrent/utils/device.dart' as device;
 import 'package:pikatorrent/utils/streaming_server.dart';
-// import 'package:pikatorrent/widgets/video_player/player/streaming_torrent_player.dart';
+import 'package:pikatorrent/utils/subtitles.dart';
+import 'package:pikatorrent/utils/subtitles_server.dart';
+import 'package:pikatorrent/widgets/torrent_player/dialogs/subtitles_selector.dart';
 import 'package:pikatorrent/widgets/window_title_bar.dart';
 
-const bufferSize = 2 * 1024 * 1024; // 4 MB
+const bufferSize = 2 * 1024 * 1024;
 
 class TorrentPlayer extends StatefulWidget {
   final torrent_file.File file;
@@ -28,6 +30,7 @@ class TorrentPlayer extends StatefulWidget {
 class TorrentPlayerState extends State<TorrentPlayer> {
   late final Player player;
   late StreamingServer server;
+  late SubtitlesServer subsServer;
   final GlobalKey _videoComponentKey = GlobalKey();
 
   // Create a [VideoController] to handle video output from [Player].
@@ -59,9 +62,33 @@ class TorrentPlayerState extends State<TorrentPlayer> {
         torrentFile: widget.file);
 
     server.start();
-    String serverAdress = await server.getAddress();
+    subsServer = SubtitlesServer(torrent: widget.torrent);
+    subsServer.start();
+    final serverAdress = await server.getAddress();
+    final subtitlesServerAdress = await subsServer.getAddress();
+
+    final slashesCount = countSlashesRegex(widget.file.name);
+
+    final externalSubtitles = widget.torrent.files
+        .where((f) =>
+            slashesCount == countSlashesRegex(f.name) &&
+            f.name.endsWith('.srt')) // TODO: support more formats
+        .map((f) => ExternalSubtitle(
+            name: truncateFromLastSlash(f.name),
+            url: Uri.encodeFull('$subtitlesServerAdress/${f.name}')))
+        .toList();
+
     await player.open(Media(serverAdress));
+
+    // Load external subtitles to be able to select them
+    for (final sub in externalSubtitles) {
+      // TODO: Detect language from file name
+      await player.setSubtitleTrack(
+          SubtitleTrack.uri(sub.url, title: sub.name, language: 'en'));
+    }
+
     await player.setSubtitleTrack(SubtitleTrack.no());
+
     await player.play();
   }
 
@@ -70,7 +97,21 @@ class TorrentPlayerState extends State<TorrentPlayer> {
     widget.torrent.stopStreaming();
     player.dispose();
     server.stop();
+    subsServer.stop();
     super.dispose();
+  }
+
+  onSubtitlesClick() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return SubtitlesSelectorDialog(
+              subtitles: player.state.tracks.subtitle,
+              currentValue: player.state.track.subtitle.id,
+              onSubtitleSelected: (SubtitleTrack sub) async {
+                await player.setSubtitleTrack(sub);
+              });
+        });
   }
 
   @override
@@ -121,13 +162,37 @@ class TorrentPlayerState extends State<TorrentPlayer> {
                         ),
                       )
                     : MaterialDesktopVideoControlsTheme(
-                        normal: const MaterialDesktopVideoControlsThemeData(
+                        normal: MaterialDesktopVideoControlsThemeData(
                           seekBarThumbColor: Colors.blue,
                           seekBarPositionColor: Colors.blue,
+                          bottomButtonBar: [
+                            const MaterialDesktopSkipPreviousButton(),
+                            const MaterialDesktopPlayOrPauseButton(),
+                            const MaterialDesktopSkipNextButton(),
+                            const MaterialDesktopVolumeButton(),
+                            const MaterialDesktopPositionIndicator(),
+                            const Spacer(),
+                            MaterialDesktopCustomButton(
+                                icon: const Icon(Icons.subtitles),
+                                onPressed: onSubtitlesClick),
+                            const MaterialDesktopFullscreenButton(),
+                          ],
                         ),
-                        fullscreen: const MaterialDesktopVideoControlsThemeData(
+                        fullscreen: MaterialDesktopVideoControlsThemeData(
                           seekBarThumbColor: Colors.blue,
                           seekBarPositionColor: Colors.blue,
+                          bottomButtonBar: [
+                            const MaterialDesktopSkipPreviousButton(),
+                            const MaterialDesktopPlayOrPauseButton(),
+                            const MaterialDesktopSkipNextButton(),
+                            const MaterialDesktopVolumeButton(),
+                            const MaterialDesktopPositionIndicator(),
+                            const Spacer(),
+                            MaterialDesktopCustomButton(
+                                icon: const Icon(Icons.subtitles),
+                                onPressed: onSubtitlesClick),
+                            const MaterialDesktopFullscreenButton(),
+                          ],
                         ),
                         child: Video(
                           key: _videoComponentKey,

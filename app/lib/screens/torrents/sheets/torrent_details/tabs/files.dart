@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pikatorrent/engine/file.dart';
 import 'package:pikatorrent/engine/torrent.dart';
 import 'package:pikatorrent/models/torrents.dart';
-import 'package:pikatorrent/widgets/torrent_player.dart';
+import 'package:pikatorrent/widgets/torrent_player/torrent_player.dart';
 import 'package:pretty_bytes/pretty_bytes.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path/path.dart' as path;
