@@ -32,7 +32,7 @@ class SubtitlesServer {
   }
 
   Future<void> handleRequest(HttpRequest request) async {
-    final path = request.uri.path;
+    final path = Uri.decodeComponent(request.uri.path);
 
     try {
       // /subtitle.vtt
