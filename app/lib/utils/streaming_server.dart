@@ -9,15 +9,20 @@ import 'package:pikatorrent/main.dart';
 
 class WaitingForPieceAbortedException implements Exception {}
 
+/// Server to stream a file
 class StreamingServer {
   late HttpServer _server;
   final Completer _serverReadyCompleter = Completer();
+  bool isClosed = false;
 
   String filePath;
   final int bufferSize;
   final Torrent torrent;
   final torrent_file.File torrentFile;
 
+  // Completer to cancel previous request
+  // We handle only one request at a time
+  Completer<void>? _pipeFileRangeCompleter;
   Completer? _waitForPieceCompleter;
   Timer? _waitForPieceTimer;
 
@@ -30,14 +35,18 @@ class StreamingServer {
   void start() async {
     _server = await HttpServer.bind(InternetAddress.loopbackIPv4, 0);
     _serverReadyCompleter.complete();
-    debugPrint('starting streaming server on ${await getAddress()}');
+    debugPrint(
+        'streaming_server: starting streaming server on ${await getAddress()}');
     await for (HttpRequest request in _server) {
-      handleRequest(request);
+      _handleRequest(request);
     }
   }
 
   void stop() async {
-    cancelWaitingForPieces();
+    debugPrint('streaming_server: stop');
+    isClosed = true;
+    _cancelWaitingForPieces();
+    _pipeFileRangeCompleter?.complete();
     await _server.close();
   }
 
@@ -46,60 +55,49 @@ class StreamingServer {
     return 'http://${_server.address.host}:${_server.port}';
   }
 
-  Future<void> handleRequest(HttpRequest request) async {
+  Future<void> _handleRequest(HttpRequest request) async {
     try {
       if (request.method == 'GET') {
-        await handleGetRequest(request);
+        await _handleGetRequest(request);
       } else {
         request.response.statusCode = HttpStatus.methodNotAllowed;
         request.response.close();
       }
     } catch (e) {
-      debugPrint('Error handling request: $e');
-      request.response.statusCode = HttpStatus.internalServerError;
+      debugPrint('streaming_server:Error handling request: $e');
       request.response.close();
     }
   }
 
-  Future<void> handleGetRequest(HttpRequest request) async {
+  Future<void> _handleGetRequest(HttpRequest request) async {
     final file = File(filePath);
-
-    if (!await file.exists()) {
-      request.response.statusCode = HttpStatus.notFound;
-      request.response.close();
-      return;
-    }
-
     final fileSize = await file.length();
     final rangeHeader = request.headers.value('range');
 
     if (rangeHeader != null) {
-      await handleRangeRequest(request, file, fileSize, rangeHeader);
+      await _handleRangeRequest(request, file, fileSize, rangeHeader);
     } else {
-      try {
-        final lastPiece = torrentFile.piecesRange.last - 1;
-        // Start downloading from the end to allow for smoother seeking,
-        // as last piece is often needed
-        await torrent.setSequentialDownloadFromPiece(lastPiece);
-        await _waitForPieces(from: lastPiece, count: 1);
-        await _waitForPieces(from: 0);
-        await sendFullFile(request, file, fileSize);
-      } catch (e) {
-        debugPrint(e.toString());
-        await request.response.close();
-      }
+      final lastPiece = torrentFile.piecesRange.last - 1;
+      // Start downloading from the end to allow for smoother seeking,
+      // as last piece is often needed
+      await torrent.setSequentialDownloadFromPiece(lastPiece);
+      await _waitForPieces(from: lastPiece, count: 1);
+      await _waitForPieces(from: 0);
+      await _sendFullFile(request, file, fileSize);
     }
   }
 
-  Future<void> sendFullFile(
+  Future<void> _sendFullFile(
       HttpRequest request, File file, int fileSize) async {
     final mimeType = lookupMimeType(filePath) ?? ContentType.binary.mimeType;
     request.response.headers.contentType = ContentType.parse(mimeType);
     request.response.headers.contentLength = fileSize;
-    await file.openRead().pipe(request.response);
+
+    await _pipeFileRangeInBlocks(
+        file, request.response, 0, fileSize - 1, torrent.pieceSize);
   }
 
-  Future<void> handleRangeRequest(
+  Future<void> _handleRangeRequest(
       HttpRequest request, File file, int fileSize, String rangeHeader) async {
     final rangeRegex = RegExp(r'bytes=(\d*)-(\d*)');
     final match = rangeRegex.firstMatch(rangeHeader);
@@ -142,20 +140,15 @@ class StreamingServer {
 
     final piece = (start / torrent.pieceSize).floor();
 
-    try {
-      debugPrint(
-          'handleRangeRequest ${start} ${end + 1} $contentLength piece: ${piece} ${torrent.pieceSize}');
+    debugPrint(
+        'handleRangeRequest $start ${end + 1} $contentLength piece: $piece ${torrent.pieceSize}');
 
-      await torrent.setSequentialDownloadFromPiece(piece);
-      await _waitForPieces(from: piece);
-      await file.openRead(start, end + 1).pipe(request.response);
-    } catch (e) {
-      debugPrint(e.toString());
-      await request.response.close();
-    }
+    await torrent.setSequentialDownloadFromPiece(piece);
+    await _pipeFileRangeInBlocks(
+        file, request.response, start, end, torrent.pieceSize);
   }
 
-  _computeNeededPieces(int? from, int? count) {
+  List<int> _computeNeededPieces(int? from, int? count) {
     final List<int> neededPieces = [];
     final neededPiecesCount = count ?? (bufferSize / torrent.pieceSize).ceil();
     final firstPiece = from ?? torrentFile.piecesRange.first;
@@ -167,7 +160,8 @@ class StreamingServer {
     return neededPieces;
   }
 
-  cancelWaitingForPieces() {
+  _cancelWaitingForPieces() {
+    debugPrint('streaming_server:cancelWaitingForPieces');
     // Cancel previous wait requests
     if (_waitForPieceTimer != null) {
       _waitForPieceTimer?.cancel();
@@ -180,7 +174,7 @@ class StreamingServer {
   }
 
   Future<void> _waitForPieces({int? from, int? count}) async {
-    cancelWaitingForPieces();
+    _cancelWaitingForPieces();
 
     _waitForPieceCompleter = Completer();
 
@@ -190,7 +184,8 @@ class StreamingServer {
       // Refresh torrent data
       final Torrent torrent = await engine.fetchTorrent(this.torrent.id);
       final hasLoaded = torrent.hasLoadedPieces(neededPieces);
-      debugPrint('neededPieces ${neededPieces} hasLoaded ${hasLoaded}');
+      debugPrint(
+          'streaming_server:neededPieces $neededPieces hasLoaded $hasLoaded');
 
       if (hasLoaded) {
         if (timer != null) {
@@ -207,5 +202,37 @@ class StreamingServer {
     testPieces(_waitForPieceTimer);
 
     return _waitForPieceCompleter?.future;
+  }
+
+  Future<void> _pipeFileRangeInBlocks(File file, HttpResponse response,
+      int start, int end, int blockSize) async {
+    _pipeFileRangeCompleter?.complete();
+    _pipeFileRangeCompleter = Completer<void>();
+    final localCompleter = Completer<void>();
+    _pipeFileRangeCompleter = localCompleter;
+
+    int currentStart = start;
+
+    while (currentStart <= end && !localCompleter.isCompleted) {
+      int currentEnd = currentStart + blockSize - 1;
+      if (currentEnd > end) {
+        currentEnd = end;
+      }
+
+      final piece = (currentStart / torrent.pieceSize).floor();
+      await _waitForPieces(from: piece);
+      debugPrint(
+          'streaming_server: reading piece: $piece start: $start end: $end !localCompleter!.isCompleted ${localCompleter.isCompleted}');
+      final readStream = file.openRead(currentStart, currentEnd + 1);
+
+      await for (final chunk in readStream) {
+        response.add(chunk);
+        await response.flush();
+      }
+
+      currentStart = currentEnd + 1;
+    }
+
+    await response.close();
   }
 }
