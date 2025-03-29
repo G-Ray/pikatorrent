@@ -7,6 +7,7 @@ import 'package:pikatorrent/utils/device.dart' as device;
 import 'package:pikatorrent/utils/streaming_server.dart';
 import 'package:pikatorrent/utils/subtitles.dart';
 import 'package:pikatorrent/utils/subtitles_server.dart';
+import 'package:pikatorrent/widgets/torrent_player/dialogs/subtitles_loading.dart';
 import 'package:pikatorrent/widgets/torrent_player/dialogs/subtitles_selector.dart';
 import 'package:pikatorrent/widgets/window_title_bar.dart';
 
@@ -17,11 +18,12 @@ class TorrentPlayer extends StatefulWidget {
   final String filePath;
   final Torrent torrent;
 
-  const TorrentPlayer(
-      {super.key,
-      required this.filePath,
-      required this.torrent,
-      required this.file});
+  const TorrentPlayer({
+    super.key,
+    required this.filePath,
+    required this.torrent,
+    required this.file,
+  });
 
   @override
   State<TorrentPlayer> createState() => TorrentPlayerState();
@@ -34,8 +36,10 @@ class TorrentPlayerState extends State<TorrentPlayer> {
   final GlobalKey _videoComponentKey = GlobalKey();
 
   // Create a [VideoController] to handle video output from [Player].
-  late final controller = VideoController(player,
-      configuration: const VideoControllerConfiguration());
+  late final controller = VideoController(
+    player,
+    configuration: const VideoControllerConfiguration(),
+  );
 
   @override
   void initState() {
@@ -45,21 +49,21 @@ class TorrentPlayerState extends State<TorrentPlayer> {
 
   void initPlayer() async {
     player = Player(
-        configuration: const PlayerConfiguration(bufferSize: bufferSize));
-
-    await (player.platform as NativePlayer).setProperty('network-timeout', '0');
-    player.stream.log.listen(
-      (log) {
-        debugPrint('mpv: ${log}');
-      },
+      configuration: const PlayerConfiguration(bufferSize: bufferSize),
     );
+
+    player.stream.log.listen((log) {
+      debugPrint('mpv: ${log}');
+    });
 
     widget.torrent.startStreaming(widget.file);
     server = StreamingServer(
-        filePath: widget.filePath,
-        bufferSize: bufferSize * 2, // Download at least double of bufferSize
-        torrent: widget.torrent,
-        torrentFile: widget.file);
+      filePath: widget.filePath,
+      bufferSize:
+          bufferSize * 2, // Download ahead at least double of bufferSize
+      torrent: widget.torrent,
+      torrentFile: widget.file,
+    );
 
     server.start();
     subsServer = SubtitlesServer(torrent: widget.torrent);
@@ -67,18 +71,27 @@ class TorrentPlayerState extends State<TorrentPlayer> {
     final serverAdress = await server.getAddress();
     final subtitlesServerAdress = await subsServer.getAddress();
 
-    final slashesCount = countSlashesRegex(widget.file.name);
+    // Download subtitles first
+    if (widget.torrent.progress != 1) {
+      onSubtitlesLoading();
 
-    final externalSubtitles = widget.torrent.files
-        .where((f) =>
-            slashesCount == countSlashesRegex(f.name) &&
-            f.name.endsWith('.srt')) // TODO: support more formats
-        .map((f) => ExternalSubtitle(
-            name: truncateFromLastSlash(f.name),
-            url: Uri.encodeFull('$subtitlesServerAdress/${f.name}')))
-        .toList();
+      await downloadSubtitles(widget.file, widget.torrent);
+
+      if (mounted) {
+        Navigator.pop(context);
+      }
+    }
 
     await player.open(Media(serverAdress));
+    final externalSubtitlesFiles =
+        getExternalSubtitles(widget.file, widget.torrent);
+
+    final externalSubtitles =
+        externalSubtitlesFiles // TODO: support more formats
+            .map((f) => ExternalSubtitle(
+                name: truncateFromLastSlash(f.name),
+                url: Uri.encodeFull('$subtitlesServerAdress/${f.name}')))
+            .toList();
 
     // Load external subtitles to be able to select them
     for (final sub in externalSubtitles) {
@@ -101,108 +114,112 @@ class TorrentPlayerState extends State<TorrentPlayer> {
     super.dispose();
   }
 
-  onSubtitlesClick() {
+  onSubtitlesLoading() {
     showDialog(
         context: context,
-        builder: (BuildContext context) {
-          return SubtitlesSelectorDialog(
-              subtitles: player.state.tracks.subtitle,
-              currentValue: player.state.track.subtitle.id,
-              onSubtitleSelected: (SubtitleTrack sub) async {
-                await player.setSubtitleTrack(sub);
-              });
-        });
+        builder: (BuildContext context) => const SubtitlesLoadingDialog());
+  }
+
+  onSubtitlesClick() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return SubtitlesSelectorDialog(
+          subtitles: player.state.tracks.subtitle,
+          currentValue: player.state.track.subtitle.id,
+          onSubtitleSelected: (SubtitleTrack sub) async {
+            await player.setSubtitleTrack(sub);
+          },
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Theme(
-        data: ThemeData.dark(),
-        child: Scaffold(
-          backgroundColor: Colors.black,
-          appBar: device.isDesktop()
-              ? const WindowTitleBar(
-                  backgroundColor: Colors.black,
-                )
-              : AppBar(
-                  toolbarHeight: 0,
-                ),
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 16.0),
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.arrow_back,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    player.stop();
-                    Navigator.pop(context);
-                  },
-                ),
-              ),
-              Expanded(
-                child: device.isMobile()
-                    ? MaterialVideoControlsTheme(
-                        normal: const MaterialVideoControlsThemeData(
-                            seekBarThumbColor: Colors.blue,
-                            seekBarPositionColor: Colors.blue,
-                            padding: EdgeInsets.only(bottom: 64)),
-                        fullscreen: const MaterialVideoControlsThemeData(
-                          seekBarThumbColor: Colors.blue,
-                          seekBarPositionColor: Colors.blue,
-                          padding: EdgeInsets.only(bottom: 64),
-                        ),
-                        child: Video(
-                          key: _videoComponentKey,
-                          controller: controller,
-                          controls: MaterialVideoControls,
-                        ),
-                      )
-                    : MaterialDesktopVideoControlsTheme(
-                        normal: MaterialDesktopVideoControlsThemeData(
-                          seekBarThumbColor: Colors.blue,
-                          seekBarPositionColor: Colors.blue,
-                          bottomButtonBar: [
-                            const MaterialDesktopSkipPreviousButton(),
-                            const MaterialDesktopPlayOrPauseButton(),
-                            const MaterialDesktopSkipNextButton(),
-                            const MaterialDesktopVolumeButton(),
-                            const MaterialDesktopPositionIndicator(),
-                            const Spacer(),
-                            MaterialDesktopCustomButton(
-                                icon: const Icon(Icons.subtitles),
-                                onPressed: onSubtitlesClick),
-                            const MaterialDesktopFullscreenButton(),
-                          ],
-                        ),
-                        fullscreen: MaterialDesktopVideoControlsThemeData(
-                          seekBarThumbColor: Colors.blue,
-                          seekBarPositionColor: Colors.blue,
-                          bottomButtonBar: [
-                            const MaterialDesktopSkipPreviousButton(),
-                            const MaterialDesktopPlayOrPauseButton(),
-                            const MaterialDesktopSkipNextButton(),
-                            const MaterialDesktopVolumeButton(),
-                            const MaterialDesktopPositionIndicator(),
-                            const Spacer(),
-                            MaterialDesktopCustomButton(
-                                icon: const Icon(Icons.subtitles),
-                                onPressed: onSubtitlesClick),
-                            const MaterialDesktopFullscreenButton(),
-                          ],
-                        ),
-                        child: Video(
-                          key: _videoComponentKey,
-                          controller: controller,
-                          controls: MaterialDesktopVideoControls,
-                        ),
+      data: ThemeData.dark(),
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        appBar: device.isDesktop()
+            ? const WindowTitleBar(backgroundColor: Colors.black)
+            : AppBar(toolbarHeight: 0),
+        body: Stack(
+          children: [
+            Expanded(
+              child: device.isMobile()
+                  ? MaterialVideoControlsTheme(
+                      normal: const MaterialVideoControlsThemeData(
+                        seekBarThumbColor: Colors.blue,
+                        seekBarPositionColor: Colors.blue,
+                        padding: EdgeInsets.only(bottom: 64),
                       ),
-              )
-            ],
-          ),
-        ));
+                      fullscreen: const MaterialVideoControlsThemeData(
+                        seekBarThumbColor: Colors.blue,
+                        seekBarPositionColor: Colors.blue,
+                        padding: EdgeInsets.only(bottom: 64),
+                      ),
+                      child: Video(
+                        key: _videoComponentKey,
+                        controller: controller,
+                        controls: MaterialVideoControls,
+                      ),
+                    )
+                  : MaterialDesktopVideoControlsTheme(
+                      normal: MaterialDesktopVideoControlsThemeData(
+                        seekBarThumbColor: Colors.blue,
+                        seekBarPositionColor: Colors.blue,
+                        bottomButtonBar: [
+                          const MaterialDesktopSkipPreviousButton(),
+                          const MaterialDesktopPlayOrPauseButton(),
+                          const MaterialDesktopSkipNextButton(),
+                          const MaterialDesktopVolumeButton(),
+                          const MaterialDesktopPositionIndicator(),
+                          const Spacer(),
+                          MaterialDesktopCustomButton(
+                            icon: const Icon(Icons.subtitles),
+                            onPressed: onSubtitlesClick,
+                          ),
+                          const MaterialDesktopFullscreenButton(),
+                        ],
+                      ),
+                      fullscreen: MaterialDesktopVideoControlsThemeData(
+                        seekBarThumbColor: Colors.blue,
+                        seekBarPositionColor: Colors.blue,
+                        bottomButtonBar: [
+                          const MaterialDesktopSkipPreviousButton(),
+                          const MaterialDesktopPlayOrPauseButton(),
+                          const MaterialDesktopSkipNextButton(),
+                          const MaterialDesktopVolumeButton(),
+                          const MaterialDesktopPositionIndicator(),
+                          const Spacer(),
+                          MaterialDesktopCustomButton(
+                            icon: const Icon(Icons.subtitles),
+                            onPressed: onSubtitlesClick,
+                          ),
+                          const MaterialDesktopFullscreenButton(),
+                        ],
+                      ),
+                      child: Video(
+                        key: _videoComponentKey,
+                        controller: controller,
+                        controls: MaterialDesktopVideoControls,
+                      ),
+                    ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 16.0),
+              child: IconButton(
+                icon: const Icon(Icons.arrow_back, color: Colors.white),
+                onPressed: () {
+                  player.stop();
+                  Navigator.pop(context);
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
