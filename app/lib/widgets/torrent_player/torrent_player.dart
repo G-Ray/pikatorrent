@@ -149,16 +149,32 @@ class TorrentPlayerState extends State<TorrentPlayer> {
             Expanded(
               child: device.isMobile()
                   ? MaterialVideoControlsTheme(
-                      normal: const MaterialVideoControlsThemeData(
-                        seekBarThumbColor: Colors.blue,
-                        seekBarPositionColor: Colors.blue,
-                        padding: EdgeInsets.only(bottom: 64),
-                      ),
-                      fullscreen: const MaterialVideoControlsThemeData(
-                        seekBarThumbColor: Colors.blue,
-                        seekBarPositionColor: Colors.blue,
-                        padding: EdgeInsets.only(bottom: 64),
-                      ),
+                      normal: MaterialVideoControlsThemeData(
+                          seekBarThumbColor: Colors.blue,
+                          seekBarPositionColor: Colors.blue,
+                          padding: const EdgeInsets.only(bottom: 64),
+                          bottomButtonBar: [
+                            const MaterialPositionIndicator(),
+                            const Spacer(),
+                            MaterialDesktopCustomButton(
+                              icon: const Icon(Icons.subtitles),
+                              onPressed: onSubtitlesClick,
+                            ),
+                            const MaterialFullscreenButton(),
+                          ]),
+                      fullscreen: MaterialVideoControlsThemeData(
+                          seekBarThumbColor: Colors.blue,
+                          seekBarPositionColor: Colors.blue,
+                          padding: const EdgeInsets.only(bottom: 64),
+                          bottomButtonBar: [
+                            const MaterialPositionIndicator(),
+                            const Spacer(),
+                            MaterialDesktopCustomButton(
+                              icon: const Icon(Icons.subtitles),
+                              onPressed: onSubtitlesClick,
+                            ),
+                            const MaterialFullscreenButton(),
+                          ]),
                       child: Video(
                         key: _videoComponentKey,
                         controller: controller,
