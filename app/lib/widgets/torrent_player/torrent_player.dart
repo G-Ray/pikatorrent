@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:media_kit_video/media_kit_video.dart';
 import 'package:pikatorrent/engine/file.dart' as torrent_file;
@@ -43,8 +44,24 @@ class TorrentPlayerState extends State<TorrentPlayer> {
 
   @override
   void initState() {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        systemNavigationBarColor: Colors.black, // Navigation bar color
+      ),
+    );
+
     super.initState();
     initPlayer();
+  }
+
+  @override
+  void dispose() {
+    widget.torrent.stopStreaming();
+    player.dispose();
+    server.stop();
+    subsServer.stop();
+    super.dispose();
   }
 
   void initPlayer() async {
@@ -105,15 +122,6 @@ class TorrentPlayerState extends State<TorrentPlayer> {
     await player.play();
   }
 
-  @override
-  void dispose() {
-    widget.torrent.stopStreaming();
-    player.dispose();
-    server.stop();
-    subsServer.stop();
-    super.dispose();
-  }
-
   onSubtitlesLoading() {
     showDialog(
         context: context,
@@ -139,101 +147,102 @@ class TorrentPlayerState extends State<TorrentPlayer> {
   Widget build(BuildContext context) {
     return Theme(
       data: ThemeData.dark(),
-      child: Scaffold(
-        backgroundColor: Colors.black,
-        appBar: device.isDesktop()
-            ? const WindowTitleBar(backgroundColor: Colors.black)
-            : AppBar(toolbarHeight: 0),
-        body: Stack(
-          children: [
-            Expanded(
-              child: device.isMobile()
-                  ? MaterialVideoControlsTheme(
-                      normal: MaterialVideoControlsThemeData(
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: Colors.black,
+          appBar: device.isDesktop()
+              ? const WindowTitleBar(backgroundColor: Colors.black)
+              : AppBar(toolbarHeight: 0),
+          body: Stack(
+            children: [
+              Expanded(
+                child: device.isMobile()
+                    ? MaterialVideoControlsTheme(
+                        normal: MaterialVideoControlsThemeData(
+                            seekBarThumbColor: Colors.blue,
+                            seekBarPositionColor: Colors.blue,
+                            padding: const EdgeInsets.only(bottom: 64),
+                            bottomButtonBar: [
+                              const MaterialPositionIndicator(),
+                              const Spacer(),
+                              MaterialDesktopCustomButton(
+                                icon: const Icon(Icons.subtitles),
+                                onPressed: onSubtitlesClick,
+                              ),
+                            ]),
+                        fullscreen: MaterialVideoControlsThemeData(
+                            seekBarThumbColor: Colors.blue,
+                            seekBarPositionColor: Colors.blue,
+                            padding: const EdgeInsets.only(bottom: 64),
+                            bottomButtonBar: [
+                              const MaterialPositionIndicator(),
+                              const Spacer(),
+                              MaterialDesktopCustomButton(
+                                icon: const Icon(Icons.subtitles),
+                                onPressed: onSubtitlesClick,
+                              ),
+                            ]),
+                        child: Video(
+                          key: _videoComponentKey,
+                          controller: controller,
+                          controls: MaterialVideoControls,
+                        ),
+                      )
+                    : MaterialDesktopVideoControlsTheme(
+                        normal: MaterialDesktopVideoControlsThemeData(
                           seekBarThumbColor: Colors.blue,
                           seekBarPositionColor: Colors.blue,
-                          padding: const EdgeInsets.only(bottom: 64),
                           bottomButtonBar: [
-                            const MaterialPositionIndicator(),
+                            const MaterialDesktopSkipPreviousButton(),
+                            const MaterialDesktopPlayOrPauseButton(),
+                            const MaterialDesktopSkipNextButton(),
+                            const MaterialDesktopVolumeButton(),
+                            const MaterialDesktopPositionIndicator(),
                             const Spacer(),
                             MaterialDesktopCustomButton(
                               icon: const Icon(Icons.subtitles),
                               onPressed: onSubtitlesClick,
                             ),
-                            const MaterialFullscreenButton(),
-                          ]),
-                      fullscreen: MaterialVideoControlsThemeData(
+                            const MaterialDesktopFullscreenButton(),
+                          ],
+                        ),
+                        fullscreen: MaterialDesktopVideoControlsThemeData(
                           seekBarThumbColor: Colors.blue,
                           seekBarPositionColor: Colors.blue,
-                          padding: const EdgeInsets.only(bottom: 64),
                           bottomButtonBar: [
-                            const MaterialPositionIndicator(),
+                            const MaterialDesktopSkipPreviousButton(),
+                            const MaterialDesktopPlayOrPauseButton(),
+                            const MaterialDesktopSkipNextButton(),
+                            const MaterialDesktopVolumeButton(),
+                            const MaterialDesktopPositionIndicator(),
                             const Spacer(),
                             MaterialDesktopCustomButton(
                               icon: const Icon(Icons.subtitles),
                               onPressed: onSubtitlesClick,
                             ),
-                            const MaterialFullscreenButton(),
-                          ]),
-                      child: Video(
-                        key: _videoComponentKey,
-                        controller: controller,
-                        controls: MaterialVideoControls,
+                            const MaterialDesktopFullscreenButton(),
+                          ],
+                        ),
+                        child: Video(
+                          key: _videoComponentKey,
+                          controller: controller,
+                          controls: MaterialDesktopVideoControls,
+                        ),
                       ),
-                    )
-                  : MaterialDesktopVideoControlsTheme(
-                      normal: MaterialDesktopVideoControlsThemeData(
-                        seekBarThumbColor: Colors.blue,
-                        seekBarPositionColor: Colors.blue,
-                        bottomButtonBar: [
-                          const MaterialDesktopSkipPreviousButton(),
-                          const MaterialDesktopPlayOrPauseButton(),
-                          const MaterialDesktopSkipNextButton(),
-                          const MaterialDesktopVolumeButton(),
-                          const MaterialDesktopPositionIndicator(),
-                          const Spacer(),
-                          MaterialDesktopCustomButton(
-                            icon: const Icon(Icons.subtitles),
-                            onPressed: onSubtitlesClick,
-                          ),
-                          const MaterialDesktopFullscreenButton(),
-                        ],
-                      ),
-                      fullscreen: MaterialDesktopVideoControlsThemeData(
-                        seekBarThumbColor: Colors.blue,
-                        seekBarPositionColor: Colors.blue,
-                        bottomButtonBar: [
-                          const MaterialDesktopSkipPreviousButton(),
-                          const MaterialDesktopPlayOrPauseButton(),
-                          const MaterialDesktopSkipNextButton(),
-                          const MaterialDesktopVolumeButton(),
-                          const MaterialDesktopPositionIndicator(),
-                          const Spacer(),
-                          MaterialDesktopCustomButton(
-                            icon: const Icon(Icons.subtitles),
-                            onPressed: onSubtitlesClick,
-                          ),
-                          const MaterialDesktopFullscreenButton(),
-                        ],
-                      ),
-                      child: Video(
-                        key: _videoComponentKey,
-                        controller: controller,
-                        controls: MaterialDesktopVideoControls,
-                      ),
-                    ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 16.0),
-              child: IconButton(
-                icon: const Icon(Icons.arrow_back, color: Colors.white),
-                onPressed: () {
-                  player.stop();
-                  Navigator.pop(context);
-                },
               ),
-            ),
-          ],
+              if (device.isDesktop())
+                Padding(
+                  padding: const EdgeInsets.only(left: 16.0),
+                  child: IconButton(
+                    icon: const Icon(Icons.arrow_back, color: Colors.white),
+                    onPressed: () {
+                      player.stop();
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );
