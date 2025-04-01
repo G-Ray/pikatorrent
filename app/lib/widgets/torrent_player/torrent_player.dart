@@ -125,6 +125,7 @@ class TorrentPlayerState extends State<TorrentPlayer> {
   onSubtitlesLoading() {
     showDialog(
         context: context,
+        barrierDismissible: false,
         builder: (BuildContext context) => const SubtitlesLoadingDialog());
   }
 
