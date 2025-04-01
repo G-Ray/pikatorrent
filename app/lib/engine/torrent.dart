@@ -1,11 +1,13 @@
 import 'dart:io';
 
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path/path.dart';
 import 'package:pikatorrent/engine/file.dart';
 import 'package:pikatorrent/main.dart';
 import 'package:pikatorrent/utils/device.dart';
+import 'package:pikatorrent/utils/subtitles.dart';
 
 // Torrent statuses
 enum TorrentStatus {
@@ -119,6 +121,14 @@ abstract class Torrent extends TorrentBase {
 
     await toggleAllFilesWanted(false);
     final fileIndex = files.indexWhere((f) => f.name == file.name);
+    // Want subtitles
+    final externalSubtitles = getExternalSubtitles(file, this);
+    for (final file in files) {
+      if (externalSubtitles.firstWhereOrNull((f) => f.name == file.name) !=
+          null) {
+        await toggleFileWanted(fileIndex, true);
+      }
+    }
     await toggleFileWanted(fileIndex, true);
     await setSequentialDownload(true);
   }
