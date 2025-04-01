@@ -156,81 +156,79 @@ class TorrentPlayerState extends State<TorrentPlayer> {
               : AppBar(toolbarHeight: 0),
           body: Stack(
             children: [
-              Expanded(
-                child: device.isMobile()
-                    ? MaterialVideoControlsTheme(
-                        normal: MaterialVideoControlsThemeData(
-                            seekBarThumbColor: Colors.blue,
-                            seekBarPositionColor: Colors.blue,
-                            padding: const EdgeInsets.only(bottom: 64),
-                            bottomButtonBar: [
-                              const MaterialPositionIndicator(),
-                              const Spacer(),
-                              MaterialDesktopCustomButton(
-                                icon: const Icon(Icons.subtitles),
-                                onPressed: onSubtitlesClick,
-                              ),
-                            ]),
-                        fullscreen: MaterialVideoControlsThemeData(
-                            seekBarThumbColor: Colors.blue,
-                            seekBarPositionColor: Colors.blue,
-                            padding: const EdgeInsets.only(bottom: 64),
-                            bottomButtonBar: [
-                              const MaterialPositionIndicator(),
-                              const Spacer(),
-                              MaterialDesktopCustomButton(
-                                icon: const Icon(Icons.subtitles),
-                                onPressed: onSubtitlesClick,
-                              ),
-                            ]),
-                        child: Video(
-                          key: _videoComponentKey,
-                          controller: controller,
-                          controls: MaterialVideoControls,
-                        ),
-                      )
-                    : MaterialDesktopVideoControlsTheme(
-                        normal: MaterialDesktopVideoControlsThemeData(
+              device.isMobile()
+                  ? MaterialVideoControlsTheme(
+                      normal: MaterialVideoControlsThemeData(
                           seekBarThumbColor: Colors.blue,
                           seekBarPositionColor: Colors.blue,
+                          padding: const EdgeInsets.only(bottom: 64),
                           bottomButtonBar: [
-                            const MaterialDesktopSkipPreviousButton(),
-                            const MaterialDesktopPlayOrPauseButton(),
-                            const MaterialDesktopSkipNextButton(),
-                            const MaterialDesktopVolumeButton(),
-                            const MaterialDesktopPositionIndicator(),
+                            const MaterialPositionIndicator(),
                             const Spacer(),
                             MaterialDesktopCustomButton(
                               icon: const Icon(Icons.subtitles),
                               onPressed: onSubtitlesClick,
                             ),
-                            const MaterialDesktopFullscreenButton(),
-                          ],
-                        ),
-                        fullscreen: MaterialDesktopVideoControlsThemeData(
+                          ]),
+                      fullscreen: MaterialVideoControlsThemeData(
                           seekBarThumbColor: Colors.blue,
                           seekBarPositionColor: Colors.blue,
+                          padding: const EdgeInsets.only(bottom: 64),
                           bottomButtonBar: [
-                            const MaterialDesktopSkipPreviousButton(),
-                            const MaterialDesktopPlayOrPauseButton(),
-                            const MaterialDesktopSkipNextButton(),
-                            const MaterialDesktopVolumeButton(),
-                            const MaterialDesktopPositionIndicator(),
+                            const MaterialPositionIndicator(),
                             const Spacer(),
                             MaterialDesktopCustomButton(
                               icon: const Icon(Icons.subtitles),
                               onPressed: onSubtitlesClick,
                             ),
-                            const MaterialDesktopFullscreenButton(),
-                          ],
-                        ),
-                        child: Video(
-                          key: _videoComponentKey,
-                          controller: controller,
-                          controls: MaterialDesktopVideoControls,
-                        ),
+                          ]),
+                      child: Video(
+                        key: _videoComponentKey,
+                        controller: controller,
+                        controls: MaterialVideoControls,
                       ),
-              ),
+                    )
+                  : MaterialDesktopVideoControlsTheme(
+                      normal: MaterialDesktopVideoControlsThemeData(
+                        seekBarThumbColor: Colors.blue,
+                        seekBarPositionColor: Colors.blue,
+                        bottomButtonBar: [
+                          const MaterialDesktopSkipPreviousButton(),
+                          const MaterialDesktopPlayOrPauseButton(),
+                          const MaterialDesktopSkipNextButton(),
+                          const MaterialDesktopVolumeButton(),
+                          const MaterialDesktopPositionIndicator(),
+                          const Spacer(),
+                          MaterialDesktopCustomButton(
+                            icon: const Icon(Icons.subtitles),
+                            onPressed: onSubtitlesClick,
+                          ),
+                          const MaterialDesktopFullscreenButton(),
+                        ],
+                      ),
+                      fullscreen: MaterialDesktopVideoControlsThemeData(
+                        seekBarThumbColor: Colors.blue,
+                        seekBarPositionColor: Colors.blue,
+                        bottomButtonBar: [
+                          const MaterialDesktopSkipPreviousButton(),
+                          const MaterialDesktopPlayOrPauseButton(),
+                          const MaterialDesktopSkipNextButton(),
+                          const MaterialDesktopVolumeButton(),
+                          const MaterialDesktopPositionIndicator(),
+                          const Spacer(),
+                          MaterialDesktopCustomButton(
+                            icon: const Icon(Icons.subtitles),
+                            onPressed: onSubtitlesClick,
+                          ),
+                          const MaterialDesktopFullscreenButton(),
+                        ],
+                      ),
+                      child: Video(
+                        key: _videoComponentKey,
+                        controller: controller,
+                        controls: MaterialDesktopVideoControls,
+                      ),
+                    ),
               if (device.isDesktop())
                 Padding(
                   padding: const EdgeInsets.only(left: 16.0),
