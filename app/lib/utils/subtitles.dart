@@ -18,7 +18,7 @@ String truncateFromLastSlash(String text) {
   }
 }
 
-getExternalSubtitles(File file, Torrent torrent) {
+List<File> getExternalSubtitles(File file, Torrent torrent) {
   final slashesCount = countSlashesRegex(file.name);
   final externalSubtitlesFiles = torrent.files
       .where((f) =>
@@ -31,8 +31,8 @@ getExternalSubtitles(File file, Torrent torrent) {
 downloadSubtitles(File file, Torrent torrent) async {
   final List<File> subtitles = getExternalSubtitles(file, torrent);
   for (var sub in subtitles) {
-    torrent.setSequentialDownloadFromPiece(sub.piecesRange.first);
-    await _waitForFileComplete(torrent: torrent, fileName: file.name);
+    await torrent.setSequentialDownloadFromPiece(sub.piecesRange.first);
+    await _waitForFileComplete(torrent: torrent, fileName: sub.name);
   }
 }
 
@@ -49,9 +49,10 @@ Future<void> _waitForFileComplete(
     if (isDownloaded) {
       if (timer != null) {
         timer.cancel();
-        if (!waitForFileCompleter.isCompleted) {
-          waitForFileCompleter.complete();
-        }
+      }
+
+      if (!waitForFileCompleter.isCompleted) {
+        waitForFileCompleter.complete();
       }
     }
   }
