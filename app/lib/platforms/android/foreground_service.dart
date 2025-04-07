@@ -5,16 +5,16 @@ import 'package:pikatorrent/main.dart';
 void onDidReceiveNotificationResponse(
     NotificationResponse notificationResponse) async {
   if (notificationResponse.actionId == 'exit') {
-    // Close BitTorrent engine
     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
         ?.stopForegroundService();
+    // Close BitTorrent engine
+    engine.dispose();
     // Exit app
     SystemNavigator.pop();
-    engine.dispose();
   }
 }
 
