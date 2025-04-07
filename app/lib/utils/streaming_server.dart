@@ -104,13 +104,6 @@ class StreamingServer {
       await _handleRangeRequest(
           request, file, fileSize, rangeHeader, cancelableCompleter);
     } else {
-      final lastPiece = torrentFile.piecesRange.last - 1;
-      // Start downloading from the end to allow for smoother seeking,
-      // as last piece is often needed
-      await torrent.setSequentialDownloadFromPiece(lastPiece);
-      await _waitForPieces(
-          from: lastPiece, count: 1, cancelableCompleter: cancelableCompleter);
-      await _waitForPieces(from: 0, cancelableCompleter: cancelableCompleter);
       await _sendFullFile(request, file, fileSize, cancelableCompleter);
     }
   }
