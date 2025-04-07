@@ -1,30 +1,27 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:async/async.dart';
+
 import 'package:mime/mime.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pikatorrent/engine/torrent.dart';
 import 'package:pikatorrent/engine/file.dart' as torrent_file;
 import 'package:pikatorrent/main.dart';
 
-class WaitingForPieceAbortedException implements Exception {}
+class CancellationException implements Exception {}
 
 /// Server to stream a file
 class StreamingServer {
   late HttpServer _server;
   final Completer _serverReadyCompleter = Completer();
-  bool isClosed = false;
 
   String filePath;
   final int bufferSize;
   final Torrent torrent;
   final torrent_file.File torrentFile;
 
-  // Completer to cancel previous request
-  // We handle only one request at a time
-  Completer<void>? _pipeFileRangeCompleter;
-  Completer? _waitForPieceCompleter;
-  Timer? _waitForPieceTimer;
+  CancelableOperation? _cancelableOperation;
 
   StreamingServer(
       {required this.filePath,
@@ -37,17 +34,32 @@ class StreamingServer {
     _serverReadyCompleter.complete();
     debugPrint(
         'streaming_server: starting streaming server on ${await getAddress()}');
+
     await for (HttpRequest request in _server) {
-      _handleRequest(request);
+      // Cancel the previous request
+      debugPrint('streaming_server: cancel previous request...');
+      await _cancelableOperation?.cancel();
+      final completer = CancelableCompleter();
+
+      // Create new cancelable request
+      _cancelableOperation = CancelableOperation.fromFuture(
+        _handleRequest(request, completer),
+        onCancel: () {
+          debugPrint('Previous request cancelled.');
+          completer.operation.cancel();
+        },
+      );
     }
   }
 
   void stop() async {
     debugPrint('streaming_server: stop');
-    isClosed = true;
-    _cancelWaitingForPieces();
-    _pipeFileRangeCompleter?.complete();
+    await _cancelableOperation?.cancel();
     await _server.close();
+  }
+
+  void cancelRequest() {
+    _cancelableOperation?.cancel();
   }
 
   Future<String> getAddress() async {
@@ -55,50 +67,68 @@ class StreamingServer {
     return 'http://${_server.address.host}:${_server.port}';
   }
 
-  Future<void> _handleRequest(HttpRequest request) async {
+  Future<void> _handleRequest(
+      HttpRequest request, CancelableCompleter cancelableCompleter) async {
     try {
       if (request.method == 'GET') {
-        await _handleGetRequest(request);
+        await _handleGetRequest(request, cancelableCompleter);
       } else {
         request.response.statusCode = HttpStatus.methodNotAllowed;
         request.response.close();
       }
+    } on CancellationException {
+      debugPrint('streaming_server: Request cancelled');
     } catch (e) {
-      debugPrint('streaming_server:Error handling request: $e');
-      request.response.close();
+      debugPrint("streaming_server: Error processing request: $e");
+      request.response.statusCode = HttpStatus.internalServerError;
+    } finally {
+      await request.response.close();
+      cancelableCompleter.complete();
     }
   }
 
-  Future<void> _handleGetRequest(HttpRequest request) async {
+  Future<void> _handleGetRequest(
+      HttpRequest request, CancelableCompleter cancelableCompleter) async {
+    // Wait for at least first piece
+    debugPrint('streaming_server: _handleGetRequest');
+    await _waitForPieces(
+        from: torrentFile.piecesRange.first,
+        count: 1,
+        cancelableCompleter: cancelableCompleter);
+    debugPrint('_handleGetRequest ready');
     final file = File(filePath);
     final fileSize = await file.length();
     final rangeHeader = request.headers.value('range');
 
     if (rangeHeader != null) {
-      await _handleRangeRequest(request, file, fileSize, rangeHeader);
+      await _handleRangeRequest(
+          request, file, fileSize, rangeHeader, cancelableCompleter);
     } else {
       final lastPiece = torrentFile.piecesRange.last - 1;
       // Start downloading from the end to allow for smoother seeking,
       // as last piece is often needed
       await torrent.setSequentialDownloadFromPiece(lastPiece);
-      await _waitForPieces(from: lastPiece, count: 1);
-      await _waitForPieces(from: 0);
-      await _sendFullFile(request, file, fileSize);
+      await _waitForPieces(
+          from: lastPiece, count: 1, cancelableCompleter: cancelableCompleter);
+      await _waitForPieces(from: 0, cancelableCompleter: cancelableCompleter);
+      await _sendFullFile(request, file, fileSize, cancelableCompleter);
     }
   }
 
-  Future<void> _sendFullFile(
-      HttpRequest request, File file, int fileSize) async {
+  Future<void> _sendFullFile(HttpRequest request, File file, int fileSize,
+      CancelableCompleter cancelableCompleter) async {
+    debugPrint('streaming_server: _sendFullFile');
     final mimeType = lookupMimeType(filePath) ?? ContentType.binary.mimeType;
     request.response.headers.contentType = ContentType.parse(mimeType);
     request.response.headers.contentLength = fileSize;
 
-    await _pipeFileRangeInBlocks(
-        file, request.response, 0, fileSize - 1, torrent.pieceSize);
+    await _pipeFileRangeInBlocks(file, request.response, 0, fileSize - 1,
+        torrent.pieceSize, cancelableCompleter);
   }
 
-  Future<void> _handleRangeRequest(
-      HttpRequest request, File file, int fileSize, String rangeHeader) async {
+  Future<void> _handleRangeRequest(HttpRequest request, File file, int fileSize,
+      String rangeHeader, CancelableCompleter cancelableCompleter) async {
+    debugPrint('streaming_server: _handleRangeRequest');
     final rangeRegex = RegExp(r'bytes=(\d*)-(\d*)');
     final match = rangeRegex.firstMatch(rangeHeader);
 
@@ -144,8 +174,8 @@ class StreamingServer {
         'handleRangeRequest $start ${end + 1} $contentLength piece: $piece ${torrent.pieceSize}');
 
     await torrent.setSequentialDownloadFromPiece(piece);
-    await _pipeFileRangeInBlocks(
-        file, request.response, start, end, torrent.pieceSize);
+    await _pipeFileRangeInBlocks(file, request.response, start, end,
+        torrent.pieceSize, cancelableCompleter);
   }
 
   List<int> _computeNeededPieces(int? from, int? count) {
@@ -160,69 +190,67 @@ class StreamingServer {
     return neededPieces;
   }
 
-  _cancelWaitingForPieces() {
-    debugPrint('streaming_server:cancelWaitingForPieces');
-    // Cancel previous wait requests
-    if (_waitForPieceTimer != null) {
-      _waitForPieceTimer?.cancel();
-      _waitForPieceTimer = null;
-    }
-    if (_waitForPieceCompleter != null) {
-      _waitForPieceCompleter?.completeError(WaitingForPieceAbortedException);
-      _waitForPieceCompleter = null;
-    }
-  }
-
-  Future<void> _waitForPieces({int? from, int? count}) async {
-    _cancelWaitingForPieces();
-
-    _waitForPieceCompleter = Completer();
-
+  Future<void> _waitForPieces(
+      {int? from, int? count, CancelableCompleter? cancelableCompleter}) async {
+    final completer = Completer();
     final neededPieces = _computeNeededPieces(from, count);
 
-    void testPieces(Timer? timer) async {
+    testPieces(Timer? timer) async {
+      if (cancelableCompleter != null && cancelableCompleter.isCanceled) {
+        timer?.cancel();
+        debugPrint('streaming_server: cancel throw');
+        completer.completeError(CancellationException());
+      }
+
       // Refresh torrent data
       final Torrent torrent = await engine.fetchTorrent(this.torrent.id);
       final hasLoaded = torrent.hasLoadedPieces(neededPieces);
       debugPrint(
-          'streaming_server:neededPieces $neededPieces hasLoaded $hasLoaded');
+          'streaming_server: neededPieces $neededPieces hasLoaded $hasLoaded');
 
       if (hasLoaded) {
-        if (timer != null) {
-          timer.cancel();
-        }
-        _waitForPieceCompleter?.complete();
-        _waitForPieceTimer = null;
-        _waitForPieceCompleter = null;
+        // Success
+        timer?.cancel();
+        completer.complete();
       }
     }
 
-    _waitForPieceTimer = Timer.periodic(const Duration(seconds: 1), testPieces);
+    await testPieces(null);
 
-    testPieces(_waitForPieceTimer);
+    if (!completer.isCompleted) {
+      Timer.periodic(const Duration(seconds: 1), testPieces);
+    }
 
-    return _waitForPieceCompleter?.future;
+    return completer.future;
   }
 
-  Future<void> _pipeFileRangeInBlocks(File file, HttpResponse response,
-      int start, int end, int blockSize) async {
-    _pipeFileRangeCompleter?.complete();
-    _pipeFileRangeCompleter = Completer<void>();
-    final localCompleter = Completer<void>();
-    _pipeFileRangeCompleter = localCompleter;
+  Future<void> _pipeFileRangeInBlocks(
+      File file,
+      HttpResponse response,
+      int start,
+      int end,
+      int blockSize,
+      CancelableCompleter cancelableCompleter) async {
+    debugPrint(
+        'streaming_server: _pipeFileRangeInBlocks start: $start end: $end');
 
     int currentStart = start;
+    while (currentStart <= end) {
+      if (cancelableCompleter.isCanceled) {
+        debugPrint('streaming_server: _pipeFileRangeInBlocks isCanceled !!!');
+        throw CancellationException();
+      }
 
-    while (currentStart <= end && !localCompleter.isCompleted) {
       int currentEnd = currentStart + blockSize - 1;
       if (currentEnd > end) {
         currentEnd = end;
       }
 
       final piece = (currentStart / torrent.pieceSize).floor();
-      await _waitForPieces(from: piece);
+      await _waitForPieces(
+          from: piece, cancelableCompleter: cancelableCompleter);
       debugPrint(
-          'streaming_server: reading piece: $piece start: $start end: $end !localCompleter!.isCompleted ${localCompleter.isCompleted}');
+          'streaming_server: reading piece: $piece start: $start end: $end');
       final readStream = file.openRead(currentStart, currentEnd + 1);
 
       await for (final chunk in readStream) {

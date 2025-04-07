@@ -30,8 +30,21 @@ class TorrentPlayer extends StatefulWidget {
   State<TorrentPlayer> createState() => TorrentPlayerState();
 }
 
+class StreamingPlayer extends Player {
+  StreamingServer server;
+
+  StreamingPlayer({required super.configuration, required this.server});
+
+  @override
+  Future<void> seek(Duration duration) {
+    // Cancel previous request, which might block next seek command
+    server.cancelRequest();
+    return super.seek(duration);
+  }
+}
+
 class TorrentPlayerState extends State<TorrentPlayer> {
-  late final Player player;
+  late final StreamingPlayer player;
   late StreamingServer server;
   late SubtitlesServer subsServer;
   final GlobalKey _videoComponentKey = GlobalKey();
@@ -65,22 +78,26 @@ class TorrentPlayerState extends State<TorrentPlayer> {
   }
 
   void initPlayer() async {
-    player = Player(
-      configuration: const PlayerConfiguration(bufferSize: bufferSize),
+    // Streaming server
+    server = StreamingServer(
+      filePath: widget.filePath,
+      bufferSize: bufferSize,
+      torrent: widget.torrent,
+      torrentFile: widget.file,
     );
+
+    player = StreamingPlayer(
+        configuration: const PlayerConfiguration(bufferSize: bufferSize),
+        server: server);
+
+    await (player.platform as NativePlayer).setProperty('network-timeout', '0');
+    await (player.platform as NativePlayer).setProperty('cache', 'no');
 
     player.stream.log.listen((log) {
       debugPrint('mpv: ${log}');
     });
 
     widget.torrent.startStreaming(widget.file);
-    server = StreamingServer(
-      filePath: widget.filePath,
-      bufferSize:
-          bufferSize * 2, // Download ahead at least double of bufferSize
-      torrent: widget.torrent,
-      torrentFile: widget.file,
-    );
 
     server.start();
     subsServer = SubtitlesServer(torrent: widget.torrent);
@@ -88,6 +105,7 @@ class TorrentPlayerState extends State<TorrentPlayer> {
     final serverAdress = await server.getAddress();
     final subtitlesServerAdress = await subsServer.getAddress();
 
+    debugPrint('download subs');
     // Download subtitles first
     if (widget.torrent.progress != 1) {
       onSubtitlesLoading();
@@ -99,6 +117,7 @@ class TorrentPlayerState extends State<TorrentPlayer> {
       }
     }
 
+    debugPrint('open player');
     await player.open(Media(serverAdress));
     final externalSubtitlesFiles =
         getExternalSubtitles(widget.file, widget.torrent);

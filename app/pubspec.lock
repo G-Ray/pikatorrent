@@ -96,7 +96,7 @@ packages:
     source: hosted
     version: "9.0.2"
   async:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: async
       sha256: d2872f9c19731c2e5f10444b14686eb7cc85c76274bd6c16e1816bff9a3bab63
