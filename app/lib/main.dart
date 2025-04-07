@@ -13,7 +13,6 @@ import 'package:pikatorrent/utils/device.dart';
 import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:yaru/yaru.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:media_kit/media_kit.dart';
 
 final lightColorScheme = ColorScheme.fromSeed(
@@ -60,7 +59,6 @@ final _darkTheme = ThemeData(
 Engine engine = TransmissionEngine();
 
 void main() async {
-  await dotenv.load();
   WidgetsFlutterBinding.ensureInitialized();
   MediaKit.ensureInitialized();
 

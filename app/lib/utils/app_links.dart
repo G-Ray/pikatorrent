@@ -1,14 +1,15 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pikatorrent/utils/device.dart';
 import 'package:share_plus/share_plus.dart';
 
-String appUri = kDebugMode && isDesktop()
-    ? 'http://localhost:3000/'
-    : 'https://www.pikatorrent.com/';
+enum Environment { production, preview, development }
+
+final appUri = const String.fromEnvironment('APP_URL').isNotEmpty
+    ? const String.fromEnvironment('APP_URL')
+    : 'http://localhost:3000/';
 
 createAppLink(String link) {
   Uri uri = Uri(fragment: Uri(queryParameters: {'magnet': link}).toString());
