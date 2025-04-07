@@ -95,9 +95,8 @@ class StreamingServer {
         from: torrentFile.piecesRange.first,
         count: 1,
         cancelableCompleter: cancelableCompleter);
-    debugPrint('_handleGetRequest ready');
     final file = File(filePath);
-    final fileSize = await file.length();
+    final fileSize = torrentFile.length;
     final rangeHeader = request.headers.value('range');
 
     if (rangeHeader != null) {
