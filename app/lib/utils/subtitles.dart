@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:pikatorrent/engine/file.dart';
 import 'package:pikatorrent/engine/torrent.dart';
 import 'package:pikatorrent/main.dart';
@@ -40,11 +41,17 @@ Future<void> _waitForFileComplete(
     {required Torrent torrent, required String fileName}) async {
   final waitForFileCompleter = Completer();
 
+  final file = torrent.files.firstWhere((f) => f.name == fileName);
+
   void testFileComplete(Timer? timer) async {
     // Refresh torrent data
     final Torrent t = await engine.fetchTorrent(torrent.id);
-    final file = t.files.firstWhere((f) => f.name == fileName);
-    final isDownloaded = file.bytesCompleted == file.length;
+    List<int> neededPieces = [];
+    for (int i = file.piecesRange.first; i < file.piecesRange.last; i++) {
+      neededPieces.add(i);
+    }
+
+    final isDownloaded = neededPieces.every((p) => t.pieces[p] == true);
 
     if (isDownloaded) {
       if (timer != null) {
