@@ -1,1 +1,10 @@
 output: dist/
+releases:
+  - name: appimage
+    jobs:
+      - name: appimage
+        package:
+          platform: linux
+          target: appimage
+          build_args:
+            dart-define-from-file: ENV_FILE

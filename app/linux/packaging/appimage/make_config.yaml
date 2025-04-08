@@ -1,0 +1,24 @@
+display_name: PikaTorrent
+
+icon: linux/packaging/icon.png
+
+keywords:
+  - torrent
+  - bittorrent
+
+generic_name: BitTorrent Client
+
+categories:
+  - Network
+  - FileTransfer
+
+startup_notify: true
+
+supported_mime_type:
+  - x-scheme-handler/magnet
+  - application/x-bittorrent
+
+metainfo: linux/packaging/com.pikatorrent.PikaTorrent.metainfo.xml
+
+include:
+  - libjpeg.so.8
