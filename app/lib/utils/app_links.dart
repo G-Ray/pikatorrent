@@ -27,6 +27,10 @@ getTorrentLink(String appLink) {
   return uri.queryParameters['magnet'];
 }
 
+isAppLink(String appLink) {
+  return appLink.startsWith(appUri);
+}
+
 shareLink(BuildContext context, String magnetLink) async {
   String link = createAppLink(magnetLink);
 

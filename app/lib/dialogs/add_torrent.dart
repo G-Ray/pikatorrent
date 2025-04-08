@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:pikatorrent/engine/engine.dart';
 import 'package:pikatorrent/models/session.dart';
 import 'package:pikatorrent/models/torrents.dart';
+import 'package:pikatorrent/utils/app_links.dart';
 import 'package:provider/provider.dart';
 
 class AddTorrentDialog extends StatefulWidget {
@@ -56,7 +57,9 @@ class _AddTorrentDialogState extends State<AddTorrentDialog> {
   void _handleAddTorrent(context) async {
     try {
       String? metainfo;
+      TorrentAddedResponse status;
       if (_filename != null) {
+        // From a .torrent file
         if (_filename!.startsWith('content:')) {
           // Android
           final Content content =
@@ -67,9 +70,18 @@ class _AddTorrentDialogState extends State<AddTorrentDialog> {
           final content = await file.readAsBytes();
           metainfo = base64Encode(content);
         }
+
+        status = await Provider.of<TorrentsModel>(context, listen: false)
+            .addTorrent(
+                _torrentLinkController.text, metainfo, pickedDownloadDir);
+      } else {
+        // From a link (either app link or magnet)
+        final magnet = isAppLink(_torrentLinkController.text)
+            ? getTorrentLink(_torrentLinkController.text)
+            : _torrentLinkController.text;
+        status = await Provider.of<TorrentsModel>(context, listen: false)
+            .addTorrent(magnet, metainfo, pickedDownloadDir);
       }
-      var status = await Provider.of<TorrentsModel>(context, listen: false)
-          .addTorrent(_torrentLinkController.text, metainfo, pickedDownloadDir);
 
       if (status == TorrentAddedResponse.duplicated) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
