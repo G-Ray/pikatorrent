@@ -39,6 +39,15 @@ export VCPKG_MANIFEST_DIR=$(pwd)
 flutter run # start the app in development mode
 ```
 
-## For MacOS & Windows (WIP):
+## Windows:
 
-Refer to build steps in [.github/workflows/build-apps.yml](.github/workflows/build-apps.yml)
+```powershell
+git clone --recurse-submodules git@github.com:G-Ray/pikatorrent.git
+cd pikatorrent/app
+$Env:VCPKG_ROOT="$(pwd)/vcpkg"
+$Env:VCPKG_MANIFEST_DIR="$(pwd)"
+# Workaround for https://gitlab.kitware.com/cmake/cmake/-/issues/25936
+$Env:TRANSMISSION_PREFIX="C:\Users\[YOUR_USER]\transmission-prefix"
+.\vcpkg\bootstrap-vcpkg.bat
+flutter run
+```
