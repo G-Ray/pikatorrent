@@ -47,7 +47,7 @@ class _AppShellRouteState extends State<AppShellRoute> {
         // App URI
         _openAddTorrentDialog(getTorrentLink(uriString), null);
       } else if (uri.scheme == 'pikatorrent') {
-        _openAddTorrentDialog(uri.fragment, null);
+        _openAddTorrentDialog(getTorrentLink(uriString), null);
       } else if (File(uriString).existsSync()) {
         // Filesystem path
         _openAddTorrentDialog(null, uriString);

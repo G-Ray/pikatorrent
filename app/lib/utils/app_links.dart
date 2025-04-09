@@ -20,9 +20,15 @@ createAppLink(String link) {
   return appLink;
 }
 
-/// get torrent link from an app link created with createAppLink
+/// get torrent link from an link which contains a fragment (#)
+/// It does not matter if it's a https:// or pikatorrent:// link
 getTorrentLink(String appLink) {
-  String fragment = decodeBase64(appLink.replaceFirst('$appUri#', ''));
+  final hashIndex = appLink.indexOf('#');
+  if (hashIndex == -1) {
+    return;
+  }
+
+  String fragment = decodeBase64(appLink.substring(hashIndex + 1));
   Uri uri = Uri(query: fragment);
   return uri.queryParameters['magnet'];
 }
