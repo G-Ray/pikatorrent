@@ -56,6 +56,16 @@
   </screenshots>
 
   <releases>
+    <release version="0.12.0" date="2025-04-10">
+      <description>
+        <ul>
+          <li>New theme and logo</li>
+          <li>Torrents streaming support</li>
+          <li>Torrents sharing support</li>
+          <li>Added donation link</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.11.0" date="2025-01-31">
       <description>
         <ul>
