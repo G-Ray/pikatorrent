@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Card, useThemeName, XStack, YStack } from "tamagui";
+import { Card, H2, useThemeName, XStack, YStack } from "tamagui";
 
 export const Screenshots = () => {
   const [desktopImageSource, setDesktopImageSource] =
@@ -20,25 +20,42 @@ export const Screenshots = () => {
   }, [theme]);
 
   return (
-    <XStack
-      alignItems="center"
-      width={"100%"}
-      maxWidth={1024}
-      gap="$4"
-      justifyContent="space-between"
-    >
-      <Link href={desktopImageSource} target="_blank" style={{ width: "65%" }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={desktopImageSource}
-          alt="Desktop & tablets screenshot"
-          width={"100%"}
-        />
-      </Link>
-      <Link href={mobileImageSource} target="_blank" style={{ width: "35%" }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={mobileImageSource} alt="Mobile screenshot" width={"100%"} />
-      </Link>
-    </XStack>
+    <YStack>
+      <H2 fontWeight="bold" mb="$4" textAlign="center">
+        Screenshots
+      </H2>
+
+      <XStack
+        alignItems="center"
+        width={"100%"}
+        maxWidth={1024}
+        gap="$4"
+        justifyContent="space-between"
+      >
+        {/* <img src={"/desktop-player.png"} alt="Desktop player" width={"100%"} /> */}
+        <YStack style={{ width: "65%" }}>
+          <Link href={desktopImageSource} target="_blank">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={desktopImageSource}
+              alt="Desktop & tablets screenshot"
+              width={"100%"}
+            />
+          </Link>
+          <Link href="/desktop-player.png" target="_blank">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/desktop-player.png"
+              alt="Desktop player"
+              width={"100%"}
+            />
+          </Link>
+        </YStack>
+        <Link href={mobileImageSource} target="_blank" style={{ width: "35%" }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={mobileImageSource} alt="Mobile screenshot" width={"100%"} />
+        </Link>
+      </XStack>
+    </YStack>
   );
 };

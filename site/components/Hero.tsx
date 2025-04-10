@@ -13,7 +13,7 @@ export const Hero = () => {
         Just pick a Torrent
       </H2>
       <H3 textAlign="center">
-        Stream and download torrent on all your devices.
+        Stream and download torrents on all your devices.
       </H3>
     </YStack>
   );

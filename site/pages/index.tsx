@@ -24,11 +24,13 @@ export default function Home() {
         <Hero />
       </YStack>
 
-      <Screenshots />
+      <YStack gap="$8">
+        <DownloadLinks />
 
-      <DownloadLinks />
+        <Screenshots />
 
-      <Features />
+        <Features />
+      </YStack>
 
       <Paragraph mt="$8">Google Play is a trademark of Google LLC.</Paragraph>
     </YStack>

@@ -1,12 +1,10 @@
 import {
   Files,
-  Filter,
   FolderOpen,
   HeartHandshake,
-  Link2,
   MonitorSmartphone,
   Moon,
-  Search,
+  PlayCircle,
   Share2,
   Tags,
   Zap,
@@ -20,6 +18,16 @@ export const Features = () => {
         Features
       </H2>
       <XStack gap="$2">
+        <PlayCircle style={{ flexShrink: 0 }} />
+        <Paragraph>Stream torrents, with subtitles support</Paragraph>
+      </XStack>
+      <Separator />
+      <XStack gap="$2">
+        <Share2 style={{ flexShrink: 0 }} />
+        <Paragraph>Share torrents with your friends</Paragraph>
+      </XStack>
+      <Separator />
+      <XStack gap="$2">
         <MonitorSmartphone style={{ flexShrink: 0 }} />
         <Paragraph>
           Available on Windows, Linux, Android, and soon on MacOs & iOS !
@@ -30,13 +38,6 @@ export const Features = () => {
         <Moon style={{ flexShrink: 0 }} />
         <Paragraph>
           A modern and clean user interface, with dark mode support
-        </Paragraph>
-      </XStack>
-      <Separator />
-      <XStack gap="$2">
-        <Zap style={{ flexShrink: 0 }} />
-        <Paragraph>
-          Supercharge your download speeds, with low cpu & memory usage
         </Paragraph>
       </XStack>
       <Separator />
@@ -53,6 +54,11 @@ export const Features = () => {
       <XStack gap="$2">
         <FolderOpen style={{ flexShrink: 0 }} />
         <Paragraph>Browse and open files included in your torrents</Paragraph>
+      </XStack>
+      <Separator />
+      <XStack gap="$2">
+        <Zap style={{ flexShrink: 0 }} />
+        <Paragraph>Based on Transmission for low cpu & memory usage</Paragraph>
       </XStack>
       <Separator />
       <XStack gap="$2">
