@@ -57,13 +57,8 @@ class TorrentPlayerState extends State<TorrentPlayer> {
 
   @override
   void initState() {
+    // Enter immersive mode
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        systemNavigationBarColor: Colors.black, // Navigation bar color
-      ),
-    );
-
     super.initState();
     initPlayer();
   }
@@ -74,6 +69,8 @@ class TorrentPlayerState extends State<TorrentPlayer> {
     player.dispose();
     server.stop();
     subsServer.stop();
+    // leave immersive mode
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     super.dispose();
   }
 
