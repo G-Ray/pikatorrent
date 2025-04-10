@@ -32,6 +32,13 @@ class DetailsTab extends StatelessWidget {
     return ListView(
       children: <Widget>[
         ListTile(
+            title: const Text('Error'),
+            subtitle: Text(
+                torrent.errorString.isEmpty ? '-' : torrent.errorString,
+                style: (torrent.errorString.isEmpty)
+                    ? const TextStyle()
+                    : const TextStyle(color: Colors.red))),
+        ListTile(
             title: const Text('Size'),
             subtitle: Text(prettyBytes(torrent.size.toDouble()))),
         ListTile(
@@ -50,10 +57,6 @@ class DetailsTab extends StatelessWidget {
             subtitle: Text(torrent.eta >= 0
                 ? eta.pretty(abbreviated: true, delimiter: ' ')
                 : '-')),
-        ListTile(
-            title: const Text('Error'),
-            subtitle:
-                Text(torrent.errorString == '' ? '-' : torrent.errorString)),
         ListTile(
             title: const Text('Pieces'),
             subtitle: Text(torrent.pieceCount.toString())),
