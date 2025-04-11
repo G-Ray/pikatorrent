@@ -1,8 +1,8 @@
-# PikaTorrent ⚡
+# PikaTorrent
 
-Torrent app for the 21st century.
+<img src="./assets/logo.svg" alt="PikaTorrent logo" width="64"/>
 
-PikaTorrent aims to be an easy to use, open source torrent client for everyone.
+Just pick a Torrent. Stream and download torrents on all your devices.
 
 <a href="https://discord.gg/6HxCV4aGdy">
   <img src="https://img.shields.io/badge/Join_us_on_discord-gray?logo=discord" />
@@ -10,11 +10,7 @@ PikaTorrent aims to be an easy to use, open source torrent client for everyone.
 
 ## Installation
 
-Download [latest release](https://github.com/G-Ray/pikatorrent/releases). The releases are currently considered pre-release versions. Please open issues to report bugs or features requests.
-
-You can join the open testing on Play Store : https://play.google.com/apps/testing/com.pikatorrent.PikaTorrent
-
-We are in the process to publish the latest release to the app stores.
+Download [latest release](https://github.com/G-Ray/pikatorrent/releases). The releases are currently considered beta. Please open issues to report bugs or features requests.
 
 ## Screenshots
 
