@@ -40,6 +40,18 @@ export const DownloadLinks = () => {
           <Paragraph textAlign="center" fontSize={"$6"}>
             Windows
           </Paragraph>
+
+          <Link
+            href={"https://apps.microsoft.com/detail/9n9gjq9bdjw3?mode=direct"}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/microsoft-store-badge-english.svg"
+              alt="flathub badge"
+              height={48}
+            />
+          </Link>
+
           <Link
             href={`${downloadLinkPrefix}-windows-x64.zip`}
             style={{ textDecoration: "none" }}
@@ -53,13 +65,6 @@ export const DownloadLinks = () => {
               Portable (.zip)
             </Button>
           </Link>
-          {/* <Link href="https://apps.microsoft.com/detail/9n9gjq9bdjw3?mode=direct">
-              <img
-                src="https://get.microsoft.com/images/en-us%20dark.svg"
-                alt=""
-                height={48}
-              />
-            </Link> */}
         </YStack>
         <YStack gap="$2" ai="center">
           <Linux height={32} fill={iconColor} />
@@ -119,7 +124,7 @@ export const DownloadLinks = () => {
               borderColor={"$purple9"}
               w="100%"
             >
-              portable (.zip)
+              Portable (.zip)
             </Button>
           </Link>
         </YStack>
