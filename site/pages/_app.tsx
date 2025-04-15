@@ -40,10 +40,10 @@ const AppRoot = ({ contents }: { contents: React.ReactNode }) => {
     <Theme name={clientTheme == "dark" ? "dark" : "light"}>
       <Stack bc="$background" minHeight="100vh" minWidth="100%">
         <Head>
-          <title>PikaTorrent</title>
+          <title>PikaTorrent - Torrent app</title>
           <meta
             name="description"
-            content="The Torrent app for the 21st century ⚡"
+            content="Just pick a torrent, stream and download"
           />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="icon" href="/favicon.ico" />
