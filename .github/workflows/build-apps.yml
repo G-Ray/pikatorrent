@@ -16,6 +16,8 @@ jobs:
         with:
           channel: stable
           flutter-version-file: app/pubspec.yaml
+      - name: Clean cache
+        run: flutter pub cache clean
       - name: Install dependencies
         run: |
           sudo apt-get update -y
@@ -41,8 +43,10 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: master
+          channel: master # channel stable does not support arm64 for now
           flutter-version-file: app/pubspec.yaml
+      - name: Clean cache
+        run: flutter pub cache clean
       - name: Install dependencies
         run: |
           sudo apt-get update -y
@@ -81,6 +85,8 @@ jobs:
         with:
           channel: stable
           flutter-version-file: app/pubspec.yaml
+      - name: Clean cache
+        run: flutter pub cache clean
       - run: flutter build windows --dart-define-from-file=%ENV_FILE%
       - name: Build msix
         run: |
@@ -118,6 +124,8 @@ jobs:
         with:
           channel: stable
           flutter-version-file: app/pubspec.yaml
+      - name: Clean cache
+        run: flutter pub cache clean
       - run: flutter build macos --dart-define-from-file=${ENV_FILE}
       - name: Prepare artifacts
         run: |
@@ -161,6 +169,8 @@ jobs:
         with:
           channel: stable
           flutter-version-file: app/pubspec.yaml
+      - name: Clean cache
+        run: flutter pub cache clean
       - name: Install dependencies
         run: |
           sudo apt-get update -y
@@ -204,6 +214,8 @@ jobs:
         with:
           channel: stable
           flutter-version-file: app/pubspec.yaml
+      - name: Clean cache
+        run: flutter pub cache clean
       - run: flutter build ios --no-codesign --dart-define-from-file=${ENV_FILE}
       - name: Prepare artifacts
         run: |
