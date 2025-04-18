@@ -115,9 +115,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: true
-      - name: Install dependencies
-        run: |
-          brew install ninja
       - name: Set up vcpkg
         uses: lukka/run-vcpkg@v11
         with:
@@ -205,9 +202,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: true
-      - name: Install dependencies
-        run: |
-          brew install ninja
       - name: Set up vcpkg
         uses: lukka/run-vcpkg@v11
         with:
