@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:pikatorrent/engine/session.dart';
 import 'package:pikatorrent/main.dart';
@@ -8,6 +6,7 @@ import 'package:pikatorrent/models/session.dart';
 import 'package:pikatorrent/screens/settings/dialogs/maximum_active_downloads_editor.dart';
 import 'package:pikatorrent/screens/settings/dialogs/reset_torrent_settings.dart';
 import 'package:pikatorrent/screens/settings/dialogs/theme_selector.dart';
+import 'package:pikatorrent/utils/device.dart';
 import 'package:pikatorrent/utils/string_extensions.dart';
 import 'package:pikatorrent/utils/update.dart';
 import 'package:provider/provider.dart';
@@ -153,7 +152,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               style: Theme.of(context).textTheme.titleLarge),
         ),
         ListTile(
-            onTap: Platform.isAndroid ? null : () => handlePickFolder(context),
+            onTap: isMobile()? null : () => handlePickFolder(context),
             leading: const Icon(Icons.folder_open),
             title: const Text('Download directory'),
             subtitle: Text(downloadDir)),
