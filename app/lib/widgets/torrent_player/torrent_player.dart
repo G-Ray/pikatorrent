@@ -160,6 +160,16 @@ class TorrentPlayerState extends State<TorrentPlayer> {
     );
   }
 
+  Widget _buildBackButton() {
+    return IconButton(
+      icon: const Icon(Icons.arrow_back, color: Colors.white),
+      onPressed: () {
+        player.stop();
+        Navigator.pop(context);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Theme(
@@ -178,6 +188,9 @@ class TorrentPlayerState extends State<TorrentPlayer> {
                           seekBarThumbColor: Colors.blue,
                           seekBarPositionColor: Colors.blue,
                           padding: const EdgeInsets.only(bottom: 64),
+                          topButtonBar: [
+                            _buildBackButton()
+                          ],
                           bottomButtonBar: [
                             const MaterialPositionIndicator(),
                             const Spacer(),
@@ -190,6 +203,7 @@ class TorrentPlayerState extends State<TorrentPlayer> {
                           seekBarThumbColor: Colors.blue,
                           seekBarPositionColor: Colors.blue,
                           padding: const EdgeInsets.only(bottom: 64),
+                          topButtonBar: [_buildBackButton()],
                           bottomButtonBar: [
                             const MaterialPositionIndicator(),
                             const Spacer(),
@@ -208,6 +222,7 @@ class TorrentPlayerState extends State<TorrentPlayer> {
                       normal: MaterialDesktopVideoControlsThemeData(
                         seekBarThumbColor: Colors.blue,
                         seekBarPositionColor: Colors.blue,
+                        topButtonBar: [_buildBackButton()],
                         bottomButtonBar: [
                           const MaterialDesktopSkipPreviousButton(),
                           const MaterialDesktopPlayOrPauseButton(),
@@ -225,6 +240,7 @@ class TorrentPlayerState extends State<TorrentPlayer> {
                       fullscreen: MaterialDesktopVideoControlsThemeData(
                         seekBarThumbColor: Colors.blue,
                         seekBarPositionColor: Colors.blue,
+                        topButtonBar: [_buildBackButton()],
                         bottomButtonBar: [
                           const MaterialDesktopSkipPreviousButton(),
                           const MaterialDesktopPlayOrPauseButton(),
@@ -245,17 +261,6 @@ class TorrentPlayerState extends State<TorrentPlayer> {
                         controls: MaterialDesktopVideoControls,
                       ),
                     ),
-              if (device.isDesktop())
-                Padding(
-                  padding: const EdgeInsets.only(left: 16.0),
-                  child: IconButton(
-                    icon: const Icon(Icons.arrow_back, color: Colors.white),
-                    onPressed: () {
-                      player.stop();
-                      Navigator.pop(context);
-                    },
-                  ),
-                ),
             ],
           ),
         ),
