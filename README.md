@@ -10,7 +10,16 @@ Just pick a Torrent. Stream and download torrents on all your devices.
 
 ## Installation
 
-Download [latest release](https://github.com/G-Ray/pikatorrent/releases). The releases are currently considered beta. Please open issues to report bugs or features requests.
+To receive updates automatically and ensure the app handles links shares correctly, installation through app stores is recommended.
+
+| Windows | Linux | MacOS | Android | iOS |
+| -- | -- | -- | -- | -- |
+| [Microsoft Store](https://apps.microsoft.com/detail/9n9gjq9bdjw3?mode=direct) | [Flathub](https://flathub.org/apps/com.pikatorrent.PikaTorrent) | - | [Play Store](https://play.google.com/store/apps/details?id=com.pikatorrent.PikaTorrent) | - |
+| [.zip](https://github.com/G-Ray/pikatorrent/releases) | [.zip*](https://github.com/G-Ray/pikatorrent/releases) | [.zip (experimental)](https://github.com/G-Ray/pikatorrent/releases) | [.apk](https://github.com/G-Ray/pikatorrent/releases) | - |
+
+The releases are currently considered beta. Features might changes and things could break. Please open issues to report bugs or features requests.
+
+**\*** .zip for linux needs `mpv` to be installed on you OS. Other dependencies might be required.
 
 ## Screenshots
 
@@ -18,6 +27,10 @@ Download [latest release](https://github.com/G-Ray/pikatorrent/releases). The re
 | -------------------------------------------------------- | ------------------------------------------------------ |
 | ![Desktop - Light mode](./screenshots/desktop-light.png) | ![Mobile - Light mode](./screenshots/mobile-light.png) |
 | ![Desktop - Dark mode](./screenshots/desktop-dark.png)   | ![Mobile - Dark mode](./screenshots/mobile-dark.png)   |
+
+## Development
+
+See [docs/development.md](./docs/development.md)
 
 ## Upgrade to >= v0.10.0
 
@@ -32,10 +45,6 @@ After that, It's probably safe to remove these folders :
 
 - Windows: `%APPDATA%\pikatorrent`
 - Linux: `~/.config/pikatorrent`
-
-## Development
-
-See [docs/development.md](./docs/development.md)
 
 ## Localization
 
