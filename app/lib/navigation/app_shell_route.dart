@@ -41,8 +41,10 @@ class _AppShellRouteState extends State<AppShellRoute> {
       if (uri.scheme == 'magnet') {
         // Magnet link
         _openAddTorrentDialog(uriString, null);
-      } else if (uri.scheme == 'content' || uri.scheme == 'file://') {
+      } else if (uri.scheme == 'content') {
         _openAddTorrentDialog(null, uriString);
+      } else if(uri.scheme == 'file') {
+         _openAddTorrentDialog(null, uri.toFilePath());
       } else if (uriString.startsWith(appUri)) {
         // App URI
         _openAddTorrentDialog(getTorrentLink(uriString), null);
@@ -92,6 +94,7 @@ class _AppShellRouteState extends State<AppShellRoute> {
         });
 
     if (isTermsOfUseDialogDisplayed) {
+      // FIXME
       // This will re-trigger the terms of use dialog, if needed.
       // This dialog should be displayed above.
       setState(() {
