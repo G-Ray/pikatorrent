@@ -7,6 +7,7 @@ import 'package:pikatorrent/engine/models/torrents_resume_status.dart';
 import 'package:pikatorrent/engine/session.dart';
 import 'package:pikatorrent/engine/torrent.dart';
 import 'package:path/path.dart' as path;
+import 'package:pikatorrent/engine/transmission/models/torrent_set_location.dart';
 
 enum TorrentAddedResponse { added, duplicated }
 
@@ -49,6 +50,8 @@ abstract class Engine {
         'torrentResumeStatus ${torrentResumeStatus.toJson().toString()}');
     await file.writeAsString(jsonEncode(torrentResumeStatus.toJson()));
   }
+
+  Future setTorrentsLocation(TorrentSetLocationArguments torrentSetLocationArguments);
 
   Future restoreTorrentsResumeStatus() async {
     try {

@@ -20,8 +20,10 @@ import 'package:pikatorrent/engine/transmission/models/torrent_get_request.dart'
 import 'package:pikatorrent/engine/transmission/models/torrent_get_response.dart';
 import 'package:pikatorrent/engine/transmission/models/torrent_remove_request.dart';
 import 'package:path/path.dart' as path;
+import 'package:pikatorrent/engine/transmission/models/torrent_set_location.dart';
 import 'package:pikatorrent/engine/transmission/models/torrent_set_request.dart';
-import 'package:pikatorrent/platforms/android/default_session.dart';
+import 'package:pikatorrent/platforms/android/default_session.dart' as android;
+import 'package:pikatorrent/platforms/ios/default_session.dart' as ios;
 
 Future<Directory> getConfigDir() async {
   final configDir =
@@ -244,7 +246,14 @@ class TransmissionEngine extends Engine {
     final configDir = await getConfigDir();
     flutter_libtransmission.initSession(configDir.path, 'transmission');
     if (Platform.isAndroid) {
-      await initDefaultDownloadDir(this);
+      await android.initDefaultDownloadDir(this);
+    }
+
+    if (Platform.isIOS) {
+      await ios.initDefaultDownloadDir(this);
+        // Once done, restart session to reload torrents in error state
+        await dispose();
+        flutter_libtransmission.initSession(configDir.path, 'transmission');
     }
   }
 
@@ -327,7 +336,16 @@ class TransmissionEngine extends Engine {
   Future resetSettings() async {
     flutter_libtransmission.resetSettings();
     if (Platform.isAndroid) {
-      await initDefaultDownloadDir(this);
+      await android.initDefaultDownloadDir(this);
     }
+    if (Platform.isIOS) {
+      await ios.initDefaultDownloadDir(this);
+    }
+  }
+
+  @override
+  Future setTorrentsLocation(TorrentSetLocationArguments torrentSetLocationArguments) async {
+    final request = TorrentSetLocationRequest(arguments: torrentSetLocationArguments);
+    await flutter_libtransmission.requestAsync(jsonEncode(request));
   }
 }
