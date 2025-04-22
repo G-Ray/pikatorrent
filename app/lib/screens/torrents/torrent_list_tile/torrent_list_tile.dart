@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pikatorrent/dialogs/remove_torrent.dart';
 import 'package:pikatorrent/engine/torrent.dart';
 import 'package:pikatorrent/models/torrents.dart';
@@ -11,13 +10,6 @@ import 'package:pikatorrent/utils/theme.dart';
 import 'package:pretty_bytes/pretty_bytes.dart';
 import 'package:provider/provider.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-
-const String assetName = 'assets/undraw_download.svg';
-final Widget downloadSvg = SvgPicture.asset(
-  assetName,
-  semanticsLabel: 'Download',
-  height: 164,
-);
 
 class TorrentListTile extends StatelessWidget {
   const TorrentListTile(
