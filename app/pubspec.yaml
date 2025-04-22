@@ -60,7 +60,7 @@ dependencies:
       url: "https://github.com/G-Ray/app_links"
       path: app_links
       ref: d1aa2be128708e976dc88154854355217a3ff9c4
-  content_resolver: ^0.3.2
+  content_resolver: ^0.3.3
   permission_handler: ^11.3.1
   external_path: ^2.2.0
   device_info_plus: ^11.1.1
