@@ -8,6 +8,7 @@ import 'package:pikatorrent/dialogs/terms_of_use.dart';
 import 'package:pikatorrent/dialogs/update_available.dart';
 import 'package:pikatorrent/models/app.dart';
 import 'package:pikatorrent/navigation/navigation.dart';
+import 'package:pikatorrent/platforms/desktop/tray.dart';
 import 'package:pikatorrent/utils/app_links.dart';
 import 'package:pikatorrent/utils/connectivity.dart';
 import 'package:pikatorrent/utils/update.dart';
@@ -32,6 +33,7 @@ class _AppShellRouteState extends State<AppShellRoute> {
   void initState() {
     super.initState();
     startConnectivityCheck(context);
+    initTray(context);
     _initAppLinks();
   }
 

@@ -144,15 +144,7 @@ class _PikaTorrentAppState extends State<PikaTorrentApp> with WindowListener {
 
   @override
   void onWindowClose() async {
-    var appModel = Provider.of<AppModel>(context, listen: false);
-    var torrentModel = Provider.of<TorrentsModel>(context, listen: false);
-    torrentModel.stopTimer();
-    appModel.setQuitting(true);
-
-    bool isPreventClose = await windowManager.isPreventClose();
-    if (isPreventClose) {
-      appModel.quit();
-    }
+    windowManager.hide();
   }
 
   // App root
