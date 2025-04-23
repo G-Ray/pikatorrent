@@ -114,45 +114,56 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void _handlecheckForUpdateToggle(bool value) {
-    var appModel = Provider.of<AppModel>(context, listen: false);
+    final appModel = Provider.of<AppModel>(context, listen: false);
     appModel.setcheckForUpdate(value);
+  }
+
+  void _handleDownloadOverWifiOnlyToggle(bool value) {
+    final appModel = Provider.of<AppModel>(context, listen: false);
+    appModel.setDownloadOverWifiOnly(value);
   }
 
   @override
   Widget build(BuildContext context) {
     return Consumer2<AppModel, SessionModel>(
-        builder: (context, app, sessionModel, child) {
-      var downloadDir = sessionModel.session?.downloadDir ?? '';
-      var downloadQueueSize = sessionModel.session?.downloadQueueSize ?? '';
+        builder: (context, appModel, sessionModel, child) {
+      final downloadDir = sessionModel.session?.downloadDir ?? '';
+      final downloadQueueSize = sessionModel.session?.downloadQueueSize ?? '';
 
       return ListView(children: [
         Padding(
           padding: const EdgeInsets.only(left: 16.0),
-          child: Text('App settings',
-              style: Theme.of(context).textTheme.titleLarge),
+          child: Text('App', style: Theme.of(context).textTheme.titleLarge),
         ),
         ListTile(
             onTap: () => showThemeDialog(context),
             leading: const Icon(Icons.dark_mode),
             title: const Text('Theme'),
-            subtitle: Text(app.theme.name.capitalize())),
+            subtitle: Text(appModel.theme.name.capitalize())),
         // Hide update check option if app is distributed through an app store
         if (canCheckForUpdate)
           ListTile(
               leading: const Icon(Icons.update),
               title: const Text('Check for update'),
               trailing: Switch(
-                  value: app.checkForUpdate,
+                  value: appModel.checkForUpdate,
                   onChanged: _handlecheckForUpdateToggle),
               subtitle:
                   const Text('Be notified when a new version is available')),
         Padding(
           padding: const EdgeInsets.only(left: 16.0, top: 16),
-          child: Text('Torrents settings',
-              style: Theme.of(context).textTheme.titleLarge),
+          child:
+              Text('Downloads', style: Theme.of(context).textTheme.titleLarge),
         ),
         ListTile(
-            onTap: isMobile()? null : () => handlePickFolder(context),
+            leading: const Icon(Icons.wifi),
+            title: const Text('Wifi only'),
+            trailing: Switch(
+                value: appModel.downloadOverWifiOnly,
+                onChanged: _handleDownloadOverWifiOnlyToggle),
+            subtitle: const Text('Download over wifi only')),
+        ListTile(
+            onTap: isMobile() ? null : () => handlePickFolder(context),
             leading: const Icon(Icons.folder_open),
             title: const Text('Download directory'),
             subtitle: Text(downloadDir)),
@@ -173,7 +184,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             leading: const Icon(Icons.bolt),
             // onTap: () => showThemeDialog(context),
             title: const Text('Version'),
-            subtitle: Text(app.version)),
+            subtitle: Text(appModel.version)),
         ListTile(
           leading: const Icon(Icons.favorite),
           title: const Text('Donate'),

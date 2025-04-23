@@ -9,6 +9,7 @@ import 'package:pikatorrent/dialogs/update_available.dart';
 import 'package:pikatorrent/models/app.dart';
 import 'package:pikatorrent/navigation/navigation.dart';
 import 'package:pikatorrent/utils/app_links.dart';
+import 'package:pikatorrent/utils/connectivity.dart';
 import 'package:pikatorrent/utils/update.dart';
 import 'package:provider/provider.dart';
 
@@ -30,7 +31,13 @@ class _AppShellRouteState extends State<AppShellRoute> {
   @override
   void initState() {
     super.initState();
+    startConnectivityCheck(context);
     _initAppLinks();
+  }
+
+  void dispose() {
+    stopConnectivityCheck();
+    super.dispose();
   }
 
   _initAppLinks() {
@@ -43,8 +50,8 @@ class _AppShellRouteState extends State<AppShellRoute> {
         _openAddTorrentDialog(uriString, null);
       } else if (uri.scheme == 'content') {
         _openAddTorrentDialog(null, uriString);
-      } else if(uri.scheme == 'file') {
-         _openAddTorrentDialog(null, uri.toFilePath());
+      } else if (uri.scheme == 'file') {
+        _openAddTorrentDialog(null, uri.toFilePath());
       } else if (uriString.startsWith(appUri)) {
         // App URI
         _openAddTorrentDialog(getTorrentLink(uriString), null);

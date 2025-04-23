@@ -241,8 +241,14 @@ class TransmissionSession extends Session {
 }
 
 class TransmissionEngine extends Engine {
+  bool initialized = false;
+
   @override
   init() async {
+    if (initialized) return;
+
+    initialized = true;
+
     final configDir = await getConfigDir();
     flutter_libtransmission.initSession(configDir.path, 'transmission');
     if (Platform.isAndroid) {
@@ -251,15 +257,16 @@ class TransmissionEngine extends Engine {
 
     if (Platform.isIOS) {
       await ios.initDefaultDownloadDir(this);
-        // Once done, restart session to reload torrents in error state
-        await dispose();
-        flutter_libtransmission.initSession(configDir.path, 'transmission');
+      // Once done, restart session to reload torrents in error state
+      await dispose();
+      flutter_libtransmission.initSession(configDir.path, 'transmission');
     }
   }
 
   @override
   Future dispose() {
-    return Isolate.run(() => flutter_libtransmission.closeSession());
+    initialized = false;
+    return Isolate.run(() => {flutter_libtransmission.closeSession()});
   }
 
   @override
@@ -344,8 +351,10 @@ class TransmissionEngine extends Engine {
   }
 
   @override
-  Future setTorrentsLocation(TorrentSetLocationArguments torrentSetLocationArguments) async {
-    final request = TorrentSetLocationRequest(arguments: torrentSetLocationArguments);
+  Future setTorrentsLocation(
+      TorrentSetLocationArguments torrentSetLocationArguments) async {
+    final request =
+        TorrentSetLocationRequest(arguments: torrentSetLocationArguments);
     await flutter_libtransmission.requestAsync(jsonEncode(request));
   }
 }

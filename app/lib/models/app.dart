@@ -7,9 +7,14 @@ import 'package:window_manager/window_manager.dart';
 class AppModel extends ChangeNotifier {
   ThemeMode theme = ThemeMode.system;
   bool termsOfUseAccepted = false;
+
+  // User settings
   bool checkForUpdate = true;
+  bool downloadOverWifiOnly = false;
+
   bool loaded = false;
   bool quitting = false;
+  bool networkAvailable = false;
   String version = '';
 
   AppModel() {
@@ -28,6 +33,9 @@ class AppModel extends ChangeNotifier {
     // Load check for update value
     checkForUpdate =
         await SharedPrefsStorage.getBool('checkForUpdate') ?? checkForUpdate;
+    downloadOverWifiOnly =
+        await SharedPrefsStorage.getBool('downloadOverWifiOnly') ??
+            downloadOverWifiOnly;
     loaded = true;
 
     // Load app version
@@ -55,8 +63,19 @@ class AppModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setDownloadOverWifiOnly(bool value) {
+    SharedPrefsStorage.setBool('downloadOverWifiOnly', value);
+    downloadOverWifiOnly = value;
+    notifyListeners();
+  }
+
   void setQuitting(bool value) {
     quitting = value;
+    notifyListeners();
+  }
+
+  void setNetworkAvailable(bool value) {
+    networkAvailable = value;
     notifyListeners();
   }
 
