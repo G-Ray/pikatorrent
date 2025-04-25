@@ -51,6 +51,7 @@ abstract class Torrent extends TorrentBase {
   final int peersConnected;
   final String magnetLink;
   final bool sequentialDownload;
+  final DateTime doneDate;
 
   Torrent(
       {required super.id,
@@ -76,7 +77,8 @@ abstract class Torrent extends TorrentBase {
       required this.files,
       required this.peersConnected,
       required this.magnetLink,
-      required this.sequentialDownload});
+      required this.sequentialDownload,
+      required this.doneDate});
 
   // Start the torrent
   start();

@@ -28,7 +28,8 @@ enum TorrentField {
   labels,
   peersConnected,
   magnetLink,
-  sequentialDownload
+  sequentialDownload, 
+  doneDate
 }
 
 class TransmissionTorrentFile {
@@ -81,6 +82,7 @@ class TransmissionTorrentModel {
   final int peersConnected;
   final String magnetLink;
   final bool sequentialDownload;
+  final DateTime doneDate;
 
   const TransmissionTorrentModel(
       this.id,
@@ -107,7 +109,7 @@ class TransmissionTorrentModel {
       this.peersConnected,
       this.fileStats,
       this.magnetLink,
-      this.sequentialDownload);
+      this.sequentialDownload, this.doneDate);
 
   TransmissionTorrentModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
@@ -143,5 +145,6 @@ class TransmissionTorrentModel {
         labels = List<String>.from(json['labels']),
         peersConnected = json['peersConnected'],
         magnetLink = json['magnetLink'],
-        sequentialDownload = json['sequentialDownload'] as bool;
+        sequentialDownload = json['sequentialDownload'] as bool,
+        doneDate = DateTime.fromMillisecondsSinceEpoch(json['doneDate'] * 1000);
 }

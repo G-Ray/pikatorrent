@@ -56,7 +56,8 @@ const torrentGetFields = [
   TorrentField.creator,
   TorrentField.peersConnected,
   TorrentField.magnetLink,
-  TorrentField.sequentialDownload
+  TorrentField.sequentialDownload,
+  TorrentField.doneDate
 ];
 
 TransmissionTorrent createTransmissionTorrentFromJson(
@@ -94,7 +95,8 @@ TransmissionTorrent createTransmissionTorrentFromJson(
       comment: torrent.comment,
       creator: torrent.creator,
       peersConnected: torrent.peersConnected,
-      sequentialDownload: torrent.sequentialDownload);
+      sequentialDownload: torrent.sequentialDownload,
+      doneDate: torrent.doneDate);
 }
 
 final TorrentGetRequest torrentGetRequest = TorrentGetRequest(
@@ -123,7 +125,8 @@ final TorrentGetRequest torrentGetRequest = TorrentGetRequest(
   TorrentField.creator,
   TorrentField.peersConnected,
   TorrentField.magnetLink,
-  TorrentField.sequentialDownload
+  TorrentField.sequentialDownload,
+  TorrentField.doneDate
 ]));
 
 class TransmissionTorrent extends Torrent {
@@ -151,7 +154,8 @@ class TransmissionTorrent extends Torrent {
       required super.labels,
       required super.peersConnected,
       required super.magnetLink,
-      required super.sequentialDownload});
+      required super.sequentialDownload,
+      required super.doneDate});
 
   @override
   start() {
@@ -251,9 +255,9 @@ class TransmissionEngine extends Engine {
 
     if (Platform.isIOS) {
       await ios.initDefaultDownloadDir(this);
-        // Once done, restart session to reload torrents in error state
-        await dispose();
-        flutter_libtransmission.initSession(configDir.path, 'transmission');
+      // Once done, restart session to reload torrents in error state
+      await dispose();
+      flutter_libtransmission.initSession(configDir.path, 'transmission');
     }
   }
 
@@ -344,8 +348,10 @@ class TransmissionEngine extends Engine {
   }
 
   @override
-  Future setTorrentsLocation(TorrentSetLocationArguments torrentSetLocationArguments) async {
-    final request = TorrentSetLocationRequest(arguments: torrentSetLocationArguments);
+  Future setTorrentsLocation(
+      TorrentSetLocationArguments torrentSetLocationArguments) async {
+    final request =
+        TorrentSetLocationRequest(arguments: torrentSetLocationArguments);
     await flutter_libtransmission.requestAsync(jsonEncode(request));
   }
 }
