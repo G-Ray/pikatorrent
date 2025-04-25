@@ -1,6 +1,8 @@
 PODS:
   - app_links (0.0.2):
     - Flutter
+  - connectivity_plus (0.0.1):
+    - Flutter
   - device_info_plus (0.0.1):
     - Flutter
   - DKImagePickerController/Core (4.3.9):
@@ -77,6 +79,7 @@ PODS:
 
 DEPENDENCIES:
   - app_links (from `.symlinks/plugins/app_links/ios`)
+  - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
   - external_path (from `.symlinks/plugins/external_path/ios`)
   - file_picker (from `.symlinks/plugins/file_picker/ios`)
@@ -106,6 +109,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   app_links:
     :path: ".symlinks/plugins/app_links/ios"
+  connectivity_plus:
+    :path: ".symlinks/plugins/connectivity_plus/ios"
   device_info_plus:
     :path: ".symlinks/plugins/device_info_plus/ios"
   external_path:
@@ -145,14 +150,15 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   app_links: 76b66b60cc809390ca1ad69bfd66b998d2387ac7
+  connectivity_plus: cb623214f4e1f6ef8fe7403d580fdad517d2f7dd
   device_info_plus: 21fcca2080fbcd348be798aa36c3e5ed849eefbe
   DKImagePickerController: 946cec48c7873164274ecc4624d19e3da4c1ef3c
   DKPhotoGallery: b3834fecb755ee09a593d7c9e389d8b5d6deed60
   external_path: fd37c654b69a1336e33a2403f48383ae6100e443
   file_picker: 9b3292d7c8bc68c8a7bf8eb78f730e49c8efc517
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  flutter_libtransmission: 13939a856bced223470291eb4d189aedb672b571
-  flutter_local_notifications: 395056b3175ba4f08480a7c5de30cd36d69827e4
+  flutter_libtransmission: cc7d0d9ff80204670bd6e90ce6bbd10add9a60cf
+  flutter_local_notifications: a5a732f069baa862e728d839dd2ebb904737effb
   media_kit_libs_ios_video: 5a18affdb97d1f5d466dc79988b13eff6c5e2854
   media_kit_video: 1746e198cb697d1ffb734b1d05ec429d1fcd1474
   open_file_ios: 5ff7526df64e4394b4fe207636b67a95e83078bb

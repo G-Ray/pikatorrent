@@ -10,6 +10,7 @@ import 'package:pikatorrent/navigation/router.dart';
 import 'package:pikatorrent/platforms/android/foreground_service.dart';
 import 'package:pikatorrent/platforms/windows/register_app.dart';
 import 'package:pikatorrent/utils/device.dart';
+import 'package:pikatorrent/utils/notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:yaru/yaru.dart';
@@ -61,6 +62,8 @@ Engine engine = TransmissionEngine();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   MediaKit.ensureInitialized();
+
+  initializeNotifications();
 
   if (isDesktop()) {
     await YaruWindowTitleBar.ensureInitialized();

@@ -6,6 +6,7 @@ import 'package:pikatorrent/engine/engine.dart';
 import 'package:pikatorrent/engine/torrent.dart';
 import 'package:pikatorrent/main.dart';
 import 'package:pikatorrent/storage/shared_preferences.dart';
+import 'package:pikatorrent/utils/notifications.dart';
 
 const refreshIntervalSeconds = 5;
 
@@ -109,7 +110,20 @@ class TorrentsModel extends ChangeNotifier {
   }
 
   Future<void> fetchTorrents() async {
+    DateTime now = DateTime.now();
     torrents = await engine.fetchTorrents();
+
+    // Display notification for torrents completed during last refresh
+    for (final torrent in torrents) {
+      if (now.difference(torrent.doneDate).inSeconds < refreshIntervalSeconds) {
+        showNotification(
+            title: 'Download completed',
+            body: torrent.name,
+            notificationsDetailsType: NotificationsDetailsTypes
+                .downloadsCompletedAndroidNotificationDetails);
+      }
+    }
+
     labels = torrents
         .fold<List<String>>(
             [],
