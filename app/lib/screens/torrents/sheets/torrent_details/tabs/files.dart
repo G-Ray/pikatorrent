@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:pikatorrent/engine/file.dart';
 import 'package:pikatorrent/engine/torrent.dart';
@@ -49,29 +50,22 @@ class FilesTab extends StatelessWidget {
   Widget build(BuildContext context) {
     var files = torrent.files;
     bool areAllFilesWanted = files.every((f) => f.wanted);
-    bool areAllFilesCompleted =
-        files.every((f) => f.bytesCompleted == f.length);
+    bool areAllFilesSkipped = files.none((f) => f.wanted);
+    final globalWantedState = areAllFilesWanted
+        ? true
+        : areAllFilesSkipped
+            ? false
+            : null;
 
     return Column(
       children: [
-        if (!areAllFilesCompleted)
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Align(
-              alignment: Alignment.centerRight,
-              child: areAllFilesWanted
-                  ? TextButton(
-                      onPressed: () {
-                        _handleAllWantedChange(context, false);
-                      },
-                      child: const Text('Pause all files'))
-                  : TextButton(
-                      onPressed: () {
-                        _handleAllWantedChange(context, true);
-                      },
-                      child: const Text('Download all files')),
-            ),
-          ),
+        ListTile(
+          trailing: Checkbox(
+              value: globalWantedState,
+              tristate: true,
+              onChanged: (_) =>
+                  _handleAllWantedChange(context, !areAllFilesWanted)),
+        ),
         Expanded(
           child: ListView.builder(
             itemCount: files.length,
@@ -93,44 +87,30 @@ class FilesTab extends StatelessWidget {
                   title: Text(file.name),
                   subtitle: Row(
                     children: [
-                      Text('${percent.toString()}%',
-                          style: (percent == 100)
-                              ? const TextStyle(color: Colors.lightGreen)
-                              : const TextStyle()),
+                      percent < 100
+                          ? Text('${percent.toString()} %')
+                          : const Icon(Icons.download_done, size: 16),
                       Text(' • ${prettyBytes(file.length.toDouble())}'),
-                      // Internal file can be unwanted in transmission, but still completed to 100%
-                      if (!file.wanted && percent != 100)
-                        const Text(' • Paused')
                     ],
                   ),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
+                    spacing: 8,
                     children: [
                       if (isPlayable)
                         IconButton(
                           onPressed: () {
                             _handlePlayClick(context, file);
                           },
-                          icon: const Icon(
-                            Icons.play_circle_outlined,
-                          ),
+                          icon: const Icon(Icons.play_circle_outlined),
                           tooltip: 'Play',
                         ),
-                      percent == 100
-                          ? IconButton(
-                              onPressed: () => _openFile(file.name),
-                              icon: const Icon(Icons.download_done))
-                          : file.wanted
-                              ? IconButton(
-                                  tooltip: 'Pause',
-                                  onPressed: () => _handleWantedChange(
-                                      context, index, false),
-                                  icon: const Icon(Icons.download))
-                              : IconButton(
-                                  tooltip: 'Download',
-                                  onPressed: () =>
-                                      _handleWantedChange(context, index, true),
-                                  icon: const Icon(Icons.pause)),
+                      Checkbox(
+                          value: file.wanted,
+                          onChanged: file.bytesCompleted == file.length
+                              ? null
+                              : (_) => _handleWantedChange(
+                                  context, index, !file.wanted)),
                     ],
                   ),
                   onTap: completed ? () => _openFile(file.name) : null);

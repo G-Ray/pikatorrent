@@ -201,10 +201,18 @@ class TransmissionTorrent extends Torrent {
 
   @override
   Future toggleAllFilesWanted(bool wanted) async {
-    var request = TorrentSetRequest(
+    final filesIndexesNotCompleted = files.indexed
+        .where((indexedElement) =>
+            indexedElement.$2.bytesCompleted != indexedElement.$2.length)
+        .map((indexedElement) => indexedElement.$1)
+        .toList();
+
+    final request = TorrentSetRequest(
         arguments: wanted
-            ? TorrentSetRequestArguments(ids: [id], filesWanted: [])
-            : TorrentSetRequestArguments(ids: [id], filesUnwanted: []));
+            ? TorrentSetRequestArguments(
+                ids: [id], filesWanted: filesIndexesNotCompleted)
+            : TorrentSetRequestArguments(
+                ids: [id], filesUnwanted: filesIndexesNotCompleted));
     await flutter_libtransmission.requestAsync(jsonEncode(request));
   }
 
