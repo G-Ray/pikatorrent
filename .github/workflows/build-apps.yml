@@ -217,9 +217,10 @@ jobs:
       - run: flutter build ios --no-codesign --dart-define-from-file=${ENV_FILE}
       - name: Prepare artifacts
         run: |
-          mkdir ~/artifacts ./build/ios/iphoneos/release
-          cp -r ./build/ios/iphoneos/*.app ./build/ios/iphoneos/release/
-          ditto -c -k ./build/ios/iphoneos/release ~/artifacts/release.app.zip
+          mkdir ~/artifacts
+          mkdir ./build/ios/iphoneos/Payload
+          mv ./build/ios/iphoneos/*.app ./build/ios/iphoneos/Payload
+          ditto -c -k ./build/ios/iphoneos/Payload ~/artifacts/pikatorrent.ipa
       - uses: actions/upload-artifact@v4
         with:
           name: pikatorrent-ios
@@ -243,7 +244,8 @@ jobs:
           mv pikatorrent-macos/release.app.zip ${{ github.workspace }}/PikaTorrent-${{ github.ref_name }}-macos-universal-experimental.app.zip
       - name: Mobile
         run: |
-          mv pikatorrent-android/*apk PikaTorrent-${{ github.ref_name }}-android.apk
+          mv pikatorrent-android/*.apk PikaTorrent-${{ github.ref_name }}-android.apk
+          mv pikatorrent-ios/*.ipa PikaTorrent-${{ github.ref_name }}-ios-experimental.ipa
 
       - name: Release
         uses: softprops/action-gh-release@v2
