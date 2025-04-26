@@ -2,14 +2,13 @@
 import 'dart:io';
 
 import 'package:flutter/widgets.dart';
+import 'package:pikatorrent/utils/device.dart';
 import 'package:pikatorrent/utils/lifecycle.dart';
 import 'package:tray_manager/tray_manager.dart';
 import 'package:window_manager/window_manager.dart';
 
 initTray(BuildContext context) async {
-  // if (!isDesktop()) return;
-
-  debugPrint('initTray');
+  if (!isDesktop()) return;
 
   try {
     final listener = AppTrayListener(context: context);
