@@ -5,6 +5,7 @@ import 'package:pikatorrent/utils/device.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:http/http.dart' as http;
 import 'package:store_checker/store_checker.dart';
+import 'package:windows_store/windows_store.dart';
 
 const String _githubApiUrl =
     'https://api.github.com/repos/G-Ray/pikatorrent/releases/latest';
@@ -41,9 +42,14 @@ Future<bool> isDistributedFromAppStore() async {
   if (kDebugMode) return false;
 
   if (isDesktop()) {
-    return Platform.environment.containsKey('FLATPAK_ID') ||
-        Platform.isWindows &&
-            Platform.environment.containsKey('APPLICATION_HOMEPAGE');
+    if (Platform.isWindows) {
+      // Check if app is installed through Microsoft Store
+      final windowsStore = WindowsStoreApi();
+      final license = await windowsStore.getAppLicenseAsync();
+      return license.isActive;
+    }
+
+    return Platform.environment.containsKey('FLATPAK_ID');
   }
 
   Source installationSource = await StoreChecker.getSource;
