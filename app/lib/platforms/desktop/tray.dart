@@ -50,8 +50,10 @@ class AppTrayListener extends TrayListener {
   void onTrayMenuItemClick(MenuItem menuItem) {
     debugPrint('onTrayMenuItemClick ${menuItem.key}');
     if (menuItem.key == 'show_window') {
+      windowManager.show();
       windowManager.focus();
     } else if (menuItem.key == 'exit_app') {
+       windowManager.show();
       windowManager.focus();
       closeApp(context);
     }
@@ -59,6 +61,7 @@ class AppTrayListener extends TrayListener {
 
   @override
   void onTrayIconMouseDown() {
+    windowManager.show();
     windowManager.focus();
   }
 
