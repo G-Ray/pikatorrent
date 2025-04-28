@@ -59,13 +59,14 @@ class FilesTab extends StatelessWidget {
 
     return Column(
       children: [
-        ListTile(
-          trailing: Checkbox(
-              value: globalWantedState,
-              tristate: true,
-              onChanged: (_) =>
-                  _handleAllWantedChange(context, !areAllFilesWanted)),
-        ),
+        if (files.isNotEmpty)
+          ListTile(
+            trailing: Checkbox(
+                value: globalWantedState,
+                tristate: true,
+                onChanged: (_) =>
+                    _handleAllWantedChange(context, !areAllFilesWanted)),
+          ),
         Expanded(
           child: ListView.builder(
             itemCount: files.length,
