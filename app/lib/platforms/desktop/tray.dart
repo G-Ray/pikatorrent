@@ -41,6 +41,11 @@ initTray(BuildContext context) async {
   }
 }
 
+closeTray() async {
+  if (!isDesktop()) return;
+  await trayManager.destroy();
+}
+
 class AppTrayListener extends TrayListener {
   final BuildContext context;
 
@@ -68,7 +73,7 @@ class AppTrayListener extends TrayListener {
   @override
   @override
   void onTrayIconRightMouseDown() {
-    // bringAppToFront should be set until 
+    // bringAppToFront should be set until
     // https://github.com/leanflutter/tray_manager/issues/63 is resolved
     trayManager.popUpContextMenu(bringAppToFront: true);
   }

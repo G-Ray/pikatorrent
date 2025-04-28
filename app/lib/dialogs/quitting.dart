@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:window_manager/window_manager.dart';
+import 'package:pikatorrent/models/app.dart';
+import 'package:provider/provider.dart';
 
 class QuittingDialog extends StatelessWidget {
   const QuittingDialog({super.key});
@@ -16,7 +17,7 @@ class QuittingDialog extends StatelessWidget {
         TextButton(
           child: const Text('Force quit'),
           onPressed: () {
-            windowManager.destroy();
+            Provider.of<AppModel>(context, listen: false).quit();
           },
         ),
       ],

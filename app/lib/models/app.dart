@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:pikatorrent/main.dart';
+import 'package:pikatorrent/platforms/desktop/tray.dart';
 import 'package:pikatorrent/storage/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -60,8 +61,14 @@ class AppModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void quit() async {
+  void quitGracefully() async {
     await engine.dispose();
-    await windowManager.destroy();
+    quit();
+  }
+
+  void quit() async {
+    await closeTray();
+    await windowManager.setPreventClose(false);
+    await windowManager.close();
   }
 }

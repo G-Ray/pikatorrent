@@ -12,6 +12,6 @@ void closeApp(BuildContext context) async {
 
   bool isPreventClose = await windowManager.isPreventClose();
   if (isPreventClose) {
-    appModel.quit();
+    appModel.quitGracefully();
   }
 }
