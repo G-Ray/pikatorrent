@@ -1,8 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:pikatorrent/main.dart';
+import 'package:pikatorrent/platforms/android/foreground_service.dart';
 import 'package:pikatorrent/platforms/desktop/tray.dart';
 import 'package:pikatorrent/storage/shared_preferences.dart';
+import 'package:pikatorrent/utils/device.dart';
 import 'package:window_manager/window_manager.dart';
 
 class AppModel extends ChangeNotifier {
@@ -67,8 +72,15 @@ class AppModel extends ChangeNotifier {
   }
 
   void quit() async {
-    await closeTray();
-    await windowManager.setPreventClose(false);
-    await windowManager.close();
+    if (isDesktop()) {
+      await closeTray();
+      await windowManager.setPreventClose(false);
+      await windowManager.close();
+    } else {
+      if (Platform.isAndroid) {
+        await stopForegroundService();
+      }
+      SystemNavigator.pop();
+    }
   }
 }

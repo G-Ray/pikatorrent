@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pikatorrent/models/app.dart';
 import 'package:pikatorrent/models/torrents.dart';
+import 'package:pikatorrent/utils/device.dart';
 import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -10,8 +11,12 @@ void closeApp(BuildContext context) async {
   torrentModel.stopTimer();
   appModel.setQuitting(true);
 
-  bool isPreventClose = await windowManager.isPreventClose();
-  if (isPreventClose) {
+  if (isDesktop()) {
+    bool isPreventClose = await windowManager.isPreventClose();
+    if (isPreventClose) {
+      appModel.quitGracefully();
+    }
+  } else {
     appModel.quitGracefully();
   }
 }

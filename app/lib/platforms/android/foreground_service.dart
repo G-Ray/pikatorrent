@@ -1,27 +1,35 @@
-import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:pikatorrent/main.dart';
+import 'package:pikatorrent/navigation/router.dart';
 
-void onDidReceiveNotificationResponse(
+const foregroundNotificationId = 1;
+
+// When exiting the engine using the persistend notification,
+// execution is in another flutter isolate, so we store a pref to
+// check if we need to restart the engine if the app run in foreground again
+const isEngineExitedPrefKey = 'isEngineExited';
+
+FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+
+const androidNotificationDetails = AndroidNotificationDetails(
+    'foreground_service_channel', 'Foreground Service Channel',
+    channelDescription:
+        'This channel is used for foreground service notifications.',
+    importance: Importance.low,
+    silent: true,
+    ongoing: true,
+    actions: [
+      AndroidNotificationAction('exit', 'Exit', showsUserInterface: true)
+    ]);
+
+void _onDidReceiveNotificationResponse(
     NotificationResponse notificationResponse) async {
   if (notificationResponse.actionId == 'exit') {
-    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-        FlutterLocalNotificationsPlugin();
-    await flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()
-        ?.stopForegroundService();
-    // Close BitTorrent engine
-    engine.dispose();
-    // Exit app
-    SystemNavigator.pop();
+    rootNavigatorKey.currentState?.maybePop();
   }
 }
 
 createForegroundService() async {
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
-
   // Request runtime notifications permissions
   await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
@@ -32,7 +40,7 @@ createForegroundService() async {
       android: AndroidInitializationSettings('ic_stat_name'));
 
   await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-      onDidReceiveNotificationResponse: onDidReceiveNotificationResponse);
+      onDidReceiveNotificationResponse: _onDidReceiveNotificationResponse);
 
   await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
@@ -44,21 +52,23 @@ createForegroundService() async {
           AndroidFlutterLocalNotificationsPlugin>()
       ?.deleteNotificationChannel('foreground_service_channel');
 
-  const androidNotificationDetails = AndroidNotificationDetails(
-      'foreground_service_channel', 'Foreground Service Channel',
-      channelDescription:
-          'This channel is used for foreground service notifications.',
-      importance: Importance.low,
-      silent: true,
-      ongoing: true,
-      actions: [
-        AndroidNotificationAction('exit', 'Exit', showsUserInterface: true)
-      ]);
+  await _startOrUpdateForegroundService('Running in the background...');
+}
 
+stopForegroundService() async {
   await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
           AndroidFlutterLocalNotificationsPlugin>()
-      ?.startForegroundService(1, 'PikaTorrent', 'Running in the background...',
+      ?.stopForegroundService();
+}
+
+_startOrUpdateForegroundService(
+  String body,
+) async {
+  await flutterLocalNotificationsPlugin
+      .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin>()
+      ?.startForegroundService(foregroundNotificationId, 'PikaTorrent', body,
           notificationDetails: androidNotificationDetails,
           startType: AndroidServiceStartType.startRedeliverIntent);
 }

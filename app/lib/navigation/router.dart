@@ -4,13 +4,13 @@ import 'package:pikatorrent/navigation/app_shell_route.dart';
 import 'package:pikatorrent/screens/settings/settings.dart';
 import 'package:pikatorrent/screens/torrents/torrents.dart';
 
-final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
+final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
 
 final GlobalKey<NavigatorState> _shellNavigatorKey =
     GlobalKey<NavigatorState>();
 
 final router = GoRouter(
-  navigatorKey: _rootNavigatorKey,
+  navigatorKey: rootNavigatorKey,
   initialLocation: '/torrents',
   routes: [
     ShellRoute(

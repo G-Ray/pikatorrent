@@ -9,7 +9,8 @@ class QuittingDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: const Text('Quitting'),
-      content: const Column(mainAxisSize: MainAxisSize.min, children: [
+      content:
+          const Column(mainAxisSize: MainAxisSize.min, spacing: 16, children: [
         Text('Please wait while PikaTorrent is stopping...'),
         CircularProgressIndicator()
       ]),

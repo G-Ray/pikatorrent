@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
 import 'package:pikatorrent/dialogs/add_torrent.dart';
+import 'package:pikatorrent/dialogs/confirm_exit.dart';
 import 'package:pikatorrent/dialogs/quitting.dart';
 import 'package:pikatorrent/dialogs/terms_of_use.dart';
 import 'package:pikatorrent/dialogs/update_available.dart';
@@ -156,7 +157,17 @@ class _AppShellRouteState extends State<AppShellRoute> {
         _openQuittingDialog(appModel);
       }
 
-      return Navigation(child: widget.child);
+      return PopScope(
+          canPop: false,
+          onPopInvokedWithResult: (a, b) => _onWillPopApp(context),
+          child: Navigation(child: widget.child));
     });
   }
+}
+
+Future<bool> _onWillPopApp(BuildContext context) async {
+  return await showDialog(
+    context: context,
+    builder: (context) => const ConfirmExit(),
+  );
 }
