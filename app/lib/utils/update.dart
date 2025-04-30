@@ -49,7 +49,7 @@ Future<bool> isDistributedFromAppStore() async {
       return license.isActive;
     }
 
-    return Platform.environment.containsKey('FLATPAK_ID');
+    return isFlatpak();
   }
 
   Source installationSource = await StoreChecker.getSource;

@@ -13,9 +13,15 @@ initTray(BuildContext context) async {
   try {
     final listener = AppTrayListener(context: context);
     trayManager.addListener(listener);
-    await trayManager.setIcon(
-      Platform.isWindows ? 'assets/tray_icon.ico' : 'assets/tray_icon.png',
-    );
+
+    if (Platform.isWindows) {
+      await trayManager.setIcon('assets/tray_icon.ico');
+    } else if (isFlatpak()) {
+      await trayManager.setIcon(
+          Platform.environment['FLATPAK_ID'] ?? 'assets/tray_icon.png');
+    } else {
+      await trayManager.setIcon('assets/tray_icon.png');
+    }
 
     if (Platform.isWindows || Platform.isMacOS) {
       await trayManager.setToolTip('PikaTorrent');
@@ -58,7 +64,7 @@ class AppTrayListener extends TrayListener {
       windowManager.show();
       windowManager.focus();
     } else if (menuItem.key == 'exit_app') {
-       windowManager.show();
+      windowManager.show();
       windowManager.focus();
       closeApp(context);
     }

@@ -15,6 +15,10 @@ bool isDesktop() {
   return Platform.isMacOS || Platform.isWindows || Platform.isLinux;
 }
 
+bool isFlatpak() {
+  return Platform.environment.containsKey('FLATPAK_ID');
+}
+
 void showDeviceSheet(BuildContext context, String title, Widget child) {
   if (isMobileSize(context)) {
     showModalBottomSheet<void>(
