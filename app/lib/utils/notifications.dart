@@ -1,4 +1,5 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:pikatorrent/utils/device.dart';
 
 enum NotificationsDetailsTypes { downloadsCompletedAndroidNotificationDetails }
 
@@ -37,7 +38,9 @@ Future<void> initializeNotifications() async {
       LinuxInitializationSettings(
     defaultActionName: 'Open notification',
     // TODO: Improve icon
-    defaultIcon: AssetsLinuxIcon('assets/tray_icon.png'),
+    defaultIcon: isFlatpak()
+        ? ThemeLinuxIcon('com.pikatorrent.PikaTorrent')
+        : AssetsLinuxIcon('assets/tray_icon.png'),
   );
 
   final InitializationSettings initializationSettings = InitializationSettings(
