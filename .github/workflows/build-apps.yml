@@ -90,8 +90,8 @@ jobs:
       - run: flutter build windows --dart-define-from-file=%ENV_FILE%
       - name: Build msix
         run: |
-          dart pub global activate flutter_distributor
-          flutter_distributor package --platform windows --targets msix
+          dart pub global activate fastforge
+          fastforge package --platform windows --targets msix
       - name: Prepare artifacts
         run: |
           mkdir ${{ github.workspace }}/artifacts
