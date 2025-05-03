@@ -17,7 +17,7 @@ jobs:
           channel: stable
           flutter-version-file: app/pubspec.yaml
       - name: Clean cache
-        run: flutter pub cache clean
+        run: flutter pub cache clean -f
       - name: Install dependencies
         run: |
           sudo apt-get update -y
@@ -46,7 +46,7 @@ jobs:
           channel: master # channel stable does not support arm64 for now
           flutter-version-file: app/pubspec.yaml
       - name: Clean cache
-        run: flutter pub cache clean
+        run: flutter pub cache clean -f
       - name: Install dependencies
         run: |
           sudo apt-get update -y
@@ -86,7 +86,7 @@ jobs:
           channel: stable
           flutter-version-file: app/pubspec.yaml
       - name: Clean cache
-        run: flutter pub cache clean
+        run: flutter pub cache clean -f
       - run: flutter build windows --dart-define-from-file=%ENV_FILE%
       - name: Build msix
         run: |
@@ -115,23 +115,75 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: true
+
+      - name: install dependencies
+        run: brew install create-dmg
+
+      - name: Install Apple Certificate
+        uses: apple-actions/import-codesign-certs@v3
+        with:
+          p12-file-base64: ${{ secrets.APPLE_CERTIFICATE_DEVELOPER_ID_APPLICATION_P12 }}
+          p12-password: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+
+      - name: Install the provisioning profile
+        run: |
+          mkdir -p ~/Library/Developer/Xcode/Provisioning\ Profiles
+          echo "${{ secrets.APPLE_MACOS_PROVISION_PROFILE }}" | base64 --decode > ~/Library/Developer/Xcode/Provisioning\ Profiles/Github_Actions.provisionprofile
+
       - name: Set up vcpkg
         uses: lukka/run-vcpkg@v11
         with:
           vcpkgDirectory: ${{ github.workspace }}/app/vcpkg
+
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: stable
           flutter-version-file: app/pubspec.yaml
+
       - name: Clean cache
-        run: flutter pub cache clean
-      - run: flutter build macos --dart-define-from-file=${ENV_FILE}
+        run: flutter pub cache clean -f
+
+      - name: Build
+        run: flutter build macos --dart-define-from-file=${ENV_FILE}
+
+      - name: Sign
+        run: |
+          codesign --deep --force --verbose --options runtime --timestamp --sign "${{ secrets.APPLE_DEVELOPER_ID_APPLICATION }}" build/macos/Build/Products/Release/*.app
+          find build/macos/Build/Products/Release/*.app -type d -name "*.framework" -exec codesign --force --verbose --options runtime --timestamp --sign "${{ secrets.APPLE_DEVELOPER_ID_APPLICATION }}" {} \;
+          find build/macos/Build/Products/Release/*.app -type f -exec codesign --force --verbose --options runtime --timestamp --sign "${{ secrets.APPLE_DEVELOPER_ID_APPLICATION }}" {} \;
+          codesign --verify --deep --strict --verbose build/macos/Build/Products/Release/*.app
+
+      - name: Notarize
+        run: |
+          echo "${{ secrets.APPLE_KEY_P8 }}" | base64 --decode > ~/apple-key.p8
+          ditto -c -k --sequesterRsrc --keepParent build/macos/Build/Products/Release/*.app build/macos/Build/Products/Release/release.app.zip
+          xcrun notarytool store-credentials --key-id ${{ secrets.APPLE_KEY_ID }} --key ~/apple-key.p8 --issuer ${{ secrets.APPLE_KEY_ISSUER }} --validate notorization_profile
+          xcrun notarytool submit --keychain-profile "notorization_profile" --progress --wait build/macos/Build/Products/Release/release.app.zip
+
+      - name: Staple Notarization Ticket
+        run: |
+          xcrun stapler staple build/macos/Build/Products/Release/*.app
+
+      - name: Create .dmg
+        run: |
+          cd build/macos/Build/Products/Release/
+          create-dmg \
+          --volname "Application Installer" \
+          --window-pos 200 120 \
+          --window-size 800 400 \
+          --icon-size 100 \
+          --icon "PikaTorrent.app" 200 190 \
+          --hide-extension "PikaTorrent.app" \
+          --app-drop-link 600 185 \
+          PikaTorrent.dmg ./PikaTorrent.app
+
       - name: Prepare artifacts
         run: |
-          mkdir ~/artifacts ./build/macos/Build/Products/Release/release/
-          ditto ./build/macos/Build/Products/Release/*.app ./build/macos/Build/Products/Release/release/PikaTorrent.app
-          ditto -c -k ./build/macos/Build/Products/Release/release/ ~/artifacts/release.app.zip
+          mkdir ~/artifacts
+          mv build/macos/Build/Products/Release/*.dmg ~/artifacts/
+          mv build/macos/Build/Products/Release/release.app.zip ~/artifacts/release.app.zip
+
       - uses: actions/upload-artifact@v4
         with:
           name: pikatorrent-macos
@@ -170,7 +222,7 @@ jobs:
           channel: stable
           flutter-version-file: app/pubspec.yaml
       - name: Clean cache
-        run: flutter pub cache clean
+        run: flutter pub cache clean -f
       - name: Install dependencies
         run: |
           sudo apt-get update -y
@@ -213,7 +265,7 @@ jobs:
           channel: stable
           flutter-version-file: app/pubspec.yaml
       - name: Clean cache
-        run: flutter pub cache clean
+        run: flutter pub cache clean -f
       - run: flutter build ios --no-codesign --dart-define-from-file=${ENV_FILE}
       - name: Prepare artifacts
         run: |
