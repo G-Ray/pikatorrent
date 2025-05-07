@@ -148,35 +148,25 @@ jobs:
         run: flutter build macos --dart-define-from-file=${ENV_FILE}
 
       - name: Sign
-        run: |
-          codesign --deep --force --verbose --options runtime --timestamp --sign "${{ secrets.APPLE_DEVELOPER_ID_APPLICATION }}" build/macos/Build/Products/Release/*.app
-          find build/macos/Build/Products/Release/*.app -type d -name "*.framework" -exec codesign --force --verbose --options runtime --timestamp --sign "${{ secrets.APPLE_DEVELOPER_ID_APPLICATION }}" {} \;
-          find build/macos/Build/Products/Release/*.app -type f -exec codesign --force --verbose --options runtime --timestamp --sign "${{ secrets.APPLE_DEVELOPER_ID_APPLICATION }}" {} \;
-          codesign --verify --deep --strict --verbose build/macos/Build/Products/Release/*.app
+        run: ./scripts/macos/sign.sh "${{ secrets.APPLE_DEVELOPER_ID_APPLICATION }}"
 
-      - name: Notarize
+      - name: Notarize & Staple
         run: |
           echo "${{ secrets.APPLE_KEY_P8 }}" | base64 --decode > ~/apple-key.p8
-          ditto -c -k --sequesterRsrc --keepParent build/macos/Build/Products/Release/*.app build/macos/Build/Products/Release/release.app.zip
-          xcrun notarytool store-credentials --key-id ${{ secrets.APPLE_KEY_ID }} --key ~/apple-key.p8 --issuer ${{ secrets.APPLE_KEY_ISSUER }} --validate notorization_profile
-          xcrun notarytool submit --keychain-profile "notorization_profile" --progress --wait build/macos/Build/Products/Release/release.app.zip
-
-      - name: Staple Notarization Ticket
-        run: |
-          xcrun stapler staple build/macos/Build/Products/Release/*.app
+          ./scripts/macos/notarize.sh --key-id ${{ secrets.APPLE_KEY_ID }} --key ~/apple-key.p8 --issuer ${{ secrets.APPLE_KEY_ISSUER }}
 
       - name: Create .dmg
         run: |
           cd build/macos/Build/Products/Release/
           create-dmg \
-          --volname "Application Installer" \
-          --window-pos 200 120 \
-          --window-size 800 400 \
-          --icon-size 100 \
-          --icon "PikaTorrent.app" 200 190 \
-          --hide-extension "PikaTorrent.app" \
-          --app-drop-link 600 185 \
-          PikaTorrent.dmg ./PikaTorrent.app
+            --volname "Application Installer" \
+            --window-pos 200 120 \
+            --window-size 800 400 \
+            --icon-size 100 \
+            --icon "PikaTorrent.app" 200 190 \
+            --hide-extension "PikaTorrent.app" \
+            --app-drop-link 600 185 \
+            PikaTorrent.dmg ./PikaTorrent.app
 
       - name: Prepare artifacts
         run: |
