@@ -293,10 +293,12 @@ jobs:
           mv pikatorrent-linux/release.zip PikaTorrent-${{ github.ref_name }}-linux-x64.zip
           mv pikatorrent-linux-arm64/release.zip PikaTorrent-${{ github.ref_name }}-linux-arm64.zip
           mv pikatorrent-windows/release.zip PikaTorrent-${{ github.ref_name }}-windows-x64.zip
-          mv pikatorrent-macos/release.app.zip ${{ github.workspace }}/PikaTorrent-${{ github.ref_name }}-macos-universal-experimental.app.zip
+          mv pikatorrent-macos/release.app.zip ${{ github.workspace }}/PikaTorrent-${{ github.ref_name }}-macos.app.zip
+          mv pikatorrent-macos/*.dmg ${{ github.workspace }}/PikaTorrent-${{ github.ref_name }}-macos.dmg
       - name: Mobile
         run: |
           mv pikatorrent-android/*.apk PikaTorrent-${{ github.ref_name }}-android.apk
+          mv pikatorrent-ios/*.ipa PikaTorrent-${{ github.ref_name }}-ios.ipa
 
       - name: Release
         uses: softprops/action-gh-release@v2
