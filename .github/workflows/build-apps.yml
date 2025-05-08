@@ -89,7 +89,7 @@ jobs:
         run: flutter pub cache clean -f
       - run: flutter build windows --dart-define-from-file=%ENV_FILE%
       - name: Build msix
-        run: dart run msix:create --store --windows-build-args="--dart-define-from-file=%ENV_FILE%"
+        run: dart run msix:create --store --build-windows=false
       - name: Prepare artifacts
         run: |
           mkdir ${{ github.workspace }}/artifacts
