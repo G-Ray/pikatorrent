@@ -89,14 +89,12 @@ jobs:
         run: flutter pub cache clean -f
       - run: flutter build windows --dart-define-from-file=%ENV_FILE%
       - name: Build msix
-        run: |
-          dart pub global activate fastforge
-          fastforge package --platform windows --targets msix
+        run: dart run msix:create --store --windows-build-args="--dart-define-from-file=%ENV_FILE%"
       - name: Prepare artifacts
         run: |
           mkdir ${{ github.workspace }}/artifacts
           7z a ${{ github.workspace }}/artifacts/release.zip ./build/windows/x64/runner/Release/*
-          mv ./dist/**/*.msix ${{ github.workspace }}/artifacts/
+          mv build/windows/x64/runner/Release/*.msix ${{ github.workspace }}/artifacts/
       - uses: actions/upload-artifact@v4
         with:
           name: pikatorrent-windows
