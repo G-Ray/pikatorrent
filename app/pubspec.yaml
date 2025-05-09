@@ -94,6 +94,7 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^4.0.0
   test: ^1.25.8
+  msix: ^3.16.9
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -138,3 +139,17 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+msix_config:
+  display_name: PikaTorrent
+  publisher_display_name: G_Ray
+  identity_name: 19653GRay.PikaTorrent
+  publisher: CN=9FB02A40-50B6-49F9-92D4-AA9DC9AC1AAB
+  # protocol and file extensions handling are managed programmatically
+  # This is not perfect as registry entries will not be clean once the
+  # app is uninstall.
+  # protocol_activation: magnet
+  # file_extension: .torrent
+  capabilities: internetClientServer, privateNetworkClientServer
+  logo_path: ./windows/runner/resources/app_icon.ico
+  trim_logo: "false"
