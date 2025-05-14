@@ -40,10 +40,12 @@ class FilesTab extends StatelessWidget {
   _handlePlayClick(BuildContext context, File file) {
     String filePath = path.join(location, file.name);
 
-    Navigator.of(context, rootNavigator: true)
-        .push(MaterialPageRoute(builder: (BuildContext context) {
-      return TorrentPlayer(filePath: filePath, torrent: torrent, file: file);
-    }));
+    Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
+        settings: const RouteSettings(name: 'player'),
+        builder: (BuildContext context) {
+          return TorrentPlayer(
+              filePath: filePath, torrent: torrent, file: file);
+        }));
   }
 
   @override

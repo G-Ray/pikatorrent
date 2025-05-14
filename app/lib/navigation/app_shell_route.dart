@@ -12,8 +12,10 @@ import 'package:pikatorrent/navigation/navigation.dart';
 import 'package:pikatorrent/platforms/desktop/tray.dart';
 import 'package:pikatorrent/utils/app_links.dart';
 import 'package:pikatorrent/utils/connectivity.dart';
+import 'package:pikatorrent/utils/device.dart';
 import 'package:pikatorrent/utils/update.dart';
 import 'package:provider/provider.dart';
+import 'package:window_manager/window_manager.dart';
 
 class AppShellRoute extends StatefulWidget {
   final Widget child;
@@ -24,7 +26,7 @@ class AppShellRoute extends StatefulWidget {
   State<AppShellRoute> createState() => _AppShellRouteState();
 }
 
-class _AppShellRouteState extends State<AppShellRoute> {
+class _AppShellRouteState extends State<AppShellRoute> with WindowListener {
   late AppLinks _appLinks;
   bool isTermsOfUseDialogDisplayed = false;
   bool hasShownUpdateDialog = false;
@@ -36,12 +38,40 @@ class _AppShellRouteState extends State<AppShellRoute> {
     startConnectivityCheck(context);
     initTray(context);
     _initAppLinks();
+    windowManager.addListener(this);
+    _initWindowManager();
   }
 
   @override
   void dispose() {
     stopConnectivityCheck();
+    windowManager.removeListener(this);
     super.dispose();
+  }
+
+  @override
+  void onWindowClose() async {
+    // Workaround to detect if current route is the player, and pop it
+    Navigator.of(context).popUntil((route) {
+      final currentRouteName = route.settings.name;
+      if (currentRouteName == 'player') {
+        // Remove route immediately to avoid concurrency issue,
+        // where player could still run while window is hidden
+        Navigator.removeRoute(context, route);
+      }
+
+      return true;
+    });
+
+    windowManager.hide();
+  }
+
+  _initWindowManager() async {
+    if (isDesktop()) {
+      // Add this line to override the default close handler
+      await windowManager.setPreventClose(true);
+      setState(() {});
+    }
   }
 
   _initAppLinks() {

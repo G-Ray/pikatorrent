@@ -66,6 +66,7 @@ class TorrentPlayerState extends State<TorrentPlayer> {
   @override
   void dispose() {
     widget.torrent.stopStreaming();
+    player.stop();
     player.dispose();
     server.stop();
     subsServer.stop();
@@ -164,7 +165,6 @@ class TorrentPlayerState extends State<TorrentPlayer> {
     return IconButton(
       icon: const Icon(Icons.arrow_back, color: Colors.white),
       onPressed: () {
-        player.stop();
         Navigator.pop(context);
       },
     );
@@ -203,7 +203,9 @@ class TorrentPlayerState extends State<TorrentPlayer> {
                           seekBarThumbColor: Colors.blue,
                           seekBarPositionColor: Colors.blue,
                           padding: const EdgeInsets.only(bottom: 64),
-                          topButtonBar: [_buildBackButton()],
+                          topButtonBar: [
+                            _buildBackButton()
+                          ],
                           bottomButtonBar: [
                             const MaterialPositionIndicator(),
                             const Spacer(),
