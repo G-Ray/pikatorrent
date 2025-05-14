@@ -6,7 +6,7 @@
   </developer>
 
   <name>PikaTorrent</name>
-  <summary>The Torrent app for the 21st century ⚡</summary>
+  <summary>Just pick a Torrent, stream and download</summary>
 
   <url type="homepage">https://www.pikatorrent.com</url>
   <url type="bugtracker">https://github.com/G-Ray/pikatorrent/issues</url>
@@ -24,14 +24,20 @@
   </supports>
 
   <description>
-    <p>An easy to use Torrent app for everyone.</p>
+    <p>Stream and download torrents on all your devices.</p>
 
     <ul>
-      <li>A modern and clean user interface, with dark mode support</li>
-      <li>Low cpu and memory usage</li>
+      <li>Stream torrents, with subtitles support</li>
+      <li>Share torrents with your friends</li>
+      <li>Available on Windows, Linux, MacOS, Android and iOS</li>
+      <li>A modern and
+        clean user interface, with dark mode support</li>
       <li>Add tags to your torrents</li>
-      <li>Select files to download or to pause</li>
+      <li>Select
+        files to download or to pause</li>
       <li>Browse and open files included in your torrents</li>
+      <li>Based
+        on Transmission for low cpu and memory usage</li>
     </ul>
   </description>
 
@@ -53,9 +59,24 @@
       <caption>Mobile dark screenshot</caption>
       <image>https://www.pikatorrent.com/mobile-dark.png</image>
     </screenshot>
+    <screenshot>
+      <caption>Desktop player screenshot</caption>
+      <image>https://www.pikatorrent.com/desktop-player.png</image>
+    </screenshot>
+
   </screenshots>
 
   <releases>
+    <release version="0.13.0" date="2025-05-13">
+      <description>
+        <ul>
+          <li>PikaTorrent now runs in the background, with tray icon support.</li>
+          <li>Display a notification when a download completes.</li>
+          <li>Display a warning when network is detected as unavailable.</li>
+          <li>Select wanted files with checkboxes</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.12.0" date="2025-04-10">
       <description>
         <ul>

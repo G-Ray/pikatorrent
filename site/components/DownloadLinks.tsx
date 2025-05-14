@@ -112,12 +112,22 @@ export const DownloadLinks = () => {
             MacOS
           </Paragraph>
           <Link
-            href={`${downloadLinkPrefix}-macos-universal-experimental.app.zip`}
+            href={`${downloadLinkPrefix}-macos.dmg`}
             style={{ textDecoration: "none" }}
           >
-            <Paragraph textAlign="center">
-              Experimental, unsigned binary
-            </Paragraph>
+            <Button
+              size="$3"
+              iconAfter={Download}
+              borderColor={"$purple9"}
+              w="100%"
+            >
+              .dmg
+            </Button>
+          </Link>
+          <Link
+            href={`${downloadLinkPrefix}-macos.app.zip`}
+            style={{ textDecoration: "none" }}
+          >
             <Button
               size="$3"
               iconAfter={Download}
@@ -170,7 +180,19 @@ export const DownloadLinks = () => {
           <Paragraph textAlign="center" fontSize={"$6"}>
             iOS
           </Paragraph>
-          <Paragraph textAlign="center">Soon...</Paragraph>
+          <Link
+            href={`${downloadLinkPrefix}-ios.ipa`}
+            style={{ textDecoration: "none" }}
+          >
+            <Button
+              size="$3"
+              iconAfter={Download}
+              borderColor={"$purple9"}
+              w="100%"
+            >
+              .ipa
+            </Button>
+          </Link>
         </YStack>
       </XStack>
 

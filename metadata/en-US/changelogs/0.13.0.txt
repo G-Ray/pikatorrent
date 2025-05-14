@@ -1,0 +1,4 @@
+- PikaTorrent now runs in the background, with tray icon support
+- Display a notification when a download completes
+- Display a warning when network is detected as unavailable
+- Select wanted files with checkboxes

@@ -30,7 +30,7 @@ export const Features = () => {
       <XStack gap="$2">
         <MonitorSmartphone style={{ flexShrink: 0 }} />
         <Paragraph>
-          Available on Windows, Linux, Android, and soon on MacOs & iOS !
+          Available on Windows, Linux, MacOS, Android and iOS !
         </Paragraph>
       </XStack>
       <Separator />
@@ -58,7 +58,9 @@ export const Features = () => {
       <Separator />
       <XStack gap="$2">
         <Zap style={{ flexShrink: 0 }} />
-        <Paragraph>Based on Transmission for low cpu & memory usage</Paragraph>
+        <Paragraph>
+          Based on Transmission for low cpu and memory usage
+        </Paragraph>
       </XStack>
       <Separator />
       <XStack gap="$2">
