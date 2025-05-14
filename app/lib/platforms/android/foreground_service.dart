@@ -3,11 +3,6 @@ import 'package:pikatorrent/navigation/router.dart';
 
 const foregroundNotificationId = 1;
 
-// When exiting the engine using the persistend notification,
-// execution is in another flutter isolate, so we store a pref to
-// check if we need to restart the engine if the app run in foreground again
-const isEngineExitedPrefKey = 'isEngineExited';
-
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
