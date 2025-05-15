@@ -60,6 +60,8 @@
 				<array>
 					<string>org.bittorrent.torrent</string>
 				</array>
+				<key>LSHandlerRank</key>
+				<string>Default</string>
 			</dict>
 		</array>
 		<key>UTExportedTypeDeclarations</key>
