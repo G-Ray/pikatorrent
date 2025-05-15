@@ -14,7 +14,7 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace = "com.pikatorrent.PikaTorrent"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = "25.1.8937393" //flutter.ndkVersion
+    ndkVersion = flutter.ndkVersion
 
     compileOptions {
         coreLibraryDesugaringEnabled true
