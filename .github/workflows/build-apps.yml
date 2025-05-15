@@ -181,6 +181,7 @@ jobs:
     runs-on: ubuntu-24.04
     env:
       VCPKG_MANIFEST_DIR: ${{ github.workspace }}/app
+      SOURCE_DATE_EPOCH: 0
     defaults:
       run:
         working-directory: ./app
@@ -221,7 +222,7 @@ jobs:
 
       - name: Prepare artifacts
         run: |
-          mkdir ~/artifacts 
+          mkdir ~/artifacts
           cp ./build/app/outputs/flutter-apk/*.apk ~/artifacts/
           cp ./build/app/outputs/bundle/release/*.aab ~/artifacts/
       - uses: actions/upload-artifact@v4

@@ -34,7 +34,7 @@ dependencies:
   flutter_libtransmission:
     git:
       url: "https://github.com/G-Ray/flutter_libtransmission"
-      ref: 5551c7bb86969b7ec7c7b2e20dc30ba3e04f33c6
+      ref: bd8dfbd69a9ab012df457ee83e68bde12057310c
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
