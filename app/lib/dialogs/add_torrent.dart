@@ -8,6 +8,7 @@ import 'package:pikatorrent/engine/engine.dart';
 import 'package:pikatorrent/models/session.dart';
 import 'package:pikatorrent/models/torrents.dart';
 import 'package:pikatorrent/utils/app_links.dart';
+import 'package:pikatorrent/utils/device.dart';
 import 'package:provider/provider.dart';
 
 class AddTorrentDialog extends StatefulWidget {
@@ -204,8 +205,8 @@ class _AddTorrentDialogState extends State<AddTorrentDialog> {
               _buildTorrentLinkInput(),
               _buildInputsSeparator(),
               _buildFileInput(context),
-              if (!Platform.isAndroid) const SizedBox(height: 16),
-              if (!Platform.isAndroid)
+              if (!isMobile()) const SizedBox(height: 16),
+              if (!isMobile())
                 Row(
                   children: [
                     const Text('Destination:'),
