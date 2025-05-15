@@ -101,7 +101,7 @@ jobs:
           path: ${{ github.workspace }}/artifacts
 
   macos:
-    runs-on: macos-14
+    runs-on: macos-15
     env:
       # Should be same as defined in /app/macos/Runner.xcodeproj
       MACOSX_DEPLOYMENT_TARGET: 10.14
@@ -230,7 +230,7 @@ jobs:
           path: ~/artifacts/
 
   ios:
-    runs-on: macos-14
+    runs-on: macos-15
     env:
       # Do not target simulator
       TARGET_IOS_DEVICE: true
