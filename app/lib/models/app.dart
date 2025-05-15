@@ -74,8 +74,15 @@ class AppModel extends ChangeNotifier {
   void quit() async {
     if (isDesktop()) {
       await closeTray();
-      await windowManager.setPreventClose(false);
-      await windowManager.close();
+      // See https://github.com/leanflutter/window_manager/issues/478
+      // calling only close seems to crash the app on macos,
+      // meanwhile calling destroy crashes on windows.
+      if (Platform.isWindows) {
+        await windowManager.setPreventClose(false);
+        await windowManager.close();
+      } else {
+        await windowManager.destroy();
+      }
     } else {
       if (Platform.isAndroid) {
         await stopForegroundService();
