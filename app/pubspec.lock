@@ -312,8 +312,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "1ec0897aaeb01491d914fd30df5c6a20bac5ddb8"
-      resolved-ref: "1ec0897aaeb01491d914fd30df5c6a20bac5ddb8"
+      ref: c3a8f7755519f70bd12478f963af7137e028bf46
+      resolved-ref: c3a8f7755519f70bd12478f963af7137e028bf46
       url: "https://github.com/G-Ray/flutter_libtransmission"
     source: git
     version: "0.0.1"
