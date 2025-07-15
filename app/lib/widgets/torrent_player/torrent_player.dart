@@ -8,6 +8,7 @@ import 'package:pikatorrent/utils/device.dart' as device;
 import 'package:pikatorrent/utils/streaming_server.dart';
 import 'package:pikatorrent/utils/subtitles.dart';
 import 'package:pikatorrent/utils/subtitles_server.dart';
+import 'package:pikatorrent/widgets/torrent_player/dialogs/audio_track_selector.dart';
 import 'package:pikatorrent/widgets/torrent_player/dialogs/subtitles_loading.dart';
 import 'package:pikatorrent/widgets/torrent_player/dialogs/subtitles_selector.dart';
 import 'package:pikatorrent/widgets/window_title_bar.dart';
@@ -161,6 +162,21 @@ class TorrentPlayerState extends State<TorrentPlayer> {
     );
   }
 
+  onAudioTrackClick() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AudioTrackSelectorDialog(
+          tracks: player.state.tracks.audio,
+          currentValue: player.state.track.audio.id,
+          onTrackSelected: (AudioTrack track) async {
+            await player.setAudioTrack(track);
+          },
+        );
+      },
+    );
+  }
+
   Widget _buildBackButton() {
     return IconButton(
       icon: const Icon(Icons.arrow_back, color: Colors.white),
@@ -235,6 +251,10 @@ class TorrentPlayerState extends State<TorrentPlayer> {
                           MaterialDesktopCustomButton(
                             icon: const Icon(Icons.subtitles),
                             onPressed: onSubtitlesClick,
+                          ),
+                          MaterialDesktopCustomButton(
+                            icon: const Icon(Icons.multitrack_audio),
+                            onPressed: onAudioTrackClick,
                           ),
                           const MaterialDesktopFullscreenButton(),
                         ],

@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:pikatorrent/engine/file.dart';
 import 'package:pikatorrent/engine/torrent.dart';
 import 'package:pikatorrent/main.dart';
