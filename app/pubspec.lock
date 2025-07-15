@@ -91,10 +91,10 @@ packages:
     dependency: transitive
     description:
       name: assorted_layout_widgets
-      sha256: "5b7f7c76a1a4c7cf95edfb854c3ed09ce9cb7f25a372f2d9a8d4c1569d42ecfb"
+      sha256: "86eacbd25f7dd14a8182003935b07d94205ae4b0e6bedee03bde1404746bb7a9"
       url: "https://pub.dev"
     source: hosted
-    version: "9.0.2"
+    version: "10.7.0"
   async:
     dependency: "direct main"
     description:
@@ -587,10 +587,10 @@ packages:
     dependency: transitive
     description:
       name: matrix4_transform
-      sha256: "42c42610deecc382be2653f4a21358537401bd5b027c168a174c7c6a64959908"
+      sha256: "1346e53517e3081d3e8362377be97e285e2bd348855c177eae2a18aa965cafa0"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.1"
+    version: "4.0.1"
   media_kit:
     dependency: "direct main"
     description:
@@ -1552,10 +1552,10 @@ packages:
     dependency: "direct main"
     description:
       name: yaru
-      sha256: afc659f78a0bef5e06ebbbd516979afceca7526b7703daa444bf419a54b2dc85
+      sha256: d9149e87ddcbabd6214fe629bfd0b6a94b9d81ca55a5618949ffc47a3d8a7b69
       url: "https://pub.dev"
     source: hosted
-    version: "5.3.2"
+    version: "8.0.0"
   yaru_window:
     dependency: transitive
     description:
@@ -1597,5 +1597,5 @@ packages:
     source: hosted
     version: "0.0.3+1"
 sdks:
-  dart: ">=3.7.0-0 <4.0.0"
+  dart: ">=3.8.0 <4.0.0"
   flutter: ">=3.32.6"
