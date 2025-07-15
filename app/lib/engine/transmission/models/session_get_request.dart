@@ -1,4 +1,9 @@
-enum SessionField { downloadDir, downloadQueueEnabled, downloadQueueSize }
+enum SessionField {
+  downloadDir,
+  downloadQueueEnabled,
+  downloadQueueSize,
+  peerPort
+}
 
 class SessionGetRequest {
   final method = 'session-get';
@@ -21,7 +26,8 @@ class SessionGetRequestArguments {
         return switch (field) {
           SessionField.downloadDir => 'download-dir',
           SessionField.downloadQueueEnabled => 'download-queue-enabled',
-          SessionField.downloadQueueSize => 'download-queue-size'
+          SessionField.downloadQueueSize => 'download-queue-size',
+          SessionField.peerPort => 'peer-port'
         };
       }).toList()
     };

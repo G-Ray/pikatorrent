@@ -13,9 +13,11 @@ class SessionGetResponseArguments {
   final String? downloadDir;
   final bool? downloadQueueEnabled;
   final int? downloadQueueSize;
+  final int? peerPort;
 
   SessionGetResponseArguments.fromJson(Map<String, dynamic> json)
       : downloadDir = json['download-dir'],
         downloadQueueEnabled = json['download-queue-enabled'],
-        downloadQueueSize = json['download-queue-size'];
+        downloadQueueSize = json['download-queue-size'],
+        peerPort = json['peer-port'];
 }

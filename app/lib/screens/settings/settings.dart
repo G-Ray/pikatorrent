@@ -4,6 +4,7 @@ import 'package:pikatorrent/main.dart';
 import 'package:pikatorrent/models/app.dart';
 import 'package:pikatorrent/models/session.dart';
 import 'package:pikatorrent/screens/settings/dialogs/maximum_active_downloads_editor.dart';
+import 'package:pikatorrent/screens/settings/dialogs/peer_port.dart';
 import 'package:pikatorrent/screens/settings/dialogs/reset_torrent_settings.dart';
 import 'package:pikatorrent/screens/settings/dialogs/theme_selector.dart';
 import 'package:pikatorrent/utils/device.dart';
@@ -22,6 +23,7 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   bool canCheckForUpdate = false;
+  bool showAdvancedSettings = false;
 
   @override
   void initState() {
@@ -60,6 +62,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
+  void handlePeerPortSave(BuildContext context, int value) async {
+    var sessionUpdate = SessionBase(peerPort: value);
+    if (context.mounted) {
+      var sessionModel = Provider.of<SessionModel>(context, listen: false);
+      await sessionModel.session?.update(sessionUpdate);
+      await sessionModel.fetchSession();
+    }
+  }
+
   void handleResetTorrentsSettings(BuildContext context) async {
     await engine.resetSettings();
     if (context.mounted) {
@@ -76,8 +87,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
         return AlertDialog(
           title: const Text('Theme'),
           content: const ThemeSelector(),
-          // contentPadding:
-          //     const EdgeInsets.symmetric(horizontal: 0, vertical: 16),
           actions: <Widget>[
             TextButton(
               child: const Text('Cancel'),
@@ -92,11 +101,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void showMaximumActiveDownloadDialog() {
+    final session = Provider.of<SessionModel>(context, listen: false).session;
     showDialog<void>(
       context: context,
       builder: (BuildContext context) {
         return MaximumActiveDownloadEditorDialog(
+          currentValue: session?.downloadQueueSize ?? 0,
           onSave: (value) => handleMaximumActiveDownloadsSave(context, value),
+        );
+      },
+    );
+  }
+
+  void showPeerPortDialog() {
+    final session = Provider.of<SessionModel>(context, listen: false).session;
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return PeerPortDialog(
+          currentValue: session?.peerPort ?? 0,
+          onSave: (value) => handlePeerPortSave(context, value),
         );
       },
     );
@@ -122,8 +146,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Consumer2<AppModel, SessionModel>(
         builder: (context, app, sessionModel, child) {
-      var downloadDir = sessionModel.session?.downloadDir ?? '';
-      var downloadQueueSize = sessionModel.session?.downloadQueueSize ?? '';
+      final downloadDir = sessionModel.session?.downloadDir ?? '';
+      final downloadQueueSize = sessionModel.session?.downloadQueueSize ?? '';
+      final peerPort = sessionModel.session?.peerPort ?? '';
 
       return ListView(children: [
         Padding(
@@ -152,7 +177,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               style: Theme.of(context).textTheme.titleLarge),
         ),
         ListTile(
-            onTap: isMobile()? null : () => handlePickFolder(context),
+            onTap: isMobile() ? null : () => handlePickFolder(context),
             leading: const Icon(Icons.folder_open),
             title: const Text('Download directory'),
             subtitle: Text(downloadDir)),
@@ -161,6 +186,27 @@ class _SettingsScreenState extends State<SettingsScreen> {
             leading: const Icon(Icons.downloading),
             title: const Text('Maximum active downloads'),
             subtitle: Text(downloadQueueSize.toString())),
+        ListTile(
+            onTap: () {
+              setState(() {
+                showAdvancedSettings = !showAdvancedSettings;
+              });
+            },
+            leading: const Icon(Icons.settings),
+            trailing: Checkbox(
+                value: showAdvancedSettings,
+                onChanged: (v) => {
+                      setState(() {
+                        showAdvancedSettings = !showAdvancedSettings;
+                      })
+                    }),
+            title: const Text('Show advanced settings')),
+        if (showAdvancedSettings)
+          ListTile(
+              onTap: showPeerPortDialog,
+              leading: const Icon(Icons.arrow_right_alt),
+              title: const Text('Listening port'),
+              subtitle: Text(peerPort.toString())),
         ListTile(
             onTap: showResetTorrentsSettingsDialog,
             leading: const Icon(Icons.settings_backup_restore),

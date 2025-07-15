@@ -1,48 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class MaximumActiveDownloadEditorDialog extends StatefulWidget {
+class PeerPortDialog extends StatefulWidget {
   final void Function(int) onSave;
   final int currentValue;
 
-  const MaximumActiveDownloadEditorDialog(
+  const PeerPortDialog(
       {super.key, required this.onSave, required this.currentValue});
 
   @override
-  State<MaximumActiveDownloadEditorDialog> createState() =>
-      _MaximumActiveDownloadEditorState();
+  State<PeerPortDialog> createState() => _MaximumActiveDownloadEditorState();
 }
 
-class _MaximumActiveDownloadEditorState
-    extends State<MaximumActiveDownloadEditorDialog> {
-  late TextEditingController _maximumActiveDownloadsController;
+class _MaximumActiveDownloadEditorState extends State<PeerPortDialog> {
+  late TextEditingController peerPort;
 
   @override
   void initState() {
     super.initState();
-    _maximumActiveDownloadsController = TextEditingController.fromValue(
+    peerPort = TextEditingController.fromValue(
         TextEditingValue(text: widget.currentValue.toString()));
   }
 
   @override
   void dispose() {
-    _maximumActiveDownloadsController.dispose();
+    peerPort.dispose();
     super.dispose();
   }
 
   void handleSave() async {
-    widget.onSave(int.parse(_maximumActiveDownloadsController.text));
+    widget.onSave(int.parse(peerPort.text));
   }
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Maximum active downloads'),
+      title: const Text('Incoming port'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           TextFormField(
-            controller: _maximumActiveDownloadsController,
+            controller: peerPort,
             keyboardType: TextInputType.number,
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             decoration: const InputDecoration(

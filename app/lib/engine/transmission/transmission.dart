@@ -238,14 +238,18 @@ class TransmissionTorrent extends Torrent {
 
 class TransmissionSession extends Session {
   TransmissionSession(
-      {super.downloadDir, super.downloadQueueEnabled, super.downloadQueueSize});
+      {super.downloadDir,
+      super.downloadQueueEnabled,
+      super.downloadQueueSize,
+      super.peerPort});
 
   @override
   Future<void> update(SessionBase session) async {
     SessionSetRequest request = SessionSetRequest(
         arguments: SessionSetRequestArguments(
             downloadDir: session.downloadDir,
-            downloadQueueSize: session.downloadQueueSize));
+            downloadQueueSize: session.downloadQueueSize,
+            peerPort: session.peerPort));
 
     await flutter_libtransmission.requestAsync(jsonEncode(request));
     flutter_libtransmission.saveSettings();
@@ -330,7 +334,8 @@ class TransmissionEngine extends Engine {
         arguments: SessionGetRequestArguments(fields: [
       SessionField.downloadDir,
       SessionField.downloadQueueEnabled,
-      SessionField.downloadQueueSize
+      SessionField.downloadQueueSize,
+      SessionField.peerPort
     ]));
     String res = await flutter_libtransmission
         .requestAsync(jsonEncode(sessionGetRequest));
@@ -341,7 +346,8 @@ class TransmissionEngine extends Engine {
     return TransmissionSession(
         downloadDir: decodedRes.arguments.downloadDir,
         downloadQueueEnabled: decodedRes.arguments.downloadQueueEnabled,
-        downloadQueueSize: decodedRes.arguments.downloadQueueSize);
+        downloadQueueSize: decodedRes.arguments.downloadQueueSize,
+        peerPort: decodedRes.arguments.peerPort);
   }
 
   @override
