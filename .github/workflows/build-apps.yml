@@ -16,8 +16,6 @@ jobs:
         with:
           channel: stable
           flutter-version-file: app/pubspec.yaml
-      - name: Clean cache
-        run: flutter pub cache clean -f
       - name: Install dependencies
         run: |
           sudo apt-get update -y
@@ -45,8 +43,6 @@ jobs:
         with:
           channel: master # channel stable does not support arm64 for now
           flutter-version-file: app/pubspec.yaml
-      - name: Clean cache
-        run: flutter pub cache clean -f
       - name: Install dependencies
         run: |
           sudo apt-get update -y
@@ -85,8 +81,6 @@ jobs:
         with:
           channel: stable
           flutter-version-file: app/pubspec.yaml
-      - name: Clean cache
-        run: flutter pub cache clean -f
       - run: flutter build windows --dart-define-from-file=%ENV_FILE%
       - name: Build msix
         run: dart run msix:create --store --build-windows=false
@@ -138,9 +132,6 @@ jobs:
         with:
           channel: stable
           flutter-version-file: app/pubspec.yaml
-
-      - name: Clean cache
-        run: flutter pub cache clean -f
 
       - name: Build
         run: flutter build macos --dart-define-from-file=${ENV_FILE}
@@ -210,8 +201,6 @@ jobs:
         with:
           channel: stable
           flutter-version-file: app/pubspec.yaml
-      - name: Clean cache
-        run: flutter pub cache clean -f
       - name: Install dependencies
         run: |
           sudo apt-get update -y
@@ -265,8 +254,6 @@ jobs:
         with:
           channel: stable
           flutter-version-file: app/pubspec.yaml
-      - name: Clean cache
-        run: flutter pub cache clean -f
       - run: flutter build ipa --dart-define-from-file=${ENV_FILE} --export-options-plist="ios/ExportOptions.plist"
       - name: Prepare artifacts
         run: |
