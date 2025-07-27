@@ -2,7 +2,11 @@ enum SessionField {
   downloadDir,
   downloadQueueEnabled,
   downloadQueueSize,
-  peerPort
+  peerPort,
+  speedLimitDownEnabled,
+  speedLimitUpEnabled,
+  speedLimitDown,
+  speedLimitUp,
 }
 
 class SessionGetRequest {
@@ -27,7 +31,11 @@ class SessionGetRequestArguments {
           SessionField.downloadDir => 'download-dir',
           SessionField.downloadQueueEnabled => 'download-queue-enabled',
           SessionField.downloadQueueSize => 'download-queue-size',
-          SessionField.peerPort => 'peer-port'
+          SessionField.peerPort => 'peer-port',
+          SessionField.speedLimitDownEnabled => 'speed-limit-down-enabled',
+          SessionField.speedLimitUpEnabled => 'speed-limit-up-enabled',
+          SessionField.speedLimitDown => 'speed-limit-down',
+          SessionField.speedLimitUp => 'speed-limit-up'
         };
       }).toList()
     };

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pikatorrent/dialogs/reusable/number_input.dart';
 import 'package:pikatorrent/engine/session.dart';
 import 'package:pikatorrent/main.dart';
 import 'package:pikatorrent/models/app.dart';
@@ -71,10 +72,38 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
+  void handleSpeedLimitDownSave(BuildContext context, int value) async {
+    var sessionUpdate = SessionBase(speedLimitDown: value);
+    if (context.mounted) {
+      var sessionModel = Provider.of<SessionModel>(context, listen: false);
+      await sessionModel.session?.update(sessionUpdate);
+      await sessionModel.fetchSession();
+    }
+  }
+
+  void handleSpeedLimitUpSave(BuildContext context, int value) async {
+    var sessionUpdate = SessionBase(speedLimitUp: value);
+    if (context.mounted) {
+      var sessionModel = Provider.of<SessionModel>(context, listen: false);
+      await sessionModel.session?.update(sessionUpdate);
+      await sessionModel.fetchSession();
+    }
+  }
+
   void handleResetTorrentsSettings(BuildContext context) async {
     await engine.resetSettings();
     if (context.mounted) {
       var sessionModel = Provider.of<SessionModel>(context, listen: false);
+      await sessionModel.fetchSession();
+    }
+  }
+
+  void _handleEnableSpeedLimits(bool value) async {
+    var sessionUpdate =
+        SessionBase(speedLimitDownEnabled: value, speedLimitUpEnabled: value);
+    if (context.mounted) {
+      var sessionModel = Provider.of<SessionModel>(context, listen: false);
+      await sessionModel.session?.update(sessionUpdate);
       await sessionModel.fetchSession();
     }
   }
@@ -126,6 +155,34 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
+  void showSpeedLimitDownDialog() {
+    final session = Provider.of<SessionModel>(context, listen: false).session;
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return NumberInputDialog(
+          title: 'Download Speed (KBps)',
+          currentValue: session?.speedLimitDown ?? 0,
+          onSave: (value) => handleSpeedLimitDownSave(context, value),
+        );
+      },
+    );
+  }
+
+  void showSpeedLimitUpDialog() {
+    final session = Provider.of<SessionModel>(context, listen: false).session;
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return NumberInputDialog(
+          title: 'Upload Speed (KBps)',
+          currentValue: session?.speedLimitUp ?? 0,
+          onSave: (value) => handleSpeedLimitUpSave(context, value),
+        );
+      },
+    );
+  }
+
   void showResetTorrentsSettingsDialog() {
     showDialog<void>(
       context: context,
@@ -149,6 +206,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
       final downloadDir = sessionModel.session?.downloadDir ?? '';
       final downloadQueueSize = sessionModel.session?.downloadQueueSize ?? '';
       final peerPort = sessionModel.session?.peerPort ?? '';
+      final isSpeedLimitEnabled =
+          sessionModel.session?.speedLimitDownEnabled == true ||
+              sessionModel.session?.speedLimitUpEnabled == true;
 
       return ListView(children: [
         Padding(
@@ -187,6 +247,38 @@ class _SettingsScreenState extends State<SettingsScreen> {
             title: const Text('Maximum active downloads'),
             subtitle: Text(downloadQueueSize.toString())),
         ListTile(
+            leading: const Icon(Icons.speed),
+            title: const Text(
+              'Enable speed limits',
+            ),
+            subtitle: Text(
+                "Streaming might not work correctly if you enable speed limits",
+                style: isSpeedLimitEnabled
+                    ? const TextStyle(color: Colors.yellow)
+                    : null),
+            trailing: Checkbox(
+                value: isSpeedLimitEnabled,
+                onChanged: (bool? _) {
+                  _handleEnableSpeedLimits(!isSpeedLimitEnabled);
+                }),
+            onTap: () {
+              _handleEnableSpeedLimits(!isSpeedLimitEnabled);
+            }),
+        ListTile(
+            enabled: isSpeedLimitEnabled,
+            onTap: showSpeedLimitDownDialog,
+            leading: const Icon(Icons.arrow_circle_down),
+            title: const Text('Download speed limit'),
+            subtitle: Text(
+                '${sessionModel.session?.speedLimitDown.toString()} KBps')),
+        ListTile(
+            enabled: isSpeedLimitEnabled,
+            onTap: showSpeedLimitUpDialog,
+            leading: const Icon(Icons.arrow_circle_up),
+            title: const Text('Upload speed limit'),
+            subtitle:
+                Text('${sessionModel.session?.speedLimitUp.toString()} KBps')),
+        ListTile(
             onTap: () {
               setState(() {
                 showAdvancedSettings = !showAdvancedSettings;
@@ -201,12 +293,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       })
                     }),
             title: const Text('Show advanced settings')),
-        if (showAdvancedSettings)
+        if (showAdvancedSettings) ...[
           ListTile(
               onTap: showPeerPortDialog,
               leading: const Icon(Icons.arrow_right_alt),
               title: const Text('Listening port'),
               subtitle: Text(peerPort.toString())),
+        ],
         ListTile(
             onTap: showResetTorrentsSettingsDialog,
             leading: const Icon(Icons.settings_backup_restore),

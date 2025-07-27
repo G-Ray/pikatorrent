@@ -241,7 +241,11 @@ class TransmissionSession extends Session {
       {super.downloadDir,
       super.downloadQueueEnabled,
       super.downloadQueueSize,
-      super.peerPort});
+      super.peerPort,
+      super.speedLimitDownEnabled,
+      super.speedLimitUpEnabled,
+      super.speedLimitDown,
+      super.speedLimitUp});
 
   @override
   Future<void> update(SessionBase session) async {
@@ -249,7 +253,11 @@ class TransmissionSession extends Session {
         arguments: SessionSetRequestArguments(
             downloadDir: session.downloadDir,
             downloadQueueSize: session.downloadQueueSize,
-            peerPort: session.peerPort));
+            peerPort: session.peerPort,
+            speedLimitDownEnabled: session.speedLimitDownEnabled,
+            speedLimitUpEnabled: session.speedLimitUpEnabled,
+            speedLimitDown: session.speedLimitDown,
+            speedLimitUp: session.speedLimitUp));
 
     await flutter_libtransmission.requestAsync(jsonEncode(request));
     flutter_libtransmission.saveSettings();
@@ -335,7 +343,11 @@ class TransmissionEngine extends Engine {
       SessionField.downloadDir,
       SessionField.downloadQueueEnabled,
       SessionField.downloadQueueSize,
-      SessionField.peerPort
+      SessionField.peerPort,
+      SessionField.speedLimitDownEnabled,
+      SessionField.speedLimitUpEnabled,
+      SessionField.speedLimitDown,
+      SessionField.speedLimitUp
     ]));
     String res = await flutter_libtransmission
         .requestAsync(jsonEncode(sessionGetRequest));
@@ -347,7 +359,11 @@ class TransmissionEngine extends Engine {
         downloadDir: decodedRes.arguments.downloadDir,
         downloadQueueEnabled: decodedRes.arguments.downloadQueueEnabled,
         downloadQueueSize: decodedRes.arguments.downloadQueueSize,
-        peerPort: decodedRes.arguments.peerPort);
+        peerPort: decodedRes.arguments.peerPort,
+        speedLimitDownEnabled: decodedRes.arguments.speedLimitDownEnabled,
+        speedLimitUpEnabled: decodedRes.arguments.speedLimitUpEnabled,
+        speedLimitDown: decodedRes.arguments.speedLimitDown,
+        speedLimitUp: decodedRes.arguments.speedLimitUp);
   }
 
   @override
