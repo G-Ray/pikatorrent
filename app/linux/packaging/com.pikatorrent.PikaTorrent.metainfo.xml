@@ -67,6 +67,15 @@
   </screenshots>
 
   <releases>
+  <release version="0.13.0" date="2025-07-27">
+      <description>
+        <ul>
+          <li>Support for audio track selection</li>
+          <li>Speed limits options</li>
+          <li>Added incoming peer port in advanced settings</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.13.0" date="2025-05-13">
       <description>
         <ul>

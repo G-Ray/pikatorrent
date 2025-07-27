@@ -1,0 +1,3 @@
+- Support for audio track selection
+- Speed limits options
+- Added incoming peer port in advanced settings
