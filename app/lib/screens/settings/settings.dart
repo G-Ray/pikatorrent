@@ -224,13 +224,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
         // Hide update check option if app is distributed through an app store
         if (canCheckForUpdate)
           ListTile(
-              leading: const Icon(Icons.update),
-              title: const Text('Check for update'),
-              trailing: Switch(
-                  value: app.checkForUpdate,
-                  onChanged: _handlecheckForUpdateToggle),
-              subtitle:
-                  const Text('Be notified when a new version is available')),
+            leading: const Icon(Icons.update),
+            title: const Text('Check for update'),
+            trailing: Switch(
+                value: app.checkForUpdate,
+                onChanged: _handlecheckForUpdateToggle),
+            subtitle: const Text('Be notified when a new version is available'),
+          ),
         Padding(
           padding: const EdgeInsets.only(left: 16.0, top: 16),
           child: Text('Torrents settings',
@@ -247,23 +247,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
             title: const Text('Maximum active downloads'),
             subtitle: Text(downloadQueueSize.toString())),
         ListTile(
-            leading: const Icon(Icons.speed),
-            title: const Text(
-              'Enable speed limits',
-            ),
-            subtitle: Text(
-                "Streaming might not work correctly if you enable speed limits",
-                style: isSpeedLimitEnabled
-                    ? const TextStyle(color: Colors.yellow)
-                    : null),
-            trailing: Checkbox(
-                value: isSpeedLimitEnabled,
-                onChanged: (bool? _) {
-                  _handleEnableSpeedLimits(!isSpeedLimitEnabled);
-                }),
-            onTap: () {
-              _handleEnableSpeedLimits(!isSpeedLimitEnabled);
-            }),
+          leading: const Icon(Icons.speed),
+          title: const Text(
+            'Enable speed limits',
+          ),
+          subtitle: Text(
+              "Streaming might not work correctly if you enable speed limits",
+              style: isSpeedLimitEnabled
+                  ? const TextStyle(color: Colors.yellow)
+                  : null),
+          trailing: Switch(
+              value: isSpeedLimitEnabled,
+              onChanged: (bool _) {
+                _handleEnableSpeedLimits(!isSpeedLimitEnabled);
+              }),
+        ),
         ListTile(
             enabled: isSpeedLimitEnabled,
             onTap: showSpeedLimitDownDialog,
@@ -279,13 +277,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
             subtitle:
                 Text('${sessionModel.session?.speedLimitUp.toString()} KBps')),
         ListTile(
-            onTap: () {
-              setState(() {
-                showAdvancedSettings = !showAdvancedSettings;
-              });
-            },
             leading: const Icon(Icons.settings),
-            trailing: Checkbox(
+            trailing: Switch(
                 value: showAdvancedSettings,
                 onChanged: (v) => {
                       setState(() {
