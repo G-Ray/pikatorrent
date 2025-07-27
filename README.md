@@ -8,18 +8,23 @@ Just pick a Torrent. Stream and download torrents on all your devices.
   <img src="https://img.shields.io/badge/Join_us_on_discord-gray?logo=discord" />
 </a>
 
+## Why a new torrent client ?
+
+In 2025, torrent clients should not be reserved for advanced users. PikaTorrent is a next-generation torrent client offering a beautiful, lightweight, and cross-platform app that you can install on all your devices.
+PikaTorrent also allows you to stream media, think of it like WebTorrent desktop, but also available on Android & iOS.
+
 ## Installation
 
 To receive updates automatically and ensure the app handles links shares correctly, installation through app stores is recommended.
 
 | Windows | Linux | MacOS | Android | iOS |
-| -- | -- | -- | -- | -- |
+| ------- | ----- | ----- | ------- | --- |
 | [Microsoft Store](https://apps.microsoft.com/detail/9n9gjq9bdjw3?mode=direct) | [Flathub](https://flathub.org/apps/com.pikatorrent.PikaTorrent) | - | [Play Store](https://play.google.com/store/apps/details?id=com.pikatorrent.PikaTorrent) | - |
-| [.zip](https://github.com/G-Ray/pikatorrent/releases) | [.zip*](https://github.com/G-Ray/pikatorrent/releases) | [.zip (experimental)](https://github.com/G-Ray/pikatorrent/releases) | [.apk](https://github.com/G-Ray/pikatorrent/releases) | - |
-
-The releases are currently considered beta. Features might changes and things could break. Please open issues to report bugs or features requests.
+| [.zip](https://github.com/G-Ray/pikatorrent/releases) | [.zip*](https://github.com/G-Ray/pikatorrent/releases) | [.zip](https://github.com/G-Ray/pikatorrent/releases) | [.apk](https://github.com/G-Ray/pikatorrent/releases) | [.ipa (experimental)](https://github.com/G-Ray/pikatorrent/releases) |
 
 **\*** .zip for linux needs `mpv` to be installed on you OS. Other dependencies might be required.
+
+The releases are currently considered beta. Features might changes and things could break. Please use issues to report bugs or features requests.
 
 ## Screenshots
 
