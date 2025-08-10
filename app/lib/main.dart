@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:pikatorrent/engine/engine.dart';
 import 'package:pikatorrent/engine/transmission/transmission.dart';
+import 'package:pikatorrent/l10n/app_localizations.dart';
 import 'package:pikatorrent/models/app.dart';
 import 'package:pikatorrent/models/session.dart';
 import 'package:pikatorrent/models/torrents.dart';
@@ -124,11 +125,13 @@ class PikaTorrentApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<AppModel>(
         builder: (context, app, child) => MaterialApp.router(
-              title: 'PikaTorrent',
-              theme: _lightTheme,
-              darkTheme: _darkTheme,
-              themeMode: app.theme,
-              routerConfig: router,
-            ));
+            title: 'PikaTorrent',
+            theme: _lightTheme,
+            darkTheme: _darkTheme,
+            themeMode: app.theme,
+            routerConfig: router,
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            locale: Locale(app.locale)));
   }
 }

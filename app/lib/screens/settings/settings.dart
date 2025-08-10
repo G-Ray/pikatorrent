@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:pikatorrent/constants/locales.dart';
 import 'package:pikatorrent/dialogs/reusable/number_input.dart';
 import 'package:pikatorrent/engine/session.dart';
 import 'package:pikatorrent/main.dart';
 import 'package:pikatorrent/models/app.dart';
 import 'package:pikatorrent/models/session.dart';
+import 'package:pikatorrent/screens/settings/dialogs/locale_selector.dart';
 import 'package:pikatorrent/screens/settings/dialogs/maximum_active_downloads_editor.dart';
 import 'package:pikatorrent/screens/settings/dialogs/peer_port.dart';
 import 'package:pikatorrent/screens/settings/dialogs/reset_torrent_settings.dart';
@@ -14,6 +16,7 @@ import 'package:pikatorrent/utils/update.dart';
 import 'package:provider/provider.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:pikatorrent/l10n/app_localizations.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -129,6 +132,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
+  void showLocaleDialog(context) {
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(AppLocalizations.of(context)!.language),
+          content: const LocaleSelector(),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void showMaximumActiveDownloadDialog() {
     final session = Provider.of<SessionModel>(context, listen: false).session;
     showDialog<void>(
@@ -221,6 +244,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
             leading: const Icon(Icons.dark_mode),
             title: const Text('Theme'),
             subtitle: Text(app.theme.name.capitalize())),
+        ListTile(
+            onTap: () => showLocaleDialog(context),
+            leading: const Icon(Icons.language),
+            title: Text(AppLocalizations.of(context)!.language),
+            subtitle: Text(localeNames[app.locale] ?? app.locale)),
         // Hide update check option if app is distributed through an app store
         if (canCheckForUpdate)
           ListTile(

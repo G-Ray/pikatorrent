@@ -16,6 +16,7 @@ class AppModel extends ChangeNotifier {
   bool checkForUpdate = true;
   bool loaded = false;
   bool quitting = false;
+  String locale = 'en';
   String version = '';
 
   AppModel() {
@@ -34,6 +35,7 @@ class AppModel extends ChangeNotifier {
     // Load check for update value
     checkForUpdate =
         await SharedPrefsStorage.getBool('checkForUpdate') ?? checkForUpdate;
+    locale = await SharedPrefsStorage.getString('locale') ?? locale;
     loaded = true;
 
     // Load app version
@@ -63,6 +65,12 @@ class AppModel extends ChangeNotifier {
 
   void setQuitting(bool value) {
     quitting = value;
+    notifyListeners();
+  }
+
+  void setLocale(String value) {
+    SharedPrefsStorage.setString('locale', value);
+    locale = value;
     notifyListeners();
   }
 
