@@ -3,6 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pikatorrent/dialogs/remove_torrent.dart';
 import 'package:pikatorrent/engine/torrent.dart';
+import 'package:pikatorrent/l10n/app_localizations.dart';
 import 'package:pikatorrent/models/torrents.dart';
 import 'package:pikatorrent/screens/torrents/filter_labels_button.dart';
 import 'package:pikatorrent/screens/torrents/sort_button.dart';
@@ -32,6 +33,8 @@ class _TorrentScreen extends State<TorrentsScreen>
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+
     return Consumer<TorrentsModel>(
       builder: (context, torrentsModel, child) {
         if (torrentsModel.hasLoaded && torrentsModel.torrents.isEmpty) {
@@ -43,12 +46,11 @@ class _TorrentScreen extends State<TorrentsScreen>
               children: [
                 downloadSvg,
                 const SizedBox(height: 16),
-                Text('No downloads yet',
+                Text(localizations.noDownloadsYet,
                     style: Theme.of(context).textTheme.titleLarge),
               ],
             ),
           );
-          // return downloadSvg;
         }
 
         return Column(

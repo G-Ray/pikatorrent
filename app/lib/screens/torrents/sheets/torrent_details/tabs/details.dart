@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pikatorrent/engine/torrent.dart';
+import 'package:pikatorrent/l10n/app_localizations.dart';
 import 'package:pretty_bytes/pretty_bytes.dart';
 import 'package:duration/duration.dart';
 
@@ -10,74 +11,79 @@ class DetailsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+
     double ratio = torrent.downloadedEver > 0
         ? torrent.uploadedEver / torrent.downloadedEver
         : 0;
 
     String status = switch (torrent.status) {
-      TorrentStatus.stopped => 'Stopped',
-      TorrentStatus.checking => 'Checking',
-      TorrentStatus.downloading => 'Downloading',
-      TorrentStatus.queuedToCheck => 'Queued to check',
-      TorrentStatus.queuedToDownload => 'Queued to download',
-      TorrentStatus.queuedToSeed => 'Queued to seed',
-      TorrentStatus.seeding => 'Seeding'
+      TorrentStatus.stopped => localizations.stopped,
+      TorrentStatus.checking => localizations.checking,
+      TorrentStatus.downloading => localizations.downloading,
+      TorrentStatus.queuedToCheck => localizations.queuedToCheck,
+      TorrentStatus.queuedToDownload => localizations.queuedToDownload,
+      TorrentStatus.queuedToSeed => localizations.queuedToSeed,
+      TorrentStatus.seeding => localizations.seeding
     };
 
     final eta = Duration(seconds: torrent.eta);
 
-    final String privacy =
-        torrent.isPrivate ? 'Private torrent' : 'Public torrent';
+    final String privacy = torrent.isPrivate
+        ? localizations.privateTorrent
+        : localizations.publicTorrent;
 
     return ListView(
       children: <Widget>[
         ListTile(
-            title: const Text('Error'),
+            title: Text(localizations.error),
+            // TODO: Translate errors
             subtitle: Text(
                 torrent.errorString.isEmpty ? '-' : torrent.errorString,
                 style: (torrent.errorString.isEmpty)
                     ? const TextStyle()
                     : const TextStyle(color: Colors.red))),
         ListTile(
-            title: const Text('Size'),
+            title: Text(localizations.size),
             subtitle: Text(prettyBytes(torrent.size.toDouble()))),
         ListTile(
-            title: const Text('Downloaded'),
+            title: Text(localizations.downloaded),
             subtitle: Text(prettyBytes(torrent.downloadedEver.toDouble()))),
         ListTile(
-            title: const Text('Uploaded'),
+            title: Text(localizations.uploaded),
             subtitle: Text(prettyBytes(torrent.uploadedEver.toDouble()))),
-        ListTile(title: const Text('Ratio'), subtitle: Text(ratio.toString())),
         ListTile(
-            title: const Text('Peers connected'),
+            title: Text(localizations.ratio), subtitle: Text(ratio.toString())),
+        ListTile(
+            title: Text(localizations.peersConnected),
             subtitle: Text(torrent.peersConnected.toString())),
-        ListTile(title: const Text('State'), subtitle: Text(status)),
+        ListTile(title: Text(localizations.state), subtitle: Text(status)),
         ListTile(
-            title: const Text('Remaining Time'),
+            title: Text(localizations.remainingTime),
             subtitle: Text(torrent.eta >= 0
                 ? eta.pretty(abbreviated: true, delimiter: ' ')
                 : '-')),
         ListTile(
-            title: const Text('Pieces'),
+            title: Text(localizations.pieces),
             subtitle: Text(torrent.pieceCount.toString())),
         ListTile(
-            title: const Text('Piece size'),
+            title: Text(localizations.pieceSize),
             subtitle:
                 Text(prettyBytes(torrent.pieceSize.toDouble()).toString())),
         ListTile(
-            title: const Text('Added date'),
+            title: Text(localizations.addedDate),
             subtitle: Text(
                 DateTime.fromMillisecondsSinceEpoch(torrent.addedDate * 1000)
                     .toString())),
-        ListTile(title: const Text('Privacy'), subtitle: Text(privacy)),
+        ListTile(title: Text(localizations.privacy), subtitle: Text(privacy)),
         ListTile(
-            title: const Text('Creator'),
+            title: Text(localizations.creator),
             subtitle: Text(torrent.creator == '' ? '-' : torrent.creator)),
         ListTile(
-            title: const Text('Comment'),
+            title: Text(localizations.comment),
             subtitle: Text(torrent.comment == '' ? '-' : torrent.comment)),
         ListTile(
-            title: const Text('Download directory'),
+            title: Text(localizations.downloadDirectory),
             subtitle: Text(torrent.location)),
       ],
     );

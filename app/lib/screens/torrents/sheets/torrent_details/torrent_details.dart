@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pikatorrent/engine/torrent.dart';
+import 'package:pikatorrent/l10n/app_localizations.dart';
 import 'package:pikatorrent/models/torrents.dart';
 import 'package:pikatorrent/screens/torrents/sheets/torrent_details/tabs/details.dart';
 import 'package:pikatorrent/screens/torrents/sheets/torrent_details/tabs/files.dart';
@@ -28,16 +29,18 @@ class TorrentDetailsModalSheetContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+
     return DefaultTabController(
       length: 3, // Number of tabs
       child: Expanded(
         child: Material(
           child: Column(children: [
-            const TabBar(
+            TabBar(
               tabs: [
-                Tab(text: 'Files'),
-                Tab(text: 'Tags'),
-                Tab(text: 'Details'),
+                Tab(text: localizations.files),
+                Tab(text: localizations.tags),
+                Tab(text: localizations.details),
               ],
             ),
             Expanded(

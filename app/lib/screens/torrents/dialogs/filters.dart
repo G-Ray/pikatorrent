@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pikatorrent/l10n/app_localizations.dart';
 import 'package:pikatorrent/models/torrents.dart';
 import 'package:provider/provider.dart';
 
@@ -35,11 +36,13 @@ class _FiltersDialogState extends State<FiltersDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+
     return Consumer<TorrentsModel>(builder: (context, torrentsModel, child) {
       return AlertDialog(
         title: const Text('Filters'),
         content: torrentsModel.labels.isEmpty
-            ? const Text('No tags added yet. Try adding tags to a torrent.')
+            ? Text(localizations.noTagsAddedYet)
             : Wrap(
                 spacing: 8.0, // gap between adjacent chips
                 runSpacing: 4.0,
@@ -53,13 +56,13 @@ class _FiltersDialogState extends State<FiltersDialog> {
                   ]),
         actions: <Widget>[
           TextButton(
-            child: const Text('Cancel'),
+            child: Text(localizations.cancel),
             onPressed: () {
               Navigator.of(context).pop();
             },
           ),
           TextButton(
-            child: const Text('Apply'),
+            child: Text(localizations.apply),
             onPressed: () => _handleApply(context),
           ),
         ],

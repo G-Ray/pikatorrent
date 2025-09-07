@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pikatorrent/l10n/app_localizations.dart';
 import 'package:pikatorrent/utils/device.dart';
 
 class TextSearch extends StatefulWidget {
@@ -49,6 +50,8 @@ class _ExpandableSearchFormFieldState extends State<ExpandableSearchFormField> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+
     var controller = widget.controller;
 
     return AnimatedContainer(
@@ -67,9 +70,9 @@ class _ExpandableSearchFormFieldState extends State<ExpandableSearchFormField> {
                 ? TextFormField(
                     controller: controller,
                     autofocus: true,
-                    decoration: const InputDecoration(
-                      labelText: 'Search...',
-                      prefixIcon: Icon(Icons.search),
+                    decoration: InputDecoration(
+                      labelText: '${localizations.search}...',
+                      prefixIcon: const Icon(Icons.search),
                       border: InputBorder.none,
                     ),
                   )

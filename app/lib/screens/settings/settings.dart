@@ -113,15 +113,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   // Dialogs
   void showThemeDialog(context) {
+    final localizations = AppLocalizations.of(context)!;
+
     showDialog<void>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Theme'),
+          title: Text(localizations.theme),
           content: const ThemeSelector(),
           actions: <Widget>[
             TextButton(
-              child: const Text('Cancel'),
+              child: Text(localizations.cancel),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -133,6 +135,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void showLocaleDialog(context) {
+    final localizations = AppLocalizations.of(context)!;
+
     showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -141,7 +145,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           content: const LocaleSelector(),
           actions: <Widget>[
             TextButton(
-              child: const Text('Cancel'),
+              child: Text(localizations.cancel),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -179,12 +183,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void showSpeedLimitDownDialog() {
+    final localizations = AppLocalizations.of(context)!;
     final session = Provider.of<SessionModel>(context, listen: false).session;
     showDialog<void>(
       context: context,
       builder: (BuildContext context) {
         return NumberInputDialog(
-          title: 'Download Speed (KBps)',
+          title:
+              '${localizations.downloadSpeed} ${localizations.kilobytesPerSecond}',
           currentValue: session?.speedLimitDown ?? 0,
           onSave: (value) => handleSpeedLimitDownSave(context, value),
         );
@@ -193,12 +199,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void showSpeedLimitUpDialog() {
+    final localizations = AppLocalizations.of(context)!;
     final session = Provider.of<SessionModel>(context, listen: false).session;
     showDialog<void>(
       context: context,
       builder: (BuildContext context) {
         return NumberInputDialog(
-          title: 'Upload Speed (KBps)',
+          title:
+              '${localizations.uploadSpeed} ${localizations.kilobytesPerSecond}',
           currentValue: session?.speedLimitUp ?? 0,
           onSave: (value) => handleSpeedLimitUpSave(context, value),
         );
@@ -224,6 +232,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+
     return Consumer2<AppModel, SessionModel>(
         builder: (context, app, sessionModel, child) {
       final downloadDir = sessionModel.session?.downloadDir ?? '';
@@ -236,51 +246,50 @@ class _SettingsScreenState extends State<SettingsScreen> {
       return ListView(children: [
         Padding(
           padding: const EdgeInsets.only(left: 16.0),
-          child: Text('App settings',
+          child: Text(localizations.appSettings,
               style: Theme.of(context).textTheme.titleLarge),
         ),
         ListTile(
             onTap: () => showThemeDialog(context),
             leading: const Icon(Icons.dark_mode),
-            title: const Text('Theme'),
+            title: Text(localizations.theme),
             subtitle: Text(app.theme.name.capitalize())),
         ListTile(
             onTap: () => showLocaleDialog(context),
             leading: const Icon(Icons.language),
-            title: Text(AppLocalizations.of(context)!.language),
+            title: Text(localizations.language),
             subtitle: Text(localeNames[app.locale] ?? app.locale)),
         // Hide update check option if app is distributed through an app store
         if (canCheckForUpdate)
           ListTile(
             leading: const Icon(Icons.update),
-            title: const Text('Check for update'),
+            title: Text(localizations.checkForUpdates),
             trailing: Switch(
                 value: app.checkForUpdate,
                 onChanged: _handlecheckForUpdateToggle),
-            subtitle: const Text('Be notified when a new version is available'),
+            subtitle: Text(localizations.checkForUpdatesDescription),
           ),
         Padding(
           padding: const EdgeInsets.only(left: 16.0, top: 16),
-          child: Text('Torrents settings',
+          child: Text(localizations.torrentsSettings,
               style: Theme.of(context).textTheme.titleLarge),
         ),
         ListTile(
             onTap: isMobile() ? null : () => handlePickFolder(context),
             leading: const Icon(Icons.folder_open),
-            title: const Text('Download directory'),
+            title: Text(localizations.downloadDirectory),
             subtitle: Text(downloadDir)),
         ListTile(
             onTap: showMaximumActiveDownloadDialog,
             leading: const Icon(Icons.downloading),
-            title: const Text('Maximum active downloads'),
+            title: Text(localizations.maxActiveDownloads),
             subtitle: Text(downloadQueueSize.toString())),
         ListTile(
           leading: const Icon(Icons.speed),
-          title: const Text(
-            'Enable speed limits',
+          title: Text(
+            localizations.enableSpeedLimits,
           ),
-          subtitle: Text(
-              "Streaming might not work correctly if you enable speed limits",
+          subtitle: Text(localizations.speedLimitsDescription,
               style: isSpeedLimitEnabled
                   ? const TextStyle(color: Colors.yellow)
                   : null),
@@ -294,16 +303,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
             enabled: isSpeedLimitEnabled,
             onTap: showSpeedLimitDownDialog,
             leading: const Icon(Icons.arrow_circle_down),
-            title: const Text('Download speed limit'),
+            title: Text(localizations.downloadSpeedLimit),
             subtitle: Text(
-                '${sessionModel.session?.speedLimitDown.toString()} KBps')),
+                '${sessionModel.session?.speedLimitDown.toString()} ${localizations.kilobytesPerSecond}')),
         ListTile(
             enabled: isSpeedLimitEnabled,
             onTap: showSpeedLimitUpDialog,
             leading: const Icon(Icons.arrow_circle_up),
-            title: const Text('Upload speed limit'),
-            subtitle:
-                Text('${sessionModel.session?.speedLimitUp.toString()} KBps')),
+            title: Text(localizations.uploadSpeedLimit),
+            subtitle: Text(
+                '${sessionModel.session?.speedLimitUp.toString()} ${localizations.kilobytesPerSecond}')),
         ListTile(
             leading: const Icon(Icons.settings),
             trailing: Switch(
@@ -313,41 +322,42 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         showAdvancedSettings = !showAdvancedSettings;
                       })
                     }),
-            title: const Text('Show advanced settings')),
+            title: Text(localizations.showAdvancedSettings)),
         if (showAdvancedSettings) ...[
           ListTile(
               onTap: showPeerPortDialog,
               leading: const Icon(Icons.arrow_right_alt),
-              title: const Text('Listening port'),
+              title: Text(localizations.listeningPort),
               subtitle: Text(peerPort.toString())),
         ],
         ListTile(
             onTap: showResetTorrentsSettingsDialog,
             leading: const Icon(Icons.settings_backup_restore),
-            title: const Text('Reset torrents settings')),
+            title: Text(localizations.resetTorrentsSettings)),
         Padding(
           padding: const EdgeInsets.only(left: 16.0, top: 16),
-          child: Text('About', style: Theme.of(context).textTheme.titleLarge),
+          child: Text(localizations.about,
+              style: Theme.of(context).textTheme.titleLarge),
         ),
         ListTile(
             leading: const Icon(Icons.bolt),
             // onTap: () => showThemeDialog(context),
-            title: const Text('Version'),
+            title: Text(localizations.version),
             subtitle: Text(app.version)),
         ListTile(
           leading: const Icon(Icons.favorite),
-          title: const Text('Donate'),
-          subtitle: const Text('Support us to improve PikaTorrent'),
+          title: Text(localizations.donate),
+          subtitle: Text(localizations.donateDescription),
           onTap: () =>
               launchUrl(Uri.parse('https://github.com/sponsors/G-Ray')),
         ),
         ListTile(
             leading: const Icon(Icons.discord),
-            title: const Text('Join our Discord'),
+            title: Text(localizations.joinDiscord),
             onTap: () => launchUrl(Uri.parse('https://discord.gg/6HxCV4aGdy'))),
         ListTile(
           leading: const Icon(Icons.bug_report),
-          title: const Text('Report a bug or feature request'),
+          title: Text(localizations.reportBug),
           onTap: () => launchUrl(Uri.parse(
               'https://github.com/G-Ray/pikatorrent/issues/new/choose')),
         ),

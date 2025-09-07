@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pikatorrent/l10n/app_localizations.dart';
 
 class MaximumActiveDownloadEditorDialog extends StatefulWidget {
   final void Function(int) onSave;
@@ -36,8 +37,10 @@ class _MaximumActiveDownloadEditorState
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+
     return AlertDialog(
-      title: const Text('Maximum active downloads'),
+      title: Text(localizations.maximumActiveDownloads),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -45,15 +48,15 @@ class _MaximumActiveDownloadEditorState
             controller: _maximumActiveDownloadsController,
             keyboardType: TextInputType.number,
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-            decoration: const InputDecoration(
-              labelText: 'Enter a number',
+            decoration: InputDecoration(
+              labelText: localizations.enterNumber,
             ),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please enter a number';
+                return localizations.emptyNumber;
               }
               if (int.tryParse(value) == null) {
-                return 'Please enter a valid number';
+                return localizations.invalidNumber;
               }
               return null; // Return null if the input is valid
             },
@@ -62,13 +65,13 @@ class _MaximumActiveDownloadEditorState
       ),
       actions: <Widget>[
         TextButton(
-          child: const Text('Cancel'),
+          child: Text(localizations.cancel),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         TextButton(
-          child: const Text('Save'),
+          child: Text(localizations.save),
           onPressed: () {
             Navigator.of(context).pop();
             handleSave();

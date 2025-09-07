@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pikatorrent/engine/torrent.dart';
+import 'package:pikatorrent/l10n/app_localizations.dart';
 
 const defaultTextStyle = TextStyle(
   fontWeight: FontWeight.bold,
@@ -16,9 +17,11 @@ class TorrentStatusText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+
     if (torrent.errorString.isNotEmpty) {
-      return const Text('Error',
-          style: TextStyle(
+      return Text(localizations.error,
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 12,
             color: Colors.red,
@@ -27,14 +30,16 @@ class TorrentStatusText extends StatelessWidget {
     }
 
     return switch (torrent.status) {
-      TorrentStatus.stopped => const Text('Paused', style: defaultTextStyle),
+      TorrentStatus.stopped =>
+        Text(localizations.paused, style: defaultTextStyle),
       TorrentStatus.queuedToCheck =>
-        const Text('Queued to check', style: defaultTextStyle),
-      TorrentStatus.checking => const Text('Checking', style: defaultTextStyle),
+        Text(localizations.queuedToCheck, style: defaultTextStyle),
+      TorrentStatus.checking =>
+        Text(localizations.checking, style: defaultTextStyle),
       TorrentStatus.queuedToDownload =>
-        const Text('Queued to download', style: defaultTextStyle),
+        Text(localizations.queuedToDownload, style: defaultTextStyle),
       TorrentStatus.queuedToSeed =>
-        const Text('Queued to seed', style: defaultTextStyle),
+        Text(localizations.queuedToSeed, style: defaultTextStyle),
       TorrentStatus.downloading => Text('${percent.floor().toString()}%',
           style: const TextStyle(
             fontWeight: FontWeight.bold,
@@ -42,8 +47,8 @@ class TorrentStatusText extends StatelessWidget {
             color: Colors.lightGreen,
             overflow: TextOverflow.ellipsis,
           )),
-      TorrentStatus.seeding => const Text('Seeding',
-          style: TextStyle(
+      TorrentStatus.seeding => Text(localizations.seeding,
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 12,
             color: Colors.blue,

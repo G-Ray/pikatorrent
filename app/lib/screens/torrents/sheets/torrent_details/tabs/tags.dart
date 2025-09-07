@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pikatorrent/engine/torrent.dart';
+import 'package:pikatorrent/l10n/app_localizations.dart';
 import 'package:pikatorrent/models/torrents.dart';
 import 'package:pikatorrent/screens/torrents/sheets/torrent_details/tabs/dialogs/add_label.dart';
 import 'package:provider/provider.dart';
@@ -38,6 +39,8 @@ class TagsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+
     return Consumer<TorrentsModel>(
         builder: (context, torrentsModel, child) => ListView(
               padding: const EdgeInsets.all(12),
@@ -54,7 +57,7 @@ class TagsTab extends StatelessWidget {
                         )),
                     ActionChip(
                       avatar: const Icon(Icons.add),
-                      label: const Text('Tag'),
+                      label: Text(localizations.add),
                       onPressed: () {
                         showDialog(
                             context: context,

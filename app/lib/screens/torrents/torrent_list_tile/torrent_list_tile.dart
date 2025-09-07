@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pikatorrent/dialogs/remove_torrent.dart';
 import 'package:pikatorrent/engine/torrent.dart';
+import 'package:pikatorrent/l10n/app_localizations.dart';
 import 'package:pikatorrent/models/torrents.dart';
 import 'package:pikatorrent/screens/torrents/sheets/torrent_details/torrent_details.dart';
 import 'package:pikatorrent/screens/torrents/torrent_list_tile/torrent_status.dart';
@@ -20,6 +21,8 @@ class TorrentListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+
     return Consumer<TorrentsModel>(builder: (context, torrentsModel, child) {
       return ListTile(
         contentPadding: !isMobileSize(context)
@@ -47,8 +50,8 @@ class TorrentListTile extends StatelessWidget {
                       ? const Icon(Icons.download_done)
                       : const Icon(Icons.download),
               tooltip: torrent.status == TorrentStatus.stopped
-                  ? 'Download'
-                  : 'Pause',
+                  ? localizations.download
+                  : localizations.pause,
             ),
             linearGradient: const LinearGradient(
               colors: gradientColors,
@@ -70,20 +73,20 @@ class TorrentListTile extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   IconButton(
-                      tooltip: 'Share',
+                      tooltip: localizations.share,
                       onPressed: () => shareLink(context, torrent.magnetLink),
                       icon: const Icon(
                         Icons.share,
                       )),
                   if (isDesktop())
                     IconButton(
-                        tooltip: 'Open folder',
+                        tooltip: localizations.openFolder,
                         onPressed: () => torrent.openFolder(context),
                         icon: const Icon(
                           Icons.folder_outlined,
                         )),
                   IconButton(
-                      tooltip: 'Remove',
+                      tooltip: localizations.remove,
                       onPressed: () => showDialog(
                           context: context,
                           builder: (BuildContext context) {

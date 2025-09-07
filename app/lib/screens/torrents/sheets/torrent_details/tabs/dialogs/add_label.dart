@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:pikatorrent/engine/torrent.dart';
+import 'package:pikatorrent/l10n/app_localizations.dart';
 
+// TODO: Label -> Tag
 class AddLabelDialog extends StatefulWidget {
-  const AddLabelDialog({super.key,
-    required this.context,
-    required this.torrent,
-    required this.onAddLabel});
+  const AddLabelDialog(
+      {super.key,
+      required this.context,
+      required this.torrent,
+      required this.onAddLabel});
 
   final BuildContext context;
   final Torrent torrent;
@@ -41,8 +44,10 @@ class _AddLabelDialogState extends State<AddLabelDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+
     return AlertDialog(
-      title: const Text('New label'),
+      title: Text(localizations.newTag),
       content: Form(
         key: _formKey,
         child: Column(
@@ -50,15 +55,15 @@ class _AddLabelDialogState extends State<AddLabelDialog> {
           children: [
             TextFormField(
                 controller: _labelController,
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.label_outline),
-                  hintText: 'Movie, Music...',
-                  label: Text('Label'),
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.label_outline),
+                  hintText: '${localizations.movie}, ${localizations.music}...',
+                  label: Text(localizations.tag),
                 ),
                 onFieldSubmitted: (value) => _handleSubmit(),
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter a valid text';
+                    return localizations.invalidText;
                   }
                   return null;
                 })
@@ -67,14 +72,14 @@ class _AddLabelDialogState extends State<AddLabelDialog> {
       ),
       actions: <Widget>[
         TextButton(
-          child: const Text('Cancel'),
+          child: Text(localizations.cancel),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         TextButton(
           onPressed: _handleSubmit,
-          child: const Text('Add'),
+          child: Text(localizations.add),
         ),
       ],
     );

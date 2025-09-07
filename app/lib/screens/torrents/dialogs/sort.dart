@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pikatorrent/l10n/app_localizations.dart';
 import 'package:pikatorrent/models/torrents.dart';
 import 'package:provider/provider.dart';
 
@@ -42,33 +43,35 @@ class _SortDialogState extends State<SortDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+
     return Consumer<TorrentsModel>(builder: (context, torrentsModel, child) {
       var groupValue = selectedSort;
 
       return AlertDialog(
-        title: const Text('Sort'),
+        title: Text(localizations.sort),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             RadioListTile<Sort>(
-                title: const Text('Date added'),
+                title: Text(localizations.dateAdded),
                 value: Sort.addedDate,
                 groupValue: groupValue,
                 onChanged: _handleChange),
             RadioListTile<Sort>(
-                title: const Text('Progress'),
+                title: Text(localizations.progress),
                 value: Sort.progress,
                 groupValue: groupValue,
                 onChanged: _handleChange),
             RadioListTile<Sort>(
-                title: const Text('Size'),
+                title: Text(localizations.size),
                 value: Sort.size,
                 groupValue: groupValue,
                 onChanged: _handleChange),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                const Text('Reverse order'),
+                Text(localizations.reverseOrder),
                 const SizedBox(width: 8),
                 Switch(value: reverseSort, onChanged: _handleReverseSortChange),
               ],
@@ -77,13 +80,13 @@ class _SortDialogState extends State<SortDialog> {
         ),
         actions: <Widget>[
           TextButton(
-            child: const Text('Cancel'),
+            child: Text(localizations.cancel),
             onPressed: () {
               Navigator.of(context).pop();
             },
           ),
           TextButton(
-            child: const Text('Apply'),
+            child: Text(localizations.apply),
             onPressed: () => _handleApply(context),
           ),
         ],

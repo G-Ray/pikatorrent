@@ -46,3 +46,6 @@ app.*.map.json
 
 # Dist
 /dist/
+
+# l10n generated files
+/lib/l10n/app_localizations*.dart

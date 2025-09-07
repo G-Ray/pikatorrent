@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:pikatorrent/engine/file.dart';
 import 'package:pikatorrent/engine/torrent.dart';
+import 'package:pikatorrent/l10n/app_localizations.dart';
 import 'package:pikatorrent/models/torrents.dart';
 import 'package:pikatorrent/widgets/torrent_player/torrent_player.dart';
 import 'package:pretty_bytes/pretty_bytes.dart';
@@ -50,6 +51,8 @@ class FilesTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+
     var files = torrent.files;
     bool areAllFilesWanted = files.every((f) => f.wanted);
     bool areAllFilesSkipped = files.none((f) => f.wanted);
@@ -106,7 +109,7 @@ class FilesTab extends StatelessWidget {
                             _handlePlayClick(context, file);
                           },
                           icon: const Icon(Icons.play_circle_outlined),
-                          tooltip: 'Play',
+                          tooltip: localizations.play,
                         ),
                       Checkbox(
                           value: file.wanted,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pikatorrent/l10n/app_localizations.dart';
 
 class ResetTorrentsSettingsDialog extends StatelessWidget {
   final Function onOK;
@@ -11,20 +12,22 @@ class ResetTorrentsSettingsDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+
     return AlertDialog(
-      content: const Column(
+      content: Column(
         mainAxisSize: MainAxisSize.min,
-        children: <Widget>[Text('All torrents settings will be reset.')],
+        children: <Widget>[Text(localizations.resetTorrentsSettingsWarning)],
       ),
       actions: <Widget>[
         TextButton(
-          child: const Text('Cancel'),
+          child: Text(localizations.cancel),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         TextButton(
-          child: const Text('Reset'),
+          child: Text(localizations.reset),
           onPressed: () {
             Navigator.of(context).pop();
             handleOK();
