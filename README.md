@@ -2,7 +2,7 @@
 
 <img src="./assets/logo.svg" alt="PikaTorrent logo" width="64"/>
 
-Just pick a Torrent. Stream and download torrents on all your devices.
+Just pick a Torrent. Stream and download on all your devices.
 
 <a href="https://discord.gg/6HxCV4aGdy">
   <img src="https://img.shields.io/badge/Join_us_on_discord-gray?logo=discord" />
@@ -53,7 +53,10 @@ After that, It's probably safe to remove these folders :
 
 ## Localization
 
-PikaTorrent will soon be available in multiple languages. You will be able to contribute through weblate.
+![Weblate project translated](https://img.shields.io/weblate/progress/pikatorrent)
+
+Would you like to contribute to translations into other language(s) ?
+Please visite [Weblate](https://hosted.weblate.org/projects/pikatorrent).
 
 ## License
 
