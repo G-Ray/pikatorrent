@@ -19,7 +19,7 @@ To receive updates automatically and ensure the app handles links shares correct
 
 | Windows | Linux | MacOS | Android | iOS |
 | ------- | ----- | ----- | ------- | --- |
-| [Microsoft Store](https://apps.microsoft.com/detail/9n9gjq9bdjw3?mode=direct) | [Flathub](https://flathub.org/apps/com.pikatorrent.PikaTorrent) | - | [Play Store](https://play.google.com/store/apps/details?id=com.pikatorrent.PikaTorrent) | - |
+| [Microsoft Store](https://apps.microsoft.com/detail/9n9gjq9bdjw3?mode=direct) | [Flathub](https://flathub.org/apps/com.pikatorrent.PikaTorrent) | [.dmg](https://github.com/G-Ray/pikatorrent/releases) | [Play Store](https://play.google.com/store/apps/details?id=com.pikatorrent.PikaTorrent) | - |
 | [.zip](https://github.com/G-Ray/pikatorrent/releases) | [.zip*](https://github.com/G-Ray/pikatorrent/releases) | [.zip](https://github.com/G-Ray/pikatorrent/releases) | [.apk](https://github.com/G-Ray/pikatorrent/releases) | [.ipa (experimental)](https://github.com/G-Ray/pikatorrent/releases) |
 
 **\*** .zip for linux needs `mpv` to be installed on you OS. Other dependencies might be required.
