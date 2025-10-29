@@ -21,7 +21,6 @@ git clone --recurse-submodules git@github.com:G-Ray/pikatorrent.git
 cd pikatorrent/app
 export VCPKG_ROOT="$(pwd)/vcpkg"
 export VCPKG_MANIFEST_DIR=$(pwd)
-export MACOSX_DEPLOYMENT_TARGET=10.14 # Should be same as defined in /app/macos/Runner.xcodeproj
 ./vcpkg/bootstrap-vcpkg.sh
 flutter run -d macos # start the app in development mode
 ```
@@ -61,7 +60,6 @@ git clone --recurse-submodules git@github.com:G-Ray/pikatorrent.git
 cd pikatorrent/app
 export VCPKG_ROOT="$(pwd)/vcpkg"
 export VCPKG_MANIFEST_DIR=$(pwd)
-export IPHONEOS_DEPLOYMENT_TARGET=12 # Should be same as defined in /app/ios/Runner.xcodeproj
 ./vcpkg/bootstrap-vcpkg.sh
 flutter devices # List available devices
 flutter run -d {device_id} # start the app in development mode
