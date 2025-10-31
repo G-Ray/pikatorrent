@@ -31,7 +31,7 @@ List<File> getExternalSubtitles(File file, Torrent torrent) {
 downloadSubtitles(File file, Torrent torrent) async {
   final List<File> subtitles = getExternalSubtitles(file, torrent);
   for (var sub in subtitles) {
-    await torrent.setSequentialDownloadFromPiece(sub.piecesRange.first);
+    await torrent.setSequentialDownloadFromPiece(sub.beginPiece);
     await _waitForFileComplete(torrent: torrent, fileName: sub.name);
   }
 }
@@ -46,7 +46,7 @@ Future<void> _waitForFileComplete(
     // Refresh torrent data
     final Torrent t = await engine.fetchTorrent(torrent.id);
     List<int> neededPieces = [];
-    for (int i = file.piecesRange.first; i < file.piecesRange.last; i++) {
+    for (int i = file.beginPiece; i < file.beginPiece; i++) {
       neededPieces.add(i);
     }
 
