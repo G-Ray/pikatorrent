@@ -28,7 +28,7 @@ enum TorrentField {
   labels,
   peersConnected,
   magnetLink,
-  sequentialDownload, 
+  sequentialDownload,
   doneDate
 }
 
@@ -36,24 +36,27 @@ class TransmissionTorrentFile {
   final String name;
   final int length;
   final int bytesCompleted;
+  final int beginPiece;
+  final int endPiece;
 
-  TransmissionTorrentFile(this.name, this.length, this.bytesCompleted);
+  TransmissionTorrentFile(this.name, this.length, this.bytesCompleted,
+      this.beginPiece, this.endPiece);
 
   TransmissionTorrentFile.fromJson(Map<String, dynamic> json)
       : name = json['name'],
         length = json['length'],
-        bytesCompleted = json['bytesCompleted'];
+        bytesCompleted = json['bytesCompleted'],
+        beginPiece = json['begin_piece'],
+        endPiece = json['end_piece'];
 }
 
 class TransmissionTorrentFileStats {
   final bool wanted;
-  final List<int> piecesRange;
 
-  TransmissionTorrentFileStats(this.wanted, this.piecesRange);
+  TransmissionTorrentFileStats(this.wanted);
 
   TransmissionTorrentFileStats.fromJson(Map<String, dynamic> json)
-      : wanted = json['wanted'],
-        piecesRange = List<int>.from(json['piecesRange']);
+      : wanted = json['wanted'];
 }
 
 class TransmissionTorrentModel {
@@ -109,7 +112,8 @@ class TransmissionTorrentModel {
       this.peersConnected,
       this.fileStats,
       this.magnetLink,
-      this.sequentialDownload, this.doneDate);
+      this.sequentialDownload,
+      this.doneDate);
 
   TransmissionTorrentModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
@@ -145,6 +149,6 @@ class TransmissionTorrentModel {
         labels = List<String>.from(json['labels']),
         peersConnected = json['peersConnected'],
         magnetLink = json['magnetLink'],
-        sequentialDownload = json['sequentialDownload'] as bool,
+        sequentialDownload = json['sequential_download'] as bool,
         doneDate = DateTime.fromMillisecondsSinceEpoch(json['doneDate'] * 1000);
 }

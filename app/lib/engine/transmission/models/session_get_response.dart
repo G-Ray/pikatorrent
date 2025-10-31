@@ -26,6 +26,6 @@ class SessionGetResponseArguments {
         peerPort = json['peer-port'],
         speedLimitDownEnabled = json['speed-limit-down-enabled'],
         speedLimitUpEnabled = json['speed-limit-up-enabled'],
-        speedLimitDown = json['speed-limit-down'],
-        speedLimitUp = json['speed-limit-up'];
+        speedLimitDown = json['speed-limit_down'],
+        speedLimitUp = json['speed-limit_up'];
 }

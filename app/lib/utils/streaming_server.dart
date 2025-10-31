@@ -92,7 +92,7 @@ class StreamingServer {
     // Wait for at least first piece
     debugPrint('streaming_server: _handleGetRequest');
     await _waitForPieces(
-        from: torrentFile.piecesRange.first,
+        from: torrentFile.beginPiece,
         count: 1,
         cancelableCompleter: cancelableCompleter);
     final file = File(filePath);
@@ -173,8 +173,8 @@ class StreamingServer {
   List<int> _computeNeededPieces(int? from, int? count) {
     final List<int> neededPieces = [];
     final neededPiecesCount = count ?? (bufferSize / torrent.pieceSize).ceil();
-    final firstPiece = from ?? torrentFile.piecesRange.first;
-    final lastPiece = torrentFile.piecesRange.last;
+    final firstPiece = from ?? torrentFile.beginPiece;
+    final lastPiece = torrentFile.endPiece;
     for (int i = 0; i < neededPiecesCount && firstPiece + i < lastPiece; i++) {
       neededPieces.add(firstPiece + i);
     }

@@ -18,7 +18,12 @@ class TorrentGetRequestArguments {
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{
-      'fields': fields.map((field) => field.name).toList()
+      'fields': fields.map((field) {
+        return switch (field) {
+          TorrentField.sequentialDownload => "sequential_download",
+          _ => field.name
+        };
+      }).toList()
     };
 
     if (ids != null) {

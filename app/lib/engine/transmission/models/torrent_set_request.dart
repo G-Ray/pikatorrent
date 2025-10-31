@@ -42,11 +42,11 @@ class TorrentSetRequestArguments {
     }
 
     if (sequentialDownload != null) {
-      json['sequentialDownload'] = sequentialDownload;
+      json['sequential_download'] = sequentialDownload;
     }
 
     if (sequentialDownloadFromPiece != null) {
-      json['sequentialDownloadFromPiece'] = sequentialDownloadFromPiece;
+      json['sequential_download_from_piece'] = sequentialDownloadFromPiece;
     }
 
     return json;
