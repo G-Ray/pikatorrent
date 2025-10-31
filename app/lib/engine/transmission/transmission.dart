@@ -84,7 +84,8 @@ TransmissionTorrent createTransmissionTorrentFromJson(
               length: entry.value.length,
               bytesCompleted: entry.value.bytesCompleted,
               wanted: torrent.fileStats[entry.key].wanted,
-              piecesRange: torrent.fileStats[entry.key].piecesRange))
+              beginPiece: entry.value.beginPiece,
+              endPiece: entry.value.endPiece))
           .toList(),
       downloadedEver: torrent.downloadedEver,
       uploadedEver: torrent.uploadedEver,
