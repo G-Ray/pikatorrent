@@ -114,8 +114,11 @@ class TorrentsModel extends ChangeNotifier {
     torrents = await engine.fetchTorrents();
 
     // Display notification for torrents completed during last refresh
+    // Only display notification if the torrent is not sequential download,
+    // as the app will prioritize some files to download like subtitles
     for (final torrent in torrents) {
-      if (now.difference(torrent.doneDate).inSeconds < refreshIntervalSeconds) {
+      if (now.difference(torrent.doneDate).inSeconds < refreshIntervalSeconds &&
+          torrent.sequentialDownload == false) {
         showNotification(
             title: 'Download completed',
             body: torrent.name,
