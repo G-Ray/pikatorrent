@@ -123,15 +123,22 @@ class PikaTorrentApp extends StatelessWidget {
   // App root
   @override
   Widget build(BuildContext context) {
-    return Consumer<AppModel>(
-        builder: (context, app, child) => MaterialApp.router(
-            title: 'PikaTorrent',
-            theme: _lightTheme,
-            darkTheme: _darkTheme,
-            themeMode: app.theme,
-            routerConfig: router,
-            localizationsDelegates: AppLocalizations.localizationsDelegates,
-            supportedLocales: AppLocalizations.supportedLocales,
-            locale: Locale(app.locale)));
+    return Consumer<AppModel>(builder: (context, app, child) {
+      final (languageCode, countryCode) = switch (app.locale.split('_')) {
+        [final lang, final country] => (lang, country),
+        [final lang] => (lang, ''),
+        _ => ('', ''),
+      };
+
+      return MaterialApp.router(
+          title: 'PikaTorrent',
+          theme: _lightTheme,
+          darkTheme: _darkTheme,
+          themeMode: app.theme,
+          routerConfig: router,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          locale: Locale(languageCode, countryCode));
+    });
   }
 }
