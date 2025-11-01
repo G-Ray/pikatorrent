@@ -16,6 +16,7 @@ startConnectivityCheck(BuildContext context) {
 
     if (result.contains(ConnectivityResult.none)) {
       snackBar = ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        showCloseIcon: true,
         content: Text('Network unavailable.'),
         backgroundColor: Colors.orange,
         duration: Duration(days: 365), // Ideally, unlimited duration
