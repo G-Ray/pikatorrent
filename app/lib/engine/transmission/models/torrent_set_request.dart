@@ -15,6 +15,9 @@ class TorrentSetRequestArguments {
   final List<int>? filesUnwanted;
   final bool? sequentialDownload;
   final int? sequentialDownloadFromPiece;
+  final List<int>? priorityHigh;
+  final List<int>? priorityLow;
+  final List<int>? priorityNormal;
 
   TorrentSetRequestArguments(
       {required this.ids,
@@ -22,7 +25,10 @@ class TorrentSetRequestArguments {
       this.filesWanted,
       this.filesUnwanted,
       this.sequentialDownload,
-      this.sequentialDownloadFromPiece});
+      this.sequentialDownloadFromPiece,
+      this.priorityHigh,
+      this.priorityLow,
+      this.priorityNormal});
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -47,6 +53,18 @@ class TorrentSetRequestArguments {
 
     if (sequentialDownloadFromPiece != null) {
       json['sequential_download_from_piece'] = sequentialDownloadFromPiece;
+    }
+
+    if (priorityHigh != null) {
+      json['priority-high'] = priorityHigh;
+    }
+
+    if (priorityLow != null) {
+      json['priority-low'] = priorityLow;
+    }
+
+    if (priorityNormal != null) {
+      json['priority-normal'] = priorityNormal;
     }
 
     return json;

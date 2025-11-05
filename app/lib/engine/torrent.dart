@@ -100,6 +100,11 @@ abstract class Torrent extends TorrentBase {
 
   Future setSequentialDownloadFromPiece(int sequentialDownloadFromPiece);
 
+  Future setFilesPriority(
+      {List<int>? priorityHigh,
+      List<int>? priorityLow,
+      List<int>? priorityNormal});
+
   startStreaming(File file) async {
     debugPrint('starting streaming ${file.name}');
     // File already completed
@@ -108,37 +113,39 @@ abstract class Torrent extends TorrentBase {
       return;
     }
 
-    await engine.saveTorrentsResumeStatus();
-
     // Be sure torrent is active
     start();
 
-    final otherTorrents =
-        (await engine.fetchTorrents()).where((t) => t.id != id);
-
-    // Pause all other torrents
-    for (final otherTorrent in otherTorrents) {
-      otherTorrent.stop();
-    }
-
-    await toggleAllFilesWanted(false);
     final fileIndex = files.indexWhere((f) => f.name == file.name);
-    // Want subtitles
+
+    // File indices for streaming file and detected associated subtitles
+    final List<int> highPriorityFileIndices = [fileIndex];
+
+    // Want subtitles and set them to high priority
     final externalSubtitles = getExternalSubtitles(file, this);
-    for (final file in files) {
+    for (final (index, file) in files.indexed) {
       if (externalSubtitles.firstWhereOrNull((f) => f.name == file.name) !=
           null) {
-        await toggleFileWanted(fileIndex, true);
+        await toggleFileWanted(index, true);
+        highPriorityFileIndices.add(index);
       }
     }
+
     await toggleFileWanted(fileIndex, true);
+
+    // Set high priority for streaming file and subtitles
+    await setFilesPriority(priorityHigh: highPriorityFileIndices);
+
     await setSequentialDownload(true);
   }
 
   stopStreaming() async {
     debugPrint('stopping streaming');
-    setSequentialDownload(false);
-    await engine.restoreTorrentsResumeStatus();
+    await setSequentialDownload(false);
+
+    // Reset all files to normal priority
+    final allFileIndices = List.generate(files.length, (index) => index);
+    await setFilesPriority(priorityNormal: allFileIndices);
   }
 
   hasLoadedPieces(List<int> piecesToTest) {

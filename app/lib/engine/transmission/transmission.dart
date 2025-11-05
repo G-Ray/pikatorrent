@@ -235,6 +235,21 @@ class TransmissionTorrent extends Torrent {
 
     await flutter_libtransmission.requestAsync(jsonEncode(request));
   }
+
+  @override
+  Future setFilesPriority(
+      {List<int>? priorityHigh,
+      List<int>? priorityLow,
+      List<int>? priorityNormal}) async {
+    var request = TorrentSetRequest(
+        arguments: TorrentSetRequestArguments(
+            ids: [id],
+            priorityHigh: priorityHigh,
+            priorityLow: priorityLow,
+            priorityNormal: priorityNormal));
+
+    await flutter_libtransmission.requestAsync(jsonEncode(request));
+  }
 }
 
 class TransmissionSession extends Session {

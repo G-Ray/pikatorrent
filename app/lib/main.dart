@@ -11,6 +11,7 @@ import 'package:pikatorrent/navigation/router.dart';
 import 'package:pikatorrent/platforms/android/foreground_service.dart';
 import 'package:pikatorrent/platforms/windows/register_app.dart';
 import 'package:pikatorrent/utils/device.dart';
+import 'package:pikatorrent/utils/migrations.dart';
 import 'package:pikatorrent/utils/notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
@@ -81,9 +82,9 @@ void main() async {
   }
 
   await engine.init();
-  // Restore torrents state before last streaming started, in case the app
-  // has been killed.
-  await engine.restoreTorrentsResumeStatus();
+
+  // Run migrations for app updates
+  await runMigrations();
 
   if (Platform.isAndroid) {
     try {
