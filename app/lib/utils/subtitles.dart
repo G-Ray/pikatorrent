@@ -46,7 +46,7 @@ Future<void> _waitForFileComplete(
     // Refresh torrent data
     final Torrent t = await engine.fetchTorrent(torrent.id);
     List<int> neededPieces = [];
-    for (int i = file.beginPiece; i < file.beginPiece; i++) {
+    for (int i = file.beginPiece; i < file.endPiece; i++) {
       neededPieces.add(i);
     }
 
