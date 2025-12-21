@@ -284,7 +284,7 @@ class TransmissionEngine extends Engine {
   @override
   init() async {
     final configDir = await getConfigDir();
-    flutter_libtransmission.initSession(configDir.path, 'transmission');
+    flutter_libtransmission.initSession(configDir.path);
     if (Platform.isAndroid) {
       await android.initDefaultDownloadDir(this);
     }
@@ -293,7 +293,7 @@ class TransmissionEngine extends Engine {
       await ios.initDefaultDownloadDir(this);
       // Once done, restart session to reload torrents in error state
       await dispose();
-      flutter_libtransmission.initSession(configDir.path, 'transmission');
+      flutter_libtransmission.initSession(configDir.path);
     }
   }
 
