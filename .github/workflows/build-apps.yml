@@ -177,6 +177,11 @@ jobs:
       run:
         working-directory: ./app
     steps:
+      - name: Free Disk Space
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+
       - name: Clone repository
         uses: actions/checkout@v4
         with:
