@@ -182,6 +182,11 @@ jobs:
         with:
           submodules: true
 
+      - name: Free Disk Space
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+
       - name: Decode android-keystore.jks
         env:
           ENCODED_STRING: ${{ secrets.ANDROID_KEY_STORE }}
