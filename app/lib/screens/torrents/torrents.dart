@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pikatorrent/dialogs/remove_torrent.dart';
+import 'package:pikatorrent/dialogs/remove_torrents.dart';
 import 'package:pikatorrent/engine/torrent.dart';
 import 'package:pikatorrent/l10n/app_localizations.dart';
 import 'package:pikatorrent/models/torrents.dart';
@@ -30,6 +31,35 @@ class TorrentsScreen extends StatefulWidget {
 class _TorrentScreen extends State<TorrentsScreen>
     with SingleTickerProviderStateMixin {
   late final controller = SlidableController(this);
+  final Set<int> _selectedTorrentIds = {};
+  bool _isSelectionMode = false;
+
+  void _toggleSelection(int torrentId) {
+    setState(() {
+      if (_selectedTorrentIds.contains(torrentId)) {
+        _selectedTorrentIds.remove(torrentId);
+        if (_selectedTorrentIds.isEmpty) {
+          _isSelectionMode = false;
+        }
+      } else {
+        _selectedTorrentIds.add(torrentId);
+      }
+    });
+  }
+
+  void _enterSelectionMode(int torrentId) {
+    setState(() {
+      _isSelectionMode = true;
+      _selectedTorrentIds.add(torrentId);
+    });
+  }
+
+  void _exitSelectionMode() {
+    setState(() {
+      _isSelectionMode = false;
+      _selectedTorrentIds.clear();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,12 +89,57 @@ class _TorrentScreen extends State<TorrentsScreen>
               padding: const EdgeInsets.only(left: 16, right: 16),
               child: Row(
                 children: [
-                  const SortButton(),
-                  const FilterLabelsButton(),
-                  const Spacer(),
-                  TextSearch(
-                    onChange: torrentsModel.setFilterText,
-                  ),
+                  if (_isSelectionMode) ...[
+                    IconButton(
+                      icon: const Icon(Icons.close),
+                      onPressed: _exitSelectionMode,
+                      tooltip: localizations.cancel,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      '${_selectedTorrentIds.length}',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const Spacer(),
+                    IconButton(
+                      icon: const Icon(Icons.delete_outline),
+                      onPressed: _selectedTorrentIds.isEmpty
+                          ? null
+                          : () async {
+                              final selectedTorrents = torrentsModel.torrents
+                                  .where(
+                                      (t) => _selectedTorrentIds.contains(t.id))
+                                  .toList();
+
+                              if (selectedTorrents.length == 1) {
+                                await showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return RemoveTorrentDialog(
+                                        torrent: selectedTorrents.first);
+                                  },
+                                );
+                              } else {
+                                await showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return RemoveTorrentsDialog(
+                                        torrents: selectedTorrents);
+                                  },
+                                );
+                              }
+                              _exitSelectionMode();
+                            },
+                      tooltip: localizations.remove,
+                    ),
+                  ] else ...[
+                    const SortButton(),
+                    const FilterLabelsButton(),
+                    const Spacer(),
+                    TextSearch(
+                      onChange: torrentsModel.setFilterText,
+                    ),
+                  ],
                 ],
               ),
             ),
@@ -77,6 +152,18 @@ class _TorrentScreen extends State<TorrentsScreen>
                   final percent = (torrent.progress) * 100;
 
                   if (isMobileSize(context)) {
+                    // Disable slidable in selection mode
+                    if (_isSelectionMode) {
+                      return TorrentListTile(
+                        torrent: torrent,
+                        percent: percent,
+                        isSelectionMode: _isSelectionMode,
+                        isSelected: _selectedTorrentIds.contains(torrent.id),
+                        onLongPress: () => _enterSelectionMode(torrent.id),
+                        onSelectionChanged: () => _toggleSelection(torrent.id),
+                      );
+                    }
+
                     return Slidable(
                       key: Key(index.toString()),
                       endActionPane: ActionPane(
@@ -107,13 +194,26 @@ class _TorrentScreen extends State<TorrentsScreen>
                           ),
                         ],
                       ),
-                      child:
-                          TorrentListTile(torrent: torrent, percent: percent),
+                      child: TorrentListTile(
+                        torrent: torrent,
+                        percent: percent,
+                        isSelectionMode: _isSelectionMode,
+                        isSelected: _selectedTorrentIds.contains(torrent.id),
+                        onLongPress: () => _enterSelectionMode(torrent.id),
+                        onSelectionChanged: () => _toggleSelection(torrent.id),
+                      ),
                     );
                   }
 
                   // Desktop
-                  return TorrentListTile(torrent: torrent, percent: percent);
+                  return TorrentListTile(
+                    torrent: torrent,
+                    percent: percent,
+                    isSelectionMode: _isSelectionMode,
+                    isSelected: _selectedTorrentIds.contains(torrent.id),
+                    onLongPress: () => _enterSelectionMode(torrent.id),
+                    onSelectionChanged: () => _toggleSelection(torrent.id),
+                  );
                 },
               ),
             ),
