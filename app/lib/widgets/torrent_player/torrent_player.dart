@@ -110,9 +110,14 @@ class TorrentPlayerState extends State<TorrentPlayer> {
         pieceCount: 1,
       );
 
-      if (mounted) {
+      if (!mounted) return;
+
+      // Check if we're still showing a dialog before popping
+      if (Navigator.canPop(context)) {
         Navigator.pop(context);
       }
+
+      if (!mounted) return;
     }
 
     // Start streaming server after video file is ready
@@ -126,9 +131,14 @@ class TorrentPlayerState extends State<TorrentPlayer> {
 
       await downloadSubtitles(widget.file, widget.torrent);
 
-      if (mounted) {
+      if (!mounted) return;
+
+      // Check if we're still showing a dialog before popping
+      if (Navigator.canPop(context)) {
         Navigator.pop(context);
       }
+
+      if (!mounted) return;
     }
 
     // Initialize subtitles server
@@ -160,18 +170,46 @@ class TorrentPlayerState extends State<TorrentPlayer> {
     await player.play();
   }
 
-  onVideoLoading() {
+  void onVideoLoading() {
     showDialog(
         context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) => const VideoLoadingDialog());
+        barrierDismissible: true,
+        builder: (BuildContext context) => AlertDialog(
+              title: const Text('Loading Video...'),
+              content: const Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [Center(child: CircularProgressIndicator())]),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context); // Close dialog
+                    Navigator.pop(context); // Exit player screen
+                  },
+                  child: const Text('Cancel'),
+                ),
+              ],
+            ));
   }
 
-  onSubtitlesLoading() {
+  void onSubtitlesLoading() {
     showDialog(
         context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) => const SubtitlesLoadingDialog());
+        barrierDismissible: true,
+        builder: (BuildContext context) => AlertDialog(
+              title: const Text('Loading Subtitles...'),
+              content: const Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [Center(child: CircularProgressIndicator())]),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context); // Close dialog
+                    Navigator.pop(context); // Exit player screen
+                  },
+                  child: const Text('Cancel'),
+                ),
+              ],
+            ));
   }
 
   onSubtitlesClick() {
