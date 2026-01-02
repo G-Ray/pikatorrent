@@ -213,6 +213,43 @@ class TorrentPlayerState extends State<TorrentPlayer> {
     );
   }
 
+  Widget _buildSubtitlesButton() {
+    return MaterialDesktopCustomButton(
+      icon: const Icon(Icons.subtitles),
+      onPressed: onSubtitlesClick,
+    );
+  }
+
+  Widget _buildAudioTrackButton() {
+    return MaterialDesktopCustomButton(
+      icon: const Icon(Icons.multitrack_audio),
+      onPressed: onAudioTrackClick,
+    );
+  }
+
+  List<Widget> _buildMobileBottomButtonBar() {
+    return [
+      const MaterialPositionIndicator(),
+      const Spacer(),
+      _buildSubtitlesButton(),
+      _buildAudioTrackButton(),
+    ];
+  }
+
+  List<Widget> _buildDesktopBottomButtonBar() {
+    return [
+      const MaterialDesktopSkipPreviousButton(),
+      const MaterialDesktopPlayOrPauseButton(),
+      const MaterialDesktopSkipNextButton(),
+      const MaterialDesktopVolumeButton(),
+      const MaterialDesktopPositionIndicator(),
+      const Spacer(),
+      _buildSubtitlesButton(),
+      _buildAudioTrackButton(),
+      const MaterialDesktopFullscreenButton(),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Theme(
@@ -231,32 +268,14 @@ class TorrentPlayerState extends State<TorrentPlayer> {
                           seekBarThumbColor: Colors.blue,
                           seekBarPositionColor: Colors.blue,
                           padding: const EdgeInsets.only(bottom: 64),
-                          topButtonBar: [
-                            _buildBackButton()
-                          ],
-                          bottomButtonBar: [
-                            const MaterialPositionIndicator(),
-                            const Spacer(),
-                            MaterialDesktopCustomButton(
-                              icon: const Icon(Icons.subtitles),
-                              onPressed: onSubtitlesClick,
-                            ),
-                          ]),
+                          topButtonBar: [_buildBackButton()],
+                          bottomButtonBar: _buildMobileBottomButtonBar()),
                       fullscreen: MaterialVideoControlsThemeData(
                           seekBarThumbColor: Colors.blue,
                           seekBarPositionColor: Colors.blue,
                           padding: const EdgeInsets.only(bottom: 64),
-                          topButtonBar: [
-                            _buildBackButton()
-                          ],
-                          bottomButtonBar: [
-                            const MaterialPositionIndicator(),
-                            const Spacer(),
-                            MaterialDesktopCustomButton(
-                              icon: const Icon(Icons.subtitles),
-                              onPressed: onSubtitlesClick,
-                            ),
-                          ]),
+                          topButtonBar: [_buildBackButton()],
+                          bottomButtonBar: _buildMobileBottomButtonBar()),
                       child: Video(
                         key: _videoComponentKey,
                         controller: controller,
@@ -268,41 +287,13 @@ class TorrentPlayerState extends State<TorrentPlayer> {
                         seekBarThumbColor: Colors.blue,
                         seekBarPositionColor: Colors.blue,
                         topButtonBar: [_buildBackButton()],
-                        bottomButtonBar: [
-                          const MaterialDesktopSkipPreviousButton(),
-                          const MaterialDesktopPlayOrPauseButton(),
-                          const MaterialDesktopSkipNextButton(),
-                          const MaterialDesktopVolumeButton(),
-                          const MaterialDesktopPositionIndicator(),
-                          const Spacer(),
-                          MaterialDesktopCustomButton(
-                            icon: const Icon(Icons.subtitles),
-                            onPressed: onSubtitlesClick,
-                          ),
-                          MaterialDesktopCustomButton(
-                            icon: const Icon(Icons.multitrack_audio),
-                            onPressed: onAudioTrackClick,
-                          ),
-                          const MaterialDesktopFullscreenButton(),
-                        ],
+                        bottomButtonBar: _buildDesktopBottomButtonBar(),
                       ),
                       fullscreen: MaterialDesktopVideoControlsThemeData(
                         seekBarThumbColor: Colors.blue,
                         seekBarPositionColor: Colors.blue,
                         topButtonBar: [_buildBackButton()],
-                        bottomButtonBar: [
-                          const MaterialDesktopSkipPreviousButton(),
-                          const MaterialDesktopPlayOrPauseButton(),
-                          const MaterialDesktopSkipNextButton(),
-                          const MaterialDesktopVolumeButton(),
-                          const MaterialDesktopPositionIndicator(),
-                          const Spacer(),
-                          MaterialDesktopCustomButton(
-                            icon: const Icon(Icons.subtitles),
-                            onPressed: onSubtitlesClick,
-                          ),
-                          const MaterialDesktopFullscreenButton(),
-                        ],
+                        bottomButtonBar: _buildDesktopBottomButtonBar(),
                       ),
                       child: Video(
                         key: _videoComponentKey,
