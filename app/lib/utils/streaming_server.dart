@@ -7,9 +7,7 @@ import 'package:mime/mime.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pikatorrent/engine/torrent.dart';
 import 'package:pikatorrent/engine/file.dart' as torrent_file;
-import 'package:pikatorrent/main.dart';
-
-class CancellationException implements Exception {}
+import 'package:pikatorrent/utils/torrent_utils.dart';
 
 /// Server to stream a file
 class StreamingServer {
@@ -20,6 +18,7 @@ class StreamingServer {
   final int bufferSize;
   final Torrent torrent;
   final torrent_file.File torrentFile;
+  late File _file;
 
   CancelableOperation? _cancelableOperation;
 
@@ -30,6 +29,7 @@ class StreamingServer {
       required this.torrentFile});
 
   void start() async {
+    _file = File(filePath);
     _server = await HttpServer.bind(InternetAddress.loopbackIPv4, 0);
     _serverReadyCompleter.complete();
     debugPrint(
@@ -95,30 +95,29 @@ class StreamingServer {
         from: torrentFile.beginPiece,
         count: 1,
         cancelableCompleter: cancelableCompleter);
-    final file = File(filePath);
     final fileSize = torrentFile.length;
     final rangeHeader = request.headers.value('range');
 
     if (rangeHeader != null) {
       await _handleRangeRequest(
-          request, file, fileSize, rangeHeader, cancelableCompleter);
+          request, fileSize, rangeHeader, cancelableCompleter);
     } else {
-      await _sendFullFile(request, file, fileSize, cancelableCompleter);
+      await _sendFullFile(request, fileSize, cancelableCompleter);
     }
   }
 
-  Future<void> _sendFullFile(HttpRequest request, File file, int fileSize,
+  Future<void> _sendFullFile(HttpRequest request, int fileSize,
       CancelableCompleter cancelableCompleter) async {
     debugPrint('streaming_server: _sendFullFile');
     final mimeType = lookupMimeType(filePath) ?? ContentType.binary.mimeType;
     request.response.headers.contentType = ContentType.parse(mimeType);
     request.response.headers.contentLength = fileSize;
 
-    await _pipeFileRangeInBlocks(file, request.response, 0, fileSize - 1,
+    await _pipeFileRangeInBlocks(_file, request.response, 0, fileSize - 1,
         torrent.pieceSize, cancelableCompleter);
   }
 
-  Future<void> _handleRangeRequest(HttpRequest request, File file, int fileSize,
+  Future<void> _handleRangeRequest(HttpRequest request, int fileSize,
       String rangeHeader, CancelableCompleter cancelableCompleter) async {
     debugPrint('streaming_server: _handleRangeRequest');
     final rangeRegex = RegExp(r'bytes=(\d*)-(\d*)');
@@ -166,7 +165,7 @@ class StreamingServer {
         'handleRangeRequest $start ${end + 1} $contentLength piece: $piece ${torrent.pieceSize}');
 
     await torrent.setSequentialDownloadFromPiece(piece);
-    await _pipeFileRangeInBlocks(file, request.response, start, end,
+    await _pipeFileRangeInBlocks(_file, request.response, start, end,
         torrent.pieceSize, cancelableCompleter);
   }
 
@@ -184,36 +183,22 @@ class StreamingServer {
 
   Future<void> _waitForPieces(
       {int? from, int? count, CancelableCompleter? cancelableCompleter}) async {
-    final completer = Completer();
     final neededPieces = _computeNeededPieces(from, count);
+    debugPrint('streaming_server: neededPieces $neededPieces');
 
-    testPieces(Timer? timer) async {
-      if (cancelableCompleter != null && cancelableCompleter.isCanceled) {
-        timer?.cancel();
-        debugPrint('streaming_server: cancel throw');
-        completer.completeError(CancellationException());
-      }
-
-      // Refresh torrent data
-      final Torrent torrent = await engine.fetchTorrent(this.torrent.id);
-      final hasLoaded = torrent.hasLoadedPieces(neededPieces);
-      debugPrint(
-          'streaming_server: neededPieces $neededPieces hasLoaded $hasLoaded');
-
-      if (hasLoaded) {
-        // Success
-        timer?.cancel();
-        completer.complete();
-      }
-    }
-
-    await testPieces(null);
-
-    if (!completer.isCompleted) {
-      Timer.periodic(const Duration(seconds: 1), testPieces);
-    }
-
-    return completer.future;
+    await waitForPiecesList(
+      torrent: torrent,
+      neededPieces: neededPieces,
+      onCancelled: cancelableCompleter != null
+          ? () {
+              if (cancelableCompleter.isCanceled) {
+                debugPrint('streaming_server: cancel throw');
+                return true;
+              }
+              return false;
+            }
+          : null,
+    );
   }
 
   Future<void> _pipeFileRangeInBlocks(

@@ -8,9 +8,11 @@ import 'package:pikatorrent/utils/device.dart' as device;
 import 'package:pikatorrent/utils/streaming_server.dart';
 import 'package:pikatorrent/utils/subtitles.dart';
 import 'package:pikatorrent/utils/subtitles_server.dart';
+import 'package:pikatorrent/utils/torrent_utils.dart';
 import 'package:pikatorrent/widgets/torrent_player/dialogs/audio_track_selector.dart';
 import 'package:pikatorrent/widgets/torrent_player/dialogs/subtitles_loading.dart';
 import 'package:pikatorrent/widgets/torrent_player/dialogs/subtitles_selector.dart';
+import 'package:pikatorrent/widgets/torrent_player/dialogs/video_loading.dart';
 import 'package:pikatorrent/widgets/window_title_bar.dart';
 
 const bufferSize = 2 * 1024 * 1024;
@@ -98,14 +100,27 @@ class TorrentPlayerState extends State<TorrentPlayer> {
 
     widget.torrent.startStreaming(widget.file);
 
+    // Preload video file (wait for first piece)
+    if (widget.torrent.progress != 1) {
+      onVideoLoading();
+
+      await waitForPieces(
+        torrent: widget.torrent,
+        file: widget.file,
+        pieceCount: 1,
+      );
+
+      if (mounted) {
+        Navigator.pop(context);
+      }
+    }
+
+    // Start streaming server after video file is ready
     server.start();
-    subsServer = SubtitlesServer(torrent: widget.torrent);
-    subsServer.start();
     final serverAdress = await server.getAddress();
-    final subtitlesServerAdress = await subsServer.getAddress();
 
     debugPrint('download subs');
-    // Download subtitles first
+    // Download subtitles
     if (widget.torrent.progress != 1) {
       onSubtitlesLoading();
 
@@ -115,6 +130,11 @@ class TorrentPlayerState extends State<TorrentPlayer> {
         Navigator.pop(context);
       }
     }
+
+    // Initialize subtitles server
+    subsServer = SubtitlesServer(torrent: widget.torrent);
+    subsServer.start();
+    final subtitlesServerAdress = await subsServer.getAddress();
 
     debugPrint('open player');
     await player.open(Media(serverAdress));
@@ -138,6 +158,13 @@ class TorrentPlayerState extends State<TorrentPlayer> {
     await player.setSubtitleTrack(SubtitleTrack.no());
 
     await player.play();
+  }
+
+  onVideoLoading() {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) => const VideoLoadingDialog());
   }
 
   onSubtitlesLoading() {
