@@ -7,9 +7,7 @@ import 'package:mime/mime.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pikatorrent/engine/torrent.dart';
 import 'package:pikatorrent/engine/file.dart' as torrent_file;
-import 'package:pikatorrent/main.dart';
-
-class CancellationException implements Exception {}
+import 'package:pikatorrent/utils/torrent_utils.dart';
 
 /// Server to stream a file
 class StreamingServer {
@@ -185,36 +183,22 @@ class StreamingServer {
 
   Future<void> _waitForPieces(
       {int? from, int? count, CancelableCompleter? cancelableCompleter}) async {
-    final completer = Completer();
     final neededPieces = _computeNeededPieces(from, count);
+    debugPrint('streaming_server: neededPieces $neededPieces');
 
-    testPieces(Timer? timer) async {
-      if (cancelableCompleter != null && cancelableCompleter.isCanceled) {
-        timer?.cancel();
-        debugPrint('streaming_server: cancel throw');
-        completer.completeError(CancellationException());
-      }
-
-      // Refresh torrent data
-      final Torrent torrent = await engine.fetchTorrent(this.torrent.id);
-      final hasLoaded = torrent.hasLoadedPieces(neededPieces);
-      debugPrint(
-          'streaming_server: neededPieces $neededPieces hasLoaded $hasLoaded');
-
-      if (hasLoaded) {
-        // Success
-        timer?.cancel();
-        completer.complete();
-      }
-    }
-
-    await testPieces(null);
-
-    if (!completer.isCompleted) {
-      Timer.periodic(const Duration(seconds: 1), testPieces);
-    }
-
-    return completer.future;
+    await waitForPiecesList(
+      torrent: torrent,
+      neededPieces: neededPieces,
+      onCancelled: cancelableCompleter != null
+          ? () {
+              if (cancelableCompleter.isCanceled) {
+                debugPrint('streaming_server: cancel throw');
+                return true;
+              }
+              return false;
+            }
+          : null,
+    );
   }
 
   Future<void> _pipeFileRangeInBlocks(

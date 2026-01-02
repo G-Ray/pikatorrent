@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:pikatorrent/engine/file.dart';
 import 'package:pikatorrent/engine/torrent.dart';
 import 'package:pikatorrent/main.dart';
+import 'package:pikatorrent/utils/torrent_utils.dart';
 
 int countSlashesRegex(String text) {
   final regex = RegExp('/');
@@ -38,35 +39,9 @@ downloadSubtitles(File file, Torrent torrent) async {
 
 Future<void> _waitForFileComplete(
     {required Torrent torrent, required String fileName}) async {
-  final waitForFileCompleter = Completer();
-
   final file = torrent.files.firstWhere((f) => f.name == fileName);
-
-  void testFileComplete(Timer? timer) async {
-    // Refresh torrent data
-    final Torrent t = await engine.fetchTorrent(torrent.id);
-    List<int> neededPieces = [];
-    for (int i = file.beginPiece; i < file.endPiece; i++) {
-      neededPieces.add(i);
-    }
-
-    final isDownloaded = neededPieces.every((p) => t.pieces[p] == true);
-
-    if (isDownloaded) {
-      if (timer != null) {
-        timer.cancel();
-      }
-
-      if (!waitForFileCompleter.isCompleted) {
-        waitForFileCompleter.complete();
-      }
-    }
-  }
-
-  Timer.periodic(const Duration(seconds: 1), testFileComplete);
-  testFileComplete(null);
-
-  return waitForFileCompleter.future;
+  final pieceCount = file.endPiece - file.beginPiece;
+  await waitForPieces(torrent: torrent, file: file, pieceCount: pieceCount);
 }
 
 class ExternalSubtitle {
