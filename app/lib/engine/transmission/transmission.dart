@@ -400,4 +400,12 @@ class TransmissionEngine extends Engine {
         TorrentSetLocationRequest(arguments: torrentSetLocationArguments);
     await flutter_libtransmission.requestAsync(jsonEncode(request));
   }
+
+  @override
+  Future removeTorrents(List<int> torrentIds, bool withData) async {
+    var request = TorrentRemoveRequest(
+        arguments: TorrentRemoveRequestArguments(
+            ids: torrentIds, deleteLocalData: withData));
+    await flutter_libtransmission.requestAsync(jsonEncode(request));
+  }
 }

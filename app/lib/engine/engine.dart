@@ -33,4 +33,7 @@ abstract class Engine {
 
   Future setTorrentsLocation(
       TorrentSetLocationArguments torrentSetLocationArguments);
+
+  // Remove multiple torrents
+  Future removeTorrents(List<int> torrentIds, bool withData);
 }

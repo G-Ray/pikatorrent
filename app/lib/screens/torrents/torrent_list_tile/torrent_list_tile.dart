@@ -13,11 +13,22 @@ import 'package:provider/provider.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class TorrentListTile extends StatelessWidget {
-  const TorrentListTile(
-      {super.key, required this.torrent, required this.percent});
+  const TorrentListTile({
+    super.key,
+    required this.torrent,
+    required this.percent,
+    this.isSelectionMode = false,
+    this.isSelected = false,
+    this.onLongPress,
+    this.onSelectionChanged,
+  });
 
   final Torrent torrent;
   final double percent;
+  final bool isSelectionMode;
+  final bool isSelected;
+  final VoidCallback? onLongPress;
+  final VoidCallback? onSelectionChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -29,35 +40,45 @@ class TorrentListTile extends StatelessWidget {
             ? const EdgeInsets.only(left: 16, right: 16)
             : null,
         onTap: () {
-          showDeviceSheet(
-              context, torrent.name, TorrentDetailsModalSheet(id: torrent.id));
+          if (isSelectionMode) {
+            onSelectionChanged?.call();
+          } else {
+            showDeviceSheet(context, torrent.name,
+                TorrentDetailsModalSheet(id: torrent.id));
+          }
         },
-        leading: FittedBox(
-          child: CircularPercentIndicator(
-            radius: 22.0,
-            lineWidth: 4.0,
-            percent: torrent.progress,
-            center: IconButton(
-              onPressed: () async {
-                torrent.status == TorrentStatus.stopped
-                    ? await torrent.start()
-                    : await torrent.stop();
-                torrentsModel.fetchTorrents();
-              },
-              icon: torrent.status == TorrentStatus.stopped
-                  ? const Icon(Icons.pause)
-                  : torrent.progress == 1
-                      ? const Icon(Icons.download_done)
-                      : const Icon(Icons.download),
-              tooltip: torrent.status == TorrentStatus.stopped
-                  ? localizations.download
-                  : localizations.pause,
-            ),
-            linearGradient: const LinearGradient(
-              colors: gradientColors,
-            ),
-          ),
-        ),
+        onLongPress: onLongPress,
+        leading: (isSelectionMode)
+            ? Checkbox(
+                value: isSelected,
+                onChanged: (_) => onSelectionChanged?.call(),
+              )
+            : FittedBox(
+                child: CircularPercentIndicator(
+                  radius: 22.0,
+                  lineWidth: 4.0,
+                  percent: torrent.progress,
+                  center: IconButton(
+                    onPressed: () async {
+                      torrent.status == TorrentStatus.stopped
+                          ? await torrent.start()
+                          : await torrent.stop();
+                      torrentsModel.fetchTorrents();
+                    },
+                    icon: torrent.status == TorrentStatus.stopped
+                        ? const Icon(Icons.pause)
+                        : torrent.progress == 1
+                            ? const Icon(Icons.download_done)
+                            : const Icon(Icons.download),
+                    tooltip: torrent.status == TorrentStatus.stopped
+                        ? localizations.download
+                        : localizations.pause,
+                  ),
+                  linearGradient: const LinearGradient(
+                    colors: gradientColors,
+                  ),
+                ),
+              ),
         title: Row(
           children: [
             Expanded(
