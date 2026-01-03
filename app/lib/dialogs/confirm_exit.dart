@@ -16,7 +16,6 @@ class ConfirmExit extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
-            // SystemNavigator.pop(),
             closeApp(context);
           },
           child: const Text('Yes'),

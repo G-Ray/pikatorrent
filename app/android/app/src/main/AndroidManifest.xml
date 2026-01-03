@@ -19,7 +19,8 @@
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:label="PikaTorrent"
-        android:requestLegacyExternalStorage="true">
+        android:requestLegacyExternalStorage="true"
+        android:enableOnBackInvokedCallback="false">
         <service
             android:name="com.dexterous.flutterlocalnotifications.ForegroundService"
             android:exported="false"
