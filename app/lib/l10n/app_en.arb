@@ -16,6 +16,7 @@
   "files": "Files",
   "details": "Details",
   "tags": "Tags",
+  "showOnlyPlayableFiles": "Show only playable files",
   "download":"Download",
   "pause":"Pause",
   "share":"Share",
