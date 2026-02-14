@@ -1,0 +1,5 @@
+- Improved streaming performance and reliability
+- Added playable files filter
+- Multi-selection support for bulk torrent deletion
+- Initial translations and localization support
+- Support for 16KB page sizes

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <component type="desktop-application">
   <id>com.pikatorrent.PikaTorrent</id>
   <developer id="io.github.G-Ray">
@@ -67,7 +67,17 @@
   </screenshots>
 
   <releases>
-  <release version="0.14.0" date="2025-07-27">
+    <release version="0.15.0" date="2026-01-11">
+      <description>
+        <ul>
+          <li>Improved streaming performance and reliability</li>
+          <li>Added playable files filter</li>
+          <li>Multi-selection support for bulk torrent deletion</li>
+          <li>Initial translations and localization support</li>
+        </ul>
+      </description>
+    </release>
+    <release version="0.14.0" date="2025-07-27">
       <description>
         <ul>
           <li>Support for audio track selection</li>
@@ -79,7 +89,8 @@
     <release version="0.13.0" date="2025-05-13">
       <description>
         <ul>
-          <li>PikaTorrent now runs in the background, with tray icon support.</li>
+          <li
+                    >PikaTorrent now runs in the background, with tray icon support.</li>
           <li>Display a notification when a download completes.</li>
           <li>Display a warning when network is detected as unavailable.</li>
           <li>Select wanted files with checkboxes</li>
@@ -130,11 +141,14 @@
     <release version="0.8.1" date="2023-09-30">
       <description>
         <ul>
-          <li>A refreshed interface, with true dark theme support (save battery on OLED screens) 🕶️</li>
+          <li
+                    >A refreshed interface, with true dark theme support (save battery on OLED screens) 🕶️</li>
           <li>Improve modals responsiveness 🚀</li>
           <li>Support for any search engines urls using a placeholder %s 🔍</li>
-          <li>Initial support to display errors strings when a torrent has an issue 🔴</li>
-          <li>Bug fixes: new label input could have erratic behavior, ... 🐛</li>
+          <li
+                    >Initial support to display errors strings when a torrent has an issue 🔴</li>
+          <li
+                    >Bug fixes: new label input could have erratic behavior, ... 🐛</li>
         </ul>
       </description>
     </release>
@@ -144,7 +158,8 @@
           <li>Display peers and ETA ✈️</li>
           <li>Reworked files list, with progress status 🗄️</li>
           <li>Moved speed stats to the top 🔝</li>
-          <li>Fix port number input, elements going offscreen, session info on desktop, ... 🐛</li>
+          <li
+                    >Fix port number input, elements going offscreen, session info on desktop, ... 🐛</li>
           <li>Minor UI improvements 💄</li>
         </ul>
       </description>
@@ -154,8 +169,10 @@
         <ul>
           <li>Sort your torrents by name, progress or size ⬇️ ⬆️</li>
           <li>Better performances when editing or removing a torrent 🚀</li>
-          <li>Add advanced settings: uTP, DHT, LPD, PEX, port forwarding, and incoming peer port 🧲</li>
-          <li>Initial translations into russian 🇷🇺 , Brazilian portuguese 🇧🇷 , and french 🇫🇷</li>
+          <li
+                    >Add advanced settings: uTP, DHT, LPD, PEX, port forwarding, and incoming peer port 🧲</li>
+          <li
+                    >Initial translations into russian 🇷🇺 , Brazilian portuguese 🇧🇷 , and french 🇫🇷</li>
           <li>Added archive.org to the default search engines 🗃️</li>
           <li>Minor UI improvements 💅</li>
           <li>Bug fixes 🪱</li>
