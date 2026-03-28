@@ -5,7 +5,6 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:pikatorrent/dialogs/add_torrent.dart';
 import 'package:pikatorrent/dialogs/android/storage_permissions.dart';
 import 'package:pikatorrent/utils/device.dart';
-import 'package:pikatorrent/utils/theme.dart';
 
 class AddTorrentButton extends StatelessWidget {
   const AddTorrentButton({super.key});
@@ -36,32 +35,13 @@ class AddTorrentButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      backgroundColor: Colors.transparent,
-      foregroundColor: Colors.white,
+      backgroundColor: Colors.yellow,
+      foregroundColor: Colors.black,
       onPressed: () => _handleClick(context),
       tooltip: 'Pick a Torrent',
-      shape: isMobileSize(context)
-          ? const CircleBorder()
-          : RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
+      shape: isMobileSize(context) ? const CircleBorder() : null,
       elevation: (isMobileSize(context)) ? 0 : null,
-      // child: const Icon(Icons.add),
-      child: Container(
-        decoration: BoxDecoration(
-          shape: isMobileSize(context) ? BoxShape.circle : BoxShape.rectangle,
-          borderRadius:
-              isMobileSize(context) ? null : BorderRadius.circular(12),
-          gradient: const LinearGradient(
-            colors: gradientColors,
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
-        child: const Center(
-          child: Icon(Icons.add, color: Colors.white), // Your FAB icon
-        ),
-      ),
+      child: const Icon(Icons.add),
     );
   }
 }

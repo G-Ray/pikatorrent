@@ -303,14 +303,14 @@ class TorrentPlayerState extends State<TorrentPlayer> {
               device.isMobile()
                   ? MaterialVideoControlsTheme(
                       normal: MaterialVideoControlsThemeData(
-                          seekBarThumbColor: Colors.blue,
-                          seekBarPositionColor: Colors.blue,
+                          seekBarThumbColor: Colors.yellow,
+                          seekBarPositionColor: Colors.yellow,
                           padding: const EdgeInsets.only(bottom: 64),
                           topButtonBar: [_buildBackButton()],
                           bottomButtonBar: _buildMobileBottomButtonBar()),
                       fullscreen: MaterialVideoControlsThemeData(
-                          seekBarThumbColor: Colors.blue,
-                          seekBarPositionColor: Colors.blue,
+                          seekBarThumbColor: Colors.yellow,
+                          seekBarPositionColor: Colors.yellow,
                           padding: const EdgeInsets.only(bottom: 64),
                           topButtonBar: [_buildBackButton()],
                           bottomButtonBar: _buildMobileBottomButtonBar()),
@@ -322,14 +322,14 @@ class TorrentPlayerState extends State<TorrentPlayer> {
                     )
                   : MaterialDesktopVideoControlsTheme(
                       normal: MaterialDesktopVideoControlsThemeData(
-                        seekBarThumbColor: Colors.blue,
-                        seekBarPositionColor: Colors.blue,
+                        seekBarThumbColor: Colors.yellow,
+                        seekBarPositionColor: Colors.yellow,
                         topButtonBar: [_buildBackButton()],
                         bottomButtonBar: _buildDesktopBottomButtonBar(),
                       ),
                       fullscreen: MaterialDesktopVideoControlsThemeData(
-                        seekBarThumbColor: Colors.blue,
-                        seekBarPositionColor: Colors.blue,
+                        seekBarThumbColor: Colors.yellow,
+                        seekBarPositionColor: Colors.yellow,
                         topButtonBar: [_buildBackButton()],
                         bottomButtonBar: _buildDesktopBottomButtonBar(),
                       ),

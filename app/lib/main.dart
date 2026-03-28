@@ -19,12 +19,12 @@ import 'package:yaru/yaru.dart';
 import 'package:media_kit/media_kit.dart';
 
 final lightColorScheme = ColorScheme.fromSeed(
-    seedColor: Colors.blue,
+    seedColor: Colors.yellow,
     brightness: Brightness.light,
     dynamicSchemeVariant: DynamicSchemeVariant.rainbow);
 
 final darkColorScheme = ColorScheme.fromSeed(
-    seedColor: Colors.blue,
+    seedColor: Colors.yellow,
     brightness: Brightness.dark,
     dynamicSchemeVariant: DynamicSchemeVariant.rainbow);
 

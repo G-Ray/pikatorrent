@@ -51,7 +51,7 @@ class TorrentStatusText extends StatelessWidget {
           style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 12,
-            color: Colors.blue,
+            color: Colors.lightBlue,
             overflow: TextOverflow.ellipsis,
           )),
     };
