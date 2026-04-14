@@ -10,6 +10,7 @@
 
   <url type="homepage">https://www.pikatorrent.com</url>
   <url type="bugtracker">https://github.com/G-Ray/pikatorrent/issues</url>
+  <url type="vcs-browser">https://github.com/G-Ray/pikatorrent</url>
   <url type="help">https://github.com/G-Ray/pikatorrent</url>
 
   <metadata_license>CC-BY-SA-4.0</metadata_license>
@@ -30,14 +31,11 @@
       <li>Stream torrents, with subtitles support</li>
       <li>Share torrents with your friends</li>
       <li>Available on Windows, Linux, MacOS, Android and iOS</li>
-      <li>A modern and
-        clean user interface, with dark mode support</li>
+      <li>A modern and clean user interface, with dark mode support</li>
       <li>Add tags to your torrents</li>
-      <li>Select
-        files to download or to pause</li>
+      <li>Select files to download or to pause</li>
       <li>Browse and open files included in your torrents</li>
-      <li>Based
-        on Transmission for low cpu and memory usage</li>
+      <li>Based on Transmission for low CPU and memory usage</li>
     </ul>
   </description>
 
@@ -89,8 +87,7 @@
     <release version="0.13.0" date="2025-05-13">
       <description>
         <ul>
-          <li
-                    >PikaTorrent now runs in the background, with tray icon support.</li>
+          <li>PikaTorrent now runs in the background, with tray icon support.</li>
           <li>Display a notification when a download completes.</li>
           <li>Display a warning when network is detected as unavailable.</li>
           <li>Select wanted files with checkboxes</li>
@@ -141,14 +138,11 @@
     <release version="0.8.1" date="2023-09-30">
       <description>
         <ul>
-          <li
-                    >A refreshed interface, with true dark theme support (save battery on OLED screens) 🕶️</li>
+          <li>A refreshed interface, with true dark theme support (save battery on OLED screens) 🕶️</li>
           <li>Improve modals responsiveness 🚀</li>
           <li>Support for any search engines urls using a placeholder %s 🔍</li>
-          <li
-                    >Initial support to display errors strings when a torrent has an issue 🔴</li>
-          <li
-                    >Bug fixes: new label input could have erratic behavior, ... 🐛</li>
+          <li>Initial support to display errors strings when a torrent has an issue 🔴</li>
+          <li>Bug fixes: new label input could have erratic behavior, ... 🐛</li>
         </ul>
       </description>
     </release>
@@ -158,8 +152,7 @@
           <li>Display peers and ETA ✈️</li>
           <li>Reworked files list, with progress status 🗄️</li>
           <li>Moved speed stats to the top 🔝</li>
-          <li
-                    >Fix port number input, elements going offscreen, session info on desktop, ... 🐛</li>
+          <li>Fix port number input, elements going offscreen, session info on desktop, ... 🐛</li>
           <li>Minor UI improvements 💄</li>
         </ul>
       </description>
@@ -169,10 +162,8 @@
         <ul>
           <li>Sort your torrents by name, progress or size ⬇️ ⬆️</li>
           <li>Better performances when editing or removing a torrent 🚀</li>
-          <li
-                    >Add advanced settings: uTP, DHT, LPD, PEX, port forwarding, and incoming peer port 🧲</li>
-          <li
-                    >Initial translations into russian 🇷🇺 , Brazilian portuguese 🇧🇷 , and french 🇫🇷</li>
+          <li>Add advanced settings: uTP, DHT, LPD, PEX, port forwarding, and incoming peer port 🧲</li>
+          <li>Initial translations into russian 🇷🇺 , Brazilian portuguese 🇧🇷 , and french 🇫🇷</li>
           <li>Added archive.org to the default search engines 🗃️</li>
           <li>Minor UI improvements 💅</li>
           <li>Bug fixes 🪱</li>
