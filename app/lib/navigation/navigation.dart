@@ -15,8 +15,8 @@ class Destination {
 }
 
 const List<Destination> destinations = <Destination>[
-  Destination('Torrents', Icon(Icons.arrow_circle_down, size: 36),
-      Icon(Icons.arrow_circle_down, size: 36, color: Colors.yellow)),
+  Destination('Torrents', Icon(Icons.downloading, size: 36),
+      Icon(Icons.downloading, size: 36, color: Colors.yellow)),
   Destination('Settings', Icon(Icons.settings, size: 36),
       Icon(Icons.settings, size: 36, color: Colors.yellow)),
 ];
