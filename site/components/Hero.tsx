@@ -24,18 +24,20 @@ const LogoWithText = () => {
     <Link href="/" style={{ textDecoration: "none" }}>
       <XStack ai="center" gap="$4">
         <Logo />
-        <H1
-          style={{
-            background:
-              "linear-gradient(to right, rgb(100, 182, 247), rgb(186, 104, 200))" /* Gradient direction and colors */,
-            WebkitBackgroundClip: "text" /* Clip the background to the text */,
-            WebkitTextFillColor:
-              "transparent" /* Make the text transparent to show the background */,
-            display: "inline-block",
-          }}
-        >
-          PikaTorrent
-        </H1>
+        <XStack>
+          <H1
+            style={{
+              background:
+                "linear-gradient(to right, rgb(255, 214, 0), rgb(255, 255, 0))",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              display: "inline-block",
+            }}
+          >
+            Pika
+          </H1>
+          <H1>Torrent</H1>
+        </XStack>
       </XStack>
     </Link>
   );

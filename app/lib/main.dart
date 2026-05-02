@@ -132,14 +132,16 @@ class PikaTorrentApp extends StatelessWidget {
       };
 
       return MaterialApp.router(
-          title: 'PikaTorrent',
-          theme: _lightTheme,
-          darkTheme: _darkTheme,
-          themeMode: app.theme,
-          routerConfig: router,
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-          locale: Locale(languageCode, countryCode));
+        title: 'PikaTorrent',
+        theme: _lightTheme,
+        darkTheme: _darkTheme,
+        themeMode: app.theme,
+        routerConfig: router,
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        locale: Locale(languageCode, countryCode),
+        debugShowCheckedModeBanner: false,
+      );
     });
   }
 }

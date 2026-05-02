@@ -59,7 +59,7 @@ export const DownloadLinks = () => {
             <Button
               size="$3"
               iconAfter={Download}
-              borderColor={"$purple9"}
+              borderColor={"$yellow9"}
               w="100%"
             >
               Portable (.zip)
@@ -86,7 +86,7 @@ export const DownloadLinks = () => {
             <Button
               size="$3"
               iconAfter={Download}
-              borderColor={"$purple9"}
+              borderColor={"$yellow9"}
               w="100%"
             >
               x64 (.zip)
@@ -99,7 +99,7 @@ export const DownloadLinks = () => {
             <Button
               size="$3"
               iconAfter={Download}
-              borderColor={"$purple9"}
+              borderColor={"$yellow9"}
               w="100%"
             >
               arm64 (.zip)
@@ -118,7 +118,7 @@ export const DownloadLinks = () => {
             <Button
               size="$3"
               iconAfter={Download}
-              borderColor={"$purple9"}
+              borderColor={"$yellow9"}
               w="100%"
             >
               .dmg
@@ -131,7 +131,7 @@ export const DownloadLinks = () => {
             <Button
               size="$3"
               iconAfter={Download}
-              borderColor={"$purple9"}
+              borderColor={"$yellow9"}
               w="100%"
             >
               Portable (.zip)
@@ -168,7 +168,7 @@ export const DownloadLinks = () => {
             href={`${downloadLinkPrefix}-android.apk`}
             style={{ textDecoration: "none" }}
           >
-            <Button size="$3" iconAfter={Download} borderColor={"$purple9"}>
+            <Button size="$3" iconAfter={Download} borderColor={"$yellow9"}>
               .apk
             </Button>
           </Link>
@@ -187,7 +187,7 @@ export const DownloadLinks = () => {
             <Button
               size="$3"
               iconAfter={Download}
-              borderColor={"$purple9"}
+              borderColor={"$yellow9"}
               w="100%"
             >
               .ipa
@@ -204,7 +204,7 @@ export const DownloadLinks = () => {
           target="_blank"
           style={{ textDecoration: "none" }}
         >
-          <Button size="$3" icon={ExternalLink} borderColor={"$purple9"}>
+          <Button size="$3" icon={ExternalLink} borderColor={"$yellow9"}>
             All downloads
           </Button>
         </Link>
