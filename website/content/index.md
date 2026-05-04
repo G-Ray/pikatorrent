@@ -1,3 +1,8 @@
+---
+title: pikatorrent
+layout: home
+---
+
 # Welcome to Jaspr Content
 
 This is a sample content file. You can add more files here as needed.
