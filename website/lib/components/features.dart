@@ -134,7 +134,7 @@ class Features extends StatelessComponent {
           raw: {
             'background': 'var(--yellow)',
             'place-items': 'center',
-            'color': 'var(--ink)',
+            'color': '#1A1714',
           },
         ),
         css('.feat-title').styles(
