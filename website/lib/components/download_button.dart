@@ -4,6 +4,8 @@ import 'package:http/http.dart' as http;
 import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_lucide/jaspr_lucide.dart' as lucide;
+import 'package:universal_web/js_interop.dart';
+import 'package:universal_web/web.dart' as web;
 
 import 'button.dart';
 import 'platform_icons.dart';
@@ -178,13 +180,32 @@ class DownloadButton extends StatefulComponent {
 class _DownloadButtonState extends State<DownloadButton> {
   bool _open = false;
   String? _version;
+  JSFunction? _outsideListener;
 
   @override
   void initState() {
     super.initState();
     if (kIsWeb) {
       _loadLatestVersion();
+      _outsideListener = ((web.Event e) {
+        if (!_open) return;
+        final wrap = web.document.querySelector('.dl-wrap');
+        final target = e.target;
+        if (wrap == null || target == null) return;
+        if (!wrap.contains(target as web.Node)) {
+          setState(() => _open = false);
+        }
+      }).toJS;
+      web.document.addEventListener('click', _outsideListener);
     }
+  }
+
+  @override
+  void dispose() {
+    if (kIsWeb && _outsideListener != null) {
+      web.document.removeEventListener('click', _outsideListener);
+    }
+    super.dispose();
   }
 
   Future<void> _loadLatestVersion() async {

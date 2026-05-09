@@ -258,7 +258,7 @@ packages:
     source: hosted
     version: "2.0.0"
   http:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: http
       sha256: "87721a4a50b19c7f1d49001e51409bddc46303966ce89a65af4f4e6004896412"
@@ -602,7 +602,7 @@ packages:
     source: hosted
     version: "1.4.0"
   universal_web:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: universal_web
       sha256: "618a9d8659e9429875f69d4da0fb9c0c143d3d4cdab28b4545502088aa50ed62"

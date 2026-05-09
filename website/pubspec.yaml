@@ -10,6 +10,7 @@ dependencies:
   jaspr: ^0.23.1
   jaspr_content: ^0.5.2
   jaspr_lucide: ^0.54.0
+  universal_web: ^1.1.1
 
 dev_dependencies:
   build_runner: ^2.10.0
