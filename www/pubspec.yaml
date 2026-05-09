@@ -1,6 +1,7 @@
 name: website
-description: A new Jaspr project
+description: PikaTorrent website (jaspr static site).
 version: 0.0.1
+publish_to: none
 
 environment:
   sdk: ^3.10.0

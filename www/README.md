@@ -1,15 +1,31 @@
-# website
+# PikaTorrent website
 
-A new Jaspr project
+The PikaTorrent website, built with [Jaspr](https://jaspr.site).
 
-## Running the project
+## Running locally
 
-Run your project using `jaspr serve`.
+```sh
+jaspr serve
+```
 
-The development server will be available on `http://localhost:8080`.
+The development server is available on `http://localhost:8080`.
 
-## Building the project
+## Building the static site
 
-Build your project using `jaspr build`.
+```sh
+jaspr build
+```
 
-The output will be located inside the `build/jaspr/` directory.
+The output is written to `build/jaspr/` and deployed to Cloudflare Pages by
+[`.github/workflows/deploy-website.yml`](../.github/workflows/deploy-website.yml).
+
+## Updating screenshots
+
+Source PNGs live in `../screenshots/`. To convert them to AVIF (preserving
+alpha) and place them in `web/images/`, run:
+
+```sh
+bash scripts/convert-images.sh
+```
+
+`avifenc` (from `libavif`) must be installed.
