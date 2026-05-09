@@ -1,5 +1,7 @@
+import 'package:jaspr/dom.dart';
 import 'package:jaspr/server.dart';
 import 'package:jaspr_content/jaspr_content.dart';
+import 'package:jaspr_content/theme.dart';
 
 import 'components/features.dart';
 import 'components/hero.dart';
@@ -12,6 +14,7 @@ void main() {
 
   runApp(
     ContentApp(
+      theme: ContentTheme(text: Color.variable('--ink')),
       parsers: [
         MarkdownParser(),
       ],

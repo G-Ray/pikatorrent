@@ -55,6 +55,7 @@ class HomeLayout extends PageLayoutBase {
     }),
     css('body').styles(raw: {
       'background': 'var(--bg)',
+      'color': 'var(--ink)',
       'position': 'relative',
       'overflow-x': 'hidden',
     }),
