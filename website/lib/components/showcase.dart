@@ -11,31 +11,31 @@ class Showcase extends StatelessComponent {
         div(classes: 'desktop-hero', [
           img(
             classes: 'shot-light',
-            src: '/images/desktop-light.png',
+            src: '/images/desktop-light.avif',
             alt: 'PikaTorrent desktop',
           ),
           img(
             classes: 'shot-dark',
-            src: '/images/desktop-dark.png',
+            src: '/images/desktop-dark.avif',
             alt: 'PikaTorrent desktop',
           ),
         ]),
         div(classes: 'mobile-float', [
           img(
             classes: 'shot-light',
-            src: '/images/mobile-light.png',
+            src: '/images/mobile-light.avif',
             alt: 'PikaTorrent mobile',
           ),
           img(
             classes: 'shot-dark',
-            src: '/images/mobile-dark.png',
+            src: '/images/mobile-dark.avif',
             alt: 'PikaTorrent mobile',
           ),
         ]),
       ]),
       div(classes: 'player-below', [
         img(
-          src: '/images/desktop-player.png',
+          src: '/images/desktop-player.avif',
           alt: 'PikaTorrent built-in streaming player',
         ),
       ]),
