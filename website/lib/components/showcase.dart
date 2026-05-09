@@ -6,7 +6,7 @@ class Showcase extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return section(classes: 'showcase', [
+    return section(classes: 'showcase', id: 'screenshots', [
       div(classes: 'showcase-stage', [
         div(classes: 'desktop-hero', [
           img(

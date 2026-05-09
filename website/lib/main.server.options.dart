@@ -10,6 +10,7 @@ import 'package:jaspr_content/components/theme_toggle.dart' as _theme_toggle;
 import 'package:website/components/button.dart' as _button;
 import 'package:website/components/download_button.dart' as _download_button;
 import 'package:website/components/features.dart' as _features;
+import 'package:website/components/footer.dart' as _footer;
 import 'package:website/components/header.dart' as _header;
 import 'package:website/components/hero.dart' as _hero;
 import 'package:website/components/showcase.dart' as _showcase;
@@ -51,6 +52,7 @@ ServerOptions get defaultServerOptions => ServerOptions(
     ..._button.Button.styles,
     ..._download_button.DownloadButton.styles,
     ..._features.Features.styles,
+    ..._footer.Footer.styles,
     ..._header.Header.styles,
     ..._hero.Hero.styles,
     ..._showcase.Showcase.styles,
