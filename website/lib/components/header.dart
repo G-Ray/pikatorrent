@@ -30,6 +30,10 @@ class Header extends StatelessComponent {
         border: Border.only(
           bottom: BorderSide(color: Color('#0000000d'), width: 1.px),
         ),
+        raw: {
+          'background': 'var(--bg)',
+          'z-index': '20',
+        },
       ),
       css('.header-inner', [
         css('&').styles(
