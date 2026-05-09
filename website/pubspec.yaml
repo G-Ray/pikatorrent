@@ -6,6 +6,7 @@ environment:
   sdk: ^3.10.0
 
 dependencies:
+  http: ^1.5.0
   jaspr: ^0.23.1
   jaspr_content: ^0.5.2
   jaspr_lucide: ^0.54.0

@@ -1,94 +1,97 @@
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
 import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_lucide/jaspr_lucide.dart' as lucide;
 
-import '../config.dart';
 import 'button.dart';
 import 'platform_icons.dart';
 
 class _Platform {
-  const _Platform(this.id, this.name, this.file, this.url, this.icon);
+  const _Platform(this.id, this.name, this.file, this.urlOf, this.icon);
   final String id;
   final String name;
   final String file;
-  final String url;
+  final String Function(String version) urlOf;
   final Component icon;
 }
 
 const _iconSize = 16;
 
-const _releasePrefix =
-    'https://github.com/G-Ray/pikatorrent/releases/download/v$appVersion/PikaTorrent-v$appVersion';
+String _release(String version, String suffix) =>
+    'https://github.com/G-Ray/pikatorrent/releases/download/v$version/PikaTorrent-v$version$suffix';
 
 final _platforms = <_Platform>[
   _Platform(
     'windows-store',
     'Windows',
     'Microsoft Store',
-    'https://apps.microsoft.com/detail/9n9gjq9bdjw3?mode=direct',
+    (_) => 'https://apps.microsoft.com/detail/9n9gjq9bdjw3?mode=direct',
     WindowsIcon(size: _iconSize),
   ),
   _Platform(
     'windows-zip',
     'Windows',
     '.zip',
-    '$_releasePrefix-windows-x64.zip',
+    (v) => _release(v, '-windows-x64.zip'),
     WindowsIcon(size: _iconSize),
   ),
   _Platform(
     'linux-flathub',
     'Linux',
     'Flathub',
-    'https://flathub.org/apps/com.pikatorrent.PikaTorrent',
+    (_) => 'https://flathub.org/apps/com.pikatorrent.PikaTorrent',
     LinuxIcon(size: _iconSize),
   ),
   _Platform(
     'linux-x64',
     'Linux',
     '.zip x64',
-    '$_releasePrefix-linux-x64.zip',
+    (v) => _release(v, '-linux-x64.zip'),
     LinuxIcon(size: _iconSize),
   ),
   _Platform(
     'linux-arm64',
     'Linux',
     '.zip arm64',
-    '$_releasePrefix-linux-arm64.zip',
+    (v) => _release(v, '-linux-arm64.zip'),
     LinuxIcon(size: _iconSize),
   ),
   _Platform(
     'macos-dmg',
     'macOS',
     '.dmg',
-    '$_releasePrefix-macos.dmg',
+    (v) => _release(v, '-macos.dmg'),
     AppleIcon(size: _iconSize),
   ),
   _Platform(
     'macos-zip',
     'macOS',
     '.zip',
-    '$_releasePrefix-macos.app.zip',
+    (v) => _release(v, '-macos.app.zip'),
     AppleIcon(size: _iconSize),
   ),
   _Platform(
     'android-play',
     'Android',
     'Play Store',
-    'https://play.google.com/store/apps/details?id=com.pikatorrent.PikaTorrent',
+    (_) =>
+        'https://play.google.com/store/apps/details?id=com.pikatorrent.PikaTorrent',
     AndroidIcon(size: _iconSize),
   ),
   _Platform(
     'android-apk',
     'Android',
     '.apk',
-    '$_releasePrefix-android.apk',
+    (v) => _release(v, '-android.apk'),
     AndroidIcon(size: _iconSize),
   ),
   _Platform(
     'ios-ipa',
     'iOS',
     '.ipa (experimental)',
-    '$_releasePrefix-ios.ipa',
+    (v) => _release(v, '-ios.ipa'),
     AppleIcon(size: _iconSize),
   ),
 ];
@@ -158,36 +161,87 @@ class DownloadButton extends StatefulComponent {
         'margin-left': 'auto',
       }),
     ]),
+    css('.dl-spinner').styles(
+      display: Display.inlineFlex,
+      raw: {
+        'animation': 'dl-spin 0.9s linear infinite',
+        'transform-origin': 'center',
+      },
+    ),
+    css.keyframes('dl-spin', {
+      'from': Styles(raw: {'transform': 'rotate(0deg)'}),
+      'to': Styles(raw: {'transform': 'rotate(360deg)'}),
+    }),
   ];
 }
 
 class _DownloadButtonState extends State<DownloadButton> {
   bool _open = false;
+  String? _version;
+
+  @override
+  void initState() {
+    super.initState();
+    if (kIsWeb) {
+      _loadLatestVersion();
+    }
+  }
+
+  Future<void> _loadLatestVersion() async {
+    try {
+      final res = await http.get(
+        Uri.https(
+          'api.github.com',
+          '/repos/G-Ray/pikatorrent/releases/latest',
+        ),
+      );
+      if (res.statusCode != 200) return;
+      final data = jsonDecode(res.body) as Map<String, dynamic>;
+      final tag = (data['tag_name'] as String?) ?? '';
+      final v = tag.startsWith('v') ? tag.substring(1) : tag;
+      if (v.isNotEmpty) {
+        setState(() => _version = v);
+      }
+    } catch (_) {
+      // Stay in skeleton state if the fetch fails.
+    }
+  }
 
   void _toggle() => setState(() => _open = !_open);
 
   @override
   Component build(BuildContext context) {
+    final version = _version;
+    final loading = version == null;
+    final trailing = loading
+        ? span(
+            classes: 'dl-spinner',
+            [
+              lucide.LoaderCircle(
+                width: _iconSize.px,
+                height: _iconSize.px,
+              ),
+            ],
+          )
+        : lucide.ChevronDown(width: _iconSize.px, height: _iconSize.px);
+
     return div(classes: _open ? 'dl-wrap open' : 'dl-wrap', [
       Button(
         label: 'Download PikaTorrent',
         sub: 'Choose your platform',
         icon: lucide.Download(width: _iconSize.px, height: _iconSize.px),
-        trailing: lucide.ChevronDown(
-          width: _iconSize.px,
-          height: _iconSize.px,
-        ),
-        onClick: _toggle,
+        trailing: trailing,
+        onClick: loading ? null : _toggle,
       ),
-      div(classes: 'dl-menu', [
-        for (final p in _platforms)
-          a(href: p.url, classes: 'dl-menu-item', [
-            p.icon,
-            span(classes: 'dl-menu-name', [Component.text(p.name)]),
-            span(classes: 'dl-menu-file', [Component.text(p.file)]),
-          ]),
-      ]),
+      if (!loading)
+        div(classes: 'dl-menu', [
+          for (final p in _platforms)
+            a(href: p.urlOf(version), classes: 'dl-menu-item', [
+              p.icon,
+              span(classes: 'dl-menu-name', [Component.text(p.name)]),
+              span(classes: 'dl-menu-file', [Component.text(p.file)]),
+            ]),
+        ]),
     ]);
   }
 }
-
