@@ -26,20 +26,6 @@ String _release(String version, String suffix) =>
 
 final _platforms = <_Platform>[
   _Platform(
-    'windows-store',
-    'Windows',
-    'Microsoft Store',
-    (_) => 'https://apps.microsoft.com/detail/9n9gjq9bdjw3?mode=direct',
-    WindowsIcon(size: _iconSize),
-  ),
-  _Platform(
-    'windows-zip',
-    'Windows',
-    '.zip',
-    (v) => _release(v, '-windows-x64.zip'),
-    WindowsIcon(size: _iconSize),
-  ),
-  _Platform(
     'linux-flathub',
     'Linux',
     'Flathub',
@@ -75,11 +61,24 @@ final _platforms = <_Platform>[
     AppleIcon(size: _iconSize),
   ),
   _Platform(
+    'windows-store',
+    'Windows',
+    'Microsoft Store',
+    (_) => 'https://apps.microsoft.com/detail/9n9gjq9bdjw3?mode=direct',
+    WindowsIcon(size: _iconSize),
+  ),
+  _Platform(
+    'windows-zip',
+    'Windows',
+    '.zip',
+    (v) => _release(v, '-windows-x64.zip'),
+    WindowsIcon(size: _iconSize),
+  ),
+  _Platform(
     'android-play',
     'Android',
     'Play Store',
-    (_) =>
-        'https://play.google.com/store/apps/details?id=com.pikatorrent.PikaTorrent',
+    (_) => 'https://play.google.com/store/apps/details?id=com.pikatorrent.PikaTorrent',
     AndroidIcon(size: _iconSize),
   ),
   _Platform(
@@ -121,8 +120,7 @@ class DownloadButton extends StatefulComponent {
           'min-width': '220px',
           'background': 'var(--bg)',
           'border': '1px solid rgba(26,23,20,0.14)',
-          'box-shadow':
-              '0 30px 80px -30px rgba(40,30,0,0.25), 0 8px 24px -10px rgba(40,30,0,0.10)',
+          'box-shadow': '0 30px 80px -30px rgba(40,30,0,0.25), 0 8px 24px -10px rgba(40,30,0,0.10)',
           'transform': 'translate(-50%, 4px)',
           'opacity': '0',
           'pointer-events': 'none',
@@ -130,11 +128,13 @@ class DownloadButton extends StatefulComponent {
           'z-index': '10',
         },
       ),
-      css('&.open .dl-menu').styles(raw: {
-        'opacity': '1',
-        'transform': 'translate(-50%, 0)',
-        'pointer-events': 'auto',
-      }),
+      css('&.open .dl-menu').styles(
+        raw: {
+          'opacity': '1',
+          'transform': 'translate(-50%, 0)',
+          'pointer-events': 'auto',
+        },
+      ),
       css('.dl-menu-item', [
         css('&').styles(
           display: Display.flex,
@@ -157,11 +157,18 @@ class DownloadButton extends StatefulComponent {
         fontWeight: FontWeight.w700,
         raw: {'flex': '1', 'text-align': 'left'},
       ),
-      css('.dl-menu-file').styles(raw: {
-        'font-size': '11px',
-        'color': 'var(--ink-3)',
-        'margin-left': 'auto',
-      }),
+      css('.dl-menu-file').styles(
+        raw: {
+          'font-size': '11px',
+          'color': 'var(--ink-3)',
+          'margin-left': 'auto',
+        },
+      ),
+      css('.dl-menu-sep').styles(
+        height: 1.px,
+        margin: Margin.symmetric(horizontal: 8.px, vertical: 6.px),
+        raw: {'background': 'var(--line-2)'},
+      ),
     ]),
     css('.dl-spinner').styles(
       display: Display.inlineFlex,
@@ -254,15 +261,26 @@ class _DownloadButtonState extends State<DownloadButton> {
         trailing: trailing,
         onClick: loading ? null : _toggle,
       ),
-      if (!loading)
-        div(classes: 'dl-menu', [
-          for (final p in _platforms)
-            a(href: p.urlOf(version), classes: 'dl-menu-item', [
-              p.icon,
-              span(classes: 'dl-menu-name', [Component.text(p.name)]),
-              span(classes: 'dl-menu-file', [Component.text(p.file)]),
-            ]),
-        ]),
+      if (!loading) div(classes: 'dl-menu', _buildMenuItems(version)),
     ]);
+  }
+
+  List<Component> _buildMenuItems(String version) {
+    final items = <Component>[];
+    String? lastName;
+    for (final p in _platforms) {
+      if (lastName != null && lastName != p.name) {
+        items.add(div(classes: 'dl-menu-sep', []));
+      }
+      items.add(
+        a(href: p.urlOf(version), classes: 'dl-menu-item', [
+          p.icon,
+          span(classes: 'dl-menu-name', [Component.text(p.name)]),
+          span(classes: 'dl-menu-file', [Component.text(p.file)]),
+        ]),
+      );
+      lastName = p.name;
+    }
+    return items;
   }
 }
