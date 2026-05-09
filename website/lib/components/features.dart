@@ -14,8 +14,8 @@ const _iconSize = 18;
 
 List<_Feature> get _features => <_Feature>[
   _Feature(
-    'Streaming support.',
-    'Watch video the moment a torrent starts — with subtitle support and audio tracks selection.',
+    'Streaming support',
+    'Watch video the moment a torrent starts — with subtitle support and audio track selection.',
     () => lucide.CirclePlay(width: _iconSize.px, height: _iconSize.px),
   ),
   _Feature(
@@ -30,12 +30,12 @@ List<_Feature> get _features => <_Feature>[
   ),
   _Feature(
     "A UI you'll actually enjoy",
-    'Modern, uncluttered, and dark-mode support.',
+    'Modern, uncluttered, with dark-mode support.',
     () => lucide.Palette(width: _iconSize.px, height: _iconSize.px),
   ),
   _Feature(
     'Tag and organize',
-    'Add custom tags to your torrents and browse your torrents in seconds.',
+    'Add custom tags and browse your library in seconds.',
     () => lucide.Tag(width: _iconSize.px, height: _iconSize.px),
   ),
   _Feature(
@@ -49,7 +49,7 @@ List<_Feature> get _features => <_Feature>[
     () => lucide.FolderOpen(width: _iconSize.px, height: _iconSize.px),
   ),
   _Feature(
-    'Built on (lib)Transmission',
+    'Built on Transmission',
     'A battle-tested engine under the hood means low CPU, low memory usage. We also contribute back to Transmission source code.',
     () => lucide.Cpu(width: _iconSize.px, height: _iconSize.px),
     trailing: lucide.Heart(width: 14.px, height: 14.px),

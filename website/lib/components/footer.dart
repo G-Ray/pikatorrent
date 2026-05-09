@@ -15,7 +15,7 @@ class Footer extends StatelessComponent {
             const Wordmark(),
             p(classes: 'site-footer-blurb', [
               Component.text(
-                'An open-source, cross-platform BitTorrent client. Stream and download on all your device',
+                'An open-source, cross-platform BitTorrent client. Stream and download on all your devices.',
               ),
             ]),
           ]),
