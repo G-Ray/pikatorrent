@@ -10,23 +10,21 @@ class Header extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return Component.fragment([
-      Document.head(children: [Style(styles: _styles)]),
-      header(classes: 'header', [
-        div(classes: 'header-inner', [
-          a(classes: 'header-title', href: '/', [const Wordmark()]),
-          div(classes: 'header-content', [
-            div(classes: 'header-items', [
-              ThemeToggle(),
-              GitHubButton(repo: 'G-Ray/pikatorrent'),
-            ]),
+    return header(classes: 'header', [
+      div(classes: 'header-inner', [
+        a(classes: 'header-title', href: '/', [const Wordmark()]),
+        div(classes: 'header-content', [
+          div(classes: 'header-items', [
+            ThemeToggle(),
+            GitHubButton(repo: 'G-Ray/pikatorrent'),
           ]),
         ]),
       ]),
     ]);
   }
 
-  static List<StyleRule> get _styles => [
+  @css
+  static List<StyleRule> get styles => [
     css('.header', [
       css('&').styles(
         border: Border.only(

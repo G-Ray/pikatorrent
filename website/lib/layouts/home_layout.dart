@@ -14,7 +14,6 @@ class HomeLayout extends PageLayoutBase {
   @override
   Component buildBody(Page page, Component child) {
     return Component.fragment([
-      Document.head(children: [Style(styles: _styles)]),
       div(classes: 'bg-grid', []),
       div(classes: 'site', [
         const Header(),
@@ -24,15 +23,23 @@ class HomeLayout extends PageLayoutBase {
     ]);
   }
 
-  static List<StyleRule> get _styles => [
+  @css
+  static List<StyleRule> get styles => [
     css(':root').styles(raw: {
       '--bg': '#FDFDFB',
+      '--ink': '#1A1714',
+      '--ink-2': '#4A453E',
+      '--ink-3': '#8A8378',
+      '--yellow': '#FFEB3B',
       '--grid': 'rgba(26,23,20,0.05)',
       '--gradient-tl': 'rgba(255,235,59,0.55)',
       '--gradient-br': 'rgba(255,150,30,0.40)',
     }),
     css('[data-theme="dark"]').styles(raw: {
       '--bg': '#0D0C0A',
+      '--ink': '#FFFCF2',
+      '--ink-2': '#C8C2B5',
+      '--ink-3': '#7C7569',
       '--grid': 'rgba(255,252,242,0.04)',
       '--gradient-tl': 'rgba(255,235,59,0.32)',
       '--gradient-br': 'rgba(255,150,30,0.22)',

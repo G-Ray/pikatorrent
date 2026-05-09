@@ -8,23 +8,21 @@ class Wordmark extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return Component.fragment([
-      Document.head(children: [Style(styles: _styles)]),
-      div(classes: large ? 'wordmark wordmark--lg' : 'wordmark', [
-        img(
-          classes: 'wordmark-mark',
-          src: '/images/logo.svg',
-          alt: 'PikaTorrent logo',
-        ),
-        span(classes: 'wordmark-word', [
-          span(classes: 'wordmark-pika', [Component.text('Pika')]),
-          Component.text('Torrent'),
-        ]),
+    return div(classes: large ? 'wordmark wordmark--lg' : 'wordmark', [
+      img(
+        classes: 'wordmark-mark',
+        src: '/images/logo.svg',
+        alt: 'PikaTorrent logo',
+      ),
+      span(classes: 'wordmark-word', [
+        span(classes: 'wordmark-pika', [Component.text('Pika')]),
+        Component.text('Torrent'),
       ]),
     ]);
   }
 
-  static List<StyleRule> get _styles => [
+  @css
+  static List<StyleRule> get styles => [
     css('.wordmark', [
       css('&').styles(
         display: Display.inlineFlex,

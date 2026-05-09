@@ -10,6 +10,8 @@ import 'package:jaspr_content/components/github_button.dart'
     deferred as _github_button;
 import 'package:jaspr_content/components/theme_toggle.dart'
     deferred as _theme_toggle;
+import 'package:website/components/download_button.dart'
+    deferred as _download_button;
 
 /// Default [ClientOptions] for use with your Jaspr project.
 ///
@@ -36,6 +38,10 @@ ClientOptions get defaultClientOptions => ClientOptions(
     'jaspr_content:theme_toggle': ClientLoader(
       (p) => _theme_toggle.ThemeToggle(),
       loader: _theme_toggle.loadLibrary,
+    ),
+    'download_button': ClientLoader(
+      (p) => _download_button.DownloadButton(),
+      loader: _download_button.loadLibrary,
     ),
   },
 );

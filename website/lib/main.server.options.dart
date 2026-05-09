@@ -7,6 +7,12 @@
 import 'package:jaspr/server.dart';
 import 'package:jaspr_content/components/github_button.dart' as _github_button;
 import 'package:jaspr_content/components/theme_toggle.dart' as _theme_toggle;
+import 'package:website/components/button.dart' as _button;
+import 'package:website/components/download_button.dart' as _download_button;
+import 'package:website/components/header.dart' as _header;
+import 'package:website/components/hero.dart' as _hero;
+import 'package:website/components/wordmark.dart' as _wordmark;
+import 'package:website/layouts/home_layout.dart' as _home_layout;
 
 /// Default [ServerOptions] for use with your Jaspr project.
 ///
@@ -34,10 +40,18 @@ ServerOptions get defaultServerOptions => ServerOptions(
     _theme_toggle.ThemeToggle: ClientTarget<_theme_toggle.ThemeToggle>(
       'jaspr_content:theme_toggle',
     ),
+    _download_button.DownloadButton:
+        ClientTarget<_download_button.DownloadButton>('download_button'),
   },
   styles: () => [
     ..._github_button.GitHubButton.styles,
     ..._theme_toggle.ThemeToggleState.styles,
+    ..._button.Button.styles,
+    ..._download_button.DownloadButton.styles,
+    ..._header.Header.styles,
+    ..._hero.Hero.styles,
+    ..._wordmark.Wordmark.styles,
+    ..._home_layout.HomeLayout.styles,
   ],
 );
 
