@@ -2,6 +2,7 @@ import 'package:jaspr/server.dart';
 import 'package:jaspr_content/jaspr_content.dart';
 
 import 'components/hero.dart';
+import 'components/showcase.dart';
 import 'layouts/home_layout.dart';
 import 'main.server.options.dart';
 
@@ -20,6 +21,10 @@ void main() {
         CustomComponent(
           pattern: RegExp(r'^Hero$'),
           builder: (_, __, ___) => const Hero(),
+        ),
+        CustomComponent(
+          pattern: RegExp(r'^Showcase$'),
+          builder: (_, __, ___) => const Showcase(),
         ),
       ],
     ),

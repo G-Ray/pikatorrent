@@ -11,6 +11,7 @@ import 'package:website/components/button.dart' as _button;
 import 'package:website/components/download_button.dart' as _download_button;
 import 'package:website/components/header.dart' as _header;
 import 'package:website/components/hero.dart' as _hero;
+import 'package:website/components/showcase.dart' as _showcase;
 import 'package:website/components/wordmark.dart' as _wordmark;
 import 'package:website/layouts/home_layout.dart' as _home_layout;
 
@@ -50,6 +51,7 @@ ServerOptions get defaultServerOptions => ServerOptions(
     ..._download_button.DownloadButton.styles,
     ..._header.Header.styles,
     ..._hero.Hero.styles,
+    ..._showcase.Showcase.styles,
     ..._wordmark.Wordmark.styles,
     ..._home_layout.HomeLayout.styles,
   ],
