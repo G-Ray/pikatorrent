@@ -1,5 +1,5 @@
 ---
-title: PikaTorrent
+title: PikaTorrent - Stream and download torrents
 layout: home
 ---
 
