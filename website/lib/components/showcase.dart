@@ -52,7 +52,7 @@ class Showcase extends StatelessComponent {
         maxWidth: 1240.px,
         margin: Margin.symmetric(horizontal: Unit.auto),
         padding: Padding.symmetric(horizontal: 2.rem),
-        raw: {'padding-block': '80px 100px'},
+        raw: {'padding-block': '80px 24px'},
       ),
       css('img').styles(
         display: Display.block,

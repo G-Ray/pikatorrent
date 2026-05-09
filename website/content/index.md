@@ -6,3 +6,5 @@ layout: home
 <Hero />
 
 <Showcase />
+
+<Features />
