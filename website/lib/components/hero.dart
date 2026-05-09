@@ -36,21 +36,21 @@ class Hero extends StatelessComponent {
       css('.hero-tagline', [
         css('&').styles(
           margin: Margin.only(top: 1.75.rem, bottom: 2.5.rem),
-          maxWidth: 720.px,
-          fontWeight: FontWeight.normal,
+          maxWidth: 820.px,
+          fontWeight: FontWeight.w800,
           raw: {
-            'font-size': 'clamp(20px, 2.4vw, 28px)',
-            'color': 'var(--ink-2)',
-            'line-height': '1.35',
-            'letter-spacing': '-0.01em',
+            'font-size': 'clamp(26px, 3.4vw, 42px)',
+            'color': 'var(--ink)',
+            'line-height': '1.05',
+            'letter-spacing': '-0.035em',
             'text-wrap': 'balance',
           },
         ),
         css('em').styles(
-          fontWeight: FontWeight.w600,
           padding: Padding.symmetric(horizontal: 4.px),
           raw: {
             'font-style': 'normal',
+            'font-weight': 'inherit',
             'color': 'var(--ink)',
             'background':
                 'linear-gradient(180deg, transparent 60%, var(--yellow) 60%)',
