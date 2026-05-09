@@ -3,6 +3,8 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_content/components/github_button.dart';
 import 'package:jaspr_content/components/theme_toggle.dart';
 
+import 'wordmark.dart';
+
 class Header extends StatelessComponent {
   const Header({super.key});
 
@@ -12,13 +14,7 @@ class Header extends StatelessComponent {
       Document.head(children: [Style(styles: _styles)]),
       header(classes: 'header', [
         div(classes: 'header-inner', [
-          a(classes: 'header-title', href: '/', [
-            img(src: '/images/logo.svg', alt: 'PikaTorrent logo'),
-            span(classes: 'header-wordmark', [
-              span(classes: 'pika', [Component.text('Pika')]),
-              Component.text('Torrent'),
-            ]),
-          ]),
+          a(classes: 'header-title', href: '/', [const Wordmark()]),
           div(classes: 'header-content', [
             div(classes: 'header-items', [
               ThemeToggle(),
@@ -51,22 +47,10 @@ class Header extends StatelessComponent {
           css('&').styles(padding: Padding.symmetric(horizontal: 2.5.rem)),
         ]),
       ]),
-      css('.header-title', [
-        css('&').styles(
-          display: Display.inlineFlex,
-          alignItems: AlignItems.center,
-          gap: Gap.column(.75.rem),
-          textDecoration: TextDecoration.none,
-          raw: {'color': 'inherit'},
-        ),
-        css('img').styles(height: 2.rem, width: Unit.auto),
-        css('.header-wordmark').styles(
-          fontSize: 1.375.rem,
-          fontWeight: FontWeight.w800,
-          raw: {'letter-spacing': '-0.02em'},
-        ),
-        css('.header-wordmark .pika').styles(color: Color('#FFEB3B')),
-      ]),
+      css('.header-title').styles(
+        textDecoration: TextDecoration.none,
+        raw: {'color': 'inherit'},
+      ),
       css('.header-content', [
         css('&').styles(
           display: Display.flex,
