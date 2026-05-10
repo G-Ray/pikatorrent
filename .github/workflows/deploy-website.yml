@@ -8,7 +8,7 @@ on:
         default: "preview"
 jobs:
   deploy:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-slim
     defaults:
       run:
         working-directory: ./www
