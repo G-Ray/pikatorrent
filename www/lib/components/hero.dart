@@ -53,7 +53,7 @@ class Hero extends StatelessComponent {
             'font-weight': 'inherit',
             'color': 'var(--ink)',
             'background':
-                'linear-gradient(180deg, transparent 60%, var(--yellow) 60%)',
+                'linear-gradient(180deg, transparent 88%, var(--yellow) 88%)',
             'border-radius': '2px',
           },
         ),
