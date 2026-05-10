@@ -68,18 +68,17 @@ class Features extends StatelessComponent {
   Component build(BuildContext context) {
     return section(classes: 'features', id: 'features', [
       div(classes: 'feat-grid', [
-        for (var i = 0; i < _features.length; i++) _featureCard(i + 1, _features[i]),
+        for (final f in _features) _featureCard(f),
       ]),
     ]);
   }
 
-  Component _featureCard(int n, _Feature f) {
+  Component _featureCard(_Feature f) {
     return div(classes: 'feat', [
-      span(classes: 'feat-num', [
-        Component.text(n.toString().padLeft(2, '0')),
+      div(classes: 'feat-header', [
+        div(classes: 'feat-ico', [f.iconBuilder()]),
+        h3(classes: 'feat-title', [Component.text(f.title)]),
       ]),
-      div(classes: 'feat-ico', [f.iconBuilder()]),
-      h3(classes: 'feat-title', [Component.text(f.title)]),
       p(classes: 'feat-desc', [
         Component.text(f.description),
         if (f.trailing != null) ...[
@@ -116,29 +115,26 @@ class Features extends StatelessComponent {
             'border': '1px solid var(--line)',
           },
         ),
-        css('.feat-num').styles(
-          position: Position.absolute(top: 14.px, right: 16.px),
-          fontWeight: FontWeight.w500,
-          raw: {
-            'font-family': "'JetBrains Mono', ui-monospace, monospace",
-            'font-size': '11px',
-            'color': 'var(--ink-3)',
-          },
+        css('.feat-header').styles(
+          display: Display.flex,
+          alignItems: AlignItems.center,
+          gap: Gap.column(10.px),
+          margin: Margin.only(bottom: 8.px),
         ),
         css('.feat-ico').styles(
           display: Display.grid,
-          width: 36.px,
-          height: 36.px,
-          margin: Margin.only(bottom: 14.px),
-          radius: BorderRadius.circular(10.px),
+          width: 32.px,
+          height: 32.px,
+          radius: BorderRadius.circular(8.px),
           raw: {
             'background': 'var(--yellow)',
             'place-items': 'center',
             'color': '#1A1714',
+            'flex-shrink': '0',
           },
         ),
         css('.feat-title').styles(
-          margin: Margin.only(bottom: 6.px),
+          margin: Margin.zero,
           fontWeight: FontWeight.w700,
           raw: {'font-size': '17px', 'letter-spacing': '-0.02em'},
         ),
