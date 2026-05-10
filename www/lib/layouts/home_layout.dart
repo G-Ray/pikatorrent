@@ -12,6 +12,30 @@ class HomeLayout extends PageLayoutBase {
   Pattern get name => 'home';
 
   @override
+  Iterable<Component> buildHead(Page page) sync* {
+    yield* super.buildHead(page);
+
+    final pageData = page.data.page;
+    final description = pageData['description']?.toString();
+    final image = pageData['image']?.toString();
+
+    yield link(rel: 'icon', type: 'image/svg+xml', href: '/images/logo.svg');
+    yield meta(name: 'theme-color', content: '#FFEB3B');
+    yield meta(attributes: {'property': 'og:type'}, content: 'website');
+    yield meta(
+      attributes: {'property': 'og:site_name'},
+      content: 'PikaTorrent',
+    );
+    yield meta(name: 'twitter:card', content: 'summary_large_image');
+    if (description != null) {
+      yield meta(name: 'twitter:description', content: description);
+    }
+    if (image != null) {
+      yield meta(name: 'twitter:image', content: image);
+    }
+  }
+
+  @override
   Component buildBody(Page page, Component child) {
     return Component.fragment([
       div(classes: 'bg-grid', []),
