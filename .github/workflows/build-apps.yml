@@ -1,5 +1,11 @@
 name: Build apps
-on: [push]
+on:
+  push:
+    branches: ['**']
+    paths:
+      - 'app/**'
+      - '.github/workflows/build-apps.yml'
+    tags: ['*']
 env:
   ENV_FILE: ${{ startsWith(github.ref, 'refs/tags/') && !contains(github.ref_name, 'beta') && 'production.env' || 'preview.env' }}
 jobs:
