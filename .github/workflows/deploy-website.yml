@@ -8,23 +8,34 @@ on:
         default: "preview"
 jobs:
   deploy:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-slim
     defaults:
       run:
-        working-directory: ./site
+        working-directory: ./www
     permissions:
       contents: read
       deployments: write
     name: Deploy to Cloudflare Pages
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
-      - name: Build
-        run: npm install && npm run build
+        uses: actions/checkout@v6
+
+      - name: Set up Dart
+        uses: dart-lang/setup-dart@v1
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Install jaspr CLI
+        run: dart pub global activate jaspr_cli
+
+      - name: Build (jaspr static)
+        run: jaspr build --verbose
+
       - name: Publish
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy ./site/out --project-name=pikatorrent-site --branch=${{ github.event.inputs.environment == 'production' && 'main' || 'preview' }}
+          command: pages deploy ./www/build/jaspr --project-name=pikatorrent-site --branch=${{ github.event.inputs.environment == 'production' && 'main' || 'preview' }}
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
