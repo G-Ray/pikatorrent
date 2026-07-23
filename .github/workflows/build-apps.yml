@@ -64,7 +64,17 @@ jobs:
           path: ~/artifacts/
 
   windows:
-    runs-on: windows-2022
+    strategy:
+      fail-fast: false # arm64 is experimental — don't cancel the x64 build if it fails
+      matrix:
+        include:
+          - runner: windows-2022
+            arch: x64
+            channel: stable
+          - runner: windows-11-arm
+            arch: arm64
+            channel: master # stable does not support arm64 yet (same as linux-arm64 job)
+    runs-on: ${{ matrix.runner }}
     env:
       # Workaround for https://gitlab.kitware.com/cmake/cmake/-/issues/25936
       TRANSMISSION_PREFIX: ${{ github.workspace }}/transmission-prefix
@@ -85,19 +95,19 @@ jobs:
         # yq is not installed on windows on v2
         uses: subosito/flutter-action@v2.18.0
         with:
-          channel: stable
+          channel: ${{ matrix.channel }}
           flutter-version-file: app/pubspec.yaml
       - run: flutter build windows --dart-define-from-file=%ENV_FILE%
       - name: Build msix
-        run: dart run msix:create --store --build-windows=false
+        run: dart run msix:create --store --build-windows=false --architecture ${{ matrix.arch }}
       - name: Prepare artifacts
         run: |
           mkdir ${{ github.workspace }}/artifacts
-          7z a ${{ github.workspace }}/artifacts/release.zip ./build/windows/x64/runner/Release/*
-          mv build/windows/x64/runner/Release/*.msix ${{ github.workspace }}/artifacts/
+          7z a ${{ github.workspace }}/artifacts/release.zip ./build/windows/${{ matrix.arch }}/runner/Release/*
+          mv build/windows/${{ matrix.arch }}/runner/Release/*.msix ${{ github.workspace }}/artifacts/
       - uses: actions/upload-artifact@v4
         with:
-          name: pikatorrent-windows
+          name: pikatorrent-windows-${{ matrix.arch }}
           path: ${{ github.workspace }}/artifacts
 
   macos:
@@ -289,7 +299,8 @@ jobs:
         run: |
           mv pikatorrent-linux/release.zip PikaTorrent-${{ github.ref_name }}-linux-x64.zip
           mv pikatorrent-linux-arm64/release.zip PikaTorrent-${{ github.ref_name }}-linux-arm64.zip
-          mv pikatorrent-windows/release.zip PikaTorrent-${{ github.ref_name }}-windows-x64.zip
+          mv pikatorrent-windows-x64/release.zip PikaTorrent-${{ github.ref_name }}-windows-x64.zip
+          mv pikatorrent-windows-arm64/release.zip PikaTorrent-${{ github.ref_name }}-windows-arm64.zip
           mv pikatorrent-macos/release.app.zip ${{ github.workspace }}/PikaTorrent-${{ github.ref_name }}-macos.app.zip
           mv pikatorrent-macos/*.dmg ${{ github.workspace }}/PikaTorrent-${{ github.ref_name }}-macos.dmg
       - name: Mobile
