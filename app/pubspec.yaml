@@ -85,6 +85,16 @@ dependencies:
     sdk: flutter
   intl: any
 
+# Use media_kit git main for the Windows video libs: it downloads arm64 (aarch64)
+# libmpv on windows-arm64 (the published 1.0.11 is x64-only). Note: ANGLE is still
+# x64-only upstream, so the arm64 windows build will still fail to link the video plugin.
+dependency_overrides:
+  media_kit_libs_windows_video:
+    git:
+      url: https://github.com/media-kit/media-kit.git
+      ref: main
+      path: libs/windows/media_kit_libs_windows_video
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
