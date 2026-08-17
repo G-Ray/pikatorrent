@@ -27,6 +27,7 @@ class _AddTorrentDialogState extends State<AddTorrentDialog> {
   String? _filename;
   String? pickedDownloadDir;
   String _torrentLink = ''; // Track a state to trigger updates
+  bool _isAdding = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -56,6 +57,10 @@ class _AddTorrentDialogState extends State<AddTorrentDialog> {
   }
 
   void _handleAddTorrent(context) async {
+    setState(() {
+      _isAdding = true;
+    });
+
     try {
       String? metainfo;
       TorrentAddedResponse status;
@@ -95,16 +100,23 @@ class _AddTorrentDialogState extends State<AddTorrentDialog> {
           backgroundColor: Colors.lightGreen,
         ));
       }
-    } on TorrentAddError {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('Invalid torrent.'),
+
+      await Provider.of<TorrentsModel>(context, listen: false).fetchTorrents();
+
+      Navigator.of(context).pop();
+      // Errors keep the dialog open, so the link can be fixed.
+    } on TorrentAddError catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(e.message ?? 'Invalid torrent.'),
         backgroundColor: Colors.orange,
       ));
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isAdding = false;
+        });
+      }
     }
-
-    await Provider.of<TorrentsModel>(context, listen: false).fetchTorrents();
-
-    Navigator.of(context).pop();
   }
 
   void _handleSelectTorrentFile(context) async {
@@ -233,14 +245,20 @@ class _AddTorrentDialogState extends State<AddTorrentDialog> {
           },
         ),
         TextButton(
-          onPressed: isValid
+          onPressed: isValid && !_isAdding
               ? () {
                   if (_formKey.currentState!.validate()) {
                     _handleAddTorrent(context);
                   }
                 }
               : null,
-          child: const Text('Download'),
+          child: _isAdding
+              ? const SizedBox(
+                  width: 16,
+                  height: 16,
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                )
+              : const Text('Download'),
         ),
       ],
     );

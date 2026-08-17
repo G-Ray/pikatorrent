@@ -1,11 +1,14 @@
 class TorrentAddResponse {
-  final TorrentAddResponseArguments arguments;
+  // Absent when the request failed.
+  final TorrentAddResponseArguments? arguments;
   final String result;
 
   TorrentAddResponse(this.arguments, this.result);
 
   TorrentAddResponse.fromJson(Map<String, dynamic> json)
-      : arguments = TorrentAddResponseArguments.fromJson(json['arguments']),
+      : arguments = json['arguments'] != null
+            ? TorrentAddResponseArguments.fromJson(json['arguments'])
+            : null,
         result = json['result'] as String;
 }
 

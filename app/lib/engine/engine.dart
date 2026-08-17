@@ -6,7 +6,12 @@ import 'package:pikatorrent/engine/transmission/models/torrent_set_location.dart
 
 enum TorrentAddedResponse { added, duplicated }
 
-class TorrentAddError extends Error {}
+class TorrentAddError extends Error {
+  // What transmission answered, when it said anything useful.
+  final String? message;
+
+  TorrentAddError([this.message]);
+}
 
 /// BitTorrent engine abstraction.
 abstract class Engine {
