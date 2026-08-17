@@ -314,10 +314,12 @@ class TransmissionEngine extends Engine {
         TorrentAddResponse.fromJson(jsonDecode(jsonResponse));
 
     if (response.result != 'success') {
-      throw TorrentAddError();
+      // On failure the result is the error itself, e.g.
+      // "Couldn't fetch torrent: Timeout was reached (28)".
+      throw TorrentAddError(response.result);
     }
 
-    if (response.arguments.torrentDuplicate) {
+    if (response.arguments!.torrentDuplicate) {
       return TorrentAddedResponse.duplicated;
     }
 
