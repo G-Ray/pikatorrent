@@ -289,10 +289,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
           title: Text(
             localizations.enableSpeedLimits,
           ),
-          subtitle: Text(localizations.speedLimitsDescription,
-              style: isSpeedLimitEnabled
-                  ? const TextStyle(color: Colors.yellow)
-                  : null),
+          subtitle: Text(
+            localizations.speedLimitsDescription,
+          ),
           trailing: Switch(
               value: isSpeedLimitEnabled,
               onChanged: (bool _) {
