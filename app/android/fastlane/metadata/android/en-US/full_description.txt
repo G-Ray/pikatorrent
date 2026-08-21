@@ -1,9 +1,12 @@
+Just pick a Torrent, stream and download on all your devices.
+
 Features:
 - Stream torrents, with subtitles support
 - Share torrents with your friends
-- Available on Windows, Linux, MacOS, Android and iOS !
+- Available on Windows, Linux, Android, and soon on MacOs & iOS !
 - A modern and clean user interface, with dark mode support
 - Add tags to your torrents
 - Select files to download or to pause
 - Browse and open files included in your torrents
-- Based on Transmission for low cpu and memory usage
+- Based on Transmission for low cpu & memory usage
+- Open Source software

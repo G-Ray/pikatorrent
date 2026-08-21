@@ -282,6 +282,10 @@ jobs:
       contents: write
     needs: [linux, linux-arm64, windows, macos, android]
     steps:
+      # Needed to read the changelog used as the release body
+      - name: Clone repository
+        uses: actions/checkout@v4
+
       - name: Download artifacts
         uses: actions/download-artifact@v4
 
@@ -297,8 +301,61 @@ jobs:
           mv pikatorrent-android/*.apk PikaTorrent-${{ github.ref_name }}-android.apk
           mv pikatorrent-ios/*.ipa PikaTorrent-${{ github.ref_name }}-ios.ipa
 
+      # Reuse the Play Store changelog, which supply keys by versionCode
+      - name: Resolve release notes
+        run: |
+          VERSION_CODE=$(sed -n 's/^version: .*+//p' app/pubspec.yaml)
+          echo "CHANGELOG=app/android/fastlane/metadata/android/en-US/changelogs/${VERSION_CODE}.txt" >> "$GITHUB_ENV"
+
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          draft: true
           files: PikaTorrent-*
+          body_path: ${{ env.CHANGELOG }}
+
+  play-store:
+    # Only publish real releases, never beta tags
+    if: startsWith(github.ref, 'refs/tags/') && !contains(github.ref_name, 'beta')
+    runs-on: ubuntu-24.04
+    needs: [android]
+    permissions:
+      contents: read
+      # Required to mint the OIDC token for Workload Identity Federation
+      id-token: write
+    defaults:
+      run:
+        working-directory: ./app/android
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: pikatorrent-android
+          path: ~/artifacts
+
+      - name: Authenticate to Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: 'projects/254540406739/locations/global/workloadIdentityPools/github-actions/providers/github'
+          service_account: fastlane-supply@first-scarab-170819.iam.gserviceaccount.com
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+          working-directory: ./app/android
+
+      # Release notes are committed at
+      # fastlane/metadata/android/en-US/changelogs/<versionCode>.txt
+      # and picked up by supply automatically.
+      - name: Locate app bundle
+        run: echo "SUPPLY_AAB=$(ls ~/artifacts/*.aab)" >> "$GITHUB_ENV"
+
+      - name: Upload to Play Store
+        env:
+          SUPPLY_JSON_KEY: ${{ steps.auth.outputs.credentials_file_path }}
+        run: bundle exec fastlane deploy

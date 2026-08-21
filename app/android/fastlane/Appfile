@@ -1,0 +1,6 @@
+# No service account key is stored anywhere:
+# - locally, set SUPPLY_JSON_KEY in fastlane/.env (gitignored) to a key file path
+# - in CI, Workload Identity Federation mints short-lived credentials and
+#   SUPPLY_JSON_KEY points at the generated file (see build-apps.yml)
+# See https://docs.fastlane.tools/actions/supply/#setup
+package_name("com.pikatorrent.PikaTorrent")
