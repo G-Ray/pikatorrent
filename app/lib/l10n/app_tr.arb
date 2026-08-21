@@ -164,5 +164,7 @@
     "light": "Açık",
     "@light": {},
     "dark": "Koyu",
-    "@dark": {}
+    "@dark": {},
+    "showOnlyPlayableFiles": "Yalnızca oynatılabilir dosyaları göster",
+    "@showOnlyPlayableFiles": {}
 }
