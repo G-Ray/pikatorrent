@@ -12,3 +12,10 @@ key.properties
 **/*.keystore
 **/*.jks
 .cxx/
+
+# fastlane
+# Never commit the Play Store service account key, only its path via .env
+fastlane/.env
+fastlane/*.json
+fastlane/report.xml
+fastlane/Preview.html

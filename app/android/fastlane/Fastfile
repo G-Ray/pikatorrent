@@ -1,0 +1,32 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+platform :android do
+  desc "Deploy a new version to the Google Play"
+  # The bundle is built by the `android` CI job (flutter build appbundle) and
+  # passed in through the SUPPLY_AAB env var, so this lane only uploads.
+  lane :deploy do
+    # Everything under fastlane/metadata is pushed: changelog, descriptions,
+    # icon and screenshots. Note images are replaced, not appended, so the
+    # repository is the source of truth for the listing.
+    upload_to_play_store(
+      track: "production",
+      release_status: "completed",
+      skip_upload_apk: true
+    )
+  end
+end
