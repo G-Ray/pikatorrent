@@ -1,5 +1,0 @@
-- New theme and logo
-- Torrents streaming support ⏯️
-- Torrents sharing support 🫂
-- Added donation link 🫶
-- Bug fixes
